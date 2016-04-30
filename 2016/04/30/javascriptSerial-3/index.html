@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>你所不知道的javascript（三） | hbChou</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="趁热打铁，让我们接着向javascript中另外的几种对象类型做进一步的认识。它们就是javascript中的基本包装类型，说是包装类型是有原因的，因为它们来源于javascript中的基本类型，只是做了适当的包装就变成了对象类型。让我们欢迎今天的嘉宾隆重登场，他们就是Number，Boolean和String。
+Number类型Number对象自身具有一些方法，最常用的就是 toFixed(nu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你所不知道的javascript（三）">
+<meta property="og:url" content="http://yoursite.com/2016/04/30/javascriptSerial-3/index.html">
+<meta property="og:site_name" content="hbChou">
+<meta property="og:description" content="趁热打铁，让我们接着向javascript中另外的几种对象类型做进一步的认识。它们就是javascript中的基本包装类型，说是包装类型是有原因的，因为它们来源于javascript中的基本类型，只是做了适当的包装就变成了对象类型。让我们欢迎今天的嘉宾隆重登场，他们就是Number，Boolean和String。
+Number类型Number对象自身具有一些方法，最常用的就是 toFixed(nu">
+<meta property="og:updated_time" content="2016-04-30T08:50:03.786Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你所不知道的javascript（三）">
+<meta name="twitter:description" content="趁热打铁，让我们接着向javascript中另外的几种对象类型做进一步的认识。它们就是javascript中的基本包装类型，说是包装类型是有原因的，因为它们来源于javascript中的基本类型，只是做了适当的包装就变成了对象类型。让我们欢迎今天的嘉宾隆重登场，他们就是Number，Boolean和String。
+Number类型Number对象自身具有一些方法，最常用的就是 toFixed(nu">
+  
+    <link rel="alternative" href="/atom.xml" title="hbChou" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/image.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">hbChou</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">每天都要有所收获</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/javascript/" style="font-size: 10px;">javascript</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://segmentfault.com/">segmentfault社区</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">hbChou</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/image.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">hbChou</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">每天都要有所收获</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-javascriptSerial-3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/30/javascriptSerial-3/" class="article-date">
+  	<time datetime="2016-04-30T06:05:50.000Z" itemprop="datePublished">2016-04-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      你所不知道的javascript（三）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>趁热打铁，让我们接着向<code>javascript</code>中另外的几种对象类型做进一步的认识。它们就是<code>javascript</code>中的基本包装类型，说是包装类型是有原因的，因为它们来源于<code>javascript</code>中的基本类型，只是做了适当的包装就变成了对象类型。让我们欢迎今天的嘉宾隆重登场，他们就是<code>Number</code>，<code>Boolean</code>和<code>String</code>。</p>
+<h2 id="Number类型"><a href="#Number类型" class="headerlink" title="Number类型"></a><strong>Number类型</strong></h2><p><code>Number</code>对象自身具有一些方法，最常用的就是 <code>toFixed(num)</code>这个方法了。它主要用于保留数值指定位数的小数，对于多余的小数部分则进行四舍五入的方法进行取舍。对于Number，String这些对象上的方法，作为对应的基本类型<code>number</code>和<code>string</code>是可以直接使用的，这其中就涉及到基本包装类型对象的自动创建问题，而在执行完基本类型调用引用类型方法的这一行代码时，自动创建的基本包装类型对象又会被自动销毁。</p>
+<h2 id="Boolean类型"><a href="#Boolean类型" class="headerlink" title="Boolean类型"></a><strong>Boolean类型</strong></h2><p><code>Boolean</code>对象自身没有比较常用的方法，不仅如此，使用<code>Boolean</code>对象更是容易造成误解，比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> boolObj = <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="string">"false"</span>);</span><br><span class="line"><span class="built_in">console</span>(<span class="literal">true</span> &amp;&amp; boolObj); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>因为对象本身会转化成布尔值<code>true</code>，所以才会导致这个完全相反的结果。因此实际应用中一般不使用<code>Boolean</code>对象来表示布尔值，类似的情况在<code>Number</code>和<code>String</code>类型中也是存在的。</p>
+<h2 id="String类型"><a href="#String类型" class="headerlink" title="String类型"></a><strong>String类型</strong></h2><p>在实际的使用中，我们经常要对字符串进行处理，所以<code>String</code>类型提供了大量有用的方法供我们使用。但在实际过程中我们并不需要通过创建<code>String</code>对象来使用这些方法，而是直接在基本类型<code>string</code>上使用这些方法：</p>
+<ul>
+<li><code>charAt(index)</code>：返回指定索引处的字符</li>
+<li><code>charCodeAt(index)</code>：返回指定索引处的字符对应的字符编码</li>
+<li><code>concat(str)</code>：连接字符串，返回新的字符串，而原字符串保持不变</li>
+<li>截取字符串的方法（返回新的字符串，而原字符串保持不变）：</li>
+<li><code>slice(start, [end])</code>：截取从<code>start</code>到<code>end - 1</code>处的字符串。其中<code>start</code>参数必须小于<code>end</code>参数。当传入的参数为负数时，会与字符串的长度相加转化为非负数。</li>
+<li><p><code>substring(start, [end])</code>：作用跟<code>slice</code>一样。只是在传入的参数为负数的时候有区别。<code>substring</code>方法会统一将传入的负数转化为<code>0</code>。<code>start</code>可以大于<code>end</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"javascript"</span>.substring(<span class="number">4</span>,<span class="number">0</span>)); <span class="comment">// "java"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"javascript"</span>.substring(<span class="number">-6</span>, <span class="number">-1</span>)); <span class="comment">// ""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>substr(start, [howmany])</code>：从<code>start</code>处开始，截取<code>howmany</code>个字符返回。当传入的参数为负数时，会将负的第一个参数加上字符串的长度，而将负的第二个参数转化为<code>0</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"javascript"</span>.substr(<span class="number">-6</span>, <span class="number">6</span>)); <span class="comment">// "script"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"javascript"</span>.substr(<span class="number">4</span>, <span class="number">-1</span>)); <span class="comment">// ""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>indexOf(str, [start])</code>：从指定的位置开始从前向后查找字符串，<code>start</code>不可以为负数</p>
+</li>
+<li><code>lastIndexOf(str, [start])</code>：从指定的位置开始从后往前查找字符串，同样<code>start</code>不可以为负数</li>
+<li><code>trim()</code>：去掉字符串的前后空格，返回新的字符串。不修改原来的字符串</li>
+<li><code>toUpperCase()</code>：将字符串中的字母转换为大写，原字符串保持不变（<code>toLowerCase()</code>与此相反）</li>
+<li><p><code>match(reg)</code>：将字符串与模式进行匹配，结果返回与<code>reg.exec(str)</code>相同的数组。<strong>注意：</strong><code>与reg.exec(str)</code>和<code>reg.test(str)</code>等方法不同的是，使用<code>str.match(reg)</code>，在模式匹配到字符串时，<code>RegExp</code>对象上的<code>lastIndex</code>属性并不会得到更新，一直保持为 <code>0</code> 不变（包括在使用<code>str.search(reg)</code>时也是一样的情况），即使<code>RegExp</code>对象使用了全局匹配模式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"abcdef"</span>;</span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/abc/gi</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg)); <span class="comment">// ["abc"]</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.lastIndex); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>search(reg)</code>：返回第一个匹配项的索引，每次都是从头开始匹配。如果没有找到匹配项，则返回 <code>-1</code> 。</p>
+</li>
+<li><code>replace(RegExp或string, string或function(match, group1, group2, ..., pos, input) {})</code>：替换字符串。第一个参数可以传入<code>RegExp</code>对象或者字符串，而第二个参数传入的是字符串，可以在字符串中使用特殊的字符序列，比如：<ul>
+<li><code>$&amp;</code> 表示匹配整个模式的子字符串，与RegExp.lastMatch的值相同</li>
+<li><code>$&#39;</code> 表示匹配的字符串之前的子字符串</li>
+<li>$` 表示匹配的字符串之后的子字符串</li>
+<li><code>$1</code>，<code>$2</code>，… 表示模式中的捕获组匹配到的字符串<br><code>replace</code>方法可以接收一个函数作为第二个参数。该函数接收的参数是整个模式匹配到的字符串，第一个捕获组匹配到的字符串，第二个捕获组匹配到的字符串，…，匹配整个模式的字符串在原字符串中的位置以及原字符串的值。</li>
+</ul>
+</li>
+<li><code>split(RegExp或string, [arrSize])</code>：分割字符串。分隔符可以是字符串，也可以是模式匹配到的字符串。不给出分隔符，则将该字符串作为数组仅有的一项返回。该方法还可以指定第二个参数，表示返回的数组不能超过指定的大小。（返回的数组长度可以小于指定的大小）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"a-b-c"</span>.split(<span class="string">"-"</span>, <span class="number">2</span>)); <span class="comment">// ["a", "b"]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>另外，在<code>String</code>构造函数上具有的静态方法</p>
+<ul>
+<li><code>String.fromCharCode(code1, code2, ...)</code>：返回由指定的字符编码对应的字符构成的字符串</li>
+</ul>
+<p><code>String</code>、<code>Number</code>和<code>Boolean</code>等基本包装类型在实际中其实很少使用，甚至要避免使用。更多时候，我们通过基本类型来使用其对应的基本包装类型对象上的方法。虽然有些方法看上去很简单，但也往往因此被我们忽略。希望我们都可以做一个有心人。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/30/javascriptSerial-4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          你所不知道的javascript（四）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/30/javascriptSerial-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">你所不知道的javascript（二）</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="javascriptSerial-3" data-title="你所不知道的javascript（三）" data-url="http://yoursite.com/2016/04/30/javascriptSerial-3/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 hbChou
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
