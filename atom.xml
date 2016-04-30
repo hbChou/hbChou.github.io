@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>hbChou</title>
+  <subtitle>每天都要有所收获</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2016-04-29T15:30:31.273Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>hbChou</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2016/04/29/hello-world/"/>
+    <id>http://yoursite.com/2016/04/29/hello-world/</id>
+    <published>2016-04-29T15:30:31.273Z</published>
+    <updated>2016-04-29T15:30:31.273Z</updated>
+    
+    <content type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo server&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/server.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Server&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Generate-static-files&quot;&gt;&lt;a href=&quot;#Generate-static-files&quot; class=&quot;headerlink&quot; title=&quot;Generate static files&quot;&gt;&lt;/a&gt;Generate static files&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo generate&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/generating.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Generating&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Deploy-to-remote-sites&quot;&gt;&lt;a href=&quot;#Deploy-to-remote-sites&quot; class=&quot;headerlink&quot; title=&quot;Deploy to remote sites&quot;&gt;&lt;/a&gt;Deploy to remote sites&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo deploy&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/deployment.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Deployment&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>你所不知道的javascript（一）</title>
+    <link href="http://yoursite.com/2016/04/29/javascriptSerial-1/"/>
+    <id>http://yoursite.com/2016/04/29/javascriptSerial-1/</id>
+    <published>2016-04-29T08:58:12.000Z</published>
+    <updated>2016-04-29T15:58:26.508Z</updated>
+    
+    <content type="html">&lt;p&gt;哈哈，看到这个标题，是不是让你想到了一本书也叫同样的名字？其实呢，写这篇博文的目的是为了和大家分享我在使用&lt;code&gt;javascript&lt;/code&gt;中遇到的一些容易被我们忽略的 &lt;strong&gt;tips&lt;/strong&gt; ，自己平时也在做一些总结，这一次想尽可能地汇总起来，写给以后的自己。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;javascript中的数据类型&quot;&gt;&lt;a href=&quot;#javascript中的数据类型&quot; class=&quot;headerlink&quot; title=&quot;javascript中的数据类型&quot;&gt;&lt;/a&gt;javascript中的数据类型&lt;/h2&gt;&lt;p&gt;先从&lt;code&gt;javascript&lt;/code&gt;中最基本的数据类型开始说起吧，我们都知道&lt;code&gt;javascript&lt;/code&gt;有六种数据类型，分别是&lt;code&gt;number&lt;/code&gt;、&lt;code&gt;string&lt;/code&gt;、&lt;br&gt;&lt;code&gt;boolean&lt;/code&gt;、&lt;code&gt;undefined&lt;/code&gt;、&lt;code&gt;object&lt;/code&gt;和&lt;code&gt;function&lt;/code&gt;，如果我们要检测某个变量的类型，都有哪些方法呢？最先想到的应该是&lt;code&gt;typeof&lt;/code&gt;这个操作符，在大多数情况下，它都可以检测出我们想要的值，它的返回值就是以上这六种数据类型之一，另外需要特别指出的一点：&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;keyword&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;null&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;// &quot;object&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;keyword&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;NaN&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;// &quot;number&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;虽然&lt;code&gt;typeof&lt;/code&gt;可以分辨出以上这六种数据类型，但是在检测对象具体是哪一种类型（比如&lt;code&gt;Array&lt;/code&gt;，&lt;code&gt;Date&lt;/code&gt;，&lt;code&gt;RegExp&lt;/code&gt;等）时，&lt;code&gt;typeof&lt;/code&gt;却无能为力，这时候我们就需要借助&lt;code&gt;Object&lt;/code&gt;构造函数原型上的&lt;code&gt;toString&lt;/code&gt;方法来进一步区分：&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arr = [&lt;span class=&quot;number&quot;&gt;12&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;34&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(arr.toString()); &lt;span class=&quot;comment&quot;&gt;// 12,34&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;built_in&quot;&gt;Object&lt;/span&gt;.prototype.toString.call(arr)); &lt;span class=&quot;comment&quot;&gt;// &quot;[object Array]&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;.prototype.hasOwnProperty(&lt;span class=&quot;string&quot;&gt;&quot;toString&quot;&lt;/span&gt;)); &lt;span class=&quot;comment&quot;&gt;// true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;我们都知道，上面提到的&lt;code&gt;Array&lt;/code&gt;，&lt;code&gt;Date&lt;/code&gt;，&lt;code&gt;RegExp&lt;/code&gt;等对象上都具有&lt;code&gt;toString&lt;/code&gt;方法，为什么不直接调用对象上的方法来进行判断呢？原因是这些内置对象的构造函数在实现时都重写了&lt;code&gt;Object&lt;/code&gt;构造函数原型上的&lt;code&gt;toString&lt;/code&gt;方法，我们需要借助&lt;code&gt;call&lt;/code&gt;方法将&lt;code&gt;Object&lt;/code&gt;构造函数原型上的&lt;code&gt;toString&lt;/code&gt;方法内部&lt;code&gt;this&lt;/code&gt;的指向修改为我们要判断的对象。&lt;br&gt;&lt;strong&gt;注意：&lt;/strong&gt;尽管是&lt;code&gt;Object&lt;/code&gt;构造函数原型上的&lt;code&gt;toString&lt;/code&gt;方法也并不十分完美，在遇到&lt;code&gt;null&lt;/code&gt;和&lt;code&gt;undefined&lt;/code&gt;也会失效，例如在IE6/7/8中会返回”[object Object]”。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;数值转换&quot;&gt;&lt;a href=&quot;#数值转换&quot; class=&quot;headerlink&quot; title=&quot;数值转换&quot;&gt;&lt;/a&gt;数值转换&lt;/h2&gt;&lt;p&gt;JavaScript中将某个变量转化为数值，通常有以下三个方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;h3 id=&quot;Number函数&quot;&gt;&lt;a href=&quot;#Number函数&quot; class=&quot;headerlink&quot; title=&quot;Number函数&quot;&gt;&lt;/a&gt;&lt;strong&gt;Number函数&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;使用&lt;code&gt;Number&lt;/code&gt;函数转化得到的结果仍是基本类型&lt;code&gt;number&lt;/code&gt;，而不是引用类型。&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;built_in&quot;&gt;Number&lt;/span&gt;(&lt;span class=&quot;literal&quot;&gt;null&lt;/span&gt;)); &lt;span class=&quot;comment&quot;&gt;// 0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;built_in&quot;&gt;Number&lt;/span&gt;(&lt;span class=&quot;literal&quot;&gt;undefined&lt;/span&gt;)); &lt;span class=&quot;comment&quot;&gt;// NaN&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;built_in&quot;&gt;Number&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;&quot;&lt;/span&gt;)); &lt;span class=&quot;comment&quot;&gt;// 0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;built_in&quot;&gt;Number&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;010&quot;&lt;/span&gt;)); &lt;span class=&quot;comment&quot;&gt;// 10&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;h3 id=&quot;parseInt-函数&quot;&gt;&lt;a href=&quot;#parseInt-函数&quot; class=&quot;headerlink&quot; title=&quot;parseInt()函数&quot;&gt;&lt;/a&gt;&lt;strong&gt;parseInt()函数&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;在使用&lt;code&gt;parseInt()&lt;/code&gt;函数对字符串进行转换时，如果第一个字符不是数字且不是负号，&lt;code&gt;parseInt()&lt;/code&gt;就会返回NaN；如果第一个字符是数字或者是负号，则parseInt函数会继续解析第二个字符，直到出现第一个非数字字符为止。此外，&lt;code&gt;parseInt()&lt;/code&gt;函数可以识别各种整数格式（包括十进制、八进制和十六进制）。使用&lt;code&gt;parseInt()&lt;/code&gt;函数还可以指定第二个参数，主要是用于指明给定的字符串要看成多少进制的。&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;built_in&quot;&gt;parseInt&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;AF&quot;&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;16&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;// 175&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由于使用&lt;code&gt;parseInt()&lt;/code&gt;在解析类似&lt;code&gt;null&lt;/code&gt;,undefined这些值时统一返回&lt;code&gt;NaN&lt;/code&gt;，也就是比较合理的结果，因此实际中如果需要将某个值转换成整数，常用&lt;code&gt;parseInt()&lt;/code&gt;函数。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;h3 id=&quot;parseFloat-函数&quot;&gt;&lt;a href=&quot;#parseFloat-函数&quot; class=&quot;headerlink&quot; title=&quot;parseFloat()函数&quot;&gt;&lt;/a&gt;&lt;strong&gt;parseFloat()函数&lt;/strong&gt;&lt;/h3&gt;&lt;code&gt;parseFloat()&lt;/code&gt;函数常用于将某个值转换成浮点数，但它跟&lt;code&gt;parseInt()&lt;/code&gt;还是有很大的区别：&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;parseFloat()&lt;/code&gt;函数只能指定一个参数，即要进行转换的值&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;parseFloat()&lt;/code&gt;函数将所有要进行转换的字符串都看成是十进制数，不能识别八进制和十六进制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;字符串转换&quot;&gt;&lt;a href=&quot;#字符串转换&quot; class=&quot;headerlink&quot; title=&quot;字符串转换&quot;&gt;&lt;/a&gt;字符串转换&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;h3 id=&quot;toString方法&quot;&gt;&lt;a href=&quot;#toString方法&quot; class=&quot;headerlink&quot; title=&quot;toString方法&quot;&gt;&lt;/a&gt;&lt;strong&gt;toString方法&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;一般情况下，要将某个值转换成字符串，可以直接调用对象上的&lt;code&gt;toString&lt;/code&gt;方法。特别的，在将数值转换成字符串时，默认情况下会将数值转换成十进制的字符串格式，也可以给&lt;code&gt;toString&lt;/code&gt;方法指定一个参数，该参数用于指明要将数值转换成的进制。这与&lt;code&gt;parseInt()&lt;/code&gt;函数指定的第二个参数含义刚好相反。&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; num = &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(num.toString(&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;)); &lt;span class=&quot;comment&quot;&gt;// &quot;1010&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(num.toString(&lt;span class=&quot;number&quot;&gt;8&lt;/span&gt;)); &lt;span class=&quot;comment&quot;&gt;// &quot;12&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;h3 id=&quot;String构造函数&quot;&gt;&lt;a href=&quot;#String构造函数&quot; class=&quot;headerlink&quot; title=&quot;String构造函数&quot;&gt;&lt;/a&gt;&lt;strong&gt;String构造函数&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;使用String方法转换时遵循以下规则：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果要转换的值有&lt;code&gt;toString&lt;/code&gt;方法，则直接调用&lt;code&gt;toString&lt;/code&gt;方法进行转换&lt;/li&gt;
+&lt;li&gt;如果是&lt;code&gt;undefined&lt;/code&gt;，则结果返回&lt;code&gt;&amp;quot;undefined&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;如果是&lt;code&gt;null&lt;/code&gt;，则结果返回&lt;code&gt;&amp;quot;null&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;使用加法操作符（-）时的隐性类型转换问题&quot;&gt;&lt;a href=&quot;#使用加法操作符（-）时的隐性类型转换问题&quot; class=&quot;headerlink&quot; title=&quot;使用加法操作符（+）时的隐性类型转换问题&quot;&gt;&lt;/a&gt;使用加法操作符（+）时的隐性类型转换问题&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;如果操作数中含有对象或者函数时，默认会先调用对象或函数重写的&lt;code&gt;valueOf&lt;/code&gt;方法，如果该对象上不存在重写的valueOf方法，则会调用重写的&lt;code&gt;toString&lt;/code&gt;方法，如果该对象上不存在重写的toString方法，则会调用&lt;code&gt;Object&lt;/code&gt;构造函数原型上的&lt;code&gt;toString&lt;/code&gt;方法转化为字符串。&lt;/li&gt;
+&lt;li&gt;对于&lt;code&gt;undefined&lt;/code&gt;，&lt;code&gt;null&lt;/code&gt;和布尔值，则会根据其他操作数的类型转换成相应类型的值（如果跟它相加的操作数中含有字符串，则转换成字符串；如果跟它相加的操作数中不含字符串而是数值，则转换成数值），如果只是null，undefined和布尔值混合相加，则优先全部转换成数值。&lt;br&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;code&gt;undefined&lt;/code&gt;转换成数值时得到的结果为&lt;code&gt;NaN&lt;/code&gt;，转换得到的NaN则会被看成是字符串，而&lt;code&gt;null&lt;/code&gt;转换为数值时则会转化为&lt;code&gt;0&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;一般情况下，经过上面的步骤，函数或者对象会被转换成数值或者字符串，此时如果操作数中含有字符串（包括函数或对象转化而来的字符串以及&lt;code&gt;undefined&lt;/code&gt;转化得到的&lt;code&gt;NaN&lt;/code&gt;），则加法运算得到的结果是字符串。如果操作数中不含字符串而全部是数值，则得到的结果是数值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;使用减法操作符（-）时的隐性类型转换问题&quot;&gt;&lt;a href=&quot;#使用减法操作符（-）时的隐性类型转换问题&quot; class=&quot;headerlink&quot; title=&quot;使用减法操作符（-）时的隐性类型转换问题&quot;&gt;&lt;/a&gt;使用减法操作符（-）时的隐性类型转换问题&lt;/h2&gt;&lt;p&gt;相对于加法操作符（+），减法的运算规则则显得没有那么复杂，所有的值都会先通过&lt;code&gt;Number&lt;/code&gt;构造函数转换成数值，然后再进行减法运算。如果转换的结果是&lt;code&gt;NaN&lt;/code&gt;，则得到的运算结果就是&lt;code&gt;NaN&lt;/code&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;使用关系运算符（-lt-gt-lt-和-gt-）时的隐性类型转换问题&quot;&gt;&lt;a href=&quot;#使用关系运算符（-lt-gt-lt-和-gt-）时的隐性类型转换问题&quot; class=&quot;headerlink&quot; title=&quot;使用关系运算符（&amp;lt;,&amp;gt;,&amp;lt;=和&amp;gt;=）时的隐性类型转换问题&quot;&gt;&lt;/a&gt;使用关系运算符（&lt;code&gt;&amp;lt;&lt;/code&gt;,&lt;code&gt;&amp;gt;&lt;/code&gt;,&lt;code&gt;&amp;lt;=&lt;/code&gt;和&lt;code&gt;&amp;gt;=&lt;/code&gt;）时的隐性类型转换问题&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;如果两个操作数都是字符串（可能是转化得到的），则会根据每个字符在&lt;code&gt;ASCII编码表&lt;/code&gt;中出现的先后顺序进行比较&lt;/li&gt;
+&lt;li&gt;其他情况下，将两个操作数转换成数值再进行比较&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;NaN&lt;/code&gt;（可能是由&lt;code&gt;undefined&lt;/code&gt;转化而来）跟任何值做比较返回的结果都是&lt;code&gt;false&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;使用相等运算符（-）时的隐形类型转换问题&quot;&gt;&lt;a href=&quot;#使用相等运算符（-）时的隐形类型转换问题&quot; class=&quot;headerlink&quot; title=&quot;使用相等运算符（==）时的隐形类型转换问题&quot;&gt;&lt;/a&gt;使用相等运算符（&lt;code&gt;==&lt;/code&gt;）时的隐形类型转换问题&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;如果操作数中含有布尔值，则会将布尔值转化为数值&lt;/li&gt;
+&lt;li&gt;如果操作数中含有字符串和数值，则会将字符串转换为数值再进行判断&lt;br&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;null和undefined是相等的&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在比较相等性之前，不会对null和undefined做任何转化&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;NaN和任何值都不相等，包括它本身&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;在比较两个对象是否相等时，如果两者指向的是同一个对象，则返回&lt;code&gt;true&lt;/code&gt;，否则返回&lt;code&gt;false&lt;/code&gt;。这一点和比较全等时的规则是一样的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;应该使用全等运算符（-）&quot;&gt;&lt;a href=&quot;#应该使用全等运算符（-）&quot; class=&quot;headerlink&quot; title=&quot;应该使用全等运算符（===）&quot;&gt;&lt;/a&gt;应该使用全等运算符（&lt;code&gt;===&lt;/code&gt;）&lt;/h2&gt;&lt;p&gt;&lt;code&gt;===&lt;/code&gt;可以严格判断做比较的两者是否为同一类型，如果不是相同类型，则直接返回&lt;code&gt;false&lt;/code&gt;，而不会导致模棱两可的结果。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;javascript&lt;/code&gt;中不同的运算符有着不同的隐性转换规则，这一点也确实让人感到头疼，但也是因为这一点，&lt;code&gt;JavaScript&lt;/code&gt;程序本身才具有很高的容错性，不至于因为数据类型不同而打断程序的运行。虽然说有时候得到的结果往往并不是我们想要的。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;哈哈，看到这个标题，是不是让你想到了一本书也叫同样的名字？其实呢，写这篇博文的目的是为了和大家分享我在使用&lt;code&gt;javascript&lt;/code&gt;中遇到的一些容易被我们忽略的 &lt;strong&gt;tips&lt;/strong&gt; ，自己平时也在做一些总结，这一次想尽可能地汇总起
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+</feed>
