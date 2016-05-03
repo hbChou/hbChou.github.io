@@ -7,18 +7,48 @@
   <title>你所不知道的javascript（三） | hbChou</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="趁热打铁，让我们接着向javascript中另外的几种对象类型做进一步的认识。它们就是javascript中的基本包装类型，说是包装类型是有原因的，因为它们来源于javascript中的基本类型，只是做了适当的包装就变成了对象类型。下面让我们欢迎今天的嘉宾隆重登场，他们就是Number，Boolean和String。
-Number类型Number对象自身具有一些方法，最常用的就是 toFixed(">
+
+
+
+Number类型
+Boolean类型
+String类型
+
+
+
+
+Numbe">
 <meta property="og:type" content="article">
 <meta property="og:title" content="你所不知道的javascript（三）">
 <meta property="og:url" content="http://yoursite.com/2016/04/30/javascriptSerial-3/index.html">
 <meta property="og:site_name" content="hbChou">
 <meta property="og:description" content="趁热打铁，让我们接着向javascript中另外的几种对象类型做进一步的认识。它们就是javascript中的基本包装类型，说是包装类型是有原因的，因为它们来源于javascript中的基本类型，只是做了适当的包装就变成了对象类型。下面让我们欢迎今天的嘉宾隆重登场，他们就是Number，Boolean和String。
-Number类型Number对象自身具有一些方法，最常用的就是 toFixed(">
-<meta property="og:updated_time" content="2016-04-30T13:52:20.801Z">
+
+
+
+Number类型
+Boolean类型
+String类型
+
+
+
+
+Numbe">
+<meta property="og:updated_time" content="2016-05-01T10:24:47.008Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你所不知道的javascript（三）">
 <meta name="twitter:description" content="趁热打铁，让我们接着向javascript中另外的几种对象类型做进一步的认识。它们就是javascript中的基本包装类型，说是包装类型是有原因的，因为它们来源于javascript中的基本类型，只是做了适当的包装就变成了对象类型。下面让我们欢迎今天的嘉宾隆重登场，他们就是Number，Boolean和String。
-Number类型Number对象自身具有一些方法，最常用的就是 toFixed(">
+
+
+
+Number类型
+Boolean类型
+String类型
+
+
+
+
+Numbe">
   
     <link rel="alternative" href="/atom.xml" title="hbChou" type="application/atom+xml">
   
@@ -83,7 +113,7 @@ Number类型Number对象自身具有一些方法，最常用的就是 toFixed(">
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -232,9 +262,21 @@ Number类型Number对象自身具有一些方法，最常用的就是 toFixed(">
     <div class="article-entry" itemprop="articleBody">
       
         <p>趁热打铁，让我们接着向<code>javascript</code>中另外的几种对象类型做进一步的认识。它们就是<code>javascript</code>中的基本包装类型，说是包装类型是有原因的，因为它们来源于<code>javascript</code>中的基本类型，只是做了适当的包装就变成了对象类型。下面让我们欢迎今天的嘉宾隆重登场，他们就是<code>Number</code>，<code>Boolean</code>和<code>String</code>。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#number类型"><strong>Number类型</strong></a></li>
+<li><a href="#boolean类型"><strong>Boolean类型</strong></a></li>
+<li><a href="#string类型"><strong>String类型</strong></a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="number类型"></a></p>
 <h2 id="Number类型"><a href="#Number类型" class="headerlink" title="Number类型"></a><strong>Number类型</strong></h2><p><code>Number</code>对象自身具有一些方法，最常用的就是 <code>toFixed(num)</code>这个方法了。它主要用于保留数值指定位数的小数，对于多余的小数部分则进行四舍五入的方法进行取舍。对于Number，String这些对象上的方法，作为对应的基本类型<code>number</code>和<code>string</code>是可以直接使用的，这其中就涉及到基本包装类型对象的自动创建问题，而在执行完基本类型调用引用类型方法的这一行代码时，自动创建的基本包装类型对象又会被自动销毁。</p>
+<p><a name="boolean类型"></a></p>
 <h2 id="Boolean类型"><a href="#Boolean类型" class="headerlink" title="Boolean类型"></a><strong>Boolean类型</strong></h2><p><code>Boolean</code>对象自身没有比较常用的方法，不仅如此，使用<code>Boolean</code>对象更是容易造成误解，比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> boolObj = <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="string">"false"</span>);</span><br><span class="line"><span class="built_in">console</span>(<span class="literal">true</span> &amp;&amp; boolObj); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
 <p>因为对象本身会转化成布尔值<code>true</code>，所以才会导致这个完全相反的结果。因此实际应用中一般不使用<code>Boolean</code>对象来表示布尔值，类似的情况在<code>Number</code>和<code>String</code>类型中也是存在的。</p>
+<p><a name="string类型"></a></p>
 <h2 id="String类型"><a href="#String类型" class="headerlink" title="String类型"></a><strong>String类型</strong></h2><p>在实际的使用中，我们经常要对字符串进行处理，所以<code>String</code>类型提供了大量有用的方法供我们使用。但在实际过程中我们并不需要通过创建<code>String</code>对象来使用这些方法，而是直接在基本类型<code>string</code>上使用这些方法：</p>
 <ul>
 <li><code>charAt(index)</code>：返回指定索引处的字符</li>

@@ -7,18 +7,42 @@
   <title>你所不知道的javascript（一） | hbChou</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="哈哈，看到这个标题，是不是让你想到了一本书也叫同样的名字？其实呢，写这篇博文的目的是为了和大家分享我在使用javascript中遇到的一些容易被我们忽略的 tips ，自己平时也在做一些总结，这一次想尽可能地汇总起来，写给以后的自己。
-javascript中的数据类型先从javascript中最基本的数据类型开始说起吧，我们都知道javascript有六种数据类型，分别是number、string">
+
+
+
+javascript中的数据类型
+数值转换
+字符串转换
+使用加法操作符（+）时的隐性类型转换问题
+使用减法操作符（-）时的隐性类型转换问题
+使用关系运算符时的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="你所不知道的javascript（一）">
 <meta property="og:url" content="http://yoursite.com/2016/04/29/javascriptSerial-1/index.html">
 <meta property="og:site_name" content="hbChou">
 <meta property="og:description" content="哈哈，看到这个标题，是不是让你想到了一本书也叫同样的名字？其实呢，写这篇博文的目的是为了和大家分享我在使用javascript中遇到的一些容易被我们忽略的 tips ，自己平时也在做一些总结，这一次想尽可能地汇总起来，写给以后的自己。
-javascript中的数据类型先从javascript中最基本的数据类型开始说起吧，我们都知道javascript有六种数据类型，分别是number、string">
-<meta property="og:updated_time" content="2016-04-30T05:29:50.404Z">
+
+
+
+javascript中的数据类型
+数值转换
+字符串转换
+使用加法操作符（+）时的隐性类型转换问题
+使用减法操作符（-）时的隐性类型转换问题
+使用关系运算符时的">
+<meta property="og:updated_time" content="2016-05-01T10:25:07.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你所不知道的javascript（一）">
 <meta name="twitter:description" content="哈哈，看到这个标题，是不是让你想到了一本书也叫同样的名字？其实呢，写这篇博文的目的是为了和大家分享我在使用javascript中遇到的一些容易被我们忽略的 tips ，自己平时也在做一些总结，这一次想尽可能地汇总起来，写给以后的自己。
-javascript中的数据类型先从javascript中最基本的数据类型开始说起吧，我们都知道javascript有六种数据类型，分别是number、string">
+
+
+
+javascript中的数据类型
+数值转换
+字符串转换
+使用加法操作符（+）时的隐性类型转换问题
+使用减法操作符（-）时的隐性类型转换问题
+使用关系运算符时的">
   
     <link rel="alternative" href="/atom.xml" title="hbChou" type="application/atom+xml">
   
@@ -83,7 +107,7 @@ javascript中的数据类型先从javascript中最基本的数据类型开始说
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -232,9 +256,25 @@ javascript中的数据类型先从javascript中最基本的数据类型开始说
     <div class="article-entry" itemprop="articleBody">
       
         <p>哈哈，看到这个标题，是不是让你想到了一本书也叫同样的名字？其实呢，写这篇博文的目的是为了和大家分享我在使用<code>javascript</code>中遇到的一些容易被我们忽略的 <strong>tips</strong> ，自己平时也在做一些总结，这一次想尽可能地汇总起来，写给以后的自己。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#javascript中的数据类型">javascript中的数据类型</a></li>
+<li><a href="#数值转换">数值转换</a></li>
+<li><a href="#字符串转换">字符串转换</a></li>
+<li><a href="#使用加法操作符（）时的隐性类型转换问题">使用加法操作符（+）时的隐性类型转换问题</a></li>
+<li><a href="#使用减法操作符（-）时的隐性类型转换问题">使用减法操作符（-）时的隐性类型转换问题</a></li>
+<li><a href="#使用关系运算符时的隐性类型转换问题">使用关系运算符时的隐性类型转换问题</a></li>
+<li><a href="#使用相等运算符（）时的隐形类型转换问题">使用相等运算符（<code>==</code>）时的隐形类型转换问题</a></li>
+<li><a href="#应该使用全等运算符（）">应该使用全等运算符（<code>===</code>）</a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="javascript中的数据类型"></a></p>
 <h2 id="javascript中的数据类型"><a href="#javascript中的数据类型" class="headerlink" title="javascript中的数据类型"></a>javascript中的数据类型</h2><p>先从<code>javascript</code>中最基本的数据类型开始说起吧，我们都知道<code>javascript</code>有六种数据类型，分别是<code>number</code>、<code>string</code>、<br><code>boolean</code>、<code>undefined</code>、<code>object</code>和<code>function</code>，如果我们要检测某个变量的类型，都有哪些方法呢？最先想到的应该是<code>typeof</code>这个操作符，在大多数情况下，它都可以检测出我们想要的值，它的返回值就是以上这六种数据类型之一。对于未声明的变量，只能对其执行一项操作，那就是使用<code>typeof</code>检测其类型，返回值为<code>&quot;undefined&quot;</code>。另外需要特别指出的是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">null</span>); <span class="comment">// "object"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">NaN</span>); <span class="comment">// "number"</span></span><br></pre></td></tr></table></figure></p>
 <p>虽然<code>typeof</code>可以分辨出以上这六种数据类型，但是在检测对象具体是哪一种类型（比如<code>Array</code>，<code>Date</code>，<code>RegExp</code>等）时，<code>typeof</code>却无能为力，这时候我们就需要借助<code>Object</code>构造函数原型上的<code>toString</code>方法来进一步区分：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">12</span>,<span class="number">34</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr.toString()); <span class="comment">// 12,34</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(arr)); <span class="comment">// "[object Array]"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.prototype.hasOwnProperty(<span class="string">"toString"</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
 <p>我们都知道，上面提到的<code>Array</code>，<code>Date</code>，<code>RegExp</code>等对象上都具有<code>toString</code>方法，为什么不直接调用对象上的方法来进行判断呢？原因是这些内置对象的构造函数在实现时都重写了<code>Object</code>构造函数原型上的<code>toString</code>方法，我们需要借助<code>call</code>方法将<code>Object</code>构造函数原型上的<code>toString</code>方法内部<code>this</code>的指向修改为我们要判断的对象。<br><strong>注意：</strong>尽管是<code>Object</code>构造函数原型上的<code>toString</code>方法也并不十分完美，在遇到<code>null</code>和<code>undefined</code>也会失效，例如在IE6/7/8中会返回”[object Object]”。</p>
+<p><a name="数值转换"></a></p>
 <h2 id="数值转换"><a href="#数值转换" class="headerlink" title="数值转换"></a>数值转换</h2><p>JavaScript中将某个变量转化为数值，通常有以下三个方法：</p>
 <ul>
 <li><h3 id="Number函数"><a href="#Number函数" class="headerlink" title="Number函数"></a><strong>Number函数</strong></h3><p>使用<code>Number</code>函数转化得到的结果仍是基本类型<code>number</code>，而不是引用类型。</p>
@@ -252,6 +292,7 @@ javascript中的数据类型先从javascript中最基本的数据类型开始说
 </ul>
 </li>
 </ul>
+<p><a name="字符串转换"></a></p>
 <h2 id="字符串转换"><a href="#字符串转换" class="headerlink" title="字符串转换"></a>字符串转换</h2><ul>
 <li><h3 id="toString方法"><a href="#toString方法" class="headerlink" title="toString方法"></a><strong>toString方法</strong></h3><p>一般情况下，要将某个值转换成字符串，可以直接调用对象上的<code>toString</code>方法。特别的，在将数值转换成字符串时，默认情况下会将数值转换成十进制的字符串格式，也可以给<code>toString</code>方法指定一个参数，该参数用于指明要将数值转换成的进制。这与<code>parseInt()</code>函数指定的第二个参数含义刚好相反。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num.toString(<span class="number">2</span>)); <span class="comment">// "1010"</span></span><br><span class="line"><span class="built_in">console</span>.log(num.toString(<span class="number">8</span>)); <span class="comment">// "12"</span></span><br></pre></td></tr></table></figure>
@@ -264,18 +305,22 @@ javascript中的数据类型先从javascript中最基本的数据类型开始说
 </ul>
 </li>
 </ul>
-<hr>
+<p><a name="使用加法操作符（）时的隐性类型转换问题"></a></p>
 <h2 id="使用加法操作符（-）时的隐性类型转换问题"><a href="#使用加法操作符（-）时的隐性类型转换问题" class="headerlink" title="使用加法操作符（+）时的隐性类型转换问题"></a>使用加法操作符（+）时的隐性类型转换问题</h2><ul>
 <li>如果操作数中含有对象或者函数时，默认会先调用对象或函数重写的<code>valueOf</code>方法，如果该对象上不存在重写的valueOf方法，则会调用重写的<code>toString</code>方法，如果该对象上不存在重写的toString方法，则会调用<code>Object</code>构造函数原型上的<code>toString</code>方法转化为字符串。</li>
 <li>对于<code>undefined</code>，<code>null</code>和布尔值，则会根据其他操作数的类型转换成相应类型的值（如果跟它相加的操作数中含有字符串，则转换成字符串；如果跟它相加的操作数中不含字符串而是数值，则转换成数值），如果只是null，undefined和布尔值混合相加，则优先全部转换成数值。<br><strong>注意：</strong><code>undefined</code>转换成数值时得到的结果为<code>NaN</code>，转换得到的NaN则会被看成是字符串，而<code>null</code>转换为数值时则会转化为<code>0</code>。</li>
 <li>一般情况下，经过上面的步骤，函数或者对象会被转换成数值或者字符串，此时如果操作数中含有字符串（包括函数或对象转化而来的字符串以及<code>undefined</code>转化得到的<code>NaN</code>），则加法运算得到的结果是字符串。如果操作数中不含字符串而全部是数值，则得到的结果是数值。</li>
 </ul>
+<p><a name="使用减法操作符（-）时的隐性类型转换问题"></a></p>
 <h2 id="使用减法操作符（-）时的隐性类型转换问题"><a href="#使用减法操作符（-）时的隐性类型转换问题" class="headerlink" title="使用减法操作符（-）时的隐性类型转换问题"></a>使用减法操作符（-）时的隐性类型转换问题</h2><p>相对于加法操作符（+），减法的运算规则则显得没有那么复杂，所有的值都会先通过<code>Number</code>构造函数转换成数值，然后再进行减法运算。如果转换的结果是<code>NaN</code>，则得到的运算结果就是<code>NaN</code>。</p>
-<h2 id="使用关系运算符（-lt-gt-lt-和-gt-）时的隐性类型转换问题"><a href="#使用关系运算符（-lt-gt-lt-和-gt-）时的隐性类型转换问题" class="headerlink" title="使用关系运算符（&lt;,&gt;,&lt;=和&gt;=）时的隐性类型转换问题"></a>使用关系运算符（<code>&lt;</code>,<code>&gt;</code>,<code>&lt;=</code>和<code>&gt;=</code>）时的隐性类型转换问题</h2><ul>
+<p><a name="使用关系运算符时的隐性类型转换问题"></a></p>
+<h2 id="使用关系运算符时的隐性类型转换问题"><a href="#使用关系运算符时的隐性类型转换问题" class="headerlink" title="使用关系运算符时的隐性类型转换问题"></a>使用关系运算符时的隐性类型转换问题</h2><p>javascript中的关系运算符：<code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code></p>
+<ul>
 <li>如果两个操作数都是字符串（可能是转化得到的），则会根据每个字符在<code>ASCII编码表</code>中出现的先后顺序进行比较</li>
 <li>其他情况下，将两个操作数转换成数值再进行比较</li>
 <li><strong><code>NaN</code>（可能是由<code>undefined</code>转化而来）跟任何值做比较返回的结果都是<code>false</code></strong></li>
 </ul>
+<p><a name="使用相等运算符（）时的隐形类型转换问题"></a></p>
 <h2 id="使用相等运算符（-）时的隐形类型转换问题"><a href="#使用相等运算符（-）时的隐形类型转换问题" class="headerlink" title="使用相等运算符（==）时的隐形类型转换问题"></a>使用相等运算符（<code>==</code>）时的隐形类型转换问题</h2><ul>
 <li>如果操作数中含有布尔值，则会将布尔值转化为数值</li>
 <li>如果操作数中含有字符串和数值，则会将字符串转换为数值再进行判断<br><strong>注意：</strong><ul>
@@ -286,6 +331,7 @@ javascript中的数据类型先从javascript中最基本的数据类型开始说
 </ul>
 </li>
 </ul>
+<p><a name="应该使用全等运算符（）"></a></p>
 <h2 id="应该使用全等运算符（-）"><a href="#应该使用全等运算符（-）" class="headerlink" title="应该使用全等运算符（===）"></a>应该使用全等运算符（<code>===</code>）</h2><p><code>===</code>可以严格判断做比较的两者是否为同一类型，如果不是相同类型，则直接返回<code>false</code>，而不会导致模棱两可的结果。</p>
 <p><code>javascript</code>中不同的运算符有着不同的隐性转换规则，这一点也确实让人感到头疼，但也是因为这一点，<code>JavaScript</code>程序本身才具有很高的容错性，不至于因为数据类型不同而打断程序的运行。虽然说有时候得到的结果往往并不是我们想要的。</p>
 
