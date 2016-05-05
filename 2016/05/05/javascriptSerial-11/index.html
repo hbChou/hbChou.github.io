@@ -26,6 +26,8 @@ iframe的优缺点
 其他css高性能实践
 
 
+
+
 前端安全问题
 XSS
 跨站脚本攻击的解决思路
@@ -35,8 +37,6 @@ XSS给我们的启示
 CSRF
 什么是CSRF
 预防措施
-
-
 
 
 
@@ -70,6 +70,8 @@ iframe的优缺点
 其他css高性能实践
 
 
+
+
 前端安全问题
 XSS
 跨站脚本攻击的解决思路
@@ -87,10 +89,8 @@ CSRF
 
 
 
-
-
 浏览器是">
-<meta property="og:updated_time" content="2016-05-05T09:04:00.608Z">
+<meta property="og:updated_time" content="2016-05-05T09:28:25.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端优化方案">
 <meta name="twitter:description" content="这一节让我们来总结一些常见的前端优化方案以及一些安全问题。
@@ -113,6 +113,8 @@ iframe的优缺点
 其他css高性能实践
 
 
+
+
 前端安全问题
 XSS
 跨站脚本攻击的解决思路
@@ -122,8 +124,6 @@ XSS给我们的启示
 CSRF
 什么是CSRF
 预防措施
-
-
 
 
 
@@ -365,6 +365,8 @@ CSRF
 <li><a href="#其他css高性能实践"><strong>其他<code>css</code>高性能实践</strong></a></li>
 </ul>
 </li>
+</ul>
+</li>
 <li><a href="#前端安全问题"><strong>前端安全问题</strong></a><ul>
 <li><a href="#xss"><strong>XSS</strong></a><ul>
 <li><a href="#跨站脚本攻击的解决思路"><strong>跨站脚本攻击的解决思路</strong></a></li>
@@ -374,8 +376,6 @@ CSRF
 <li><a href="#csrf"><strong>CSRF</strong></a><ul>
 <li><a href="#什么是csrf"><strong>什么是CSRF</strong></a></li>
 <li><a href="#预防措施"><strong>预防措施</strong></a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -491,20 +491,20 @@ CSRF
 </ul>
 <p>防止超链接访问过后<code>hover</code>样式就不出现了，以及被点击访问过的超链接样式不再具有<code>hover</code>和<code>active</code>样式了</p>
 <p><a name="前端安全问题"></a></p>
-<h3 id="前端安全问题"><a href="#前端安全问题" class="headerlink" title="前端安全问题"></a><strong>前端安全问题</strong></h3><p><a name="xss"></a></p>
-<h4 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a><strong>XSS</strong></h4><p><code>XSS</code> 全称“跨站脚本”，是注入攻击的一种。其特点是不对服务器端造成任何伤害，而是通过一些正常的站内交互途径，例如发布评论，提交含有 <code>JavaScript</code> 的内容文本。这时服务器端如果没有过滤或转义掉这些脚本，作为内容发布到了页面上，其他用户访问这个页面的时候就会运行这些脚本。</p>
+<h2 id="前端安全问题"><a href="#前端安全问题" class="headerlink" title="前端安全问题"></a><strong>前端安全问题</strong></h2><p><a name="xss"></a></p>
+<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a><strong>XSS</strong></h3><p><code>XSS</code> 全称“跨站脚本”，是注入攻击的一种。其特点是不对服务器端造成任何伤害，而是通过一些正常的站内交互途径，例如发布评论，提交含有 <code>JavaScript</code> 的内容文本。这时服务器端如果没有过滤或转义掉这些脚本，作为内容发布到了页面上，其他用户访问这个页面的时候就会运行这些脚本。</p>
 <p><a name="跨站脚本攻击的解决思路"></a></p>
-<h5 id="跨站脚本攻击的解决思路"><a href="#跨站脚本攻击的解决思路" class="headerlink" title="跨站脚本攻击的解决思路"></a><strong>跨站脚本攻击的解决思路</strong></h5><p>预防<code>XSS</code>攻击的基本方法是：确保任何被输出到<code>HTML</code>页面中的数据以<code>HTML</code>的方式进行转义<code>（HTML escape）</code>。例如<code>PHP</code>输出：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span>&lt;?php echo $articleText; ?&gt;<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="跨站脚本攻击的解决思路"><a href="#跨站脚本攻击的解决思路" class="headerlink" title="跨站脚本攻击的解决思路"></a><strong>跨站脚本攻击的解决思路</strong></h4><p>预防<code>XSS</code>攻击的基本方法是：确保任何被输出到<code>HTML</code>页面中的数据以<code>HTML</code>的方式进行转义<code>（HTML escape）</code>。例如<code>PHP</code>输出：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span>&lt;?php echo $articleText; ?&gt;<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>如果这个<code>articleText</code>是由用户自行输入的，那么攻击者很有可能输入一段包含<code>javascript</code>恶意攻击代码的文本，使得最终输出变成：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="string">'hello'</span>)<span class="string">'</span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>上述代码，在浏览器中渲染，将会执行<code>JavaScript</code>代码并在屏幕上<code>alert hello</code>。当然这个代码是无害的，但攻击者完全可以创建一个<code>JavaScript</code>来修改用户资料或者窃取cookie数据。解决方法很简单，就是将输出的值的值进行<code>html escape</code>，转义后的输出代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span></span><br><span class="line">&amp;lt;/textarea&amp;gt;&amp;lt;script&amp;gt;alert(&amp;quot;hello!&amp;quot;)&amp;lt;/script&amp;gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>这样就不会有任何危害了。</p>
 <p><a name="xss给我们的启示"></a></p>
-<h5 id="XSS给我们的启示"><a href="#XSS给我们的启示" class="headerlink" title="XSS给我们的启示"></a><strong>XSS给我们的启示</strong></h5><p>其实无论是哪一种<code>xss</code>攻击手段，其原理都是使用了“<code>xss</code>就是在页面执行你想要的<code>js</code>”，也就是说，只要遵循一个原则——后端永远不信任前端输入的任何信息，无论是输入还是输出，都对其进行<code>html</code>字符的转义，那么漏洞就基本不存在了。</p>
+<h4 id="XSS给我们的启示"><a href="#XSS给我们的启示" class="headerlink" title="XSS给我们的启示"></a><strong>XSS给我们的启示</strong></h4><p>其实无论是哪一种<code>xss</code>攻击手段，其原理都是使用了“<code>xss</code>就是在页面执行你想要的<code>js</code>”，也就是说，只要遵循一个原则——后端永远不信任前端输入的任何信息，无论是输入还是输出，都对其进行<code>html</code>字符的转义，那么漏洞就基本不存在了。</p>
 <p><a name="csrf"></a></p>
-<h4 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a><strong>CSRF</strong></h4><p><a name="什么是csrf"></a></p>
-<h5 id="什么是CSRF"><a href="#什么是CSRF" class="headerlink" title="什么是CSRF"></a><strong>什么是CSRF</strong></h5><p><code>CSRF</code>：跨站请求伪造，核心也就是请求伪造，通过伪造身份提交<code>POST</code>和<code>GET</code>请求来进行跨域的攻击。<br>举一个通俗的例子：一论坛网站的发贴是通过 <code>GET</code> 请求访问，点击发贴之后 <code>JS</code> 把发贴内容拼接成目标 <code>URL</code> 并访问：<br>    <code>http://example.com/bbs/create_post.php?title=标题&amp;content=内容</code><br>那么，我只需要在论坛中发一帖，包含一链接：<br>    <code>http://example.com/bbs/create_post.php?title=我是脑残&amp;content=哈哈</code><br>只要有用户点击了这个链接，那么他们的帐户就会在不知情的情况下发布了这一帖子。可能这只是个恶作剧，但是既然发贴的请求可以伪造，那么删帖、转帐、改密码、发邮件全都可以伪造。</p>
+<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a><strong>CSRF</strong></h3><p><a name="什么是csrf"></a></p>
+<h4 id="什么是CSRF"><a href="#什么是CSRF" class="headerlink" title="什么是CSRF"></a><strong>什么是CSRF</strong></h4><p><code>CSRF</code>：跨站请求伪造，核心也就是请求伪造，通过伪造身份提交<code>POST</code>和<code>GET</code>请求来进行跨域的攻击。<br>举一个通俗的例子：一论坛网站的发贴是通过 <code>GET</code> 请求访问，点击发贴之后 <code>JS</code> 把发贴内容拼接成目标 <code>URL</code> 并访问：<br>    <code>http://example.com/bbs/create_post.php?title=标题&amp;content=内容</code><br>那么，我只需要在论坛中发一帖，包含一链接：<br>    <code>http://example.com/bbs/create_post.php?title=我是脑残&amp;content=哈哈</code><br>只要有用户点击了这个链接，那么他们的帐户就会在不知情的情况下发布了这一帖子。可能这只是个恶作剧，但是既然发贴的请求可以伪造，那么删帖、转帐、改密码、发邮件全都可以伪造。</p>
 <p><a name="预防措施"></a></p>
-<h5 id="预防措施"><a href="#预防措施" class="headerlink" title="预防措施"></a><strong>预防措施</strong></h5><p>首先可以提高的一个门槛，就是改良站内 <code>API</code> 的设计。对于发布帖子这一类创建资源的操作，应该只接受<code>POST</code> 请求，而 <code>GET</code> 请求应该只浏览而不改变服务器端资源。这样就把问题域缩小到了非 <code>GET</code> 类型的请求上——攻击者已经不可能通过发布链接来伪造请求了，但他们仍可以发布表单，或者在其他站点上使用我们肉眼不可见的表单，在后台用 <code>js</code> 操作，伪造请求。<br>对于<code>POST</code>请求，我们可以用比较简单也比较有效的方法来防御<code>CSRF</code>，这个方法就是“请求令牌”。“请求令牌”是为了保证收到的请求一定来自预期的页面。实现方法非常简单，首先服务器端要以某种策略生成随机字符串，作为令牌<code>（token）</code>，保存在 <code>Session</code> 里。然后在发出请求的页面，把该令牌以隐藏域一类的形式，与其他信息一并发出。在接收请求的页面，把接收到的信息中的令牌与 <code>Session</code> 中的令牌比较，只有一致的时候才处理请求，否则返回 <code>HTTP 403</code>拒绝请求或者要求用户重新登录验证身份。<br>对于<code>web</code>站点，将持久化的授权方法（例如<code>cookie</code>或者<code>HTTP</code>授权）切换为瞬时的授权方法（在每个<code>form</code>中提供隐藏<code>field</code>），这将帮助网站防止这些攻击。</p>
+<h4 id="预防措施"><a href="#预防措施" class="headerlink" title="预防措施"></a><strong>预防措施</strong></h4><p>首先可以提高的一个门槛，就是改良站内 <code>API</code> 的设计。对于发布帖子这一类创建资源的操作，应该只接受<code>POST</code> 请求，而 <code>GET</code> 请求应该只浏览而不改变服务器端资源。这样就把问题域缩小到了非 <code>GET</code> 类型的请求上——攻击者已经不可能通过发布链接来伪造请求了，但他们仍可以发布表单，或者在其他站点上使用我们肉眼不可见的表单，在后台用 <code>js</code> 操作，伪造请求。<br>对于<code>POST</code>请求，我们可以用比较简单也比较有效的方法来防御<code>CSRF</code>，这个方法就是“请求令牌”。“请求令牌”是为了保证收到的请求一定来自预期的页面。实现方法非常简单，首先服务器端要以某种策略生成随机字符串，作为令牌<code>（token）</code>，保存在 <code>Session</code> 里。然后在发出请求的页面，把该令牌以隐藏域一类的形式，与其他信息一并发出。在接收请求的页面，把接收到的信息中的令牌与 <code>Session</code> 中的令牌比较，只有一致的时候才处理请求，否则返回 <code>HTTP 403</code>拒绝请求或者要求用户重新登录验证身份。<br>对于<code>web</code>站点，将持久化的授权方法（例如<code>cookie</code>或者<code>HTTP</code>授权）切换为瞬时的授权方法（在每个<code>form</code>中提供隐藏<code>field</code>），这将帮助网站防止这些攻击。</p>
 
       
     </div>
