@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>你所不知道的javascript（十） | hbChou</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="今天我们来聊聊javascript中的跨域问题。
+什么是跨域javascript出于安全的考虑，不允许某个页面中的javascript代码直接操作来自不同域名的页面中的数据。两个页面使用的协议、域名和端口只要有一个存在不同，即认为是来自两个不同的域名，这时候双方的直接通信就存在着限制。有时候，我们就需要跟其他域名下的页面进行通信，这时候我们就需要了解javascript中都有哪些常用的跨域手段。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你所不知道的javascript（十）">
+<meta property="og:url" content="http://yoursite.com/2016/05/04/javascriptSerial-10/index.html">
+<meta property="og:site_name" content="hbChou">
+<meta property="og:description" content="今天我们来聊聊javascript中的跨域问题。
+什么是跨域javascript出于安全的考虑，不允许某个页面中的javascript代码直接操作来自不同域名的页面中的数据。两个页面使用的协议、域名和端口只要有一个存在不同，即认为是来自两个不同的域名，这时候双方的直接通信就存在着限制。有时候，我们就需要跟其他域名下的页面进行通信，这时候我们就需要了解javascript中都有哪些常用的跨域手段。">
+<meta property="og:updated_time" content="2016-05-05T00:32:26.385Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你所不知道的javascript（十）">
+<meta name="twitter:description" content="今天我们来聊聊javascript中的跨域问题。
+什么是跨域javascript出于安全的考虑，不允许某个页面中的javascript代码直接操作来自不同域名的页面中的数据。两个页面使用的协议、域名和端口只要有一个存在不同，即认为是来自两个不同的域名，这时候双方的直接通信就存在着限制。有时候，我们就需要跟其他域名下的页面进行通信，这时候我们就需要了解javascript中都有哪些常用的跨域手段。">
+  
+    <link rel="alternative" href="/atom.xml" title="hbChou" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/image.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">hbChou</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">每天都要有所收获</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/javascript/" style="font-size: 10px;">javascript</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://segmentfault.com/">segmentfault社区</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">hbChou</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/image.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">hbChou</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">每天都要有所收获</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-javascriptSerial-10" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/04/javascriptSerial-10/" class="article-date">
+  	<time datetime="2016-05-04T12:29:17.000Z" itemprop="datePublished">2016-05-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      你所不知道的javascript（十）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天我们来聊聊javascript中的跨域问题。</p>
+<h2 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a><strong>什么是跨域</strong></h2><p>javascript出于安全的考虑，不允许某个页面中的javascript代码直接操作来自不同域名的页面中的数据。两个页面使用的协议、域名和端口只要有一个存在不同，即认为是来自两个不同的域名，这时候双方的直接通信就存在着限制。有时候，我们就需要跟其他域名下的页面进行通信，这时候我们就需要了解javascript中都有哪些常用的跨域手段。</p>
+<h2 id="使用代理"><a href="#使用代理" class="headerlink" title="使用代理"></a><strong>使用代理</strong></h2><p>我们可以在javascript中向同域名下的代理服务器发起请求，然后再由此代理服务器向目标服务器发起请求获取我们需要的数据。这是最直接有效的方法。</p>
+<h2 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a><strong>JSONP</strong></h2><p>JSONP只能用于GET请求中。它的基本思想是客户端通过请求参数向服务器端传送一个用于处理数据的回调函数的名称，由服务器向客户端返回一个字符串，该字符串类似于回调函数调用的形式，将要返回给客户端的数据作为参数传入该回调函数中。客户端在接收到字符串之后，创建script标签，将字符串作为script标签的内容并添加到页面中。这时候就实现将数据传入到客户端预先定义好的回调函数中。接着就在回调函数中处理服务器端返回的数据。</p>
+<h3 id="jQuery中实现JSONP"><a href="#jQuery中实现JSONP" class="headerlink" title="jQuery中实现JSONP"></a><strong>jQuery中实现JSONP</strong></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    url:<span class="string">""</span>,</span><br><span class="line">    type:<span class="string">"GET"</span>,</span><br><span class="line">    dataType:<span class="string">"jsonp"</span>,</span><br><span class="line">    jsonp:<span class="string">"jsoncallback"</span>,</span><br><span class="line">    <span class="comment">//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)</span></span><br><span class="line">    success:<span class="function"><span class="keyword">function</span>(<span class="params">json</span>)</span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>JSONP存在的不足：只能用于GET请求中。</p>
+<h2 id="document-domain-iframe（子域名代理）"><a href="#document-domain-iframe（子域名代理）" class="headerlink" title="document.domain + iframe（子域名代理）"></a><strong>document.domain + iframe（子域名代理）</strong></h2><p>对于主域相同而子域不同的情况，可以通过设置document.domain的办法来解决。如：对于两个文件<a href="http://www.a.com/a.html和http://blog.a.com/b.html均加上设置document.domain" target="_blank" rel="external">http://www.a.com/a.html和http://blog.a.com/b.html均加上设置document.domain</a> = ‘a.com’；然后在a.html文件中创建一个iframe，通过iframe两个js文件即可交互数据：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//www.a.com/a.html</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="built_in">document</span>.doamin = <span class="string">'a.com'</span>;</span><br><span class="line">    <span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>);</span><br><span class="line">    iframe.src = <span class="string">'http://blog.a.com/b.html'</span>;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(iframe);</span><br><span class="line">    iframe.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> doc = iframe.contentDocument || iframe.contentWindow.document;</span><br><span class="line">        <span class="comment">// 在这里操纵b.html</span></span><br><span class="line">        <span class="built_in">console</span>.log(doc);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在blog.a.com/b.html中编写代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="built_in">document</span>.domain = <span class="string">'a.com'</span>;</span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>存在的问题：安全性，当一个站点（b.a.com）被攻击后，另一个站点（c.a.com）会引起安全漏洞。另外，如果一个页面中引入多个iframe，要想能够操作所有iframe，必须都得设置相同domain。</p>
+<h2 id="跨域资源共享（CORS）"><a href="#跨域资源共享（CORS）" class="headerlink" title="跨域资源共享（CORS）"></a><strong>跨域资源共享（CORS）</strong></h2><p>跨域资源共享（CORS）定义了浏览器和服务器如何通过可控方式进行跨域通信。CORS通过添加特殊HTTP头信息以允许浏览器和服务器判断请求是成功还是失败。几乎所有现代浏览器都支持CORS。</p>
+<h3 id="HTTP请求头和响应头"><a href="#HTTP请求头和响应头" class="headerlink" title="HTTP请求头和响应头"></a><strong>HTTP请求头和响应头</strong></h3><p>当跨域发送HTTP请求时，支持CORS的浏览器会通过添加额外Origin头信息指定请求源，其值包括请求协议、域名、端口。如：<br>    Origin: <a href="http://www.codingplayboy.com" target="_blank" rel="external">http://www.codingplayboy.com</a><br>若请求头中无Origin信息，服务器将不返回任何CORS头信息。</p>
+<p>服务端接收到请求时会检查头信息确定是否接受请求：若接受请求，必须返回一个包含Access-Control-Allow-Origin响应头，其值与请求头Origin值相同，如：<br>    Access-Control-Allow-Origin: <a href="http://www.codingplayboy.com" target="_blank" rel="external">http://www.codingplayboy.com</a></p>
+<h3 id="创建CORS请求"><a href="#创建CORS请求" class="headerlink" title="创建CORS请求"></a><strong>创建CORS请求</strong></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//标准浏览器</span></span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="keyword">if</span> (<span class="string">'withCredentials'</span> <span class="keyword">in</span> xhr) &#123;</span><br><span class="line">    xhr.open(method, url, <span class="literal">true</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> XDomainRequest !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    <span class="comment">//IE</span></span><br><span class="line">    xhr = <span class="keyword">new</span> XDomainRequest();</span><br><span class="line">    xhr.open(method, <span class="literal">null</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//不支持CORS</span></span><br><span class="line">    xhr = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="IE对CORS的实现"><a href="#IE对CORS的实现" class="headerlink" title="IE对CORS的实现"></a><strong>IE对CORS的实现</strong></h3><p>IE8引入了XDR（XDomainRequest）对象，该对象和XHR对象类似，但能实现安全的跨域通信。XDR对象本身具有的一些安全策略：</p>
+<ul>
+<li>cookie不会随请求发送，也不会随响应返回</li>
+<li>只能设置请求头中的Content-Type字段</li>
+<li>不能访问响应头信息</li>
+<li>只支持GET和POST请求<br>XDR的使用方法和XHR非常类似，不同的是，XDR的open方法只接收两个参数，分别是请求方法和请求的URL。所有XDR的请求都是异步的，不能用它来创建同步请求。服务器端返回响应之后，会触发load事件，响应的数据也保存在XDR对象的responseText属性中。只能访问响应主体部分的数据，没有办法确定响应的状态码。也可以通过XDR对象发送POST请求，只需要修改请求头中的Content-Type字段（xdr.contentType），将要发送的数据传入send方法即可。</li>
+</ul>
+<h3 id="其他浏览器中的CORS实现"><a href="#其他浏览器中的CORS实现" class="headerlink" title="其他浏览器中的CORS实现"></a><strong>其他浏览器中的CORS实现</strong></h3><p>与IE中的XDR对象不同，XHR对象可以访问status和statusText属性，而且还支持同步请求。同样其他浏览器中的XHR对象也存在一些安全策略：</p>
+<ul>
+<li>不能使用setRequestHeader()方法设置自定义首部</li>
+<li>不能发送和接收cookie</li>
+<li>不能访问响应头信息<br>默认情况下，跨域请求不提供凭据（cookie，HTTP认证及客户端SSL证明等）。可以通过将XHR对象上的withCredentials属性设置为true，可以指定某个请求发送凭据。如果服务器接受带凭据的请求，则会用下面的HTTP头部来响应：<br>  Access-Control-Allow-Credentials: true<br>如果发送带凭据的请求，但服务器的响应中没有包含这个头部，则浏览器不会把响应交给javascript。（responseText将是空字符串，status值为0，）</li>
+</ul>
+<h3 id="预检请求（Preflight-Requests）"><a href="#预检请求（Preflight-Requests）" class="headerlink" title="预检请求（Preflight Requests）"></a><strong>预检请求（Preflight Requests）</strong></h3><p>使用CORS时，若请求方法不是GET，POST或HEAD，又或者使用了自定义HTTP头，浏览器将发起预检请求。预检请求是一个服务端认证机制，在执行请求之前会判断该请求是否合法。发送复杂请求时，浏览器会将原始请求的方法和请求头作为预检请求的信息发送给服务器；服务器需要决定是否接受该请求并响应，预检请求通常是使用一种OPTIONS的HTTP方法。</p>
+<p>客户端发起复杂请求时，会先发起预检，携带以下头信息:<table class="table table-bordered table-striped table-condensed"><tr><th>请求头</th><th>描述</th></tr><tr><td>Origin</td><td>请求源</td></tr><tr><td>Access-Control-Request-Method</td><td>请求方法（HTTP方法）</td></tr><tr><td>Access-Control-Request-Headers</td><td>请求自定义头（以逗号分隔）</td></tr></table>服务器返回的响应头：<table class="table table-bordered table-striped table-condensed"><tr><th>响应头</th><th>描述</th></tr><tr><td>Access-Control-Allow-Origin</td><td>允许的请求源（与请求头Origin匹配）</td></tr><tr><td>Access-Control-Allow-Methods</td><td>允许的请求方法（以逗号分隔）</td></tr><tr><td>Access-Control-Allow-Headers</td><td>允许的头信息（以逗号分隔）</td></tr><tr><td>Access-Control-Max-Age</td><td>预检请求的缓存时间（单位：秒）</td></tr><tr><td>Access-Control-Allow-Credentials</td><td>指定请求是否支持认证信息（可选）</td></tr></table>客户端接收到服务端的响应后，会使用之前声明的HTTP方法和请求头发送真正的请求。预检请求会被浏览器缓存，缓存时间为Access-Control-Max-Age值，缓存时间内，后续相同类型的请求不再发起重复的预检请求。IE8、IE9均不支持预检请求。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/05/03/javascriptSerial-9/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">你所不知道的javascript（九）</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="javascriptSerial-10" data-title="你所不知道的javascript（十）" data-url="http://yoursite.com/2016/05/04/javascriptSerial-10/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 hbChou
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

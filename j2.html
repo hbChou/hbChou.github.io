@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>javascript</title>
+	<style type="text/css">
+	.div1{
+		background: yellow;
+		width: 100px;
+		height: 100px;
+	}
+	iframe{
+		width: 400px;
+		height: 400px;
+	}
+	</style>
+	<link rel="stylesheet" type="text/css" href="">
+</head>
+<body>
+	<!-- <button id="btn">按钮</button> -->
+	<!-- <div class="div1" id="div1"><span></span></div> -->
+	<!-- <iframe src="j1.html" frameborder="0"></iframe> -->
+	<!-- <a href="#" name="link1">链接1</a>
+	<a href="#">链接2</a> -->
+
+	<!-- <div id="div2" style="width: 100px;height: 100px;" onclick="alert('hello!');" class="div2" data-subject="javascript"></div> -->
+	<div id="div2">
+		<p>javascript</p>
+		<ul>
+			<li>BOM</li>
+			<li>COM</li>
+			<li>DOM</li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		/*!function (){
+			console.log("hello");
+		}();
+		console.log(foo);// 报错，未定义*/
+
+		/*alert(x);//function(){}
+		var x = 10;
+		alert(x);//10
+		x = 20;
+		function x(){}
+		alert(x);//20
+		if(true){
+			var a = 1;
+		}else{
+			var b = true;
+		}
+		alert(a);// 1
+		alert(b);//undefined*/
+
+		/*function outer () {
+			var i = 5;
+			var func = new Function("console.log(typeof i);");//undefined
+			func();
+		}
+		outer();
+
+		var i = 12;
+		var func = new Function("console.log(i);");//12
+		func();*/
+
+		/*function call() {
+			console.log(arguments.caller); // undefined
+			console.log(arguments.callee.caller);
+		}
+
+		function arg(a, b, c) {
+			console.log(arguments);
+			arguments[2] = 3;
+			console.log(c); // undefined
+			call();
+		}
+		arg(1,2);*/
+		/*function fn() {
+
+		}
+		console.log(fn.__proto__ === Function.prototype);
+		console.log(fn.prototype.__proto__ === Object.prototype);*/
+
+		/*function toBind () {
+			return this.x;
+		}
+		var binded = toBind.bind({x:2});
+		console.log(binded());//2
+		console.log(binded.prototype);//undefined*/
+
+		/*function foo () {
+			this.b = 100;
+			return this.a;
+		}
+		var newfoo = foo.bind({a:200});
+		console.log(newfoo.prototype); //undefined
+		var obj = new newfoo();
+		console.log(obj);
+		console.log(obj.__proto__ === foo.prototype); // true
+		console.log(newfoo.prototype); // undefined*/
+
+		//console.log(prompt("你确定要离开吗？", "请输入！"));
+
+		/*var obj = {_name: "haibin"};
+		console.log(obj._name);*/
+
+		//function Person() {
+		//}
+		//Person.prototype.name = "haibin";
+		//var male = new Person();
+		//male.name = "guoping";
+		//console.log(male.name);
+		//delete male.name;
+		//console.log(male.name);
+		//var male = new Person();
+		//male.name = "haibin";
+		//Object.defineProperty(male, "name", {
+		//	configurable: true,
+		//	enumerable: false,
+		//	writable: true
+		//});
+		//for(var attr in male) {
+		//	console.log(male[attr]);
+		//}
+		//console.log(Object.keys(male));
+
+		/*function Person() {
+
+		}
+		Person.prototype.name = "hb";
+		var male = new Person();
+		console.log(Object.keys(male));
+		Object.defineProperty(male, "age", {
+			configurable: true,
+			enumerable: false,
+			writable: true
+		});
+		console.log(Object.keys(male));
+		console.log(Object.getOwnPropertyNames(male));
+		delete male.name;
+		console.log(male.name);
+		console.log("toString" in male);*/
+
+		/*function Person() {
+		}
+		Person.prototype.name = "hb";
+		Person.prototype.say = function () {
+			return "hello";
+		};
+		var male = new Person();
+		Person.prototype =  {
+			name: "gp",
+			say: function () {
+				return "bye";
+			}
+		};
+		var female = new Person();
+		console.log(male.name + " says " + male.say()); // hb says hello
+		console.log(female.name + " says " + female.say()); // gp says bye*/
+
+		/*function Animal() {
+		  this.name = "Animal";
+		}
+		Animal.prototype.eat = function () {
+		  console.log(this.name + " eats");
+		};
+		function Bird() {
+		  this.color = "blue";
+		}
+		Bird.prototype = new Animal();
+		Bird.prototype.fly = function () {
+		  console.log(this.color + " bird flys.");
+		};
+		var bird = new Bird();
+		bird.eat();
+		bird.fly();
+		console.log(bird.constructor);*/
+		/*function Super() {
+		  this.colors = ["red", "green", "blue"];
+		}
+		function Child() {
+		  Super.call(this);
+		}
+		var obj1 = new Child();
+		obj1.colors.push("yellow");
+		console.log(obj1.colors); // ["red", "green", "blue", "yellow"]
+
+		var obj2 = new Child();
+		console.log(obj2.colors); // ["red", "green", "blue"]*/
+
+		/*function Person() {
+		}
+		var male = new Person();
+		Object.defineProperty(male, "name", {
+			value: "hb"
+		});
+		console.log(male.name); // "hb"
+		male.name = "gp";
+		console.log(male.name); // "hb"
+		Object.defineProperty(male, "name", {
+			writable: true
+		}); // 报错，当第一次将configurable设置为false，就不能再重复定义同样属性*/
+
+		/*function Person() {
+
+		}
+		var male = new Person();
+		Object.defineProperty(male, "name", {
+			get: function () {
+
+			}
+		});
+		console.log(male.name); // undefined*/
+
+		/*var obj = {name: "haibin", $age: 22};
+		Object.defineProperty(obj, "age", {
+		  get:function () {
+		    return this.$age;
+		  },
+		  set:function (arg) {
+		    this.$age = arg;
+		    return this.$age;
+		  }
+		});
+		console.log(obj.age); // 22
+		obj.age = 24;
+		console.log(obj); //{name: "haibin", $age: 24}
+		console.log(obj.age); //24*/
+
+		/*var man = {
+			name:"haibin",
+			_age: new Date().getFullYear()-1994,
+			get age(){
+				return this._age;
+			},
+			set age(arg){				//set(arg)方法必须要有一个形式参数
+				//this.age = new Date().getFullYear()-1994;//会导致无限的递归
+				this._age = arg;
+			}
+		};
+		console.log(man.age); // 22
+		man.age = 25;
+		console.log(man.age); // 25*/
+
+		//var btn = document.getElementsByName("btn")[0];
+		/*var btn = document.getElementById('btn');
+		var id = btn.id;
+		btn.onclick = function () {
+			alert(id);
+		}; // btn 的作用就是在元素绑定事件，绑定完成后就可以立即销毁
+		btn = null;*/
+
+		/*var age = 29;
+		console.log(delete age); // false*/
+		/*window.age = 29;
+		console.log(delete window.age); // 在IE9以下会抛出错误，在IE高版本中返回true
+		console.log(window.age); // undefined*/
+
+		/*var screenleft = typeof window.screenLeft === "number" ? window.screenLeft : window.screenX;
+		var screentop = typeof window.screenTop === "number" ? window.screenTop : window.screenY;
+		console.log(screentop);*/
+
+		//console.log(window.self === window.window); // true
+		// console.log(window.screenX);
+		// console.log(window.innerWidth);
+		// console.log(window.outerWidth);
+
+		//window.open("absolute.html", "_blank", "width=400,height=400,resizable=no,scrollbars=yes,left=100,top=100");
+
+		/*var nodes = document.getElementsByTagName('div');
+		console.log(nodes);
+		console.log(nodes[0].childNodes);
+		//console.log(nodes.length); // 1
+		//console.log(nodes[0].className); //div1
+		console.log(nodes.length);
+		var newDiv = document.createElement("div");
+		document.body.appendChild(newDiv);
+		console.log(nodes.length); // 2
+		//console.log(document.doctype.nodeName);
+		console.log(nodes.item(0).className); // div1
+
+		console.log(document.documentElement.clientWidth);
+		console.log(document.body.clientWidth);*/
+
+		/*var div = document.getElementsByTagName('div');
+		div[0].onclick = function () {
+			alert("hello");
+		};
+		var clone = div[0].cloneNode(true);
+		//console.log(div[0].childNodes[0]);
+		//console.log(clone.className); // div1
+		//console.log(clone.id);
+		console.log(div[0].childNodes[0] === clone.childNodes[0]);
+		document.body.appendChild(clone);*/
+
+		//console.log(document.doctype);
+		window.onload = function () {
+			/*var iframe = document.getElementsByTagName('iframe')[0];
+			console.log(document.domain);
+			console.log(iframe.contentWindow.a);*/
+
+			//document.write("helloworld");
+			var xhr = new XMLHttpRequest();
+			xhr.open("get", "http://www.baidu.com", true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					console.log("Data: " + xhr.responseText);
+				}
+			};
+			//xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			//xhr.setRequestHeader("MyHeader", "data");
+			xhr.send();
+		};
+
+		/*console.log(Object.prototype.toString.call(document.anchors));
+		console.log(document.anchors.length);
+		console.log(document.anchors[0].name);*/
+		/*var div2 = document.getElementById('div2');
+		console.log(div2.getAttribute("onclick"));*/
+
+		/*var script = document.createElement("script");
+		script.type = "text/javascript";
+		//script.appendChild(document.createTextNode("function print() {alert('javascript');}"));
+		script.innerHTML = "function print(){alert('javascript');}\nprint();";
+		document.body.appendChild(script);*/
+
+		/*var divs = document.querySelectorAll("div");
+		console.log(divs.length); // 0
+		var newDiv = document.createElement("div");
+		document.body.appendChild(newDiv);
+		console.log(divs.length); // 0*/
+
+		/*var div = document.getElementById("div2");
+		console.log(div.webkitMatchesSelector("#div2"));*/
+
+		//console.log(document.getElementsByClassName("div2").length);
+		//console.log(document.head.getElementsByTagName("*").length);
+		/*console.log(document.charset);
+		console.log(document.defaultCharset);
+		console.log(document.getElementById("div2").dataset.subject);*/
+
+		// document.getElementById("div2").innerHTML = "<input type='hidden'><script defer>alert('hello');<\/script>";
+		/*document.getElementById('div2').innerHTML = "<input type='hidden'><style type='text/css'>#div2{background: green;}</style>";*/
+		console.log(document.getElementById('div2').innerText);
+	</script>
+</body>
+</html>
