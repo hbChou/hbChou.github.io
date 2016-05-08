@@ -79,7 +79,7 @@
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -116,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -191,6 +191,347 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-optimization&amp;secure" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/05/optimization&secure/" class="article-date">
+  	<time datetime="2016-05-05T01:21:18.000Z" itemprop="datePublished">2016-05-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/05/optimization&secure/">前端优化方案</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这一节让我们来总结一些常见的前端优化方案以及一些安全问题。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#浏览器是如何渲染页面的"><strong>浏览器是如何渲染页面的</strong></a></li>
+<li><a href="#回流与重绘"><strong>回流与重绘</strong></a><ul>
+<li><a href="#哪些操作会引起回流或重绘"><strong>哪些操作会引起回流或重绘</strong></a></li>
+<li><a href="#如何减少回流或者重绘"><strong>如何减少回流或者重绘</strong></a></li>
+<li><a href="#强制重排"><strong>强制重排</strong></a></li>
+</ul>
+</li>
+<li><a href="#雅虎军规"><strong>雅虎军规</strong></a></li>
+<li><a href="#延伸扩展"><strong>延伸扩展</strong></a><ul>
+<li><a href="#iframe的优缺点"><strong>iframe的优缺点</strong></a></li>
+<li><a href="#什么是cdn"><strong>什么是CDN</strong></a></li>
+<li><a href="#高效的css"><strong>高效的css</strong></a><ul>
+<li><a href="#原则"><strong>原则</strong></a></li>
+<li><a href="#其他css高性能实践"><strong>其他<code>css</code>高性能实践</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#前端安全问题"><strong>前端安全问题</strong></a><ul>
+<li><a href="#xss"><strong>XSS</strong></a><ul>
+<li><a href="#跨站脚本攻击的解决思路"><strong>跨站脚本攻击的解决思路</strong></a></li>
+<li><a href="#xss给我们的启示"><strong>XSS给我们的启示</strong></a></li>
+</ul>
+</li>
+<li><a href="#csrf"><strong>CSRF</strong></a><ul>
+<li><a href="#什么是csrf"><strong>什么是CSRF</strong></a></li>
+<li><a href="#预防措施"><strong>预防措施</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="浏览器是如何渲染页面的"></a></p>
+<h2 id="浏览器是如何渲染页面的"><a href="#浏览器是如何渲染页面的" class="headerlink" title="浏览器是如何渲染页面的"></a><strong>浏览器是如何渲染页面的</strong></h2><ul>
+<li>根据来自服务器端的<code>HTML</code>代码形成文档对象模型<code>（DOM）</code></li>
+<li>加载并解析样式，形成<code>CSS</code>对象模型</li>
+<li>在文档对象模型和<code>CSS</code>对象模型之上，创建一棵由一组待生成渲染的对象组成的渲染树（在<code>Webkit</code>中这些对象被称为渲染器或渲染对象）。<code>render tree</code>能识别样式，上面的每个<code>node</code>都有自己的<code>style</code>，但是<code>render tree</code>中不包含诸如<code>&lt;head&gt;</code>标签或含有<code>display:none</code>属性的不可见元素。</li>
+<li>对渲染树上的每个元素，计算它的坐标，称之为布局。浏览器采用一种流方法，布局一个元素只需通过一次，但是表格元素需要通过多次。</li>
+<li>最后，渲染树上的元素最终展示在浏览器里，这一过程称为<code>&quot;painting&quot;</code>。当用户与网页交互，或者脚本程序改动修改网页时，前面提到的一些操作将会重复执行，因为网页的内在结构已经发生了改变。</li>
+</ul>
+<p><a name="回流与重绘"></a></p>
+<h2 id="回流与重绘"><a href="#回流与重绘" class="headerlink" title="回流与重绘"></a><strong>回流与重绘</strong></h2><p>回流：当<code>Render tree</code>中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流。每个页面至少需要一次回流，就是在页面第一次加载的时候。<br>重绘：当<code>Render tree</code>中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如<code>background-color</code>，叫做重绘。</p>
+<p><a name="哪些操作会引起回流或重绘"></a></p>
+<h3 id="哪些操作会引起回流或重绘"><a href="#哪些操作会引起回流或重绘" class="headerlink" title="哪些操作会引起回流或重绘"></a><strong>哪些操作会引起回流或重绘</strong></h3><p>其实任何对render tree中元素的操作都会引起回流或者重绘，比如：</p>
+<ol>
+<li>添加、删除元素(回流+重绘)</li>
+<li>隐藏元素，<code>display:none</code>(回流+重绘)，<code>visibility:hidden</code>(只重绘，不回流)</li>
+<li>移动元素，比如改变<code>top</code>,<code>left</code>(重绘+回流)</li>
+<li>对<code>style</code>的操作(对不同的属性操作，影响不一样)</li>
+<li>还有一种是用户的操作，比如改变浏览器大小，改变浏览器的字体大小等(回流+重绘)<br>如果每句<code>JS</code>操作都去回流重绘的话，浏览器可能就会受不了。所以很多浏览器都会优化这些操作，浏览器会维护一个队列，把所有会引起回流、重绘的操作放入这个队列，等队列中的操作到了一定的数量或者到了一定的时间间隔，浏览器就会清空队列，进行一个批处理。这样就会让多次的回流、重绘变成一次回流重绘。</li>
+</ol>
+<p><a name="如何减少回流或者重绘"></a></p>
+<h3 id="如何减少回流或者重绘"><a href="#如何减少回流或者重绘" class="headerlink" title="如何减少回流或者重绘"></a><strong>如何减少回流或者重绘</strong></h3><ul>
+<li>当需要设置多个样式时，设置节点的<code>className</code>属性而不是直接操作<code>style</code>属性</li>
+<li>让要操作的<code>DOM</code>元素进行”离线处理”，处理完后再一起更新，这里所谓的”离线处理”即让元素不存在于<code>render tree</code>中，比如在向页面添加多个新元素时使用<code>documentFragment</code>或<code>div</code>等元素进行缓存操作，最后再统一添加到页面中。</li>
+</ul>
+<p><a name="强制重排"></a></p>
+<h3 id="强制重排"><a href="#强制重排" class="headerlink" title="强制重排"></a><strong>强制重排</strong></h3><p>要尽量避免回流和重绘，就要把访问元素属性的操作都组织在一起，从而优化网页性能<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $body = $(<span class="string">'body'</span>);</span><br><span class="line">$body.css(<span class="string">'padding'</span>, <span class="string">'1px'</span>); <span class="comment">// reflow, repaint</span></span><br><span class="line">$body.css(<span class="string">'color'</span>, <span class="string">'red'</span>); <span class="comment">// repaint</span></span><br><span class="line">$body.css(<span class="string">'margin'</span>, <span class="string">'2px'</span>); <span class="comment">// reflow, repaint</span></span><br><span class="line"><span class="comment">// only 1 reflow and repaint will actually happen</span></span><br></pre></td></tr></table></figure></p>
+<p>但有时，我们也必须触发一个强制性重排。比如，我们需要将同样的属性(比如左边距)两次赋值给同一个元素。起初，它应该设置为<code>100px</code>，且不带动效。接着，它必须通过过渡<code>(transition)</code>动效改变为<code>50px</code>。如果不强制重排，则动画不具备过渡效果。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// remove the transition class</span></span><br><span class="line">$(<span class="keyword">this</span>).removeClass(<span class="string">'has-transition'</span>);</span><br><span class="line"><span class="comment">// change the property</span></span><br><span class="line">$(<span class="keyword">this</span>).css(<span class="string">'margin-left'</span>, <span class="number">100</span>);</span><br><span class="line"><span class="comment">// trigger a forced reflow, so that changes in a    class/property get applied immediately</span></span><br><span class="line">$(<span class="keyword">this</span>)[<span class="number">0</span>].offsetHeight; <span class="comment">// an example, other  properties would work, too</span></span><br><span class="line"><span class="comment">// put the transition class back</span></span><br><span class="line">$(<span class="keyword">this</span>).addClass(<span class="string">'has-transition'</span>);</span><br><span class="line"><span class="comment">// change the property</span></span><br><span class="line">$(<span class="keyword">this</span>).css(<span class="string">'margin-left'</span>, <span class="number">50</span>);</span><br></pre></td></tr></table></figure></p>
+<p><a name="雅虎军规"></a></p>
+<h2 id="雅虎军规"><a href="#雅虎军规" class="headerlink" title="雅虎军规"></a><strong>雅虎军规</strong></h2><p>著名的前端优化方案有大名鼎鼎的“雅虎军规”。这里只列出其中的一些条目：</p>
+<ul>
+<li>压缩<ul>
+<li>网页<code>Gzip</code>压缩</li>
+<li><code>JS</code>、<code>CSS</code>源码压缩</li>
+</ul>
+</li>
+<li>缓存<ul>
+<li>设置头文件过期或者静态缓存</li>
+<li>将<code>JS</code>和<code>CSS</code>外链</li>
+</ul>
+</li>
+<li><p>性能</p>
+<ul>
+<li>避免<code>CSS Expressions</code></li>
+<li>减少<code>iframe</code>数量</li>
+<li>缓存<code>DOM</code>节点查找、<code>AJAX</code>查询到的结果</li>
+<li>当需要设置的样式很多时候设置<code>className</code>而不是直接操作<code>style</code>属性</li>
+<li>用<code>innerHTML</code>代替<code>DOM</code>操作，减少<code>DOM</code>操作次数</li>
+<li>减少<code>http</code>请求次数：使用<code>CSS Sprites</code>，使用<code>CDN</code>托管（尽量使用公共库），避免重定向（比如在<code>html</code>中写入链接时，<code>&quot;github.io&quot;</code>和<code>&quot;github.io/&quot;</code>，前者会进一步重定向到后者）</li>
+<li><code>js</code>中要避免全局查找（可以将常用的全局变量作为参数传递到函数中），避免不必要的属性查找（可以将一次查找结果缓存在变量中），避免with语句</li>
+</ul>
+</li>
+<li><p>用户体验</p>
+<ul>
+<li>图片预加载</li>
+<li><code>CSS</code>放顶部（让浏览者能尽早的看到网站的完整样式）、<code>JS</code>放底部（在不影响内容表现的情况下）</li>
+<li>尽早地释放缓冲（当用户进行页面请求时，服务器端需要花费<code>200</code>到<code>500</code>毫秒时间来拼合<code>HTML</code>，将写在<code>head</code>与<code>body</code>之间，释放缓冲，这样可以将文件头先发送出去，然后再发送文件内容，提高效率）</li>
+<li>跨域分离组件（页面组件多个来源可以增大你的平行下载量，但注意不要过多，超过<code>2-4</code>个域名会引起上面说到的<code>DNS</code>查找浪费）</li>
+<li>不要出现<code>404</code>页面</li>
+</ul>
+</li>
+</ul>
+<p><a name="延伸扩展"></a></p>
+<h2 id="延伸扩展"><a href="#延伸扩展" class="headerlink" title="延伸扩展"></a><strong>延伸扩展</strong></h2><ul>
+<li>浏览器在解析域名的时候，是先从<code>&quot;.&quot;</code>开始的，也就是最顶级的域名。</li>
+</ul>
+<p><a name="iframe的优缺点"></a></p>
+<h3 id="iframe的优缺点"><a href="#iframe的优缺点" class="headerlink" title="iframe的优缺点"></a><strong>iframe的优缺点</strong></h3><p><code>iframe</code>的优点：</p>
+<ul>
+<li>解决加载缓慢的第三方内容如图标和广告等的加载问题</li>
+<li><code>Security sandbox</code>（安全沙箱）<ul>
+<li>禁止访问父页面的<code>DOM</code>（从技术角度来说，这是因为相对于父页面<code>iframe</code>已经成为不同的源了）</li>
+<li>禁止执行脚本</li>
+<li>禁止对<code>cookie</code>、本地存储或本地<code>SQL</code>数据库的读写</li>
+</ul>
+</li>
+<li>并行加载脚本</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><code>iframe</code>会阻塞主页面的<code>onload</code>事件；</li>
+<li>即使内容为空，加载也需要时间</li>
+</ul>
+<p><a name="什么是cdn"></a></p>
+<h3 id="什么是CDN"><a href="#什么是CDN" class="headerlink" title="什么是CDN"></a><strong>什么是CDN</strong></h3><p><code>CDN</code>的全称是<code>Content Delivery Network</code>，内容分发网络。<code>CDN</code>公共库是指将常用的<code>JS</code>库存放在<code>CDN</code>节点，以方便广大开发者直接调用。与将<code>JS</code>库存放在服务器单机上相比，<code>CDN</code>公共库更加稳定、高速。使用了<code>CDN</code>缓存后的网站的访问过程为:</p>
+<ul>
+<li>用户向浏览器提供要访问的域名;</li>
+<li>浏览器调用域名解析库对域名进行解析，由于<code>CDN</code>对域名解析过程进行了调整，所以解析函数库一般得到的是该域名对应的<code>CNAME</code>记录，为了得到实际<code>IP</code>地址，浏览器需要再次对获得的<code>CNAME</code>域名进行解析以得到实际的<code>IP</code>地址;在此过程中，使用的全局负载均衡<code>DNS</code>解析，如根据地理位置信息解析对应的<code>IP</code>地址，使得用户能就近访问；</li>
+<li>此次解析得到<code>CDN</code>缓存服务器的<code>IP</code>地址，浏览器在得到实际的<code>IP</code>地址以后，向缓存服务器发出访问请求；</li>
+<li>缓存服务器根据浏览器提供的要访问的域名，通过<code>Cache</code>内部专用<code>DNS</code>解析得到此域名的实际<code>IP</code>地址，再由缓存服务器向此实际<code>IP</code>地址提交访问请求；</li>
+<li>缓存服务器从实际<code>IP</code>地址得得到内容以后，一方面在本地进行保存，以备以后使用，另一方面把获取的数据返回给客户端，完成数据服务过程；</li>
+<li>客户端得到由缓存服务器返回的数据以后显示出来并完成整个浏览的数据请求过程。</li>
+</ul>
+<p><a name="高效的css"></a></p>
+<h3 id="高效的css"><a href="#高效的css" class="headerlink" title="高效的css"></a><strong>高效的css</strong></h3><p>浏览器在解析<code>css</code>选择器时是按从右向左的顺序匹配元素的。</p>
+<p><a name="原则"></a></p>
+<h4 id="原则"><a href="#原则" class="headerlink" title="原则"></a><strong>原则</strong></h4><ul>
+<li>避免使用通配符</li>
+<li>避免使用标签选择器和单个属性选择器作为关键选择器</li>
+<li>不要在<code>id</code>选择器前加标签名</li>
+<li>尽量不要在选择符定义过多层级，层级越少，同时也降低了<code>css</code>和<code>dom</code>结构的耦合程度，提高样式的可维护性</li>
+</ul>
+<p><a name="其他css高性能实践"></a></p>
+<h4 id="其他css高性能实践"><a href="#其他css高性能实践" class="headerlink" title="其他css高性能实践"></a><strong>其他<code>css</code>高性能实践</strong></h4><ul>
+<li>避免使用<code>@import</code><br><code>@import</code>导入的新样式文件会阻止页面的并行下载，这样增加了文件的整体加载时间。</li>
+<li>避免使用<code>IE</code>浏览器独有样式：图片滤镜和<code>css</code>表达式<br>图片滤镜的使用会在图片加载时阻塞浏览器的加载和渲染，并会增加额外的内存开销。<code>Css</code>表达式的作用是动态设置<code>css</code>属性，表达式不只是有兼容性问题，还有性能问题，例如浏览器大小改动、窗口改动时，会使得浏览器频繁计算，性能消耗极大。同样的效果可以用<code>javascript</code>来实现。<br>另外，在编写超链接样式的时候，要按照下列的顺序：<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span> &#123;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> &#123;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:active</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>防止超链接访问过后<code>hover</code>样式就不出现了，以及被点击访问过的超链接样式不再具有<code>hover</code>和<code>active</code>样式了</p>
+<p><a name="前端安全问题"></a></p>
+<h2 id="前端安全问题"><a href="#前端安全问题" class="headerlink" title="前端安全问题"></a><strong>前端安全问题</strong></h2><p><a name="xss"></a></p>
+<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a><strong>XSS</strong></h3><p><code>XSS</code> 全称“跨站脚本”，是注入攻击的一种。其特点是不对服务器端造成任何伤害，而是通过一些正常的站内交互途径，例如发布评论，提交含有 <code>JavaScript</code> 的内容文本。这时服务器端如果没有过滤或转义掉这些脚本，作为内容发布到了页面上，其他用户访问这个页面的时候就会运行这些脚本。</p>
+<p><a name="跨站脚本攻击的解决思路"></a></p>
+<h4 id="跨站脚本攻击的解决思路"><a href="#跨站脚本攻击的解决思路" class="headerlink" title="跨站脚本攻击的解决思路"></a><strong>跨站脚本攻击的解决思路</strong></h4><p>预防<code>XSS</code>攻击的基本方法是：确保任何被输出到<code>HTML</code>页面中的数据以<code>HTML</code>的方式进行转义<code>（HTML escape）</code>。例如<code>PHP</code>输出：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span>&lt;?php echo $articleText; ?&gt;<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如果这个<code>articleText</code>是由用户自行输入的，那么攻击者很有可能输入一段包含<code>javascript</code>恶意攻击代码的文本，使得最终输出变成：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="string">'hello'</span>)<span class="string">'</span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>上述代码，在浏览器中渲染，将会执行<code>JavaScript</code>代码并在屏幕上<code>alert hello</code>。当然这个代码是无害的，但攻击者完全可以创建一个<code>JavaScript</code>来修改用户资料或者窃取cookie数据。解决方法很简单，就是将输出的值的值进行<code>html escape</code>，转义后的输出代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span></span><br><span class="line">&amp;lt;/textarea&amp;gt;&amp;lt;script&amp;gt;alert(&amp;quot;hello!&amp;quot;)&amp;lt;/script&amp;gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这样就不会有任何危害了。</p>
+<p><a name="xss给我们的启示"></a></p>
+<h4 id="XSS给我们的启示"><a href="#XSS给我们的启示" class="headerlink" title="XSS给我们的启示"></a><strong>XSS给我们的启示</strong></h4><p>其实无论是哪一种<code>xss</code>攻击手段，其原理都是使用了“<code>xss</code>就是在页面执行你想要的<code>js</code>”，也就是说，只要遵循一个原则——后端永远不信任前端输入的任何信息，无论是输入还是输出，都对其进行<code>html</code>字符的转义，那么漏洞就基本不存在了。</p>
+<p><a name="csrf"></a></p>
+<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a><strong>CSRF</strong></h3><p><a name="什么是csrf"></a></p>
+<h4 id="什么是CSRF"><a href="#什么是CSRF" class="headerlink" title="什么是CSRF"></a><strong>什么是CSRF</strong></h4><p><code>CSRF</code>：跨站请求伪造，核心也就是请求伪造，通过伪造身份提交<code>POST</code>和<code>GET</code>请求来进行跨域的攻击。<br>举一个通俗的例子：一论坛网站的发贴是通过 <code>GET</code> 请求访问，点击发贴之后 <code>JS</code> 把发贴内容拼接成目标 <code>URL</code> 并访问：<br>    <code>http://example.com/bbs/create_post.php?title=标题&amp;content=内容</code><br>那么，我只需要在论坛中发一帖，包含一链接：<br>    <code>http://example.com/bbs/create_post.php?title=我是脑残&amp;content=哈哈</code><br>只要有用户点击了这个链接，那么他们的帐户就会在不知情的情况下发布了这一帖子。可能这只是个恶作剧，但是既然发贴的请求可以伪造，那么删帖、转帐、改密码、发邮件全都可以伪造。</p>
+<p><a name="预防措施"></a></p>
+<h4 id="预防措施"><a href="#预防措施" class="headerlink" title="预防措施"></a><strong>预防措施</strong></h4><p>首先可以提高的一个门槛，就是改良站内 <code>API</code> 的设计。对于发布帖子这一类创建资源的操作，应该只接受<code>POST</code> 请求，而 <code>GET</code> 请求应该只浏览而不改变服务器端资源。这样就把问题域缩小到了非 <code>GET</code> 类型的请求上——攻击者已经不可能通过发布链接来伪造请求了，但他们仍可以发布表单，或者在其他站点上使用我们肉眼不可见的表单，在后台用 <code>js</code> 操作，伪造请求。<br>对于<code>POST</code>请求，我们可以用比较简单也比较有效的方法来防御<code>CSRF</code>，这个方法就是“请求令牌”。“请求令牌”是为了保证收到的请求一定来自预期的页面。实现方法非常简单，首先服务器端要以某种策略生成随机字符串，作为令牌<code>（token）</code>，保存在 <code>Session</code> 里。然后在发出请求的页面，把该令牌以隐藏域一类的形式，与其他信息一并发出。在接收请求的页面，把接收到的信息中的令牌与 <code>Session</code> 中的令牌比较，只有一致的时候才处理请求，否则返回 <code>HTTP 403</code>拒绝请求或者要求用户重新登录验证身份。<br>对于<code>web</code>站点，将持久化的授权方法（例如<code>cookie</code>或者<code>HTTP</code>授权）切换为瞬时的授权方法（在每个<code>form</code>中提供隐藏<code>field</code>），这将帮助网站防止这些攻击。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端安全与优化/">前端安全与优化</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-javascriptSerial-10" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/04/javascriptSerial-10/" class="article-date">
+  	<time datetime="2016-05-04T12:29:17.000Z" itemprop="datePublished">2016-05-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/04/javascriptSerial-10/">你所不知道的javascript之跨域</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天我们来聊聊<code>javascript</code>中的跨域问题。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#什么是跨域"><strong>什么是跨域</strong></a></li>
+<li><a href="#使用代理"><strong>使用代理</strong></a></li>
+<li><a href="#jsonp"><strong>JSONP</strong></a><ul>
+<li><a href="#jquery中实现jsonp"><strong>jQuery中实现JSONP</strong></a></li>
+</ul>
+</li>
+<li><a href="#documentdomain--iframe（子域名代理）"><strong>document.domain + iframe（子域名代理）</strong></a></li>
+<li><a href="#跨域资源共享（cors）"><strong>跨域资源共享（CORS）</strong></a><ul>
+<li><a href="#http请求头和响应头"><strong>HTTP请求头和响应头</strong></a></li>
+<li><a href="#创建cors请求"><strong>创建CORS请求</strong></a></li>
+<li><a href="#ie对cors的实现"><strong>IE对CORS的实现</strong></a></li>
+<li><a href="#其他浏览器中的cors实现"><strong>其他浏览器中的CORS实现</strong></a></li>
+<li><a href="#预检请求（preflight-requests）"><strong>预检请求（Preflight Requests）</strong></a></li>
+</ul>
+</li>
+<li><a href="#html5中的xdm（cross-document-messaging，跨文档消息传送）"><strong>HTML5中的XDM（cross-document messaging，跨文档消息传送）</strong></a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="什么是跨域"></a></p>
+<h2 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a><strong>什么是跨域</strong></h2><p><code>javascript</code>出于安全的考虑，不允许某个页面中的<code>javascript</code>代码直接操作来自不同域名的页面中的数据。两个页面使用的协议、域名和端口只要有一个存在不同，即认为是来自两个不同的域名，这时候双方的直接通信就存在着限制。有时候，我们就需要跟其他域名下的页面进行通信，这时候我们就需要了解<code>javascript</code>中都有哪些常用的跨域手段。</p>
+<p><a name="使用代理"></a></p>
+<h2 id="使用代理"><a href="#使用代理" class="headerlink" title="使用代理"></a><strong>使用代理</strong></h2><p>我们可以在javascript中向同域名下的代理服务器发起请求，然后再由此代理服务器向目标服务器发起请求获取我们需要的数据。这是最直接有效的方法。</p>
+<p><a name="jsonp"></a></p>
+<h2 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a><strong>JSONP</strong></h2><p><code>JSONP</code>只能用于<code>GET</code>请求中。它的基本思想是客户端通过请求参数向服务器端传送一个用于处理数据的回调函数的名称，由服务器向客户端返回一个字符串，该字符串类似于回调函数调用的形式，将要返回给客户端的数据作为参数传入该回调函数中。客户端在接收到字符串之后，创建<code>script</code>标签，将字符串作为<code>script</code>标签的内容并添加到页面中。这时候就实现将数据传入到客户端预先定义好的回调函数中。接着就在回调函数中处理服务器端返回的数据。<br>另外一种做法是直接为<code>script</code>标签的<code>src</code>属性指定一个跨域的<code>URL</code>，利用<code>script</code>标签不受限制地从其他域加载资源的能力。服务器端动态地创建客户端所请求的<code>javascript</code>文件并返回给客户端，客户端将文件加载到页面中即可立即执行代码，获取到所需要的数据。<br><a name="jquery中实现jsonp"></a></p>
+<h3 id="jQuery中实现JSONP"><a href="#jQuery中实现JSONP" class="headerlink" title="jQuery中实现JSONP"></a><strong>jQuery中实现JSONP</strong></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    url:<span class="string">""</span>,</span><br><span class="line">    type:<span class="string">"GET"</span>,</span><br><span class="line">    dataType:<span class="string">"jsonp"</span>,</span><br><span class="line">    jsonp:<span class="string">"jsoncallback"</span>,</span><br><span class="line">    <span class="comment">//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为：callback)</span></span><br><span class="line">    success:<span class="function"><span class="keyword">function</span>(<span class="params">json</span>)</span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>JSONP</code>存在的不足：只能用于<code>GET</code>请求中。存在一定的安全问题，如果其他域不安全，则有可能会在响应中夹杂一些恶意代码。难以确定<code>JSONP</code>请求是否失败。</p>
+<p><a name="documentdomain--iframe（子域名代理）"></a></p>
+<h2 id="document-domain-iframe（子域名代理）"><a href="#document-domain-iframe（子域名代理）" class="headerlink" title="document.domain + iframe（子域名代理）"></a><strong>document.domain + iframe（子域名代理）</strong></h2><p>对于主域相同而子域不同的情况，可以通过设置<code>document.domain</code>的办法来解决。如：对于两个文件<code>http://www.a.com/a.html</code>和<code>http://blog.a.com/b.html</code>均加上设置<code>document.domain = &quot;a.com&quot;</code>；然后在<code>a.html</code>文件中创建一个<code>iframe</code>，通过<code>iframe</code>两个<code>js</code>文件即可交互数据：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//www.a.com/a.html</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="built_in">document</span>.doamin = <span class="string">'a.com'</span>;</span><br><span class="line">    <span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>);</span><br><span class="line">    iframe.src = <span class="string">'http://blog.a.com/b.html'</span>;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(iframe);</span><br><span class="line">    iframe.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> doc = iframe.contentDocument || iframe.contentWindow.document;</span><br><span class="line">        <span class="comment">// 在这里操纵b.html</span></span><br><span class="line">        <span class="built_in">console</span>.log(doc);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在<code>blog.a.com/b.html</code>中编写代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="built_in">document</span>.domain = <span class="string">'a.com'</span>;</span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>存在的问题：安全性，当一个站点<code>（b.a.com）</code>被攻击后，另一个站点<code>（c.a.com）</code>会引起安全漏洞。另外，如果一个页面中引入多个<code>iframe</code>，要想能够操作所有<code>iframe</code>，必须都得设置相同<code>domain</code>。</p>
+<p><a name="跨域资源共享（cors）"></a></p>
+<h2 id="跨域资源共享（CORS）"><a href="#跨域资源共享（CORS）" class="headerlink" title="跨域资源共享（CORS）"></a><strong>跨域资源共享（CORS）</strong></h2><p>跨域资源共享<code>（CORS）</code>定义了浏览器和服务器如何通过可控方式进行跨域通信。<code>CORS</code>通过添加特殊<code>HTTP</code>头信息以允许浏览器和服务器判断请求是成功还是失败。几乎所有现代浏览器都支持<code>CORS</code>。</p>
+<p><a name="http请求头和响应头"></a></p>
+<h3 id="HTTP请求头和响应头"><a href="#HTTP请求头和响应头" class="headerlink" title="HTTP请求头和响应头"></a><strong>HTTP请求头和响应头</strong></h3><p>当跨域发送<code>HTTP</code>请求时，支持<code>CORS</code>的浏览器会通过添加额外<code>Origin</code>头信息指定请求源，其值包括请求协议、域名、端口。如：<br><code>Origin: http://www.codingplayboy.com</code><br>若请求头中无<code>Origin</code>信息，服务器将不返回任何<code>CORS</code>头信息。</p>
+<p>服务端接收到请求时会检查头信息确定是否接受请求：若接受请求，必须返回一个包含<code>Access-Control-Allow-Origin</code>响应头，其值与请求头<code>Origin</code>值相同，如：<br><code>Access-Control-Allow-Origin: http://www.codingplayboy.com</code></p>
+<p><a name="创建cors请求"></a></p>
+<h3 id="创建CORS请求"><a href="#创建CORS请求" class="headerlink" title="创建CORS请求"></a><strong>创建CORS请求</strong></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//标准浏览器</span></span><br><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="keyword">if</span> (<span class="string">'withCredentials'</span> <span class="keyword">in</span> xhr) &#123;</span><br><span class="line">    xhr.open(method, url, <span class="literal">true</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> XDomainRequest !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    <span class="comment">//IE</span></span><br><span class="line">    xhr = <span class="keyword">new</span> XDomainRequest();</span><br><span class="line">    xhr.open(method, <span class="literal">null</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//不支持CORS</span></span><br><span class="line">    xhr = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a name="ie对cors的实现"></a></p>
+<h3 id="IE对CORS的实现"><a href="#IE对CORS的实现" class="headerlink" title="IE对CORS的实现"></a><strong>IE对CORS的实现</strong></h3><p><code>IE8</code>引入了<code>XDR（XDomainRequest）</code>对象，该对象和<code>XHR</code>对象类似，但能实现安全的跨域通信。<code>XDR</code>对象本身具有的一些安全策略：</p>
+<ul>
+<li><code>cookie</code>不会随请求发送，也不会随响应返回</li>
+<li>只能设置请求头中的<code>Content-Type</code>字段</li>
+<li>不能访问响应头信息</li>
+<li>只支持<code>GET</code>和<code>POST</code>请求<br><code>XDR</code>的使用方法和<code>XHR</code>非常类似，不同的是，<code>XDR</code>的<code>open</code>方法只接收两个参数，分别是请求方法和请求的<code>URL</code>。所有<code>XDR</code>的请求都是异步的，不能用它来创建同步请求。服务器端返回响应之后，会触发<code>load</code>事件，响应的数据也保存在<code>XDR</code>对象的<code>responseText</code>属性中。只能访问响应主体部分的数据，没有办法确定响应的状态码。也可以通过<code>XDR</code>对象发送<code>POST</code>请求，只需要修改请求头中的<code>Content-Type</code>字段<code>（xdr.contentType）</code>，将要发送的数据传入<code>send</code>方法即可。</li>
+</ul>
+<p><a name="其他浏览器中的cors实现"></a></p>
+<h3 id="其他浏览器中的CORS实现"><a href="#其他浏览器中的CORS实现" class="headerlink" title="其他浏览器中的CORS实现"></a><strong>其他浏览器中的CORS实现</strong></h3><p>与<code>IE</code>中的<code>XDR</code>对象不同，<code>XHR</code>对象可以访问<code>status</code>和<code>statusText</code>属性，而且还支持同步请求。同样其他浏览器中的<code>XHR</code>对象也存在一些安全策略：</p>
+<ul>
+<li>不能使用<code>setRequestHeader()</code>方法设置自定义首部</li>
+<li>不能发送和接收<code>cookie</code></li>
+<li>不能访问响应头信息<br>默认情况下，跨域请求不提供凭据<code>（cookie，HTTP认证及客户端SSL证明等）</code>。可以通过将<code>XHR</code>对象上的<code>withCredentials</code>属性设置为<code>true</code>，可以指定某个请求发送凭据。如果服务器接受带凭据的请求，则会用下面的<code>HTTP</code>头部来响应：<br>  Access-Control-Allow-Credentials: true<br>如果发送带凭据的请求，但服务器的响应中没有包含这个头部，则浏览器不会把响应交给<code>javascript</code>。（<code>responseText</code>将是空字符串，<code>status</code>值为<code>0</code>，而且会调用<code>onerror</code>事件处理程序）</li>
+</ul>
+<p><a name="预检请求（preflight-requests）"></a></p>
+<h3 id="预检请求（Preflight-Requests）"><a href="#预检请求（Preflight-Requests）" class="headerlink" title="预检请求（Preflight Requests）"></a><strong>预检请求（Preflight Requests）</strong></h3><p>使用<code>CORS</code>时，若请求方法不是<code>GET</code>，<code>POST</code>或<code>HEAD</code>，又或者使用了自定义<code>HTTP</code>头，浏览器将发起预检请求。预检请求是一个服务端认证机制，在执行请求之前会判断该请求是否合法。发送复杂请求时，浏览器会将原始请求的方法和请求头作为预检请求的信息发送给服务器；服务器需要决定是否接受该请求并响应，预检请求通常是使用一种<code>OPTIONS</code>的<code>HTTP</code>方法。</p>
+<p>客户端发起复杂请求时，会先发起预检，携带以下头信息:<table class="table table-bordered table-striped table-condensed"><tr><th>请求头</th><th>描述</th></tr><tr><td>Origin</td><td>请求源</td></tr><tr><td>Access-Control-Request-Method</td><td>请求方法（HTTP方法）</td></tr><tr><td>Access-Control-Request-Headers</td><td>请求自定义头（以逗号分隔）</td></tr></table>服务器返回的响应头：<table class="table table-bordered table-striped table-condensed"><tr><th>响应头</th><th>描述</th></tr><tr><td>Access-Control-Allow-Origin</td><td>允许的请求源（与请求头Origin匹配）</td></tr><tr><td>Access-Control-Allow-Methods</td><td>允许的请求方法（以逗号分隔）</td></tr><tr><td>Access-Control-Allow-Headers</td><td>允许的头信息（以逗号分隔）</td></tr><tr><td>Access-Control-Max-Age</td><td>预检请求的缓存时间（单位：秒）</td></tr><tr><td>Access-Control-Allow-Credentials</td><td>指定请求是否支持认证信息（可选）</td></tr></table>客户端接收到服务端的响应后，会使用之前声明的HTTP方法和请求头发送真正的请求。预检请求会被浏览器缓存，缓存时间为Access-Control-Max-Age值，缓存时间内，后续相同类型的请求不再发起重复的预检请求。IE8、IE9均不支持预检请求。</p>
+<p><a name="html5中的xdm（cross-document-messaging，跨文档消息传送）"></a></p>
+<h2 id="HTML5中的XDM（cross-document-messaging，跨文档消息传送）"><a href="#HTML5中的XDM（cross-document-messaging，跨文档消息传送）" class="headerlink" title="HTML5中的XDM（cross-document messaging，跨文档消息传送）"></a><strong>HTML5中的XDM（cross-document messaging，跨文档消息传送）</strong></h2><p><code>XDM</code>的核心方法是<code>postMessage</code>方法。<code>HTML5</code>的<code>window.postMessage</code>为浏览器带来了一个安全的、基于事件的消息<code>API</code>。与之前的子域名代理通过<code>iframe</code>跨子域通信不同，使用<code>postMessage</code>不再是直接访问一个文档的属性和方法，而是向文档发送消息然后等待响应，这要求形成一条双向的通信通道。<br>对于<code>XDM</code>而言，传送消息的目的地指的是包含在当前页面中的<code>iframe</code>元素，或者由当前页面弹出的窗口。<code>postMessage()</code>方法接收两个参数：一条消息和一个表示消息接收方来自哪个域的字符串。这样可以防止浏览器把消息发送到不安全的地方去。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 消息发送方</span></span><br><span class="line"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"iframe"</span>)[<span class="number">0</span>].contentWindow;</span><br><span class="line">iframe.postMessage(<span class="string">"hello"</span>, <span class="string">"www.xxx.com"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>如果指定的域名和内嵌框架加载的页面的域名一致，则会将消息传递到内嵌框架中。接收方在接收到消息时，会触发<code>window</code>对象上的<code>message</code>事件，传递到<code>onmessage</code>事件处理程序中的<code>event</code>对象包含以下三个重要信息：</p>
+<ul>
+<li><code>data</code>：接收到的消息</li>
+<li><code>origin</code>：消息发送方所在的域</li>
+<li><code>source</code>：发送消息的文档的<code>window</code>对象的代理。这个代理对象主要调用<code>postMessage</code>方法，向发送方发送回执消息。<br>通常在<code>onmessage</code>事件处理程序中需要通过<code>event.origin</code>检测消息的来源。这样可以确保传入的消息来自已知的页面。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 消息接收方</span></span><br><span class="line"><span class="built_in">window</span>.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (event.origin === <span class="string">"www.xxx.com"</span>) &#123;</span><br><span class="line">        processdata(event.data);</span><br><span class="line"></span><br><span class="line">        event.source.postMessage(<span class="string">"Received!"</span>, <span class="string">"www.xxx.com"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-javascriptSerial-9" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -620,293 +961,9 @@
 
 
   
-    <article id="post-javascriptSerial-6" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/01/javascriptSerial-6/" class="article-date">
-  	<time datetime="2016-05-01T06:55:44.000Z" itemprop="datePublished">2016-05-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/01/javascriptSerial-6/">你所不知道的javascript之对象和继承</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>接下来让我们看看在<code>javascript</code>中如何实现面向对象编程的。<code>javascript</code>中的面向对象涉及很多东西，包括原型，属性描述符等等。</p>
-<hr>
-<!-- MarkdownTOC -->
-<ul>
-<li><a href="#创建对象"><strong>创建对象</strong></a><ul>
-<li><a href="#工厂方式">工厂方式</a></li>
-<li><a href="#构造函数模式">构造函数模式</a></li>
-<li><a href="#原型模式">原型模式</a></li>
-<li><a href="#组合使用构造函数模式和原型模式">组合使用构造函数模式和原型模式</a></li>
-</ul>
-</li>
-<li><a href="#继承"><strong>继承</strong></a><ul>
-<li><a href="#原型链">原型链</a></li>
-<li><a href="#借用构造函数">借用构造函数</a></li>
-<li><a href="#组合继承">组合继承</a></li>
-<li><a href="#原型式继承">原型式继承</a></li>
-</ul>
-</li>
-<li><a href="#对象上的属性"><strong>对象上的属性</strong></a></li>
-<li><a href="#有关对象的其他方法"><strong>有关对象的其他方法</strong></a></li>
-</ul>
-<!-- /MarkdownTOC -->
-<hr>
-<p><a name="创建对象"></a></p>
-<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a><strong>创建对象</strong></h2><p>首先需要了解<code>javascript</code>都有哪些方法可以用来创建对象</p>
-<p><a name="工厂方式"></a></p>
-<h3 id="工厂方式"><a href="#工厂方式" class="headerlink" title="工厂方式"></a>工厂方式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  o.name = name;</span><br><span class="line">  o.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello!"</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> male = createPerson(<span class="string">"hb"</span>);</span><br><span class="line"><span class="keyword">var</span> female = createPerson(<span class="string">"gp"</span>);</span><br></pre></td></tr></table></figure>
-<p>优点：通过工厂模式可以很方便地创建出不同的对象<br>缺点：不能识别出创建出来的对象是属于哪种类型的</p>
-<p><a name="构造函数模式"></a></p>
-<h3 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello!"</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> male = <span class="keyword">new</span> Person(<span class="string">"hb"</span>);</span><br><span class="line"><span class="keyword">var</span> female = <span class="keyword">new</span> Person(<span class="string">"gp"</span>);</span><br></pre></td></tr></table></figure>
-<p>使用构造函数模式需要通过<code>new</code>关键字来创建对象。创建对象的过程：</p>
-<ul>
-<li>在构造函数内部创建一个空对象</li>
-<li>将该空对象赋值给构造函数内部的<code>this</code>指针，执行构造函数中的代码</li>
-<li>在没有显式返回某个对象的时候返回<code>this</code>指向的对象</li>
-</ul>
-<p>构造函数模式的优点：可以确定创建的对象实例属于哪个类型</p>
-<ul>
-<li><p>使用<code>instanceof</code>操作符：用于检测某个对象是否为指定构造函数的实例，根据需要判断类型的对象的原型链上是否存在给定的构造函数的原型对象（即构造函数的<code>prototype</code>属性）返回一个布尔值。存在的问题是在不同<code>iframe</code>和<code>window</code>之间检测时会失效。<code>instanceof</code>对前后两个参数都有要求，一般前面的参数为对象，后面的参数为构造函数名称。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"hello"</span> <span class="keyword">instanceof</span> <span class="built_in">String</span>); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>访问对象上的<code>constructor</code>属性：该属性实际位于构造函数的原型对象上。</p>
-</li>
-</ul>
-<p>缺点：同一类型的对象不能共享具有相同功能的方法</p>
-<p><a name="原型模式"></a></p>
-<h3 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.name = <span class="string">"hb"</span>;</span><br><span class="line">Person.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"hello!"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> male = <span class="keyword">new</span> Person();</span><br></pre></td></tr></table></figure>
-<p>该模式的主要思想是对象的一些共有方法放到构造函数的原型对象上，实现共享。<code>javascript</code>中也提供了一些方法用于判断实例和原型之间的关系：（对象可以直接调用的方法比如<code>isPrototypeOf</code>，<code>hasOwnProperty</code>等等都位于<code>Object.prototype</code>对象上）</p>
-<ul>
-<li><code>protoObj.isPrototypeOf(obj)</code>：判断对象obj1是否为obj的原型（并不一定非得是直接原型，可以是原型链上的其他原型对象），返回一个布尔值</li>
-<li><code>Object.getPrototypeOf(obj)</code>：获取某个对象的原型</li>
-</ul>
-<p>在实例上直接添加的属性会覆盖原型上的同名属性，通过<code>delete</code>操作符可以删除指定的<strong>实例属性</strong>（即使实例上不存在该属性，也不会删除原型上的属性），从而恢复对原型对象上的属性访问（只能通过这种方式恢复，直接将实例属性赋值为<code>undefined</code>是不起作用的）。</p>
-<ul>
-<li><code>obj.hasOwnProperty(attr)</code>：用于判断对象是否具有实例属性<code>attr</code>，返回一个布尔值。</li>
-<li><p><code>in</code>操作符：判断某个对象或者它的原型链上是否存在指定的属性（<strong>不一定得是可枚举的属性</strong>）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"toString"</span> <span class="keyword">in</span> male); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>Object.keys(obj)</code>：该方法返回一个包含所有可枚举的<strong>实例属性</strong>p的字符串数组</p>
-</li>
-<li><code>Object.getOwnPropertyNames(obj)</code>：该方法返回一个包含所有实例属性的字符串数组</li>
-</ul>
-<p><strong>直接重写原型对象会发生什么？？</strong><br>直接重写原型对象需要特别注意的一点是需要自觉修正原型对象的<code>constructor</code>属性，修改构造函数的整个<code>prototype</code>属性（即让<code>prototype</code>属性指向另一个对象）对已经创建好的对象实例没有影响，这些对象实例访问到的还是修改以前的原型对象。而对于以后创建的实例对象，<code>prototype</code> 属性则发生了改变。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.name = <span class="string">"hb"</span>;</span><br><span class="line">Person.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> male = <span class="keyword">new</span> Person();</span><br><span class="line">Person.prototype =  &#123;</span><br><span class="line">  <span class="keyword">constructor</span>: Person,</span><br><span class="line">  name: "gp",</span><br><span class="line">  say: function () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"bye"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> female = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="built_in">console</span>.log(male.name + <span class="string">" says "</span> + male.say()); <span class="comment">// hb says hello</span></span><br><span class="line"><span class="built_in">console</span>.log(female.name + <span class="string">" says "</span> + female.say()); <span class="comment">// gp says bye</span></span><br></pre></td></tr></table></figure></p>
-<p>原型模式的优点：可以实现一些属性和方法在不同的对象之间进行共享<br>缺点：当不同的对象共享了诸如数组这样的对象时，如果其中某个对象对其进行修改，势必会对其他对象产生影响。</p>
-<p><a name="组合使用构造函数模式和原型模式"></a></p>
-<h3 id="组合使用构造函数模式和原型模式"><a href="#组合使用构造函数模式和原型模式" class="headerlink" title="组合使用构造函数模式和原型模式"></a>组合使用构造函数模式和原型模式</h3><p>利用构造函数模式可以实现每个对象上的实例属性，即为个性，而原型模式可以实现一些属性和方法的共享，此乃共性。两者优势互补，相得益彰。</p>
-<p><a name="继承"></a></p>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a><strong>继承</strong></h2><p><a name="原型链"></a></p>
-<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>可以通过原型链来实现继承。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"Animal"</span>;</span><br><span class="line">&#125;</span><br><span class="line">Animal.prototype.eat = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">" eats"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bird</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.color = <span class="string">"blue"</span>;</span><br><span class="line">&#125;</span><br><span class="line">Bird.prototype = <span class="keyword">new</span> Animal();</span><br><span class="line"><span class="comment">// 注意此处重写了原型对象，原本的Bird构造函数的</span></span><br><span class="line"><span class="comment">// 原型对象上的constructor属性丢失</span></span><br><span class="line">Bird.prototype.fly = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.color + <span class="string">" bird flys."</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> bird = <span class="keyword">new</span> Bird();</span><br><span class="line">bird.eat(); <span class="comment">// "Animal eats."</span></span><br><span class="line">bird.fly(); <span class="comment">// "blue bird flys."</span></span><br><span class="line"><span class="built_in">console</span>.log(bird.constructor); <span class="comment">// Animal</span></span><br></pre></td></tr></table></figure></p>
-<p>单独使用原型链也会存在一些问题：</p>
-<ul>
-<li>原本定义在父类构造函数中的实例属性和方法通过原型链会变成子类构造函数的原型对象上的用于子类对象共享的属性和方法，这就限制了父类构造函数的实例属性不能引用诸如数组这些对象。</li>
-<li>在通过父类构造函数构造子类构造函数的原型对象时，稍微修改父类对象（即子类构造函数的原型对象）的属性和方法都会直接影响所有子类对象。</li>
-</ul>
-<p><a name="借用构造函数"></a></p>
-<h3 id="借用构造函数"><a href="#借用构造函数" class="headerlink" title="借用构造函数"></a>借用构造函数</h3><p>基本思想是在子类构造函数中调用父类构造函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Super</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.colors = [<span class="string">"red"</span>, <span class="string">"green"</span>, <span class="string">"blue"</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  Super.call(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj1 = <span class="keyword">new</span> Child(<span class="string">"javascript"</span>);</span><br><span class="line">obj1.colors.push(<span class="string">"yellow"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(obj1.colors); <span class="comment">// ["red", "green", "blue", "yellow"]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj2 = <span class="keyword">new</span> Child();</span><br><span class="line"><span class="built_in">console</span>.log(obj2.colors); <span class="comment">// ["red", "green", "blue"]</span></span><br></pre></td></tr></table></figure></p>
-<p>从上面的栗子可以看出，借用构造函数这种方法可以有效解决原型链中的第一个问题。同时，在创建子类对象时也可以根据不同对象的需求给实例自身添加属性。本质上，这种方法主要还是利用构造函数创建对象，跟前面的构造函数模式存在相同的问题：无法实现函数复用。</p>
-<p><a name="组合继承"></a></p>
-<h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><p>充分利用前面两种方法的优势。</p>
-<p><a name="原型式继承"></a></p>
-<h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><p>基本思想就是在一个函数中以给定的对象作为原型，创建一个空对象并返回。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createObject</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  F.prototype = obj;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>注意：</strong>从本质上讲，<code>createObject</code>函数对传入其中的对象进行了一次浅复制。<br><code>ECMAScript 5</code>中提供了<code>Object.create(obj)</code>方法来实现原型式继承。该方法接受两个参数：一个充当原型的对象以及一个可选的为新对象定义额外属性的对象。<code>Object.create()</code>函数传入的第二个参数和<code>Object.defineProperty()</code>定义属性描述符的格式类似。如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(&#123;name: <span class="string">"hb"</span>&#125;, &#123;</span><br><span class="line">  age: &#123;</span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    enumerable: <span class="literal">true</span>,</span><br><span class="line">    value: <span class="number">27</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p><a name="对象上的属性"></a></p>
-<h2 id="对象上的属性"><a href="#对象上的属性" class="headerlink" title="对象上的属性"></a><strong>对象上的属性</strong></h2><p>对象上的属性分两种：数据属性和访问器属性</p>
-<ul>
-<li>数据属性<br>数据属性有四个描述其行为的特性：<ul>
-<li><code>[[configurable]]</code> 表示能否通过<code>delete</code>删除属性，能否修改该属性的特性，或者能否把属性修改为访问器属性。</li>
-<li><code>[[enumerable]]</code> 表示能否通过for-in循环遍历到该属性。</li>
-<li><code>[[writable]]</code> 表示能否修改该属性的值</li>
-<li><code>[[value]]</code> 包含这个属性的数据值</li>
-</ul>
-</li>
-</ul>
-<p>要修改对象属性的特性，可以使用<code>Object.defineProperty()</code>方法。该方法接收三个参数：属性所在的对象，属性名称和一个描述符对象。如果需要同时定义多个属性，可以使用<code>Object.defineProperties(obj,{attr1:descriptor1,attr2:descriptor2,...})</code>方法，接收的参数略有不同。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> male = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(male, <span class="string">"name"</span>, &#123;</span><br><span class="line">  value: <span class="string">"hb"</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(male.name); <span class="comment">// "hb"</span></span><br><span class="line">male.name = <span class="string">"gp"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(male.name); <span class="comment">// "hb"</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(male, <span class="string">"name"</span>, &#123;</span><br><span class="line">  writable: <span class="literal">true</span></span><br><span class="line">&#125;); <span class="comment">// 报错，当第一次将configurable设置为false，就不能再重复定义同样属性</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>注意：</strong>在调用<code>Object.defineProperty()</code>方法时，如果不明确指定，<code>configurable</code>、<code>enumerable</code>和<code>writable</code>特性的默认值为<code>false</code>。</p>
-<ul>
-<li>访问器属性<br>访问器属性不包含数据值。它有如下四个特性：<ul>
-<li><code>[[configurable]]</code> 表示能否通过<code>delete</code>删除属性，能否修改该属性的特性，或者能否把属性修改为数据属性。</li>
-<li><code>[[enumerable]]</code> 表示能否通过 <code>for-in</code> 循环遍历到该属性。</li>
-<li><code>[[get]]</code> 指定在读取属性时调用的函数。默认值是undefined。</li>
-<li><code>[[set]]</code> 指定在写入属性时调用的函数。</li>
-</ul>
-</li>
-</ul>
-<p>如果对象上的某个属性定义了<code>get</code>或者<code>set</code>特性，则会调用对象上的<code>get</code>或者<code>set</code>特性对应的函数进行数值的获取或者赋值（这通常通过中间变量完成），而不会直接获取或修改对象的属性。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;name: <span class="string">"haibin"</span>, $age: <span class="number">22</span>&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">"age"</span>, &#123;</span><br><span class="line">  get:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.$age;</span><br><span class="line">  &#125;,</span><br><span class="line">  set:<span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.$age = arg;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.$age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(obj.age); <span class="comment">// 22</span></span><br><span class="line">obj.age = <span class="number">24</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">//&#123;name: "haibin", $age: 24&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.age); <span class="comment">//24</span></span><br></pre></td></tr></table></figure></p>
-<p>另外我们在定义对象字面量时，也可以定义属性的<code>get</code>和<code>set</code>方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> man = &#123;</span><br><span class="line">  _age: <span class="keyword">new</span> <span class="built_in">Date</span>().getFullYear() - <span class="number">1984</span>,</span><br><span class="line">  get age()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._age;</span><br><span class="line">  &#125;,</span><br><span class="line">  set age(arg)&#123;       <span class="comment">//set(arg)方法必须要有一个形式参数</span></span><br><span class="line">    <span class="comment">//this.age = new Date().getFullYear() - 1984;//会导致无限的递归</span></span><br><span class="line">    <span class="keyword">this</span>._age = arg;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(man.age); <span class="comment">// 32</span></span><br><span class="line">man.age = <span class="number">27</span>;</span><br><span class="line"><span class="built_in">console</span>.log(man.age); <span class="comment">// 27</span></span><br></pre></td></tr></table></figure></p>
-<p><code>ECMAScript 5</code>中可以通过<code>Object.getOwnPropertyDescriptor(obj, attr)</code>方法获取指定对象属性的属性描述符。该方法接收两个参数：属性所在的对象和要读取描述符的属性名称。结果返回一个对象。<br><a name="有关对象的其他方法"></a></p>
-<h2 id="有关对象的其他方法"><a href="#有关对象的其他方法" class="headerlink" title="有关对象的其他方法"></a><strong>有关对象的其他方法</strong></h2><ul>
-<li><code>Object.isExtensible(obj)</code>：查看某个对象是否可扩展（即添加新属性）</li>
-<li><code>Object.preventExtentions(obj)</code>：将某个对象设置为不可扩展的，该方法并不会对对象的属性描述符造成影响。</li>
-<li><code>Object.seal(obj)</code> 和 <code>Object.isSealed(obj)</code>：若要在设置为不可扩展的基础上设置所有属性的<code>configurable</code>特性为<code>false</code>，则可以使用<code>Object.seal(obj)</code>，然后想查看某个对象是否处于<code>seal</code>状态可以使用<code>Object.isSealed(obj)</code>。</li>
-<li><code>Object.freeze(obj)</code> 和 <code>Object.isFrozen(obj)</code> ：若还要在此基础上设置所有属性的<code>writable</code>特性为<code>false</code>，可使用<code>Object.freeze(obj)</code>，查看对象是否处于<code>freeze</code>状态可以使用<code>Object.isFrozen(obj)</code>。</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-javascriptSerial-5" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/30/javascriptSerial-5/" class="article-date">
-  	<time datetime="2016-04-30T14:41:36.000Z" itemprop="datePublished">2016-04-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/30/javascriptSerial-5/">你所不知道的javascript之函数</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天我们来聊一聊<code>javascript</code>中的另外一个版块，那就是——函数。</p>
-<hr>
-<!-- MarkdownTOC -->
-<ul>
-<li><a href="#函数定义"><strong>函数定义</strong></a></li>
-<li><a href="#函数的执行环境和作用域"><strong>函数的执行环境和作用域</strong></a></li>
-<li><a href="#理解函数中参数的传递"><strong>理解函数中参数的传递</strong></a></li>
-<li><a href="#深入函数的内部"><strong>深入函数的内部</strong></a></li>
-<li><a href="#作为对象的函数"><strong>作为对象的函数</strong></a></li>
-</ul>
-<!-- /MarkdownTOC -->
-<hr>
-<p><a name="函数定义"></a></p>
-<h2 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a><strong>函数定义</strong></h2><p>相信我们都知道<code>javascript</code>中的函数都长什么样子，比如它就长下面这个样子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">saySomething(<span class="string">"Hello!"</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">saySomething</span>(<span class="params">words</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(words);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>除了以上这种声明方式，还可以通过直接将一个匿名函数赋值给一个变量，从而通过这个变量就可以使用这个函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">saySomething(<span class="string">"Hello!"</span>); <span class="comment">// 报错</span></span><br><span class="line"><span class="keyword">var</span> saySomething = <span class="function"><span class="keyword">function</span>(<span class="params">words</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(words);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这两种定义方式还是有一定区别的，我们都知道，在<code>javascript</code>的作用域中，变量声明和函数声明会被提升。也就是说，对于第一种定义方式，解释器会率先读取函数声明，使其在执行任何代码前可以访问。而对于第二种定义方式，变量声明会被提升，在调用<code>saySomething()</code>函数时变量<code>saySomething</code>虽然已经声明了但值是<code>undefined</code>，真正被赋值为一个函数是在后面的时候。关于函数声明在执行代码前被提升的问题，还有一点需要注意：作用域中的<code>if-else</code>分句中定义的函数也会被提升，无论条件是否成立！<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> call = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (name == <span class="string">"hotel"</span>) &#123;</span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">"hotel foo"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 正确的做法应该是</span></span><br><span class="line">		<span class="comment">//	var foo = function ()&#123;</span></span><br><span class="line">		<span class="comment">//		console.log("hotel foo");</span></span><br><span class="line">		<span class="comment">//	&#125;;</span></span><br><span class="line">	&#125;</span><br><span class="line">	foo &amp;&amp; foo();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>像这样无论传入的参数是什么，<code>foo</code>都会被调用。但这并不是我们想要的。所以，<strong>块内函数必须用局部变量声明</strong>。有时候，我们需要定义完函数后直接调用，这时候可以这样定义函数（这样的定义方式可以用于模拟块级作用域）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;)();</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;());</span><br><span class="line">!<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure></p>
-<p>这时候函数名并不是必须的，可以使用匿名函数，如果第二种定义方式去掉最外围的圆括号，则会报错。这是因为解释器在解释执行时会认为是一个标准的函数定义（以<code>function</code>关键字开头），而在一个标准的函数定义后面加上一对圆括号是不允许的。另外一种创建函数的方式是通过<code>Function</code>构造函数来创建函数。我们都知道，一般情况下，内部函数可以访问外部函数的数据，但如果内部函数是通过<code>new Function(&quot;...&quot;)</code>的方式创建的，则不能访问到外部函数中的数据。如果创建出来的函数是全局的，则可以访问全局范围内的数据。实际上，在实际中我们也很少会这样创建函数，看个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outer</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> i = <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">var</span> func = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"console.log(typeof i);"</span>);<span class="comment">//undefined</span></span><br><span class="line">	func();</span><br><span class="line">&#125;</span><br><span class="line">outer();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">12</span>;</span><br><span class="line"><span class="keyword">var</span> func = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"console.log(i);"</span>);<span class="comment">//12</span></span><br><span class="line">func();</span><br></pre></td></tr></table></figure></p>
-<p><a name="函数的执行环境和作用域"></a></p>
-<h2 id="函数的执行环境和作用域"><a href="#函数的执行环境和作用域" class="headerlink" title="函数的执行环境和作用域"></a><strong>函数的执行环境和作用域</strong></h2><p>说到函数，就不得不提到与之相关连的话题——执行环境。每个函数都有自己的执行环境。<strong>执行环境</strong>定义了变量和函数有权访问的数据。每个执行环境都有一个与之相关联的<strong>变量对象</strong>，环境中定义的所有变量和函数都保存在这个对象中。当代码在一个环境中执行时，会创建变量对象的一个<strong>作用域链</strong>。作用域链的前端，始终是当前执行的代码所在环境的变量对象。如果这个环境是函数，则将其<strong>活动对象</strong>作为变量对象。活动对象在最开始时只包含一个变量，即<code>arguments</code>对象。<br>函数的执行上下文分两个阶段：</p>
-<ul>
-<li>变量初始化阶段：<br><code>VO</code>（变量对象）按照如下顺序填充：<ul>
-<li>函数参数（如果未传入，初始化该参数值为<code>undefined</code>）</li>
-<li>函数声明（如果发生命名冲突，则会覆盖前面的值）</li>
-<li>变量声明（赋值操作会忽略，初始化变量值为<code>undefined</code>，如果发生命名冲突（包括与函数名冲突），会忽略此变量声明）</li>
-</ul>
-</li>
-<li>代码执行阶段：<br>此阶段顺序执行代码。举个栗子：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">alert(x);</span><br><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line">alert(x);</span><br><span class="line">x = <span class="number">20</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">alert(x);</span><br><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> b = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br><span class="line">alert(b);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>变量初始化阶段：<code>&quot;var x=10;&quot;</code>语句声明变量 <code>x</code> 时与函数声明 <code>function x(){}</code> 发生命名冲突，故忽略了 <code>var x=10;</code> 声明的变量 <code>x</code> 。得到的变量对象 <code>VO</code> 大概是这样子的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">VO=&#123;</span><br><span class="line">	x: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">	a: <span class="literal">undefined</span>,	<span class="comment">//js中没有块级作用域</span></span><br><span class="line">	b: <span class="literal">undefined</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>代码执行阶段：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">alert(x);	<span class="comment">//function()&#123;&#125;</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line">alert(x);	<span class="comment">//10</span></span><br><span class="line">x = <span class="number">20</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>)</span>&#123;&#125;  <span class="comment">//已在变量初始化阶段提前，此处不执行</span></span><br><span class="line">alert(x);	<span class="comment">//20</span></span><br><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);	<span class="comment">//1</span></span><br><span class="line">alert(b);	<span class="comment">//undefined</span></span><br></pre></td></tr></table></figure></p>
-<p><a name="理解函数中参数的传递"></a></p>
-<h2 id="理解函数中参数的传递"><a href="#理解函数中参数的传递" class="headerlink" title="理解函数中参数的传递"></a><strong>理解函数中参数的传递</strong></h2><p>函数中的参数传递方式只有一种，那就是按值传递。即把函数外部的值复制给函数内部的参数。对于基本类型数据的传递，这一点很好理解，但对于引用类型的传递，可以这么理解：将函数外部的对象当作参数传递到函数内部，这时候函数内部的参数和外部的变量引用的都是同一个对象，在函数中对象属性和方法进行修改，都会直接影响到外部变量引用的对象。这一点是毋庸置疑的。但是，一旦将内部参数修改为另外一个对象，这时候函数内部参数引用的对象和外部变量引用的对象就不再有关系了，从此你是你，我是我，就此分道扬镳。<br>用过<code>nodejs</code>的人都知道，<code>nodejs</code>中可以通过<code>module.exports</code>或者直接通过<code>exports</code>导出需要暴露给外部的属性和方法。在一些情况下，使用<code>module.exports</code>和<code>exports</code>是一样的。但是在导出函数、数组和其他对象时，这个就不管用了，这是怎么回事呢？其实这跟上面的函数参数的传递方式有关。举个栗子，我这里有一个<code>class.js</code>文件和一个<code>getClass.js</code>文件，<code>class.js</code>中的内容如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">exports = &#123;</span><br><span class="line">	name: <span class="string">"javascript"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 应修改为</span></span><br><span class="line"><span class="comment">//module.exports = &#123;</span></span><br><span class="line"><span class="comment">//	name: "haibin"</span></span><br><span class="line"><span class="comment">//&#125;;</span></span><br><span class="line"><span class="comment">// 或者在exports上直接添加属性</span></span><br><span class="line"><span class="comment">// exports.name = "javascript";</span></span><br></pre></td></tr></table></figure></p>
-<p>而<code>getClass.js</code>文件内容如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = <span class="built_in">require</span>(<span class="string">"./class"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(data.name); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure></p>
-<p>假设在全局作用域中，<code>node</code>在加载模块时会将整个待加载的<code>class.js</code>文件放入一个<code>load</code>函数（这里的<code>load</code>函数相当于<code>getClass.js</code>文件中的<code>require</code>函数）执行，在执行<code>load</code>函数之前，<code>node</code>准备好了<code>module</code>变量：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="built_in">module</span> = &#123;</span><br><span class="line">	...</span><br><span class="line">	exports: &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> load = <span class="function"><span class="keyword">function</span>(<span class="params">module, exports</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 下面是class.js中的内容</span></span><br><span class="line">	exports = &#123;</span><br><span class="line">		name: <span class="string">"javascript"</span></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">module</span>.exports;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> exported = load(<span class="built_in">module</span>, <span class="built_in">module</span>.exports);</span><br></pre></td></tr></table></figure></p>
-<p>到这里，我们就大概知道发生什么事了。传入<code>load</code>函数的<code>module.exports</code>起初是一个空对象，在函数内部，引用同样对象的<code>exports</code>变量被修改，引用了另外一个对象<code>{name: &quot;javascript&quot;}</code>，但函数最终返回的是<code>module.exports</code>，即还是一开始的空对象<code>{}</code>。所以我们在<code>getClass.js</code>文件中获取到的就是一个空对象，并没有我们想要的<code>name</code>属性。我们只要对<code>class.js</code>文件做一点小小的修改，就可以正确获取了。<br><a name="深入函数的内部"></a></p>
-<h2 id="深入函数的内部"><a href="#深入函数的内部" class="headerlink" title="深入函数的内部"></a><strong>深入函数的内部</strong></h2><p>在函数的内部，我们可以访问到一个特殊的对象——<code>arguments</code>。它形式上类似于数组，但并非是真正的数组。它里面保存着实际传入函数的参数，它的长度是由传入的参数个数决定的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arg1</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">arguments</span>); <span class="comment">// [1,2]</span></span><br><span class="line">	<span class="built_in">arguments</span>[<span class="number">2</span>] = <span class="number">3</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(c); <span class="comment">// undefined</span></span><br><span class="line">&#125;</span><br><span class="line">arg1(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arg2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">arguments</span>); <span class="comment">// [1,2]</span></span><br><span class="line">&#125;</span><br><span class="line">arg2(<span class="number">1</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure></p>
-<p>同时<code>arguments</code>中的元素会与能与之对应的参数绑定到一起（对应不上的元素（参数过少）或者参数（元素过少）则没有这种绑定关系），对<code>arguments</code>中元素的修改会同步到对应的参数。<br><code>arguments</code>对象上的属性：</p>
-<ul>
-<li><code>arguments.callee</code>指向拥有当前这个<code>arguments</code>对象的函数</li>
-<li><code>arguments.caller</code>在非严格模式下，该属性值始终为<code>undefined</code>，而函数对象上也有一个<code>caller</code>属性，该属性指向函数的调用者，例如使用<code>arguments.callee.caller</code>则可以返回当前函数的调用者。<br>有时候，我们可能会见到在函数这样定义变量：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = b = <span class="number">1</span>; <span class="comment">// 此处定义a为局部变量，b为全局变量</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> a); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> b); <span class="comment">// number</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>正如我们所看到的那样，未定义的中间变量会在全局作用域中被创建。<br><a name="作为对象的函数"></a></p>
-<h2 id="作为对象的函数"><a href="#作为对象的函数" class="headerlink" title="作为对象的函数"></a><strong>作为对象的函数</strong></h2><p>函数本身也是一种对象，基本上每个函数都包含两个属性：<code>length</code>和<code>prototype</code>（特例：通过函数对象上的bind方法返回的函数对象没有<code>prototype</code>属性）。</p>
-<ul>
-<li><code>length</code>属性表示当前函数的形参个数</li>
-<li><code>prototype</code>属性指向一个对象，上面保存一些由当前函数创建出来的实例的属性和方法。<strong>注意：</strong>函数本身也是一个对象，也存在着一个<code>__proto__</code>属性，该属性在没有被修改的情况下应该是指向<code>Function.prototype</code>这个对象，跟函数自身的<code>prototype</code>属性指向的不是同一个对象<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(fn.prototype === fn.__proto__); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(fn.__proto__ === <span class="built_in">Function</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(fn.prototype.__proto__ = <span class="built_in">Object</span>.prototype); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>函数对象上具有的方法：</p>
-<ul>
-<li><code>call(context, arg1, arg2, ...)</code></li>
-<li><code>apply(context, argsArray)</code><br>这两个方法都可以修改函数中<code>this</code>指针的指向。区别仅在于传入参数的方式不同，<code>call()</code>方法传入参数是逐个传入，而<code>apply()</code>方法传入的参数是通过数组的形式传入，也可以是<code>arguments</code>对象。<br><strong>注：</strong>在使用<code>apply()</code>或者<code>call()</code>方法调用函数时，如果第一个参数为<code>null</code>或<code>undefined</code>，则会被转化为全局对象。</li>
-<li><code>bind(context, args)</code><br><code>bind</code>方法可以给函数同时绑定作用域和参数。并返回一个新的函数对象。并不是所有的函数都有<code>prototype</code>属性，例如通过<code>bind</code>方法返回的函数对象就没有<code>prototype</code>属性。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toBind</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> binded = toBind.bind(&#123;x:<span class="number">2</span>&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(binded()); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(binded.prototype); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>如果使用<code>bind()</code>方法得到的函数用来构造对象，则<code>bind</code>方法给函数中<code>this</code>指定的对象将失效，重新初始化为一个空对象。此时得到的实例的<code>__proto__</code>属性不是指向<code>bind</code>方法返回的函数的<code>prototype</code>属性（该属性仍为<code>undefined</code>），而是原先未绑定<code>this</code>的函数的<code>prototype</code>属性，可以认为<code>bind</code>方法在此处完全不起作用。如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.b = <span class="number">100</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> newfoo = foo.bind(&#123;a:<span class="number">200</span>&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(newfoo.prototype); <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> newfoo();</span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123;b: 100&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.__proto__ === foo.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(newfoo.prototype); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </div>

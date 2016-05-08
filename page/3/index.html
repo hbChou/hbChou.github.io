@@ -79,7 +79,7 @@
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -116,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -191,6 +191,290 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-javascriptSerial-6" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/01/javascriptSerial-6/" class="article-date">
+  	<time datetime="2016-05-01T06:55:44.000Z" itemprop="datePublished">2016-05-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/01/javascriptSerial-6/">你所不知道的javascript之对象和继承</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>接下来让我们看看在<code>javascript</code>中如何实现面向对象编程的。<code>javascript</code>中的面向对象涉及很多东西，包括原型，属性描述符等等。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#创建对象"><strong>创建对象</strong></a><ul>
+<li><a href="#工厂方式">工厂方式</a></li>
+<li><a href="#构造函数模式">构造函数模式</a></li>
+<li><a href="#原型模式">原型模式</a></li>
+<li><a href="#组合使用构造函数模式和原型模式">组合使用构造函数模式和原型模式</a></li>
+</ul>
+</li>
+<li><a href="#继承"><strong>继承</strong></a><ul>
+<li><a href="#原型链">原型链</a></li>
+<li><a href="#借用构造函数">借用构造函数</a></li>
+<li><a href="#组合继承">组合继承</a></li>
+<li><a href="#原型式继承">原型式继承</a></li>
+</ul>
+</li>
+<li><a href="#对象上的属性"><strong>对象上的属性</strong></a></li>
+<li><a href="#有关对象的其他方法"><strong>有关对象的其他方法</strong></a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="创建对象"></a></p>
+<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a><strong>创建对象</strong></h2><p>首先需要了解<code>javascript</code>都有哪些方法可以用来创建对象</p>
+<p><a name="工厂方式"></a></p>
+<h3 id="工厂方式"><a href="#工厂方式" class="headerlink" title="工厂方式"></a>工厂方式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  o.name = name;</span><br><span class="line">  o.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello!"</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> male = createPerson(<span class="string">"hb"</span>);</span><br><span class="line"><span class="keyword">var</span> female = createPerson(<span class="string">"gp"</span>);</span><br></pre></td></tr></table></figure>
+<p>优点：通过工厂模式可以很方便地创建出不同的对象<br>缺点：不能识别出创建出来的对象是属于哪种类型的</p>
+<p><a name="构造函数模式"></a></p>
+<h3 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello!"</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> male = <span class="keyword">new</span> Person(<span class="string">"hb"</span>);</span><br><span class="line"><span class="keyword">var</span> female = <span class="keyword">new</span> Person(<span class="string">"gp"</span>);</span><br></pre></td></tr></table></figure>
+<p>使用构造函数模式需要通过<code>new</code>关键字来创建对象。创建对象的过程：</p>
+<ul>
+<li>在构造函数内部创建一个空对象</li>
+<li>将该空对象赋值给构造函数内部的<code>this</code>指针，执行构造函数中的代码</li>
+<li>在没有显式返回某个对象的时候返回<code>this</code>指向的对象</li>
+</ul>
+<p>构造函数模式的优点：可以确定创建的对象实例属于哪个类型</p>
+<ul>
+<li><p>使用<code>instanceof</code>操作符：用于检测某个对象是否为指定构造函数的实例，根据需要判断类型的对象的原型链上是否存在给定的构造函数的原型对象（即构造函数的<code>prototype</code>属性）返回一个布尔值。存在的问题是在不同<code>iframe</code>和<code>window</code>之间检测时会失效。<code>instanceof</code>对前后两个参数都有要求，一般前面的参数为对象，后面的参数为构造函数名称。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"hello"</span> <span class="keyword">instanceof</span> <span class="built_in">String</span>); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>访问对象上的<code>constructor</code>属性：该属性实际位于构造函数的原型对象上。</p>
+</li>
+</ul>
+<p>缺点：同一类型的对象不能共享具有相同功能的方法</p>
+<p><a name="原型模式"></a></p>
+<h3 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.name = <span class="string">"hb"</span>;</span><br><span class="line">Person.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"hello!"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> male = <span class="keyword">new</span> Person();</span><br></pre></td></tr></table></figure>
+<p>该模式的主要思想是对象的一些共有方法放到构造函数的原型对象上，实现共享。<code>javascript</code>中也提供了一些方法用于判断实例和原型之间的关系：（对象可以直接调用的方法比如<code>isPrototypeOf</code>，<code>hasOwnProperty</code>等等都位于<code>Object.prototype</code>对象上）</p>
+<ul>
+<li><code>protoObj.isPrototypeOf(obj)</code>：判断对象obj1是否为obj的原型（并不一定非得是直接原型，可以是原型链上的其他原型对象），返回一个布尔值</li>
+<li><code>Object.getPrototypeOf(obj)</code>：获取某个对象的原型</li>
+</ul>
+<p>在实例上直接添加的属性会覆盖原型上的同名属性，通过<code>delete</code>操作符可以删除指定的<strong>实例属性</strong>（即使实例上不存在该属性，也不会删除原型上的属性），从而恢复对原型对象上的属性访问（只能通过这种方式恢复，直接将实例属性赋值为<code>undefined</code>是不起作用的）。</p>
+<ul>
+<li><code>obj.hasOwnProperty(attr)</code>：用于判断对象是否具有实例属性<code>attr</code>，返回一个布尔值。</li>
+<li><p><code>in</code>操作符：判断某个对象或者它的原型链上是否存在指定的属性（<strong>不一定得是可枚举的属性</strong>）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"toString"</span> <span class="keyword">in</span> male); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Object.keys(obj)</code>：该方法返回一个包含所有可枚举的<strong>实例属性</strong>p的字符串数组</p>
+</li>
+<li><code>Object.getOwnPropertyNames(obj)</code>：该方法返回一个包含所有实例属性的字符串数组</li>
+</ul>
+<p><strong>直接重写原型对象会发生什么？？</strong><br>直接重写原型对象需要特别注意的一点是需要自觉修正原型对象的<code>constructor</code>属性，修改构造函数的整个<code>prototype</code>属性（即让<code>prototype</code>属性指向另一个对象）对已经创建好的对象实例没有影响，这些对象实例访问到的还是修改以前的原型对象。而对于以后创建的实例对象，<code>prototype</code> 属性则发生了改变。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.name = <span class="string">"hb"</span>;</span><br><span class="line">Person.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> male = <span class="keyword">new</span> Person();</span><br><span class="line">Person.prototype =  &#123;</span><br><span class="line">  <span class="keyword">constructor</span>: Person,</span><br><span class="line">  name: "gp",</span><br><span class="line">  say: function () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"bye"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> female = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="built_in">console</span>.log(male.name + <span class="string">" says "</span> + male.say()); <span class="comment">// hb says hello</span></span><br><span class="line"><span class="built_in">console</span>.log(female.name + <span class="string">" says "</span> + female.say()); <span class="comment">// gp says bye</span></span><br></pre></td></tr></table></figure></p>
+<p>原型模式的优点：可以实现一些属性和方法在不同的对象之间进行共享<br>缺点：当不同的对象共享了诸如数组这样的对象时，如果其中某个对象对其进行修改，势必会对其他对象产生影响。</p>
+<p><a name="组合使用构造函数模式和原型模式"></a></p>
+<h3 id="组合使用构造函数模式和原型模式"><a href="#组合使用构造函数模式和原型模式" class="headerlink" title="组合使用构造函数模式和原型模式"></a>组合使用构造函数模式和原型模式</h3><p>利用构造函数模式可以实现每个对象上的实例属性，即为个性，而原型模式可以实现一些属性和方法的共享，此乃共性。两者优势互补，相得益彰。</p>
+<p><a name="继承"></a></p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a><strong>继承</strong></h2><p><a name="原型链"></a></p>
+<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>可以通过原型链来实现继承。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"Animal"</span>;</span><br><span class="line">&#125;</span><br><span class="line">Animal.prototype.eat = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">" eats"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bird</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.color = <span class="string">"blue"</span>;</span><br><span class="line">&#125;</span><br><span class="line">Bird.prototype = <span class="keyword">new</span> Animal();</span><br><span class="line"><span class="comment">// 注意此处重写了原型对象，原本的Bird构造函数的</span></span><br><span class="line"><span class="comment">// 原型对象上的constructor属性丢失</span></span><br><span class="line">Bird.prototype.fly = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.color + <span class="string">" bird flys."</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> bird = <span class="keyword">new</span> Bird();</span><br><span class="line">bird.eat(); <span class="comment">// "Animal eats."</span></span><br><span class="line">bird.fly(); <span class="comment">// "blue bird flys."</span></span><br><span class="line"><span class="built_in">console</span>.log(bird.constructor); <span class="comment">// Animal</span></span><br></pre></td></tr></table></figure></p>
+<p>单独使用原型链也会存在一些问题：</p>
+<ul>
+<li>原本定义在父类构造函数中的实例属性和方法通过原型链会变成子类构造函数的原型对象上的用于子类对象共享的属性和方法，这就限制了父类构造函数的实例属性不能引用诸如数组这些对象。</li>
+<li>在通过父类构造函数构造子类构造函数的原型对象时，稍微修改父类对象（即子类构造函数的原型对象）的属性和方法都会直接影响所有子类对象。</li>
+</ul>
+<p><a name="借用构造函数"></a></p>
+<h3 id="借用构造函数"><a href="#借用构造函数" class="headerlink" title="借用构造函数"></a>借用构造函数</h3><p>基本思想是在子类构造函数中调用父类构造函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Super</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.colors = [<span class="string">"red"</span>, <span class="string">"green"</span>, <span class="string">"blue"</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  Super.call(<span class="keyword">this</span>);</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj1 = <span class="keyword">new</span> Child(<span class="string">"javascript"</span>);</span><br><span class="line">obj1.colors.push(<span class="string">"yellow"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(obj1.colors); <span class="comment">// ["red", "green", "blue", "yellow"]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj2 = <span class="keyword">new</span> Child();</span><br><span class="line"><span class="built_in">console</span>.log(obj2.colors); <span class="comment">// ["red", "green", "blue"]</span></span><br></pre></td></tr></table></figure></p>
+<p>从上面的栗子可以看出，借用构造函数这种方法可以有效解决原型链中的第一个问题。同时，在创建子类对象时也可以根据不同对象的需求给实例自身添加属性。本质上，这种方法主要还是利用构造函数创建对象，跟前面的构造函数模式存在相同的问题：无法实现函数复用。</p>
+<p><a name="组合继承"></a></p>
+<h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><p>充分利用前面两种方法的优势。</p>
+<p><a name="原型式继承"></a></p>
+<h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><p>基本思想就是在一个函数中以给定的对象作为原型，创建一个空对象并返回。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createObject</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  F.prototype = obj;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意：</strong>从本质上讲，<code>createObject</code>函数对传入其中的对象进行了一次浅复制。<br><code>ECMAScript 5</code>中提供了<code>Object.create(obj)</code>方法来实现原型式继承。该方法接受两个参数：一个充当原型的对象以及一个可选的为新对象定义额外属性的对象。<code>Object.create()</code>函数传入的第二个参数和<code>Object.defineProperty()</code>定义属性描述符的格式类似。如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(&#123;name: <span class="string">"hb"</span>&#125;, &#123;</span><br><span class="line">  age: &#123;</span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    enumerable: <span class="literal">true</span>,</span><br><span class="line">    value: <span class="number">27</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><a name="对象上的属性"></a></p>
+<h2 id="对象上的属性"><a href="#对象上的属性" class="headerlink" title="对象上的属性"></a><strong>对象上的属性</strong></h2><p>对象上的属性分两种：数据属性和访问器属性</p>
+<ul>
+<li>数据属性<br>数据属性有四个描述其行为的特性：<ul>
+<li><code>[[configurable]]</code> 表示能否通过<code>delete</code>删除属性，能否修改该属性的特性，或者能否把属性修改为访问器属性。</li>
+<li><code>[[enumerable]]</code> 表示能否通过for-in循环遍历到该属性。</li>
+<li><code>[[writable]]</code> 表示能否修改该属性的值</li>
+<li><code>[[value]]</code> 包含这个属性的数据值</li>
+</ul>
+</li>
+</ul>
+<p>要修改对象属性的特性，可以使用<code>Object.defineProperty()</code>方法。该方法接收三个参数：属性所在的对象，属性名称和一个描述符对象。如果需要同时定义多个属性，可以使用<code>Object.defineProperties(obj,{attr1:descriptor1,attr2:descriptor2,...})</code>方法，接收的参数略有不同。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> male = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(male, <span class="string">"name"</span>, &#123;</span><br><span class="line">  value: <span class="string">"hb"</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(male.name); <span class="comment">// "hb"</span></span><br><span class="line">male.name = <span class="string">"gp"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(male.name); <span class="comment">// "hb"</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(male, <span class="string">"name"</span>, &#123;</span><br><span class="line">  writable: <span class="literal">true</span></span><br><span class="line">&#125;); <span class="comment">// 报错，当第一次将configurable设置为false，就不能再重复定义同样属性</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>注意：</strong>在调用<code>Object.defineProperty()</code>方法时，如果不明确指定，<code>configurable</code>、<code>enumerable</code>和<code>writable</code>特性的默认值为<code>false</code>。</p>
+<ul>
+<li>访问器属性<br>访问器属性不包含数据值。它有如下四个特性：<ul>
+<li><code>[[configurable]]</code> 表示能否通过<code>delete</code>删除属性，能否修改该属性的特性，或者能否把属性修改为数据属性。</li>
+<li><code>[[enumerable]]</code> 表示能否通过 <code>for-in</code> 循环遍历到该属性。</li>
+<li><code>[[get]]</code> 指定在读取属性时调用的函数。默认值是undefined。</li>
+<li><code>[[set]]</code> 指定在写入属性时调用的函数。</li>
+</ul>
+</li>
+</ul>
+<p>如果对象上的某个属性定义了<code>get</code>或者<code>set</code>特性，则会调用对象上的<code>get</code>或者<code>set</code>特性对应的函数进行数值的获取或者赋值（这通常通过中间变量完成），而不会直接获取或修改对象的属性。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;name: <span class="string">"haibin"</span>, $age: <span class="number">22</span>&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">"age"</span>, &#123;</span><br><span class="line">  get:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.$age;</span><br><span class="line">  &#125;,</span><br><span class="line">  set:<span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.$age = arg;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.$age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(obj.age); <span class="comment">// 22</span></span><br><span class="line">obj.age = <span class="number">24</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">//&#123;name: "haibin", $age: 24&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.age); <span class="comment">//24</span></span><br></pre></td></tr></table></figure></p>
+<p>另外我们在定义对象字面量时，也可以定义属性的<code>get</code>和<code>set</code>方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> man = &#123;</span><br><span class="line">  _age: <span class="keyword">new</span> <span class="built_in">Date</span>().getFullYear() - <span class="number">1984</span>,</span><br><span class="line">  get age()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._age;</span><br><span class="line">  &#125;,</span><br><span class="line">  set age(arg)&#123;       <span class="comment">//set(arg)方法必须要有一个形式参数</span></span><br><span class="line">    <span class="comment">//this.age = new Date().getFullYear() - 1984;//会导致无限的递归</span></span><br><span class="line">    <span class="keyword">this</span>._age = arg;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(man.age); <span class="comment">// 32</span></span><br><span class="line">man.age = <span class="number">27</span>;</span><br><span class="line"><span class="built_in">console</span>.log(man.age); <span class="comment">// 27</span></span><br></pre></td></tr></table></figure></p>
+<p><code>ECMAScript 5</code>中可以通过<code>Object.getOwnPropertyDescriptor(obj, attr)</code>方法获取指定对象属性的属性描述符。该方法接收两个参数：属性所在的对象和要读取描述符的属性名称。结果返回一个对象。<br><a name="有关对象的其他方法"></a></p>
+<h2 id="有关对象的其他方法"><a href="#有关对象的其他方法" class="headerlink" title="有关对象的其他方法"></a><strong>有关对象的其他方法</strong></h2><ul>
+<li><code>Object.isExtensible(obj)</code>：查看某个对象是否可扩展（即添加新属性）</li>
+<li><code>Object.preventExtentions(obj)</code>：将某个对象设置为不可扩展的，该方法并不会对对象的属性描述符造成影响。</li>
+<li><code>Object.seal(obj)</code> 和 <code>Object.isSealed(obj)</code>：若要在设置为不可扩展的基础上设置所有属性的<code>configurable</code>特性为<code>false</code>，则可以使用<code>Object.seal(obj)</code>，然后想查看某个对象是否处于<code>seal</code>状态可以使用<code>Object.isSealed(obj)</code>。</li>
+<li><code>Object.freeze(obj)</code> 和 <code>Object.isFrozen(obj)</code> ：若还要在此基础上设置所有属性的<code>writable</code>特性为<code>false</code>，可使用<code>Object.freeze(obj)</code>，查看对象是否处于<code>freeze</code>状态可以使用<code>Object.isFrozen(obj)</code>。</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-javascriptSerial-5" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/30/javascriptSerial-5/" class="article-date">
+  	<time datetime="2016-04-30T14:41:36.000Z" itemprop="datePublished">2016-04-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/30/javascriptSerial-5/">你所不知道的javascript之函数</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天我们来聊一聊<code>javascript</code>中的另外一个版块，那就是——函数。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#函数定义"><strong>函数定义</strong></a></li>
+<li><a href="#函数的执行环境和作用域"><strong>函数的执行环境和作用域</strong></a></li>
+<li><a href="#理解函数中参数的传递"><strong>理解函数中参数的传递</strong></a></li>
+<li><a href="#深入函数的内部"><strong>深入函数的内部</strong></a></li>
+<li><a href="#作为对象的函数"><strong>作为对象的函数</strong></a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="函数定义"></a></p>
+<h2 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a><strong>函数定义</strong></h2><p>相信我们都知道<code>javascript</code>中的函数都长什么样子，比如它就长下面这个样子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">saySomething(<span class="string">"Hello!"</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">saySomething</span>(<span class="params">words</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(words);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>除了以上这种声明方式，还可以通过直接将一个匿名函数赋值给一个变量，从而通过这个变量就可以使用这个函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">saySomething(<span class="string">"Hello!"</span>); <span class="comment">// 报错</span></span><br><span class="line"><span class="keyword">var</span> saySomething = <span class="function"><span class="keyword">function</span>(<span class="params">words</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(words);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这两种定义方式还是有一定区别的，我们都知道，在<code>javascript</code>的作用域中，变量声明和函数声明会被提升。也就是说，对于第一种定义方式，解释器会率先读取函数声明，使其在执行任何代码前可以访问。而对于第二种定义方式，变量声明会被提升，在调用<code>saySomething()</code>函数时变量<code>saySomething</code>虽然已经声明了但值是<code>undefined</code>，真正被赋值为一个函数是在后面的时候。关于函数声明在执行代码前被提升的问题，还有一点需要注意：作用域中的<code>if-else</code>分句中定义的函数也会被提升，无论条件是否成立！<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> call = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (name == <span class="string">"hotel"</span>) &#123;</span><br><span class="line">		<span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">"hotel foo"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 正确的做法应该是</span></span><br><span class="line">		<span class="comment">//	var foo = function ()&#123;</span></span><br><span class="line">		<span class="comment">//		console.log("hotel foo");</span></span><br><span class="line">		<span class="comment">//	&#125;;</span></span><br><span class="line">	&#125;</span><br><span class="line">	foo &amp;&amp; foo();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>像这样无论传入的参数是什么，<code>foo</code>都会被调用。但这并不是我们想要的。所以，<strong>块内函数必须用局部变量声明</strong>。有时候，我们需要定义完函数后直接调用，这时候可以这样定义函数（这样的定义方式可以用于模拟块级作用域）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;)();</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;());</span><br><span class="line">!<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure></p>
+<p>这时候函数名并不是必须的，可以使用匿名函数，如果第二种定义方式去掉最外围的圆括号，则会报错。这是因为解释器在解释执行时会认为是一个标准的函数定义（以<code>function</code>关键字开头），而在一个标准的函数定义后面加上一对圆括号是不允许的。另外一种创建函数的方式是通过<code>Function</code>构造函数来创建函数。我们都知道，一般情况下，内部函数可以访问外部函数的数据，但如果内部函数是通过<code>new Function(&quot;...&quot;)</code>的方式创建的，则不能访问到外部函数中的数据。如果创建出来的函数是全局的，则可以访问全局范围内的数据。实际上，在实际中我们也很少会这样创建函数，看个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outer</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> i = <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">var</span> func = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"console.log(typeof i);"</span>);<span class="comment">//undefined</span></span><br><span class="line">	func();</span><br><span class="line">&#125;</span><br><span class="line">outer();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> i = <span class="number">12</span>;</span><br><span class="line"><span class="keyword">var</span> func = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"console.log(i);"</span>);<span class="comment">//12</span></span><br><span class="line">func();</span><br></pre></td></tr></table></figure></p>
+<p><a name="函数的执行环境和作用域"></a></p>
+<h2 id="函数的执行环境和作用域"><a href="#函数的执行环境和作用域" class="headerlink" title="函数的执行环境和作用域"></a><strong>函数的执行环境和作用域</strong></h2><p>说到函数，就不得不提到与之相关连的话题——执行环境。每个函数都有自己的执行环境。<strong>执行环境</strong>定义了变量和函数有权访问的数据。每个执行环境都有一个与之相关联的<strong>变量对象</strong>，环境中定义的所有变量和函数都保存在这个对象中。当代码在一个环境中执行时，会创建变量对象的一个<strong>作用域链</strong>。作用域链的前端，始终是当前执行的代码所在环境的变量对象。如果这个环境是函数，则将其<strong>活动对象</strong>作为变量对象。活动对象在最开始时只包含一个变量，即<code>arguments</code>对象。<br>函数的执行上下文分两个阶段：</p>
+<ul>
+<li>变量初始化阶段：<br><code>VO</code>（变量对象）按照如下顺序填充：<ul>
+<li>函数参数（如果未传入，初始化该参数值为<code>undefined</code>）</li>
+<li>函数声明（如果发生命名冲突，则会覆盖前面的值）</li>
+<li>变量声明（赋值操作会忽略，初始化变量值为<code>undefined</code>，如果发生命名冲突（包括与函数名冲突），会忽略此变量声明）</li>
+</ul>
+</li>
+<li>代码执行阶段：<br>此阶段顺序执行代码。举个栗子：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">alert(x);</span><br><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line">alert(x);</span><br><span class="line">x = <span class="number">20</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">alert(x);</span><br><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> b = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br><span class="line">alert(b);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>变量初始化阶段：<code>&quot;var x=10;&quot;</code>语句声明变量 <code>x</code> 时与函数声明 <code>function x(){}</code> 发生命名冲突，故忽略了 <code>var x=10;</code> 声明的变量 <code>x</code> 。得到的变量对象 <code>VO</code> 大概是这样子的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">VO=&#123;</span><br><span class="line">	x: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">	a: <span class="literal">undefined</span>,	<span class="comment">//js中没有块级作用域</span></span><br><span class="line">	b: <span class="literal">undefined</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>代码执行阶段：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">alert(x);	<span class="comment">//function()&#123;&#125;</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line">alert(x);	<span class="comment">//10</span></span><br><span class="line">x = <span class="number">20</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>)</span>&#123;&#125;  <span class="comment">//已在变量初始化阶段提前，此处不执行</span></span><br><span class="line">alert(x);	<span class="comment">//20</span></span><br><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);	<span class="comment">//1</span></span><br><span class="line">alert(b);	<span class="comment">//undefined</span></span><br></pre></td></tr></table></figure></p>
+<p><a name="理解函数中参数的传递"></a></p>
+<h2 id="理解函数中参数的传递"><a href="#理解函数中参数的传递" class="headerlink" title="理解函数中参数的传递"></a><strong>理解函数中参数的传递</strong></h2><p>函数中的参数传递方式只有一种，那就是按值传递。即把函数外部的值复制给函数内部的参数。对于基本类型数据的传递，这一点很好理解，但对于引用类型的传递，可以这么理解：将函数外部的对象当作参数传递到函数内部，这时候函数内部的参数和外部的变量引用的都是同一个对象，在函数中对象属性和方法进行修改，都会直接影响到外部变量引用的对象。这一点是毋庸置疑的。但是，一旦将内部参数修改为另外一个对象，这时候函数内部参数引用的对象和外部变量引用的对象就不再有关系了，从此你是你，我是我，就此分道扬镳。<br>用过<code>nodejs</code>的人都知道，<code>nodejs</code>中可以通过<code>module.exports</code>或者直接通过<code>exports</code>导出需要暴露给外部的属性和方法。在一些情况下，使用<code>module.exports</code>和<code>exports</code>是一样的。但是在导出函数、数组和其他对象时，这个就不管用了，这是怎么回事呢？其实这跟上面的函数参数的传递方式有关。举个栗子，我这里有一个<code>class.js</code>文件和一个<code>getClass.js</code>文件，<code>class.js</code>中的内容如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">exports = &#123;</span><br><span class="line">	name: <span class="string">"javascript"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 应修改为</span></span><br><span class="line"><span class="comment">//module.exports = &#123;</span></span><br><span class="line"><span class="comment">//	name: "haibin"</span></span><br><span class="line"><span class="comment">//&#125;;</span></span><br><span class="line"><span class="comment">// 或者在exports上直接添加属性</span></span><br><span class="line"><span class="comment">// exports.name = "javascript";</span></span><br></pre></td></tr></table></figure></p>
+<p>而<code>getClass.js</code>文件内容如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = <span class="built_in">require</span>(<span class="string">"./class"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(data.name); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>假设在全局作用域中，<code>node</code>在加载模块时会将整个待加载的<code>class.js</code>文件放入一个<code>load</code>函数（这里的<code>load</code>函数相当于<code>getClass.js</code>文件中的<code>require</code>函数）执行，在执行<code>load</code>函数之前，<code>node</code>准备好了<code>module</code>变量：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="built_in">module</span> = &#123;</span><br><span class="line">	...</span><br><span class="line">	exports: &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> load = <span class="function"><span class="keyword">function</span>(<span class="params">module, exports</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 下面是class.js中的内容</span></span><br><span class="line">	exports = &#123;</span><br><span class="line">		name: <span class="string">"javascript"</span></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">module</span>.exports;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> exported = load(<span class="built_in">module</span>, <span class="built_in">module</span>.exports);</span><br></pre></td></tr></table></figure></p>
+<p>到这里，我们就大概知道发生什么事了。传入<code>load</code>函数的<code>module.exports</code>起初是一个空对象，在函数内部，引用同样对象的<code>exports</code>变量被修改，引用了另外一个对象<code>{name: &quot;javascript&quot;}</code>，但函数最终返回的是<code>module.exports</code>，即还是一开始的空对象<code>{}</code>。所以我们在<code>getClass.js</code>文件中获取到的就是一个空对象，并没有我们想要的<code>name</code>属性。我们只要对<code>class.js</code>文件做一点小小的修改，就可以正确获取了。<br><a name="深入函数的内部"></a></p>
+<h2 id="深入函数的内部"><a href="#深入函数的内部" class="headerlink" title="深入函数的内部"></a><strong>深入函数的内部</strong></h2><p>在函数的内部，我们可以访问到一个特殊的对象——<code>arguments</code>。它形式上类似于数组，但并非是真正的数组。它里面保存着实际传入函数的参数，它的长度是由传入的参数个数决定的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arg1</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">arguments</span>); <span class="comment">// [1,2]</span></span><br><span class="line">	<span class="built_in">arguments</span>[<span class="number">2</span>] = <span class="number">3</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(c); <span class="comment">// undefined</span></span><br><span class="line">&#125;</span><br><span class="line">arg1(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arg2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">arguments</span>); <span class="comment">// [1,2]</span></span><br><span class="line">&#125;</span><br><span class="line">arg2(<span class="number">1</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure></p>
+<p>同时<code>arguments</code>中的元素会与能与之对应的参数绑定到一起（对应不上的元素（参数过少）或者参数（元素过少）则没有这种绑定关系），对<code>arguments</code>中元素的修改会同步到对应的参数。<br><code>arguments</code>对象上的属性：</p>
+<ul>
+<li><code>arguments.callee</code>指向拥有当前这个<code>arguments</code>对象的函数</li>
+<li><code>arguments.caller</code>在非严格模式下，该属性值始终为<code>undefined</code>，而函数对象上也有一个<code>caller</code>属性，该属性指向函数的调用者，例如使用<code>arguments.callee.caller</code>则可以返回当前函数的调用者。<br>有时候，我们可能会见到在函数这样定义变量：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = b = <span class="number">1</span>; <span class="comment">// 此处定义a为局部变量，b为全局变量</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> a); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> b); <span class="comment">// number</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>正如我们所看到的那样，未定义的中间变量会在全局作用域中被创建。<br><a name="作为对象的函数"></a></p>
+<h2 id="作为对象的函数"><a href="#作为对象的函数" class="headerlink" title="作为对象的函数"></a><strong>作为对象的函数</strong></h2><p>函数本身也是一种对象，基本上每个函数都包含两个属性：<code>length</code>和<code>prototype</code>（特例：通过函数对象上的bind方法返回的函数对象没有<code>prototype</code>属性）。</p>
+<ul>
+<li><code>length</code>属性表示当前函数的形参个数</li>
+<li><code>prototype</code>属性指向一个对象，上面保存一些由当前函数创建出来的实例的属性和方法。<strong>注意：</strong>函数本身也是一个对象，也存在着一个<code>__proto__</code>属性，该属性在没有被修改的情况下应该是指向<code>Function.prototype</code>这个对象，跟函数自身的<code>prototype</code>属性指向的不是同一个对象<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(fn.prototype === fn.__proto__); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(fn.__proto__ === <span class="built_in">Function</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(fn.prototype.__proto__ = <span class="built_in">Object</span>.prototype); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>函数对象上具有的方法：</p>
+<ul>
+<li><code>call(context, arg1, arg2, ...)</code></li>
+<li><code>apply(context, argsArray)</code><br>这两个方法都可以修改函数中<code>this</code>指针的指向。区别仅在于传入参数的方式不同，<code>call()</code>方法传入参数是逐个传入，而<code>apply()</code>方法传入的参数是通过数组的形式传入，也可以是<code>arguments</code>对象。<br><strong>注：</strong>在使用<code>apply()</code>或者<code>call()</code>方法调用函数时，如果第一个参数为<code>null</code>或<code>undefined</code>，则会被转化为全局对象。</li>
+<li><code>bind(context, args)</code><br><code>bind</code>方法可以给函数同时绑定作用域和参数。并返回一个新的函数对象。并不是所有的函数都有<code>prototype</code>属性，例如通过<code>bind</code>方法返回的函数对象就没有<code>prototype</code>属性。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toBind</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> binded = toBind.bind(&#123;x:<span class="number">2</span>&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(binded()); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(binded.prototype); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果使用<code>bind()</code>方法得到的函数用来构造对象，则<code>bind</code>方法给函数中<code>this</code>指定的对象将失效，重新初始化为一个空对象。此时得到的实例的<code>__proto__</code>属性不是指向<code>bind</code>方法返回的函数的<code>prototype</code>属性（该属性仍为<code>undefined</code>），而是原先未绑定<code>this</code>的函数的<code>prototype</code>属性，可以认为<code>bind</code>方法在此处完全不起作用。如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.b = <span class="number">100</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> newfoo = foo.bind(&#123;a:<span class="number">200</span>&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(newfoo.prototype); <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> newfoo();</span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123;b: 100&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.__proto__ === foo.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(newfoo.prototype); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-javascriptSerial-4" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -655,144 +939,9 @@
 
 
   
-    <article id="post-javascriptSerial-1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/29/javascriptSerial-1/" class="article-date">
-  	<time datetime="2016-04-29T08:58:12.000Z" itemprop="datePublished">2016-04-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/29/javascriptSerial-1/">你所不知道的javascript之隐性类型转换问题</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>哈哈，看到这个标题，是不是让你想到了一本书也叫同样的名字？其实呢，写这篇博文的目的是为了和大家分享我在使用<code>javascript</code>中遇到的一些容易被我们忽略的 <strong>tips</strong> ，自己平时也在做一些总结，这一次想尽可能地汇总起来，写给以后的自己。</p>
-<hr>
-<!-- MarkdownTOC -->
-<ul>
-<li><a href="#javascript中的数据类型">javascript中的数据类型</a></li>
-<li><a href="#数值转换">数值转换</a></li>
-<li><a href="#字符串转换">字符串转换</a></li>
-<li><a href="#使用加法操作符（）时的隐性类型转换问题">使用加法操作符（+）时的隐性类型转换问题</a></li>
-<li><a href="#使用减法操作符（-）时的隐性类型转换问题">使用减法操作符（-）时的隐性类型转换问题</a></li>
-<li><a href="#使用关系运算符时的隐性类型转换问题">使用关系运算符时的隐性类型转换问题</a></li>
-<li><a href="#使用相等运算符（）时的隐形类型转换问题">使用相等运算符（<code>==</code>）时的隐形类型转换问题</a></li>
-<li><a href="#应该使用全等运算符（）">应该使用全等运算符（<code>===</code>）</a></li>
-</ul>
-<!-- /MarkdownTOC -->
-<hr>
-<p><a name="javascript中的数据类型"></a></p>
-<h2 id="javascript中的数据类型"><a href="#javascript中的数据类型" class="headerlink" title="javascript中的数据类型"></a>javascript中的数据类型</h2><p>先从<code>javascript</code>中最基本的数据类型开始说起吧，我们都知道<code>javascript</code>有六种数据类型，分别是<code>number</code>、<code>string</code>、<br><code>boolean</code>、<code>undefined</code>、<code>object</code>和<code>function</code>，如果我们要检测某个变量的类型，都有哪些方法呢？最先想到的应该是<code>typeof</code>这个操作符，在大多数情况下，它都可以检测出我们想要的值，它的返回值就是以上这六种数据类型之一。对于未声明的变量，只能对其执行一项操作，那就是使用<code>typeof</code>检测其类型，返回值为<code>&quot;undefined&quot;</code>。另外需要特别指出的是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">null</span>); <span class="comment">// "object"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">NaN</span>); <span class="comment">// "number"</span></span><br></pre></td></tr></table></figure></p>
-<p>虽然<code>typeof</code>可以分辨出以上这六种数据类型，但是在检测对象具体是哪一种类型（比如<code>Array</code>，<code>Date</code>，<code>RegExp</code>等）时，<code>typeof</code>却无能为力，这时候我们就需要借助<code>Object</code>构造函数原型上的<code>toString</code>方法来进一步区分：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">12</span>,<span class="number">34</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr.toString()); <span class="comment">// 12,34</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(arr)); <span class="comment">// "[object Array]"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.prototype.hasOwnProperty(<span class="string">"toString"</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
-<p>我们都知道，上面提到的<code>Array</code>，<code>Date</code>，<code>RegExp</code>等对象上都具有<code>toString</code>方法，为什么不直接调用对象上的方法来进行判断呢？原因是这些内置对象的构造函数在实现时都重写了<code>Object</code>构造函数原型上的<code>toString</code>方法，我们需要借助<code>call</code>方法将<code>Object</code>构造函数原型上的<code>toString</code>方法内部<code>this</code>的指向修改为我们要判断的对象。<br><strong>注意：</strong>尽管是<code>Object</code>构造函数原型上的<code>toString</code>方法也并不十分完美，在遇到<code>null</code>和<code>undefined</code>也会失效，例如在IE6/7/8中会返回”[object Object]”。</p>
-<p><a name="数值转换"></a></p>
-<h2 id="数值转换"><a href="#数值转换" class="headerlink" title="数值转换"></a>数值转换</h2><p>JavaScript中将某个变量转化为数值，通常有以下三个方法：</p>
-<ul>
-<li><h3 id="Number函数"><a href="#Number函数" class="headerlink" title="Number函数"></a><strong>Number函数</strong></h3><p>使用<code>Number</code>函数转化得到的结果仍是基本类型<code>number</code>，而不是引用类型。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="literal">null</span>)); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="literal">undefined</span>)); <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">""</span>)); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"010"</span>)); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="parseInt-函数"><a href="#parseInt-函数" class="headerlink" title="parseInt()函数"></a><strong>parseInt()函数</strong></h3><p>在使用<code>parseInt()</code>函数对字符串进行转换时，如果第一个字符不是数字且不是负号，<code>parseInt()</code>就会返回NaN；如果第一个字符是数字或者是负号，则parseInt函数会继续解析第二个字符，直到出现第一个非数字字符为止。此外，<code>parseInt()</code>函数可以识别各种整数格式（包括十进制、八进制和十六进制）。使用<code>parseInt()</code>函数还可以指定第二个参数，主要是用于指明给定的字符串要看成多少进制的。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"AF"</span>, <span class="number">16</span>); <span class="comment">// 175</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>由于使用<code>parseInt()</code>在解析类似<code>null</code>,undefined这些值时统一返回<code>NaN</code>，也就是比较合理的结果，因此实际中如果需要将某个值转换成整数，常用<code>parseInt()</code>函数。</p>
-<ul>
-<li><h3 id="parseFloat-函数"><a href="#parseFloat-函数" class="headerlink" title="parseFloat()函数"></a><strong>parseFloat()函数</strong></h3><code>parseFloat()</code>函数常用于将某个值转换成浮点数，但它跟<code>parseInt()</code>还是有很大的区别：<ul>
-<li><code>parseFloat()</code>函数只能指定一个参数，即要进行转换的值</li>
-<li><code>parseFloat()</code>函数将所有要进行转换的字符串都看成是十进制数，不能识别八进制和十六进制</li>
-</ul>
-</li>
-</ul>
-<p><a name="字符串转换"></a></p>
-<h2 id="字符串转换"><a href="#字符串转换" class="headerlink" title="字符串转换"></a>字符串转换</h2><ul>
-<li><h3 id="toString方法"><a href="#toString方法" class="headerlink" title="toString方法"></a><strong>toString方法</strong></h3><p>一般情况下，要将某个值转换成字符串，可以直接调用对象上的<code>toString</code>方法。特别的，在将数值转换成字符串时，默认情况下会将数值转换成十进制的字符串格式，也可以给<code>toString</code>方法指定一个参数，该参数用于指明要将数值转换成的进制。这与<code>parseInt()</code>函数指定的第二个参数含义刚好相反。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num.toString(<span class="number">2</span>)); <span class="comment">// "1010"</span></span><br><span class="line"><span class="built_in">console</span>.log(num.toString(<span class="number">8</span>)); <span class="comment">// "12"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="String构造函数"><a href="#String构造函数" class="headerlink" title="String构造函数"></a><strong>String构造函数</strong></h3><p>使用String方法转换时遵循以下规则：</p>
-<ul>
-<li>如果要转换的值有<code>toString</code>方法，则直接调用<code>toString</code>方法进行转换</li>
-<li>如果是<code>undefined</code>，则结果返回<code>&quot;undefined&quot;</code></li>
-<li>如果是<code>null</code>，则结果返回<code>&quot;null&quot;</code></li>
-</ul>
-</li>
-</ul>
-<p><a name="使用加法操作符（）时的隐性类型转换问题"></a></p>
-<h2 id="使用加法操作符（-）时的隐性类型转换问题"><a href="#使用加法操作符（-）时的隐性类型转换问题" class="headerlink" title="使用加法操作符（+）时的隐性类型转换问题"></a>使用加法操作符（+）时的隐性类型转换问题</h2><ul>
-<li>如果操作数中含有对象或者函数时，默认会先调用对象或函数重写的<code>valueOf</code>方法，如果该对象上不存在重写的valueOf方法，则会调用重写的<code>toString</code>方法，如果该对象上不存在重写的toString方法，则会调用<code>Object</code>构造函数原型上的<code>toString</code>方法转化为字符串。</li>
-<li>对于<code>undefined</code>，<code>null</code>和布尔值，则会根据其他操作数的类型转换成相应类型的值（如果跟它相加的操作数中含有字符串，则转换成字符串；如果跟它相加的操作数中不含字符串而是数值，则转换成数值），如果只是null，undefined和布尔值混合相加，则优先全部转换成数值。<br><strong>注意：</strong><code>undefined</code>转换成数值时得到的结果为<code>NaN</code>，转换得到的NaN则会被看成是字符串，而<code>null</code>转换为数值时则会转化为<code>0</code>。</li>
-<li>一般情况下，经过上面的步骤，函数或者对象会被转换成数值或者字符串，此时如果操作数中含有字符串（包括函数或对象转化而来的字符串以及<code>undefined</code>转化得到的<code>NaN</code>），则加法运算得到的结果是字符串。如果操作数中不含字符串而全部是数值，则得到的结果是数值。</li>
-</ul>
-<p><a name="使用减法操作符（-）时的隐性类型转换问题"></a></p>
-<h2 id="使用减法操作符（-）时的隐性类型转换问题"><a href="#使用减法操作符（-）时的隐性类型转换问题" class="headerlink" title="使用减法操作符（-）时的隐性类型转换问题"></a>使用减法操作符（-）时的隐性类型转换问题</h2><p>相对于加法操作符（+），减法的运算规则则显得没有那么复杂，所有的值都会先通过<code>Number</code>构造函数转换成数值，然后再进行减法运算。如果转换的结果是<code>NaN</code>，则得到的运算结果就是<code>NaN</code>。</p>
-<p><a name="使用关系运算符时的隐性类型转换问题"></a></p>
-<h2 id="使用关系运算符时的隐性类型转换问题"><a href="#使用关系运算符时的隐性类型转换问题" class="headerlink" title="使用关系运算符时的隐性类型转换问题"></a>使用关系运算符时的隐性类型转换问题</h2><p>javascript中的关系运算符：<code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code></p>
-<ul>
-<li>如果两个操作数都是字符串（可能是转化得到的），则会根据每个字符在<code>ASCII编码表</code>中出现的先后顺序进行比较</li>
-<li>其他情况下，将两个操作数转换成数值再进行比较</li>
-<li><strong><code>NaN</code>（可能是由<code>undefined</code>转化而来）跟任何值做比较返回的结果都是<code>false</code></strong></li>
-</ul>
-<p><a name="使用相等运算符（）时的隐形类型转换问题"></a></p>
-<h2 id="使用相等运算符（-）时的隐形类型转换问题"><a href="#使用相等运算符（-）时的隐形类型转换问题" class="headerlink" title="使用相等运算符（==）时的隐形类型转换问题"></a>使用相等运算符（<code>==</code>）时的隐形类型转换问题</h2><ul>
-<li>如果操作数中含有布尔值，则会将布尔值转化为数值</li>
-<li>如果操作数中含有字符串和数值，则会将字符串转换为数值再进行判断<br><strong>注意：</strong><ul>
-<li><strong>null和undefined是相等的</strong></li>
-<li><strong>在比较相等性之前，不会对null和undefined做任何转化</strong></li>
-<li><strong>NaN和任何值都不相等，包括它本身</strong></li>
-<li>在比较两个对象是否相等时，如果两者指向的是同一个对象，则返回<code>true</code>，否则返回<code>false</code>。这一点和比较全等时的规则是一样的。</li>
-</ul>
-</li>
-</ul>
-<p><a name="应该使用全等运算符（）"></a></p>
-<h2 id="应该使用全等运算符（-）"><a href="#应该使用全等运算符（-）" class="headerlink" title="应该使用全等运算符（===）"></a>应该使用全等运算符（<code>===</code>）</h2><p><code>===</code>可以严格判断做比较的两者是否为同一类型，如果不是相同类型，则直接返回<code>false</code>，而不会导致模棱两可的结果。</p>
-<p><code>javascript</code>中不同的运算符有着不同的隐性转换规则，这一点也确实让人感到头疼，但也是因为这一点，<code>JavaScript</code>程序本身才具有很高的容错性，不至于因为数据类型不同而打断程序的运行。虽然说有时候得到的结果往往并不是我们想要的。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 </div>

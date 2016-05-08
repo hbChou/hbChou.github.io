@@ -4,21 +4,54 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>ES 6的新特性（一） | hbChou</title>
+  <title>ES 6的新特性之let、const、解构赋值和模板字符串 | hbChou</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="2015年刚公布的ECMAScript增加了很多新的特性，可以说又进一步增强了javascript。当然其中还有很多特性还没有真正在浏览器中实现，有些特性直接在javascript中使用还需要启用严格模式（例如chrome浏览器）。不过相信时间的推移，ES 6会被越来越多的浏览器所支持。
-let 关键字ES 6中新增了let关键字用来声明变量，而声明出来的变量只在声明的代码块中有效，从而弥补了ja">
+
+
+
+let 关键字
+暂时性死区
+
+
+const 关键字
+解构赋值
+解构赋值的应用场景
+交换变量的值
+可以从函">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES 6的新特性（一）">
+<meta property="og:title" content="ES 6的新特性之let、const、解构赋值和模板字符串">
 <meta property="og:url" content="http://yoursite.com/2016/05/07/ECMAScript6-1/index.html">
 <meta property="og:site_name" content="hbChou">
 <meta property="og:description" content="2015年刚公布的ECMAScript增加了很多新的特性，可以说又进一步增强了javascript。当然其中还有很多特性还没有真正在浏览器中实现，有些特性直接在javascript中使用还需要启用严格模式（例如chrome浏览器）。不过相信时间的推移，ES 6会被越来越多的浏览器所支持。
-let 关键字ES 6中新增了let关键字用来声明变量，而声明出来的变量只在声明的代码块中有效，从而弥补了ja">
-<meta property="og:updated_time" content="2016-05-07T13:55:06.559Z">
+
+
+
+let 关键字
+暂时性死区
+
+
+const 关键字
+解构赋值
+解构赋值的应用场景
+交换变量的值
+可以从函">
+<meta property="og:updated_time" content="2016-05-08T05:44:37.631Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES 6的新特性（一）">
+<meta name="twitter:title" content="ES 6的新特性之let、const、解构赋值和模板字符串">
 <meta name="twitter:description" content="2015年刚公布的ECMAScript增加了很多新的特性，可以说又进一步增强了javascript。当然其中还有很多特性还没有真正在浏览器中实现，有些特性直接在javascript中使用还需要启用严格模式（例如chrome浏览器）。不过相信时间的推移，ES 6会被越来越多的浏览器所支持。
-let 关键字ES 6中新增了let关键字用来声明变量，而声明出来的变量只在声明的代码块中有效，从而弥补了ja">
+
+
+
+let 关键字
+暂时性死区
+
+
+const 关键字
+解构赋值
+解构赋值的应用场景
+交换变量的值
+可以从函">
   
     <link rel="alternative" href="/atom.xml" title="hbChou" type="application/atom+xml">
   
@@ -83,7 +116,7 @@ let 关键字ES 6中新增了let关键字用来声明变量，而声明出来的
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -120,7 +153,7 @@ let 关键字ES 6中新增了let关键字用来声明变量，而声明出来的
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -211,7 +244,7 @@ let 关键字ES 6中新增了let关键字用来声明变量，而声明出来的
         
   
     <h1 class="article-title" itemprop="name">
-      ES 6的新特性（一）
+      ES 6的新特性之let、const、解构赋值和模板字符串
     </h1>
   
 
@@ -232,23 +265,57 @@ let 关键字ES 6中新增了let关键字用来声明变量，而声明出来的
     <div class="article-entry" itemprop="articleBody">
       
         <p>2015年刚公布的ECMAScript增加了很多新的特性，可以说又进一步增强了javascript。当然其中还有很多特性还没有真正在浏览器中实现，有些特性直接在javascript中使用还需要启用严格模式（例如chrome浏览器）。不过相信时间的推移，ES 6会被越来越多的浏览器所支持。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#let-关键字"><strong>let 关键字</strong></a><ul>
+<li><a href="#暂时性死区"><strong>暂时性死区</strong></a></li>
+</ul>
+</li>
+<li><a href="#const-关键字"><strong>const 关键字</strong></a></li>
+<li><a href="#解构赋值"><strong>解构赋值</strong></a><ul>
+<li><a href="#解构赋值的应用场景"><strong>解构赋值的应用场景</strong></a><ul>
+<li><a href="#交换变量的值"><strong>交换变量的值</strong></a></li>
+<li><a href="#可以从函数返回多个值"><strong>可以从函数返回多个值</strong></a></li>
+<li><a href="#提取json数据"><strong>提取json数据</strong></a></li>
+<li><a href="#函数参数的默认值"><strong>函数参数的默认值</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#模板字符串"><strong>模板字符串</strong></a></li>
+<li><a href="#标签模板"><strong>标签模板</strong></a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="let-关键字"></a></p>
 <h2 id="let-关键字"><a href="#let-关键字" class="headerlink" title="let 关键字"></a><strong>let 关键字</strong></h2><p>ES 6中新增了let关键字用来声明变量，而声明出来的变量只在声明的代码块中有效，从而弥补了javascript没有块级作用域的缺陷。不仅如此，在for循环中，每次循环中定义的函数内部都能准确引用这次循环中产生的变量：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span></span><br><span class="line"><span class="keyword">var</span> arr = [];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">    arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line">arr[<span class="number">7</span>](); <span class="comment">// 7</span></span><br></pre></td></tr></table></figure></p>
-<p>和var声明变量的方式不同，<strong>let声明变量时不存在变量的提升问题</strong>。也就是说，通过let声明的变量必须先声明，然后才能使用。这也意味着typeof操作符不再是百分之百安全的操作了。</p>
-<h3 id="暂时性死区"><a href="#暂时性死区" class="headerlink" title="暂时性死区"></a><strong>暂时性死区</strong></h3><p>只要某个代码块中存在let关键字声明变量，该变量就在进入该代码块时就已经存在，但是在变量被真正声明以前，该变量是不能被访问的，否则报错（存在暂时性死区）。即使该代码块外部已经存在使用let或者var声明了同名的变量，也不会对代码块内部造成影响，同样内部也不会对外部产生影响。该代码块内依然使用的是内部声明的变量，但不允许内部在声明变量之前就使用该变量。<br>在某个代码块中多次使用let声明同一个变量，也不允许var和let混合声明同一个变量。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">12</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a);  <span class="comment">// 1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// 12</span></span><br></pre></td></tr></table></figure></p>
+<p>和<code>var</code>声明变量的方式不同，<strong>let声明变量时不存在变量的提升问题</strong>。也就是说，通过<code>let</code>声明的变量必须先声明，然后才能使用。这也意味着<code>typeof</code>操作符不再是百分之百安全的操作了。</p>
+<p><a name="暂时性死区"></a></p>
+<h3 id="暂时性死区"><a href="#暂时性死区" class="headerlink" title="暂时性死区"></a><strong>暂时性死区</strong></h3><p>只要某个代码块中存在<code>let</code>关键字声明变量，该变量就在进入该代码块时就已经存在，但是在变量被真正声明以前，该变量是不能被访问的，否则报错（存在暂时性死区）。即使该代码块外部已经存在使用<code>let</code>或者<code>var</code>声明了同名的变量，也不会对代码块内部造成影响，同样内部也不会对外部产生影响。该代码块内依然使用的是内部声明的变量，但不允许内部在声明变量之前就使用该变量。<br>在某个代码块中多次使用<code>let</code>声明同一个变量，也不允许<code>var</code>和<code>let</code>混合声明同一个变量。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">12</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a);  <span class="comment">// 1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// 12</span></span><br></pre></td></tr></table></figure></p>
 <p>对于函数的声明也是如此。内外的代码块不会相互影响（即使进入了内部代码块也不会对外部代码块产生影响），<strong>函数的作用域只是该函数声明所在的代码块中</strong>。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">"I am outside."</span>);&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">"I am inside."</span>);&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    fn();  <span class="comment">// "I am outside."</span></span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure></p>
-<h2 id="const-关键字"><a href="#const-关键字" class="headerlink" title="const 关键字"></a><strong>const 关键字</strong></h2><p>const关键字也是用来声明常量的。一旦声明该常量，则赋给该常量的值就不能再发生改变。const声明常量时，必须立即初始化，而不能等到以后再赋值。const声明的常量和let一样，只在变量声明的代码块中有效，不存在提升的问题，也存在暂时性死区，只能在声明后使用，在同一代码块中不能出现同名变量重复声明。<br>对于常量值是一个引用对象时，常量只能保证指向的对象所在的内存地址不变，但不能保证对象内部数据不会发生改变。也就是说，常量引用的对象的属性和方法是可以修改的。</p>
-<p>ES 6中也规定了采用let、const和class关键字声明的全局变量不属于全局对象的属性。</p>
+<p><a name="const-关键字"></a></p>
+<h2 id="const-关键字"><a href="#const-关键字" class="headerlink" title="const 关键字"></a><strong>const 关键字</strong></h2><p><code>const</code>关键字也是用来声明常量的。一旦声明该常量，则赋给该常量的值就不能再发生改变。<code>const</code>声明常量时，必须立即初始化，而不能等到以后再赋值。<code>const</code>声明的常量和<code>let</code>一样，只在变量声明的代码块中有效，不存在提升的问题，也存在暂时性死区，只能在声明后使用，在同一代码块中不能出现同名变量重复声明。<br>对于常量值是一个引用对象时，常量只能保证指向的对象所在的内存地址不变，但不能保证对象内部数据不会发生改变。也就是说，常量引用的对象的属性和方法是可以修改的。</p>
+<p><code>ES 6</code>中也规定了采用<code>let</code>、<code>const</code>和<code>class</code>关键字声明的全局变量不属于全局对象的属性。</p>
+<p><a name="解构赋值"></a></p>
 <h2 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a><strong>解构赋值</strong></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [a,b,c] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> [d,[e],f] = [<span class="number">4</span>,[<span class="number">5</span>,<span class="number">6</span>],<span class="number">7</span>]; <span class="comment">// d = 4; e = 5; f = 7</span></span><br><span class="line"><span class="keyword">let</span> [g, ...h] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]; <span class="comment">// g = 1; h = [2,3,4]</span></span><br><span class="line"><span class="keyword">let</span> [i,j, ...k] = [<span class="number">1</span>,<span class="number">2</span>]; <span class="comment">// i = 1; j = 2; k = []</span></span><br><span class="line"><span class="keyword">let</span> &#123;l,m&#125; = &#123;m: <span class="number">1</span>,l: <span class="number">2</span>&#125;; <span class="comment">// l = 2; m = 1</span></span><br><span class="line"><span class="keyword">let</span> &#123;l: n,m: o&#125; = &#123;m: <span class="number">1</span>,l: <span class="number">2</span>&#125;; <span class="comment">// n = 2; o = 1</span></span><br><span class="line"><span class="keyword">let</span> &#123;p: [x, &#123;y&#125;]&#125; = &#123;p: [<span class="string">"hello"</span>, &#123;y: <span class="number">3</span>&#125;]&#125;; <span class="comment">// x = "hello";y = 3</span></span><br><span class="line"><span class="keyword">let</span> [q = <span class="literal">true</span>] = []; <span class="comment">// q = true</span></span><br><span class="line"><span class="keyword">let</span> &#123;r = <span class="number">4</span>&#125; = &#123;&#125;; <span class="comment">// r = 4</span></span><br><span class="line"><span class="keyword">let</span> &#123;s: t = <span class="string">"hello"</span>&#125; = &#123;&#125;; <span class="comment">// t = "hello"</span></span><br><span class="line"><span class="keyword">let</span> &#123;u: v = <span class="number">5</span>&#125; = &#123;u：<span class="literal">null</span>&#125;; <span class="comment">// v = null</span></span><br><span class="line"><span class="keyword">let</span> &#123;w: &#123;z = <span class="number">6</span>&#125;&#125; = &#123;&#125;; <span class="comment">// 报错，因为获取到的w属性值为undefined，然后再获取undefined的z属性则会报错</span></span><br></pre></td></tr></table></figure>
-<h3 id="解构赋值的应用场景"><a href="#解构赋值的应用场景" class="headerlink" title="解构赋值的应用场景"></a><strong>解构赋值的应用场景</strong></h3><h4 id="交换变量的值"><a href="#交换变量的值" class="headerlink" title="交换变量的值"></a><strong>交换变量的值</strong></h4><p>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [x, y] = [y, x];</span><br></pre></td></tr></table></figure></p>
+<p><a name="解构赋值的应用场景"></a></p>
+<h3 id="解构赋值的应用场景"><a href="#解构赋值的应用场景" class="headerlink" title="解构赋值的应用场景"></a><strong>解构赋值的应用场景</strong></h3><p><a name="交换变量的值"></a></p>
+<h4 id="交换变量的值"><a href="#交换变量的值" class="headerlink" title="交换变量的值"></a><strong>交换变量的值</strong></h4><p>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [x, y] = [y, x];</span><br></pre></td></tr></table></figure></p>
+<p><a name="可以从函数返回多个值"></a></p>
 <h4 id="可以从函数返回多个值"><a href="#可以从函数返回多个值" class="headerlink" title="可以从函数返回多个值"></a><strong>可以从函数返回多个值</strong></h4><p>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> [x, y] = fn(); <span class="comment">// x = 1; y = 2</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        x: <span class="number">3</span>,</span><br><span class="line">        y: <span class="number">4</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> &#123;x, y&#125; = func(); <span class="comment">// x = 3; y = 4</span></span><br></pre></td></tr></table></figure></p>
+<p><a name="提取json数据"></a></p>
 <h4 id="提取json数据"><a href="#提取json数据" class="headerlink" title="提取json数据"></a><strong>提取json数据</strong></h4><p>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> json = &#123;</span><br><span class="line">    fruits: [<span class="string">"apple"</span>, <span class="string">"pear"</span>],</span><br><span class="line">    id: <span class="string">"v587"</span>,</span><br><span class="line">    date: <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> &#123;id, date, fruits&#125; = json; <span class="comment">// id = "v587"; fruits: ["apple", "pear"]; date: "Sat May 07 2016 21:14:16 GMT+0800"</span></span><br></pre></td></tr></table></figure></p>
+<p><a name="函数参数的默认值"></a></p>
 <h4 id="函数参数的默认值"><a href="#函数参数的默认值" class="headerlink" title="函数参数的默认值"></a><strong>函数参数的默认值</strong></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">url, &#123;</span><br><span class="line">        async = true,</span><br><span class="line">        cache = true,</span><br><span class="line">        complete = function (</span>)</span>&#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a><strong>模板字符串</strong></h2><p>模板字符串使用反引号（`）标识，它既可以当作普通字符串使用，也可以用来定义多行字符串，或者在字符串中插入变量：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> who = <span class="string">"hb"</span>;</span><br><span class="line"><span class="keyword">var</span> what = <span class="string">"javascript"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;who&#125;</span> is learning <span class="subst">$&#123;what&#125;</span>`</span>); <span class="comment">// "hb is learning javascript"</span></span><br></pre></td></tr></table></figure></p>
+<p><a name="模板字符串"></a></p>
+<h2 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a><strong>模板字符串</strong></h2><p>模板字符串使用反引号<strong>（`）</strong>标识，它既可以当作普通字符串使用，也可以用来定义多行字符串，或者在字符串中插入变量：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> who = <span class="string">"hb"</span>;</span><br><span class="line"><span class="keyword">var</span> what = <span class="string">"javascript"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;who&#125;</span> is learning <span class="subst">$&#123;what&#125;</span>`</span>); <span class="comment">// "hb is learning javascript"</span></span><br></pre></td></tr></table></figure></p>
 <p>如果使用模板字符串表示多行字符串，模板字符串中的所有空格和缩进都会保留在输出中：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">`&lt;h1&gt;javascript&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;javascript is powerful&lt;/p&gt;</span><br><span class="line">&lt;span&gt;good good study, day day up&lt;/span&gt;`</span>);</span><br><span class="line"><span class="comment">// &lt;h1&gt;javascript&lt;/h1&gt;</span></span><br><span class="line"><span class="comment">// &lt;p&gt;javascript is powerful&lt;/p&gt;</span></span><br><span class="line"><span class="comment">// &lt;span&gt;good good study, day day up&lt;/span&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>模板字符串中通过“${}”来嵌入变量，大括号中可以是任意的javascript表达式，包括运算，对象属性，函数调用等等。</p>
+<p>模板字符串中通过<code>“${}”</code>来嵌入变量，大括号中可以是任意的<code>javascript</code>表达式，包括运算，对象属性，函数调用等等。</p>
+<p><a name="标签模板"></a></p>
 <h2 id="标签模板"><a href="#标签模板" class="headerlink" title="标签模板"></a><strong>标签模板</strong></h2><p>标签模板其实是函数调用的一种参数，它的形式类似于这样：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tag<span class="string">`string template`</span></span><br></pre></td></tr></table></figure></p>
 <p>标签名其实就是自定义用来处理模板字符串的函数的名称，后面跟的模板字符串就是待处理的字符串。自定义的模板字符串处理函数格式如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tag</span>(<span class="params">stringArr, ...values</span>)</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>假设待处理的模板字符串是<code>Hello ${a + b} world ${a * b}</code>，其中a和b的值分别是5和10。则调用模板字符串处理函数时，传入的stringArr的值为[“Hello “, “ world “, “”]，传入的values的值为[15, 50]，接下来就可以在函数中对模板字符串做我们想要的处理，然后返回新的字符串。<br>标签模板的一个重要应用就是用来过滤HTML字符串，防止用户恶意的输入。</p>
+<p>假设待处理的模板字符串是 `Hello \${a + b} world \${a * b}`，其中<code>a</code>和<code>b</code>的值分别是<code>5</code>和<code>10</code>。则调用模板字符串处理函数时，传入的<code>stringArr</code>的值为<code>[&quot;Hello &quot;, &quot; world &quot;, &quot;&quot;]</code>，传入的<code>values</code>的值为<code>[15, 50]</code>，接下来就可以在函数中对模板字符串做我们想要的处理，然后返回新的字符串。<br>标签模板的一个重要应用就是用来过滤HTML字符串，防止用户恶意的输入。</p>
 
       
     </div>
@@ -257,6 +324,15 @@ let 关键字ES 6中新增了let关键字用来声明变量，而声明出来的
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/05/08/ECMAScript6-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          ES 6的新特性之函数的扩展
+        
+      </div>
+    </a>
   
   
     <a href="/2016/05/05/StorageInHTML5/" id="article-nav-older" class="article-nav-link-wrap">
@@ -295,7 +371,7 @@ let 关键字ES 6中新增了let关键字用来声明变量，而声明出来的
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="ECMAScript6-1" data-title="ES 6的新特性（一）" data-url="http://yoursite.com/2016/05/07/ECMAScript6-1/"></div>
+	<div class="ds-thread" data-thread-key="ECMAScript6-1" data-title="ES 6的新特性之let、const、解构赋值和模板字符串" data-url="http://yoursite.com/2016/05/07/ECMAScript6-1/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
