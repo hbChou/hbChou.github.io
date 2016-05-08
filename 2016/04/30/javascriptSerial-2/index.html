@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>你所不知道的javascript（二） | hbChou</title>
+  <title>你所不知道的javascript之Array、Date和RegExp | hbChou</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前一篇讲了javascript中的数据类型和几种操作符的操作数的隐性类型转换问题，接下来让我们谈谈javascript中几种引用类型：Array，Date和RegExp。
 
@@ -23,7 +23,7 @@ Array的构造javascript中的数组有以下几种构造方式：
 使用Array构造函数
 123var colors = new Array();v">
 <meta property="og:type" content="article">
-<meta property="og:title" content="你所不知道的javascript（二）">
+<meta property="og:title" content="你所不知道的javascript之Array、Date和RegExp">
 <meta property="og:url" content="http://yoursite.com/2016/04/30/javascriptSerial-2/index.html">
 <meta property="og:site_name" content="hbChou">
 <meta property="og:description" content="前一篇讲了javascript中的数据类型和几种操作符的操作数的隐性类型转换问题，接下来让我们谈谈javascript中几种引用类型：Array，Date和RegExp。
@@ -42,9 +42,9 @@ Array的构造javascript中的数组有以下几种构造方式：
 
 使用Array构造函数
 123var colors = new Array();v">
-<meta property="og:updated_time" content="2016-05-01T10:24:58.962Z">
+<meta property="og:updated_time" content="2016-05-07T14:08:34.232Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="你所不知道的javascript（二）">
+<meta name="twitter:title" content="你所不知道的javascript之Array、Date和RegExp">
 <meta name="twitter:description" content="前一篇讲了javascript中的数据类型和几种操作符的操作数的隐性类型转换问题，接下来让我们谈谈javascript中几种引用类型：Array，Date和RegExp。
 
 
@@ -162,7 +162,7 @@ Array的构造javascript中的数组有以下几种构造方式：
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -253,7 +253,7 @@ Array的构造javascript中的数组有以下几种构造方式：
         
   
     <h1 class="article-title" itemprop="name">
-      你所不知道的javascript（二）
+      你所不知道的javascript之Array、Date和RegExp
     </h1>
   
 
@@ -295,6 +295,9 @@ Array的构造javascript中的数组有以下几种构造方式：
 </li>
 </ul>
 </li>
+</ul>
+<p><strong>注意：</strong>数组中空位上的值等于undefined，但是有空位的数组和元素值为undefined的数组还是存在细微的差别：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr1 = [,,];</span><br><span class="line"><span class="keyword">var</span> arr2 = [<span class="literal">undefined</span>, <span class="literal">undefined</span>];</span><br><span class="line"><span class="built_in">console</span>.log(arr1[<span class="number">0</span>] === arr2[<span class="number">0</span>]);<span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span> <span class="keyword">in</span> arr1); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span> <span class="keyword">in</span> arr2); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<ul>
 <li><p>检测数组<br>除了可以使用<code>Object</code>构造函数原型上的<code>toString</code>方法来判断某个变量是否为数组以外，还可以直接使用<code>Array</code>构造函数上的<code>isArray</code>方法来判断：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colors = [];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(colors)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -443,14 +446,14 @@ Array的构造javascript中的数组有以下几种构造方式：
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          你所不知道的javascript（三）
+          你所不知道的javascript之包装类型
         
       </div>
     </a>
   
   
     <a href="/2016/04/29/javascriptSerial-1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">你所不知道的javascript（一）</div>
+      <div class="article-nav-title">你所不知道的javascript之隐性类型转换问题</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -485,7 +488,7 @@ Array的构造javascript中的数组有以下几种构造方式：
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="javascriptSerial-2" data-title="你所不知道的javascript（二）" data-url="http://yoursite.com/2016/04/30/javascriptSerial-2/"></div>
+	<div class="ds-thread" data-thread-key="javascriptSerial-2" data-title="你所不知道的javascript之Array、Date和RegExp" data-url="http://yoursite.com/2016/04/30/javascriptSerial-2/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>前端优化方案 | hbChou</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这一节让我们来总结一些常见的前端优化方案以及一些安全问题。
+
+
+
+浏览器是如何渲染页面的
+回流与重绘
+哪些操作会引起回流或重绘
+如何减少回流或者重绘
+强制重排
+
+
+雅虎军规
+延伸扩展
+iframe的优缺点
+什么是CDN
+高效的css
+原则
+其他css高性能实践
+
+
+
+
+前端安全问题
+XSS
+跨站脚本攻击的解决思路
+XSS给我们的启示
+
+
+CSRF
+什么是CSRF
+预防措施
+
+
+
+
+
+
+
+
+浏览器是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端优化方案">
+<meta property="og:url" content="http://yoursite.com/2016/05/05/optimization&secure/index.html">
+<meta property="og:site_name" content="hbChou">
+<meta property="og:description" content="这一节让我们来总结一些常见的前端优化方案以及一些安全问题。
+
+
+
+浏览器是如何渲染页面的
+回流与重绘
+哪些操作会引起回流或重绘
+如何减少回流或者重绘
+强制重排
+
+
+雅虎军规
+延伸扩展
+iframe的优缺点
+什么是CDN
+高效的css
+原则
+其他css高性能实践
+
+
+
+
+前端安全问题
+XSS
+跨站脚本攻击的解决思路
+XSS给我们的启示
+
+
+CSRF
+什么是CSRF
+预防措施
+
+
+
+
+
+
+
+
+浏览器是">
+<meta property="og:updated_time" content="2016-05-05T09:40:23.337Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端优化方案">
+<meta name="twitter:description" content="这一节让我们来总结一些常见的前端优化方案以及一些安全问题。
+
+
+
+浏览器是如何渲染页面的
+回流与重绘
+哪些操作会引起回流或重绘
+如何减少回流或者重绘
+强制重排
+
+
+雅虎军规
+延伸扩展
+iframe的优缺点
+什么是CDN
+高效的css
+原则
+其他css高性能实践
+
+
+
+
+前端安全问题
+XSS
+跨站脚本攻击的解决思路
+XSS给我们的启示
+
+
+CSRF
+什么是CSRF
+预防措施
+
+
+
+
+
+
+
+
+浏览器是">
+  
+    <link rel="alternative" href="/atom.xml" title="hbChou" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/image.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">hbChou</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">每天都要有所收获</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://segmentfault.com/">segmentfault社区</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">hbChou</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/image.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">hbChou</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">每天都要有所收获</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-optimization&amp;secure" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/05/optimization&secure/" class="article-date">
+  	<time datetime="2016-05-05T01:21:18.000Z" itemprop="datePublished">2016-05-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      前端优化方案
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端安全与优化/">前端安全与优化</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这一节让我们来总结一些常见的前端优化方案以及一些安全问题。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#浏览器是如何渲染页面的"><strong>浏览器是如何渲染页面的</strong></a></li>
+<li><a href="#回流与重绘"><strong>回流与重绘</strong></a><ul>
+<li><a href="#哪些操作会引起回流或重绘"><strong>哪些操作会引起回流或重绘</strong></a></li>
+<li><a href="#如何减少回流或者重绘"><strong>如何减少回流或者重绘</strong></a></li>
+<li><a href="#强制重排"><strong>强制重排</strong></a></li>
+</ul>
+</li>
+<li><a href="#雅虎军规"><strong>雅虎军规</strong></a></li>
+<li><a href="#延伸扩展"><strong>延伸扩展</strong></a><ul>
+<li><a href="#iframe的优缺点"><strong>iframe的优缺点</strong></a></li>
+<li><a href="#什么是cdn"><strong>什么是CDN</strong></a></li>
+<li><a href="#高效的css"><strong>高效的css</strong></a><ul>
+<li><a href="#原则"><strong>原则</strong></a></li>
+<li><a href="#其他css高性能实践"><strong>其他<code>css</code>高性能实践</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#前端安全问题"><strong>前端安全问题</strong></a><ul>
+<li><a href="#xss"><strong>XSS</strong></a><ul>
+<li><a href="#跨站脚本攻击的解决思路"><strong>跨站脚本攻击的解决思路</strong></a></li>
+<li><a href="#xss给我们的启示"><strong>XSS给我们的启示</strong></a></li>
+</ul>
+</li>
+<li><a href="#csrf"><strong>CSRF</strong></a><ul>
+<li><a href="#什么是csrf"><strong>什么是CSRF</strong></a></li>
+<li><a href="#预防措施"><strong>预防措施</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="浏览器是如何渲染页面的"></a></p>
+<h2 id="浏览器是如何渲染页面的"><a href="#浏览器是如何渲染页面的" class="headerlink" title="浏览器是如何渲染页面的"></a><strong>浏览器是如何渲染页面的</strong></h2><ul>
+<li>根据来自服务器端的<code>HTML</code>代码形成文档对象模型<code>（DOM）</code></li>
+<li>加载并解析样式，形成<code>CSS</code>对象模型</li>
+<li>在文档对象模型和<code>CSS</code>对象模型之上，创建一棵由一组待生成渲染的对象组成的渲染树（在<code>Webkit</code>中这些对象被称为渲染器或渲染对象）。<code>render tree</code>能识别样式，上面的每个<code>node</code>都有自己的<code>style</code>，但是<code>render tree</code>中不包含诸如<code>&lt;head&gt;</code>标签或含有<code>display:none</code>属性的不可见元素。</li>
+<li>对渲染树上的每个元素，计算它的坐标，称之为布局。浏览器采用一种流方法，布局一个元素只需通过一次，但是表格元素需要通过多次。</li>
+<li>最后，渲染树上的元素最终展示在浏览器里，这一过程称为<code>&quot;painting&quot;</code>。当用户与网页交互，或者脚本程序改动修改网页时，前面提到的一些操作将会重复执行，因为网页的内在结构已经发生了改变。</li>
+</ul>
+<p><a name="回流与重绘"></a></p>
+<h2 id="回流与重绘"><a href="#回流与重绘" class="headerlink" title="回流与重绘"></a><strong>回流与重绘</strong></h2><p>回流：当<code>Render tree</code>中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流。每个页面至少需要一次回流，就是在页面第一次加载的时候。<br>重绘：当<code>Render tree</code>中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如<code>background-color</code>，叫做重绘。</p>
+<p><a name="哪些操作会引起回流或重绘"></a></p>
+<h3 id="哪些操作会引起回流或重绘"><a href="#哪些操作会引起回流或重绘" class="headerlink" title="哪些操作会引起回流或重绘"></a><strong>哪些操作会引起回流或重绘</strong></h3><p>其实任何对render tree中元素的操作都会引起回流或者重绘，比如：</p>
+<ol>
+<li>添加、删除元素(回流+重绘)</li>
+<li>隐藏元素，<code>display:none</code>(回流+重绘)，<code>visibility:hidden</code>(只重绘，不回流)</li>
+<li>移动元素，比如改变<code>top</code>,<code>left</code>(重绘+回流)</li>
+<li>对<code>style</code>的操作(对不同的属性操作，影响不一样)</li>
+<li>还有一种是用户的操作，比如改变浏览器大小，改变浏览器的字体大小等(回流+重绘)<br>如果每句<code>JS</code>操作都去回流重绘的话，浏览器可能就会受不了。所以很多浏览器都会优化这些操作，浏览器会维护一个队列，把所有会引起回流、重绘的操作放入这个队列，等队列中的操作到了一定的数量或者到了一定的时间间隔，浏览器就会清空队列，进行一个批处理。这样就会让多次的回流、重绘变成一次回流重绘。</li>
+</ol>
+<p><a name="如何减少回流或者重绘"></a></p>
+<h3 id="如何减少回流或者重绘"><a href="#如何减少回流或者重绘" class="headerlink" title="如何减少回流或者重绘"></a><strong>如何减少回流或者重绘</strong></h3><ul>
+<li>当需要设置多个样式时，设置节点的<code>className</code>属性而不是直接操作<code>style</code>属性</li>
+<li>让要操作的<code>DOM</code>元素进行”离线处理”，处理完后再一起更新，这里所谓的”离线处理”即让元素不存在于<code>render tree</code>中，比如在向页面添加多个新元素时使用<code>documentFragment</code>或<code>div</code>等元素进行缓存操作，最后再统一添加到页面中。</li>
+</ul>
+<p><a name="强制重排"></a></p>
+<h3 id="强制重排"><a href="#强制重排" class="headerlink" title="强制重排"></a><strong>强制重排</strong></h3><p>要尽量避免回流和重绘，就要把访问元素属性的操作都组织在一起，从而优化网页性能<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> $body = $(<span class="string">'body'</span>);</span><br><span class="line">$body.css(<span class="string">'padding'</span>, <span class="string">'1px'</span>); <span class="comment">// reflow, repaint</span></span><br><span class="line">$body.css(<span class="string">'color'</span>, <span class="string">'red'</span>); <span class="comment">// repaint</span></span><br><span class="line">$body.css(<span class="string">'margin'</span>, <span class="string">'2px'</span>); <span class="comment">// reflow, repaint</span></span><br><span class="line"><span class="comment">// only 1 reflow and repaint will actually happen</span></span><br></pre></td></tr></table></figure></p>
+<p>但有时，我们也必须触发一个强制性重排。比如，我们需要将同样的属性(比如左边距)两次赋值给同一个元素。起初，它应该设置为<code>100px</code>，且不带动效。接着，它必须通过过渡<code>(transition)</code>动效改变为<code>50px</code>。如果不强制重排，则动画不具备过渡效果。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// remove the transition class</span></span><br><span class="line">$(<span class="keyword">this</span>).removeClass(<span class="string">'has-transition'</span>);</span><br><span class="line"><span class="comment">// change the property</span></span><br><span class="line">$(<span class="keyword">this</span>).css(<span class="string">'margin-left'</span>, <span class="number">100</span>);</span><br><span class="line"><span class="comment">// trigger a forced reflow, so that changes in a    class/property get applied immediately</span></span><br><span class="line">$(<span class="keyword">this</span>)[<span class="number">0</span>].offsetHeight; <span class="comment">// an example, other  properties would work, too</span></span><br><span class="line"><span class="comment">// put the transition class back</span></span><br><span class="line">$(<span class="keyword">this</span>).addClass(<span class="string">'has-transition'</span>);</span><br><span class="line"><span class="comment">// change the property</span></span><br><span class="line">$(<span class="keyword">this</span>).css(<span class="string">'margin-left'</span>, <span class="number">50</span>);</span><br></pre></td></tr></table></figure></p>
+<p><a name="雅虎军规"></a></p>
+<h2 id="雅虎军规"><a href="#雅虎军规" class="headerlink" title="雅虎军规"></a><strong>雅虎军规</strong></h2><p>著名的前端优化方案有大名鼎鼎的“雅虎军规”。这里只列出其中的一些条目：</p>
+<ul>
+<li>压缩<ul>
+<li>网页<code>Gzip</code>压缩</li>
+<li><code>JS</code>、<code>CSS</code>源码压缩</li>
+</ul>
+</li>
+<li>缓存<ul>
+<li>设置头文件过期或者静态缓存</li>
+<li>将<code>JS</code>和<code>CSS</code>外链</li>
+</ul>
+</li>
+<li><p>性能</p>
+<ul>
+<li>避免<code>CSS Expressions</code></li>
+<li>减少<code>iframe</code>数量</li>
+<li>缓存<code>DOM</code>节点查找、<code>AJAX</code>查询到的结果</li>
+<li>当需要设置的样式很多时候设置<code>className</code>而不是直接操作<code>style</code>属性</li>
+<li>用<code>innerHTML</code>代替<code>DOM</code>操作，减少<code>DOM</code>操作次数</li>
+<li>减少<code>http</code>请求次数：使用<code>CSS Sprites</code>，使用<code>CDN</code>托管（尽量使用公共库），避免重定向（比如在<code>html</code>中写入链接时，<code>&quot;github.io&quot;</code>和<code>&quot;github.io/&quot;</code>，前者会进一步重定向到后者）</li>
+<li><code>js</code>中要避免全局查找（可以将常用的全局变量作为参数传递到函数中），避免不必要的属性查找（可以将一次查找结果缓存在变量中），避免with语句</li>
+</ul>
+</li>
+<li><p>用户体验</p>
+<ul>
+<li>图片预加载</li>
+<li><code>CSS</code>放顶部（让浏览者能尽早的看到网站的完整样式）、<code>JS</code>放底部（在不影响内容表现的情况下）</li>
+<li>尽早地释放缓冲（当用户进行页面请求时，服务器端需要花费<code>200</code>到<code>500</code>毫秒时间来拼合<code>HTML</code>，将写在<code>head</code>与<code>body</code>之间，释放缓冲，这样可以将文件头先发送出去，然后再发送文件内容，提高效率）</li>
+<li>跨域分离组件（页面组件多个来源可以增大你的平行下载量，但注意不要过多，超过<code>2-4</code>个域名会引起上面说到的<code>DNS</code>查找浪费）</li>
+<li>不要出现<code>404</code>页面</li>
+</ul>
+</li>
+</ul>
+<p><a name="延伸扩展"></a></p>
+<h2 id="延伸扩展"><a href="#延伸扩展" class="headerlink" title="延伸扩展"></a><strong>延伸扩展</strong></h2><ul>
+<li>浏览器在解析域名的时候，是先从<code>&quot;.&quot;</code>开始的，也就是最顶级的域名。</li>
+</ul>
+<p><a name="iframe的优缺点"></a></p>
+<h3 id="iframe的优缺点"><a href="#iframe的优缺点" class="headerlink" title="iframe的优缺点"></a><strong>iframe的优缺点</strong></h3><p><code>iframe</code>的优点：</p>
+<ul>
+<li>解决加载缓慢的第三方内容如图标和广告等的加载问题</li>
+<li><code>Security sandbox</code>（安全沙箱）<ul>
+<li>禁止访问父页面的<code>DOM</code>（从技术角度来说，这是因为相对于父页面<code>iframe</code>已经成为不同的源了）</li>
+<li>禁止执行脚本</li>
+<li>禁止对<code>cookie</code>、本地存储或本地<code>SQL</code>数据库的读写</li>
+</ul>
+</li>
+<li>并行加载脚本</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><code>iframe</code>会阻塞主页面的<code>onload</code>事件；</li>
+<li>即使内容为空，加载也需要时间</li>
+</ul>
+<p><a name="什么是cdn"></a></p>
+<h3 id="什么是CDN"><a href="#什么是CDN" class="headerlink" title="什么是CDN"></a><strong>什么是CDN</strong></h3><p><code>CDN</code>的全称是<code>Content Delivery Network</code>，内容分发网络。<code>CDN</code>公共库是指将常用的<code>JS</code>库存放在<code>CDN</code>节点，以方便广大开发者直接调用。与将<code>JS</code>库存放在服务器单机上相比，<code>CDN</code>公共库更加稳定、高速。使用了<code>CDN</code>缓存后的网站的访问过程为:</p>
+<ul>
+<li>用户向浏览器提供要访问的域名;</li>
+<li>浏览器调用域名解析库对域名进行解析，由于<code>CDN</code>对域名解析过程进行了调整，所以解析函数库一般得到的是该域名对应的<code>CNAME</code>记录，为了得到实际<code>IP</code>地址，浏览器需要再次对获得的<code>CNAME</code>域名进行解析以得到实际的<code>IP</code>地址;在此过程中，使用的全局负载均衡<code>DNS</code>解析，如根据地理位置信息解析对应的<code>IP</code>地址，使得用户能就近访问；</li>
+<li>此次解析得到<code>CDN</code>缓存服务器的<code>IP</code>地址，浏览器在得到实际的<code>IP</code>地址以后，向缓存服务器发出访问请求；</li>
+<li>缓存服务器根据浏览器提供的要访问的域名，通过<code>Cache</code>内部专用<code>DNS</code>解析得到此域名的实际<code>IP</code>地址，再由缓存服务器向此实际<code>IP</code>地址提交访问请求；</li>
+<li>缓存服务器从实际<code>IP</code>地址得得到内容以后，一方面在本地进行保存，以备以后使用，另一方面把获取的数据返回给客户端，完成数据服务过程；</li>
+<li>客户端得到由缓存服务器返回的数据以后显示出来并完成整个浏览的数据请求过程。</li>
+</ul>
+<p><a name="高效的css"></a></p>
+<h3 id="高效的css"><a href="#高效的css" class="headerlink" title="高效的css"></a><strong>高效的css</strong></h3><p>浏览器在解析<code>css</code>选择器时是按从右向左的顺序匹配元素的。</p>
+<p><a name="原则"></a></p>
+<h4 id="原则"><a href="#原则" class="headerlink" title="原则"></a><strong>原则</strong></h4><ul>
+<li>避免使用通配符</li>
+<li>避免使用标签选择器和单个属性选择器作为关键选择器</li>
+<li>不要在<code>id</code>选择器前加标签名</li>
+<li>尽量不要在选择符定义过多层级，层级越少，同时也降低了<code>css</code>和<code>dom</code>结构的耦合程度，提高样式的可维护性</li>
+</ul>
+<p><a name="其他css高性能实践"></a></p>
+<h4 id="其他css高性能实践"><a href="#其他css高性能实践" class="headerlink" title="其他css高性能实践"></a><strong>其他<code>css</code>高性能实践</strong></h4><ul>
+<li>避免使用<code>@import</code><br><code>@import</code>导入的新样式文件会阻止页面的并行下载，这样增加了文件的整体加载时间。</li>
+<li>避免使用<code>IE</code>浏览器独有样式：图片滤镜和<code>css</code>表达式<br>图片滤镜的使用会在图片加载时阻塞浏览器的加载和渲染，并会增加额外的内存开销。<code>Css</code>表达式的作用是动态设置<code>css</code>属性，表达式不只是有兼容性问题，还有性能问题，例如浏览器大小改动、窗口改动时，会使得浏览器频繁计算，性能消耗极大。同样的效果可以用<code>javascript</code>来实现。<br>另外，在编写超链接样式的时候，要按照下列的顺序：<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span> &#123;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> &#123;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:active</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>防止超链接访问过后<code>hover</code>样式就不出现了，以及被点击访问过的超链接样式不再具有<code>hover</code>和<code>active</code>样式了</p>
+<p><a name="前端安全问题"></a></p>
+<h2 id="前端安全问题"><a href="#前端安全问题" class="headerlink" title="前端安全问题"></a><strong>前端安全问题</strong></h2><p><a name="xss"></a></p>
+<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a><strong>XSS</strong></h3><p><code>XSS</code> 全称“跨站脚本”，是注入攻击的一种。其特点是不对服务器端造成任何伤害，而是通过一些正常的站内交互途径，例如发布评论，提交含有 <code>JavaScript</code> 的内容文本。这时服务器端如果没有过滤或转义掉这些脚本，作为内容发布到了页面上，其他用户访问这个页面的时候就会运行这些脚本。</p>
+<p><a name="跨站脚本攻击的解决思路"></a></p>
+<h4 id="跨站脚本攻击的解决思路"><a href="#跨站脚本攻击的解决思路" class="headerlink" title="跨站脚本攻击的解决思路"></a><strong>跨站脚本攻击的解决思路</strong></h4><p>预防<code>XSS</code>攻击的基本方法是：确保任何被输出到<code>HTML</code>页面中的数据以<code>HTML</code>的方式进行转义<code>（HTML escape）</code>。例如<code>PHP</code>输出：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span>&lt;?php echo $articleText; ?&gt;<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如果这个<code>articleText</code>是由用户自行输入的，那么攻击者很有可能输入一段包含<code>javascript</code>恶意攻击代码的文本，使得最终输出变成：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="string">'hello'</span>)<span class="string">'</span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>上述代码，在浏览器中渲染，将会执行<code>JavaScript</code>代码并在屏幕上<code>alert hello</code>。当然这个代码是无害的，但攻击者完全可以创建一个<code>JavaScript</code>来修改用户资料或者窃取cookie数据。解决方法很简单，就是将输出的值的值进行<code>html escape</code>，转义后的输出代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span></span><br><span class="line">&amp;lt;/textarea&amp;gt;&amp;lt;script&amp;gt;alert(&amp;quot;hello!&amp;quot;)&amp;lt;/script&amp;gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这样就不会有任何危害了。</p>
+<p><a name="xss给我们的启示"></a></p>
+<h4 id="XSS给我们的启示"><a href="#XSS给我们的启示" class="headerlink" title="XSS给我们的启示"></a><strong>XSS给我们的启示</strong></h4><p>其实无论是哪一种<code>xss</code>攻击手段，其原理都是使用了“<code>xss</code>就是在页面执行你想要的<code>js</code>”，也就是说，只要遵循一个原则——后端永远不信任前端输入的任何信息，无论是输入还是输出，都对其进行<code>html</code>字符的转义，那么漏洞就基本不存在了。</p>
+<p><a name="csrf"></a></p>
+<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a><strong>CSRF</strong></h3><p><a name="什么是csrf"></a></p>
+<h4 id="什么是CSRF"><a href="#什么是CSRF" class="headerlink" title="什么是CSRF"></a><strong>什么是CSRF</strong></h4><p><code>CSRF</code>：跨站请求伪造，核心也就是请求伪造，通过伪造身份提交<code>POST</code>和<code>GET</code>请求来进行跨域的攻击。<br>举一个通俗的例子：一论坛网站的发贴是通过 <code>GET</code> 请求访问，点击发贴之后 <code>JS</code> 把发贴内容拼接成目标 <code>URL</code> 并访问：<br>    <code>http://example.com/bbs/create_post.php?title=标题&amp;content=内容</code><br>那么，我只需要在论坛中发一帖，包含一链接：<br>    <code>http://example.com/bbs/create_post.php?title=我是脑残&amp;content=哈哈</code><br>只要有用户点击了这个链接，那么他们的帐户就会在不知情的情况下发布了这一帖子。可能这只是个恶作剧，但是既然发贴的请求可以伪造，那么删帖、转帐、改密码、发邮件全都可以伪造。</p>
+<p><a name="预防措施"></a></p>
+<h4 id="预防措施"><a href="#预防措施" class="headerlink" title="预防措施"></a><strong>预防措施</strong></h4><p>首先可以提高的一个门槛，就是改良站内 <code>API</code> 的设计。对于发布帖子这一类创建资源的操作，应该只接受<code>POST</code> 请求，而 <code>GET</code> 请求应该只浏览而不改变服务器端资源。这样就把问题域缩小到了非 <code>GET</code> 类型的请求上——攻击者已经不可能通过发布链接来伪造请求了，但他们仍可以发布表单，或者在其他站点上使用我们肉眼不可见的表单，在后台用 <code>js</code> 操作，伪造请求。<br>对于<code>POST</code>请求，我们可以用比较简单也比较有效的方法来防御<code>CSRF</code>，这个方法就是“请求令牌”。“请求令牌”是为了保证收到的请求一定来自预期的页面。实现方法非常简单，首先服务器端要以某种策略生成随机字符串，作为令牌<code>（token）</code>，保存在 <code>Session</code> 里。然后在发出请求的页面，把该令牌以隐藏域一类的形式，与其他信息一并发出。在接收请求的页面，把接收到的信息中的令牌与 <code>Session</code> 中的令牌比较，只有一致的时候才处理请求，否则返回 <code>HTTP 403</code>拒绝请求或者要求用户重新登录验证身份。<br>对于<code>web</code>站点，将持久化的授权方法（例如<code>cookie</code>或者<code>HTTP</code>授权）切换为瞬时的授权方法（在每个<code>form</code>中提供隐藏<code>field</code>），这将帮助网站防止这些攻击。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/05/05/javascriptSerial-11/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          你所不知道的javascript之常用的API
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/05/04/javascriptSerial-10/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">你所不知道的javascript之跨域</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="optimization&amp;secure" data-title="前端优化方案" data-url="http://yoursite.com/2016/05/05/optimization&amp;secure/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 hbChou
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

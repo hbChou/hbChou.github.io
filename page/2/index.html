@@ -116,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -192,6 +192,434 @@
 
       <div class="body-wrap">
   
+    <article id="post-javascriptSerial-9" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/03/javascriptSerial-9/" class="article-date">
+  	<time datetime="2016-05-03T09:15:38.000Z" itemprop="datePublished">2016-05-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/03/javascriptSerial-9/">你所不知道的javascript之DOM扩展</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上次聊到了<code>DOM</code>，以及<code>DOM</code>中一些常用的类型，这次让我们接着聊有关<code>DOM</code>操作中的其他内容。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#在dom中动态插入脚本"><strong>在DOM中动态插入脚本</strong></a></li>
+<li><a href="#在dom中动态插入样式"><strong>在DOM中动态插入样式</strong></a></li>
+<li><a href="#操作表格"><strong>操作表格</strong></a></li>
+<li><a href="#dom扩展"><strong>DOM扩展</strong></a><ul>
+<li><a href="#选择符api"><strong>选择符API</strong></a></li>
+<li><a href="#html5中与class属性相关的扩充"><strong>HTML5中与class属性相关的扩充</strong></a></li>
+<li><a href="#管理dom焦点"><strong>管理DOM焦点</strong></a></li>
+<li><a href="#htmldocument的变化"><strong>HTMLDocument的变化</strong></a></li>
+<li><a href="#自定义数据属性"><strong>自定义数据属性</strong></a></li>
+<li><a href="#innerhtml属性"><strong>innerHTML属性</strong></a></li>
+<li><a href="#outerhtml属性"><strong>outerHTML属性</strong></a></li>
+<li><a href="#专有扩展"><strong>专有扩展</strong></a></li>
+</ul>
+</li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="在dom中动态插入脚本"></a></p>
+<h2 id="在DOM中动态插入脚本"><a href="#在DOM中动态插入脚本" class="headerlink" title="在DOM中动态插入脚本"></a><strong>在DOM中动态插入脚本</strong></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">script.type = <span class="string">"text/javascript"</span>;</span><br><span class="line">script.appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"function print() &#123;alert('javascript');&#125;"</span>)); <span class="comment">// 也可以直接使用innerHTML</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(script);</span><br></pre></td></tr></table></figure>
+<p>但在<code>IE8</code>及以下版本中不允许<code>DOM</code>访问<code>script</code>标签中的子节点。此时可以通过<code>script</code>元素的<code>text</code>属性来指定<code>javascript</code>代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">script.text = <span class="string">"function print() &#123;alert('javascript');&#125;"</span>;</span><br></pre></td></tr></table></figure></p>
+<p><a name="在dom中动态插入样式"></a></p>
+<h2 id="在DOM中动态插入样式"><a href="#在DOM中动态插入样式" class="headerlink" title="在DOM中动态插入样式"></a><strong>在DOM中动态插入样式</strong></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> style = <span class="built_in">document</span>.createElement(<span class="string">"style"</span>);</span><br><span class="line">style.type = <span class="string">"text/css"</span>;</span><br><span class="line">style.appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">".div&#123;width:100px;height:100px;&#125;"</span>));<span class="comment">// 也可以直接使用innerHTML</span></span><br><span class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">"head"</span>)[<span class="number">0</span>].appendChild(style);</span><br></pre></td></tr></table></figure>
+<p>同样在<code>IE8</code>及以下版本中不允许<code>DOM</code>访问<code>style</code>标签中的子节点。此时可以通过<code>style</code>元素的<code>styleSheet</code>属性的<code>cssText</code>属性来指定<code>css</code>代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">style.styleSheet.cssText = <span class="string">".div&#123;width:100px;height:100px;&#125;"</span>;</span><br></pre></td></tr></table></figure></p>
+<p><a name="操作表格"></a></p>
+<h2 id="操作表格"><a href="#操作表格" class="headerlink" title="操作表格"></a><strong>操作表格</strong></h2><p>为了方便构建表格，<code>DOM</code>为<code>table</code>元素、<code>tbody</code>元素和<code>tr</code>元素添加了一些属性和方法：</p>
+<ul>
+<li>为<code>table</code>元素添加的属性和方法：<ul>
+<li><code>caption</code>：保存着对<code>caption</code>元素的引用</li>
+<li><code>tBodies</code>：指向一个<code>tbody</code>元素的<code>HTMLCollection</code>对象</li>
+<li><code>tFoot</code>：保存着对<code>tfoot</code>元素的引用</li>
+<li><code>tHead</code>：保存着对<code>thead</code>元素的引用</li>
+<li><code>rows</code>：指向一个表格中所有行的<code>HTMLCollection</code>对象</li>
+<li><code>createTHead()</code>：创建<code>thead</code>元素，将其添加到表格中，并返回引用</li>
+<li><code>createTFoot()</code>：创建<code>tfoot</code>元素，将其添加到表格中，并返回引用</li>
+<li><code>createCaption()</code>：创建<code>caption</code>元素，将其添加到表格中，并返回引用</li>
+<li><code>deleteTHead()</code>：删除<code>thead</code>元素</li>
+<li><code>deleteTFoot()</code>：删除<code>tfoot</code>元素</li>
+<li><code>deleteCaption()</code>：删除<code>caption</code>元素</li>
+<li><code>deleteRow(pos)</code>：删除指定位置的行</li>
+<li><code>insertRow(pos)</code>：在<code>rows</code>集合中的指定位置处插入一行</li>
+</ul>
+</li>
+<li>为<code>tbody</code>元素添加的属性和方法：<ul>
+<li><code>rows</code>：保存着<code>tbody</code>元素中行的<code>HTMLCollection</code>对象</li>
+<li><code>deleteRow(pos)</code>：删除指定位置的行</li>
+<li><code>insertRow(pos)</code>：在<code>rows</code>集合中的指定位置处插入一行，并返回对新插入行的引用</li>
+</ul>
+</li>
+<li>为<code>tr</code>元素添加的属性和方法：<ul>
+<li><code>cells</code>：保存着<code>tr</code>元素中单元格的<code>HTMLCollection</code>对象</li>
+<li><code>deleteCell(pos)</code>：删除指定位置的单元格</li>
+<li><code>insertCell(pos)</code>：在<code>cells</code>集合中的指定位置处插入一个单元格，并返回对新插入单元格的引用</li>
+</ul>
+</li>
+</ul>
+<p><a name="dom扩展"></a></p>
+<h2 id="DOM扩展"><a href="#DOM扩展" class="headerlink" title="DOM扩展"></a><strong>DOM扩展</strong></h2><p><a name="选择符api"></a></p>
+<h3 id="选择符API"><a href="#选择符API" class="headerlink" title="选择符API"></a><strong>选择符API</strong></h3><p>选择符<code>API level 1</code>的核心是两个方法：<code>querySelector(selector)</code>和<code>querySelectorAll(selector)</code><br><code>querySelector(selector)</code>方法接收一个<code>css</code>选择符，返回符合该选择符的第一个<code>DOM</code>元素<br>既可以通过<code>document</code>对象调用该方法，也可以直接在某个元素节点或者文档片段节点上调用。<br><code>querySelector(selector)</code>方法接收一个<code>css</code>选择符，返回由符合该选择符的所有<code>DOM</code>元素组成的<code>NodeList</code>对象。需要特别注意的是，该<code>NodeList</code>对象和之前的<code>document.getElementsByTagName(tagName)</code>方法返回的<code>NodeList</code>对象略有差别，前者是创建该对象瞬间符合该选择器的所有<code>DOM</code>元素集合的一个快照，此后不会随着<code>DOM</code>结构的变化而发生任何更新。而后者则刚好相反。同样既可以通过<code>document</code>对象调用该方法，也可以直接在某个元素节点或者文档片段节点上调用。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> divs = <span class="built_in">document</span>.querySelectorAll(<span class="string">"div"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(divs.length); <span class="comment">// 0</span></span><br><span class="line"><span class="keyword">var</span> newDiv = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(newDiv);</span><br><span class="line"><span class="built_in">console</span>.log(divs.length); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure></p>
+<p>选择符<code>API level 2</code>中为Element类型新增了一个方法<code>matchesSelector()</code>，用于判断某个元素是否符合给定的选择符。该方法返回一个布尔值。该方法在不同的浏览器中有一些实验性的实现。比如在<code>chrome</code>浏览器中通过<code>webkitMatchesSelector()</code>支持该方法，在<code>firefox</code>中则通过<code>mozMatchesSelector()</code>实现了该方法。</p>
+<p>由于<code>IE</code>和其他浏览器在识别节点内部的换行符时存在差异，为此，<code>Element Traversal</code>规范新定义了一组属性：</p>
+<ul>
+<li><code>childElementCount</code>：返回子元素（元素节点，不包括文本节点和注释）的个数</li>
+<li><code>firstElementChild</code>：指向第一个子元素</li>
+<li><code>lastElementChild</code>：指向最后一个子元素</li>
+<li><code>previousElementSibling</code>：指向前一个同胞元素</li>
+<li><code>nextElementSibling</code>：指向后一个同胞元素</li>
+</ul>
+<p><a name="html5中与class属性相关的扩充"></a></p>
+<h3 id="HTML5中与class属性相关的扩充"><a href="#HTML5中与class属性相关的扩充" class="headerlink" title="HTML5中与class属性相关的扩充"></a><strong>HTML5中与class属性相关的扩充</strong></h3><p><code>getElementsByClassName(&quot;className1 className2 ...&quot;)</code>：返回由包含指定类名的所有元素构成的<code>NodeList</code>对象。可以同时传递多个类名。该方法返回的<code>NodeList</code>对象与<code>getElementsByTagName()</code>返回的<code>NodeList</code>对象一样存在着性能问题。（实时更新内部的<code>DOM</code>元素信息）</p>
+<p><code>HTML5</code>为所有元素节点添加了<code>classList</code>属性，以简化原生<code>javascript</code>直接添加，删除和修改类名的操作。该属性指向一个<code>DOMTokenList</code>对象，里面包含了元素包含的所有类名。取得每个元素可以使用<code>item()</code>方法，也可以使用方括号语法。该对象上还定义了一些方法：</p>
+<ul>
+<li><code>add(value)</code>：将给定的字符串添加到<code>class</code>属性值列表中，如果存在，则不添加</li>
+<li><code>contains(value)</code>：表示<code>class</code>属性值列表中是否存在该字符串，返回一个布尔值</li>
+<li><code>remove(value)</code>：从<code>class</code>属性值列表中移除给定的字符串</li>
+<li><code>toggle(value)</code>：如果列表中已经存在给定的字符串，则删除它，否则添加该字符串<br>支持<code>classList</code>属性的浏览器由<code>Firefox 3.6+</code>、<code>chrome</code>和<code>IE 10+</code>。</li>
+</ul>
+<p><a name="管理dom焦点"></a></p>
+<h3 id="管理DOM焦点"><a href="#管理DOM焦点" class="headerlink" title="管理DOM焦点"></a><strong>管理DOM焦点</strong></h3><p><code>HTML5</code>中也添加了辅助管理<code>DOM</code>焦点的功能。添加的<code>document.activeElement</code>属性始终会引用<code>DOM</code>中当前获得焦点的元素。元素获得焦点的方式有页面加载、用户输入和在代码中调用<code>focus()</code>方法。默认情况下，文档刚加载完成时，<code>document.activeElement</code>属性中保存的是对<code>document.body</code>的引用，在加载过程中<code>document.activeElement</code>属性值为<code>null</code>。<br>另外新增了<code>document.hasFocus()</code>方法，用于判断当前文档是否获得焦点。</p>
+<p><a name="htmldocument的变化"></a></p>
+<h3 id="HTMLDocument的变化"><a href="#HTMLDocument的变化" class="headerlink" title="HTMLDocument的变化"></a><strong>HTMLDocument的变化</strong></h3><ul>
+<li><p><code>readyState</code>属性<br>IE4最早为<code>document</code>对象添加了<code>readyState</code>属性。该属性有两个可能的值：</p>
+<ul>
+<li><code>&quot;loading&quot;</code>：表示正在加载文档；</li>
+<li><code>&quot;complete&quot;</code>：表示已经加载完文档<br>通过该属性可以实现类似<code>window.onload</code>事件的用来指示文档加载完毕的指示器。</li>
+</ul>
+</li>
+<li><p>兼容模式<br><code>document.compatMode</code>属性用来检测当前浏览器渲染页面的模式是标准的还是混杂的。在标准模式下，<code>document.compatMode</code>属性值为<code>&quot;CSS1Compat&quot;</code>，在混杂模式下，<code>document.compatMode</code>属性值为<code>&quot;BackCompat&quot;</code>。</p>
+</li>
+<li><p>head属性<br>通过<code>document.head</code>属性快速获取到页面的<code>head</code>元素，实现该属性的浏览器有<code>chrome</code>、<code>safari 5</code>和<code>IE 9+</code>。</p>
+</li>
+<li><p>字符集属性<br>通过<code>document.charset</code>属性获取或修改当前文档实际使用的字符集。默认情况下该属性值为<code>&quot;UTF-16&quot;</code>。另外还有一个属性<code>document.defaultCharset</code>表示根据浏览器和操作系统的默认设置，当前文档默认的字符集应该是什么。<br>支持<code>document.charset</code>属性的浏览器有<code>IE</code>、<code>safari</code>、<code>Opera</code>、<code>chrome</code>和<code>Firefox</code>。支持<code>document.defaultCharset</code>属性的浏览器有<code>IE</code>、<code>safari</code>和<code>chrome</code>。</p>
+</li>
+</ul>
+<p><a name="自定义数据属性"></a></p>
+<h3 id="自定义数据属性"><a href="#自定义数据属性" class="headerlink" title="自定义数据属性"></a><strong>自定义数据属性</strong></h3><p>添加的自定义属性名称必须以<code>&quot;data-&quot;</code>为前缀，才能被元素节点的<code>dataset</code>属性来访问自定义属性的值。<code>dataset</code>属性的值是一个<code>DOMStringMap</code>的一个实例，也就是一个键值对的映射。支持自定义属性的浏览器有<code>Firefox 6</code>、<code>chrome</code>和<code>IE 11+</code>。</p>
+<p><a name="innerhtml属性"></a></p>
+<h3 id="innerHTML属性"><a href="#innerHTML属性" class="headerlink" title="innerHTML属性"></a><strong>innerHTML属性</strong></h3><p>大多数浏览器中使用<code>innerHTML</code>属性插入<code>script</code>标签时，内部的<code>javascript</code>代码是不会执行的。而在<code>IE9</code>及以下版本中需要一些特殊条件才能执行。一是必须为<code>script</code>标签指定<code>defer</code>属性，二是<code>script</code>标签必须位于有作用域的元素之后才能起作用，所谓的有作用域元素可以是一个文本节点，也可以是一个没有结束标签的<code>input</code>元素。通常在要插入的<code>script</code>前面插入<code>type</code>属性值为<code>hidden</code>的<code>input</code>元素。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">"div2"</span>).innerHTML = <span class="string">"&lt;input type='hidden'&gt;&lt;script defer&gt;alert('hello');&lt;\/script&gt;"</span>;</span><br></pre></td></tr></table></figure>
+<p>与插入<code>script</code>标签的情况相反，在大多数浏览器中使用<code>innerHTML</code>属性插入<code>style</code>标签是有效的。但在<code>IE8</code>及以下版本中还是需要在<code>style</code>标签前面插入一个有作用域的元素。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'div2'</span>).innerHTML = <span class="string">"&lt;input type='hidden'&gt;&lt;style type='text/css'&gt;#div2&#123;background: green;&#125;&lt;/style&gt;"</span>;</span><br></pre></td></tr></table></figure></p>
+<p>最后，并不是所有的元素都支持innerHTML属性。不支持innerHTML属性的元素有<code>&lt;head&gt;</code>、<code>&lt;html&gt;</code>、<code>&lt;style&gt;</code>、<code>&lt;table&gt;</code>、<code>&lt;tbody&gt;</code>、<code>&lt;thead&gt;</code>、<code>&lt;tfoot&gt;</code>和<code>&lt;tr&gt;</code>。另外在使用<code>innerHTML</code>属性插入<code>html</code>代码（尤其是来自用户输入的内容）时，需要先进行<code>HTML</code>编码再进行插入。</p>
+<p><a name="outerhtml属性"></a></p>
+<h3 id="outerHTML属性"><a href="#outerHTML属性" class="headerlink" title="outerHTML属性"></a><strong>outerHTML属性</strong></h3><p>通过元素节点的<code>outerHTML</code>属性可以访问元素节点本身及其所有子节点的<code>HTML</code>标签。修改该属性会直接替换该元素以及所有子节点。</p>
+<p><a name="专有扩展"></a></p>
+<h3 id="专有扩展"><a href="#专有扩展" class="headerlink" title="专有扩展"></a><strong>专有扩展</strong></h3><ul>
+<li>文档模式<br><code>IE 8</code>中引入了一个新的概念，叫文档模式<code>（document mode）</code>。页面的文档模式决定了可以使用什么功能。比如说，文档模式决定了你可以使用哪个级别的<code>CSS</code>，可以使用<code>javascript</code>中的哪些<code>`API</code>，以及如何对待文档类型。要强制浏览器以某种模式渲染页面，可以使用<code>HTTP</code>头部信息<code>X-UA-Compatible</code>，或者通过等价的<code>&lt;meta&gt;</code>标签来设置：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=IEVersion"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里的<code>IEVersion</code>有以下这些值可以取：<br><code>Edge</code>：始终以最新的文档模式来渲染页面。忽略文档声明。<br><code>EmulateIE9</code>：如果有文档类型声明，则以<code>IE9</code>标准模式渲染页面，否则将文档模式设置为<code>IE5</code>。<br><code>EmulateIE8</code>：如果有文档类型声明，则以<code>IE8</code>标准模式渲染页面，否则将文档模式设置为<code>IE5</code>。<br><code>EmulateIE7</code>：如果有文档类型声明，则以<code>IE7</code>标准模式渲染页面，否则将文档模式设置为<code>IE5</code>。<br><code>9</code>：强制以<code>IE9</code>标准模式渲染页面，忽略文档类型声明。<br><code>8</code>：强制以<code>IE8</code>标准模式渲染页面，忽略文档类型声明。<br><code>7</code>：强制以<code>IE7</code>标准模式渲染页面，忽略文档类型声明。<br><code>5</code>：强制将文档模式设置为<code>IE5</code>（<code>IE5</code>默认的文档模式是混杂模式），忽略文档类型声明。</p>
+<ul>
+<li><p>判断节点关系<br>使用<code>contains(child)</code>方法可以判断某个祖先元素是否包含指定的后代元素。返回一个布尔值。也可以使用<code>DOM level 3</code> 中的<code>refNode.compareDocumentPosition(target)</code>来确定节点间的关系。该方法返回一个位掩码。<code>1</code>表示给定的节点不在当前文档中；<code>2</code>表示给定的节点在<code>DOM</code>树中位于参考节点之前；<code>4</code>表示给定的节点在<code>DOM</code>树中位于参考节点之后；<code>8</code>表示给定的节点是参考节点的祖先；<code>16</code>表示给定的节点是参考节点的后代。</p>
+</li>
+<li><p><code>innerText</code>属性<br>通过<code>innerText</code>属性可以操作元素中包含的所有文本内容，包括子文档树中的内容。通过<code>innerText</code>属性读取值时，它会按照由浅入深的顺序，将子文档树中的所有文本拼接起来。在通过<code>innerText</code>属性写入值时，结果会删除元素所有的子节点，插入包含相应文本的<strong>文本节点</strong>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div2"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>javascript<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>BOM<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>COM<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>DOM<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">'div2'</span>).innerText);</span><br><span class="line"><span class="comment">// javascript</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// BOM</span></span><br><span class="line"><span class="comment">// COM</span></span><br><span class="line"><span class="comment">// DOM</span></span><br></pre></td></tr></table></figure>
+<p><code>firefox</code>不支持<code>innerText</code>属性，但它支持类似的<code>textContent</code>属性。</p>
+<ul>
+<li><code>outerText</code>属性<br>在读取文本值时，<code>innerText</code>属性和<code>outerText</code>属性读取到的值是一样的。而在通过<code>outerText</code>属性修改文本值时会将包含新内容的文本节点替换整个元素和所有子节点。</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-javascriptSerial-8" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/03/javascriptSerial-8/" class="article-date">
+  	<time datetime="2016-05-03T03:26:39.000Z" itemprop="datePublished">2016-05-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/03/javascriptSerial-8/">你所不知道的javascript之DOM</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>从这一节开始，我们聊一聊<code>javascript</code>中另外一个比较重要的话题 —— <code>DOM（文档对象模型）</code>。需要特别注意的一点是，<code>IE</code>中所有的<code>DOM</code>对象都是以<code>COM（Component Object Model，组件对象模型）</code>对象的形式实现的。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#dom中的节点"><strong>DOM中的节点</strong></a></li>
+<li><a href="#node类型"><strong>Node类型</strong></a><ul>
+<li><a href="#节点具有的一般属性和方法"><strong>节点具有的一般属性和方法</strong></a></li>
+<li><a href="#javascript中一些操作节点的方法"><strong>javascript中一些操作节点的方法</strong></a></li>
+</ul>
+</li>
+<li><a href="#document类型"><strong>Document类型</strong></a><ul>
+<li><a href="#document对象上的常用属性"><strong>document对象上的常用属性</strong></a></li>
+<li><a href="#通过document对象获取元素"><strong>通过document对象获取元素</strong></a></li>
+<li><a href="#文档写入"><strong>文档写入</strong></a></li>
+</ul>
+</li>
+<li><a href="#element类型"><strong>Element类型</strong></a><ul>
+<li><a href="#操作元素的属性"><strong>操作元素的属性</strong></a></li>
+<li><a href="#元素节点的attributes属性"><strong>元素节点的attributes属性</strong></a></li>
+</ul>
+</li>
+<li><a href="#text类型"><strong>Text类型</strong></a><ul>
+<li><a href="#一些操作文本节点内容的属性和方法"><strong>一些操作文本节点内容的属性和方法</strong></a></li>
+<li><a href="#多个连续文本节点的合并"><strong>多个连续文本节点的合并</strong></a></li>
+</ul>
+</li>
+<li><a href="#documentfragment类型"><strong>DocumentFragment类型</strong></a></li>
+<li><a href="#attr类型"><strong>Attr类型</strong></a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="dom中的节点"></a></p>
+<h2 id="DOM中的节点"><a href="#DOM中的节点" class="headerlink" title="DOM中的节点"></a><strong>DOM中的节点</strong></h2><p><code>DOM</code>可以将任何HTML或XML文档描述成一个多层节点构成的树状结构。文档节点（在<code>HTML</code>中即我们常用的<code>document</code>对象）是整个文档的根节点。对于<code>HTML</code>或者<code>XML</code>文档，文档节点通常包含一个文档元素，文档元素是文档的最外层元素，文档中的其他所有元素都包含在文档元素中。在一般的<code>HTML</code>文档中，文档节点通常只包含两个子节点，即文档类型节点（<code>&lt;!DOCTYPE html&gt;</code>）和文档元素（即<code>html</code>元素）。而在XML文档中，任何元素都可能成为文档元素。</p>
+<p><a name="node类型"></a></p>
+<h2 id="Node类型"><a href="#Node类型" class="headerlink" title="Node类型"></a><strong>Node类型</strong></h2><p><code>javascript</code>中的所有节点类型都继承<code>Node</code>类型。除了<code>IE</code>之外，其他浏览器中都可以访问到<code>Node</code>这个接口。<br>每个节点都一个<code>nodeType</code>属性，表示元素的类型。常见的元素类型（后面的数值表示类型对应的数值常量）有：</p>
+<ul>
+<li><code>Node.ELEMENT_NODE</code>（元素节点）  <code>1</code></li>
+<li><code>Node.ATTRIBUTE_NODE</code>（属性节点：在文档树中不作为单独的节点出现）    <code>2</code></li>
+<li><code>Node.TEXT_NODE</code>（文本节点：元素中包含的文字以及元素之间的空白均属于文本节点）    <code>3</code></li>
+<li><code>Node.COMMENT_NODE</code>（注释节点）  <code>8</code></li>
+<li><code>Node.DOCUMENT_NODE</code>（文档节点：文档的根节点，根节点不等同于根元素，例如根元素（如html元素）外部可以有注释节点等其他节点）  <code>9</code></li>
+<li><code>Node.DOCUMENT_TYPE_NODE</code>（文档类型节点：在HTML文档中的第一行<code>&lt;!DOCTYPE html&gt;</code>就属于文档类型节点）  <code>10</code></li>
+<li><code>Node.DOCUMENT_FRAGMENT_NODE</code>（文档片段节点：不属于文档树）   <code>11</code><br><strong>注意：</strong>在判断某个节点的类型时，常将该节点的<code>nodeType</code>属性和对应的数值常量进行比较，才能保证实现跨浏览器。这是因为IE浏览器没有公开<code>Node</code>类型的构造函数。</li>
+</ul>
+<p>此外每个节点还包含一个<code>nodeName</code>和<code>nodeValue</code>属性。<br><code>nodeName</code>属性：用于获取节点的名称。对于元素节点，<code>nodeName</code>代表的是元素的标签名称；对于属性节点，<code>nodeName</code>代表的是属性名称；对于文本节点，<code>nodeName</code>是<code>&quot;#text&quot;</code>；对于注释节点，<code>nodeName</code>是<code>&quot;#comment&quot;</code>。获取文档类型可以使用<code>document.doctype</code>，在HTML文档中该节点的<code>nodeName</code>为<code>&quot;html&quot;</code>，对于文档片段节点，<code>nodeName</code>为<code>`&quot;#document-fragment&quot;</code>。<br><code>nodeValue</code>属性：用于获取节点的值；对于元素节点，<code>nodeValue</code>代表的是<code>null</code>；对于属性节点，<code>nodeValue</code> 返回的是属性值；对于文本节点，<code>nodeValue</code>返回的是节点所包含的文本；对于注释节点，<code>nodeValue</code>返回的是注释内容；对于文档类型节点，<code>nodeValue</code>的值为<code>null</code>；对于文档片段节点，<code>nodeValue</code>为<code>null</code>。</p>
+<p><a name="节点具有的一般属性和方法"></a></p>
+<h3 id="节点具有的一般属性和方法"><a href="#节点具有的一般属性和方法" class="headerlink" title="节点具有的一般属性和方法"></a><strong>节点具有的一般属性和方法</strong></h3><p>每个节点都有一个<code>childNodes</code>属性，该属性保存着一个<code>NodeList</code>对象，该对象是一个类数组对象。（<strong>如果该节点没有子节点，则返回一个长度为<code>0</code>的<code>NodeList</code>对象，而不是<code>null</code></strong>）访问<code>NodeList</code>中的节点，可以使用方括号的形式，也可以使用该对象上的<code>item</code>方法。<strong>注意：</strong><code>NodeList</code>对象中的节点会随着<code>DOM</code>结构中节点的变化而实时更新，不是第一次创建它们时那一瞬间拍下来的一张快照。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nodes = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(nodes.length); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(nodes[<span class="number">0</span>].className); <span class="comment">//div1</span></span><br><span class="line"><span class="keyword">var</span> newDiv = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(newDiv);</span><br><span class="line"><span class="built_in">console</span>.log(nodes.length); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(nodes.item(<span class="number">0</span>).className); <span class="comment">// div1</span></span><br></pre></td></tr></table></figure>
+<p>在除<code>IE</code>之外的其他主流浏览器中，节点内部的换行符会被看成是一个文本节点。这意味着在执行某项操作时，需要特别留意由节点中间的换行符形成的文本节点，通常需要先判断节点的<code>nodeType</code>属性。</p>
+<p>每个节点都有一个<code>parentNode</code>属性，该属性指向当前节点的父节点。<code>parentNode</code>属性指向同一对象的所有为同胞节点，可以通过<code>previousSibling</code>和<code>nextSibling</code>属性访问节点的其他同胞节点。<br>包含子节点的节点可以通过<code>firstChild</code>和<code>lastChild</code>属性分别访问该节点的第一个子节点和最后一个子节点。而对于不确定是否包含子节点的节点可以通过<code>hasChildNodes()</code>方法来判断是否包含子节点，该方法在节点包含一个或多个子节点的情况下返回<code>true</code>。<br>每个节点都有一个<code>ownerDocument</code>属性，该属性指向整个文档的文档节点。</p>
+<p>每个节点都一个<code>cloneNode()</code>方法，该方法用于创建并返回跟调用此方法的节点相同的一个副本。该方法接收一个布尔值参数，表示是否执行深复制。在参数为<code>true</code>的情况下，执行深复制，也就是复制该节点及其以下的整个子节点树。而执行浅复制时，则只复制该节点本身，内部的子节点不会被复制，也就是说，复制得到的节点只有一个，该节点不包含子节点。<br><strong>注意：</strong>该方法不会复制添加到<code>DOM</code>节点中的事件处理程序。</p>
+<p><a name="javascript中一些操作节点的方法"></a></p>
+<h3 id="javascript中一些操作节点的方法"><a href="#javascript中一些操作节点的方法" class="headerlink" title="javascript中一些操作节点的方法"></a><strong>javascript中一些操作节点的方法</strong></h3><p>创建元素节点：<code>document.createElement(tagName)</code>：该方法返回一个新创建元素节点的引用。<br>创建文本节点：<code>document.createTextNode(string)</code>：该方法返回一个新创建文本节点的引用。<br>创建注释节点：<code>document.createComment(string)</code>：该方法返回一个新创建注释节点的引用。<br><code>appendChild(newNode)</code>方法用于向指定节点的尾部插入新节点。更新完成后，该方法返回新增的节点。<br>如果传入的新节点已经是当前文档的一部分了，则会将该新节点从原来的位置转移到指定的节点的尾部。<br>如果需要将节点插入到另一个节点中特定的位置，则可以使用<code>insertBefore(newNode, referenceNode)</code>方法。该方法接受两个参数：要插入的节点和作为参照的节点。同样返回新插入的节点。<br>替换节点：<code>replaceChild(newNode, referenceNode)</code>，该方法接受两个参数：要插入的节点和要被替换的节点。返回被替换掉的节点。<br>移除节点：<code>removeChild(Node)</code>，该方法接收一个参数：即要被移除的节点。返回被移除的节点。<br>以上这四个方法操作的都是某个节点的子节点，因此要使用这些方法，需要先获取到要操作的这些节点的父节点。</p>
+<p><a name="document类型"></a></p>
+<h2 id="Document类型"><a href="#Document类型" class="headerlink" title="Document类型"></a><strong>Document类型</strong></h2><p><a name="document对象上的常用属性"></a></p>
+<h3 id="document对象上的常用属性"><a href="#document对象上的常用属性" class="headerlink" title="document对象上的常用属性"></a><strong>document对象上的常用属性</strong></h3><p><code>document.documentElement</code>：指向当前<code>html</code>文档的文档元素<br><code>document.body</code>：指向当前<code>html</code>文档的<code>body</code>元素<br><code>document.doctype</code>：指向当前<code>html</code>文档的文档类型节点（在<code>IE8</code>及以下版本为<code>null</code>，而其他浏览器在关于文档类型节点属不属于文档的子节点的问题上有较大差异）<br><code>document.doctype.name</code>：返回文档类型的名称<br><code>document.title</code>：包含<code>title</code>元素中的文本<br><code>document.URL</code>：包含当前页面完整的<code>URL</code><br><code>document.domain</code>：包含当前页面所在的域名，该属性可以设置。但不能将该属性设置为<code>URL</code>中不包含的域名。此外还有一个限制，<code>document.domain</code>设置的值不能比原有的值范围更窄。比如<code>document.domain</code>的值原本是<code>github.io</code>，就不能再把它设置成<code>xxx.github.io</code>。<br>由于同源策略的限制，来自不同子域的页面无法通过<code>javascript</code>进行通信。这时候可以在不同的子域下的页面中将<code>document.domain</code>设置成相同的值，然后在主页面中通过内嵌框架加载需要进行通信的页面，就能够实现来自不同子域的页面进行通信。<br><code>document.referrer</code>：包含链接到当前页面的另一个页面的<code>URL</code></p>
+<p><a name="通过document对象获取元素"></a></p>
+<h3 id="通过document对象获取元素"><a href="#通过document对象获取元素" class="headerlink" title="通过document对象获取元素"></a><strong>通过document对象获取元素</strong></h3><p><code>document.getElementById(id)</code>：查找具有指定<code>id</code>属性值的元素。如果不存在该元素，则返回<code>null</code>。<br><code>document.getElementsByTagName(tagName)</code>：查找具有指定标签名的元素集合。结果返回包含零个或多个元素的<code>HTMLCollection</code>对象。<code>HTMLCollection</code>对象和<code>NodeList</code>对象类似。可以通过方括号或者<code>item</code>方法访问集合中的元素。此外，<code>HTMLCollection</code>对象上还有一个<code>namedItem(name)</code>方法，该方法接收一个元素的<code>name</code>属性值，返回集合中具有指定<code>name</code>属性的元素。<br><code>document.getElementsByName(name)</code>：返回带有指定<code>name</code>属性的所有元素。该方法也会返回一个<code>HTMLCollection</code>对象。<br>以下的<code>document</code>对象属性同样也会返回<code>HTMLCollection</code>对象：</p>
+<ul>
+<li><code>document.anchors</code>：该属性会返回页面中所有带有<code>name</code>属性的<code>a</code>标签</li>
+<li><code>document.forms</code>：该属性会返回页面中所有的<code>form</code>元素</li>
+<li><code>document.images</code>：该属性会返回页面中所有的<code>image</code>元素</li>
+<li><code>doucment.links</code>：该属性会返回页面中带有<code>href</code>属性的所有<code>a</code>元素</li>
+</ul>
+<p><a name="文档写入"></a></p>
+<h3 id="文档写入"><a href="#文档写入" class="headerlink" title="文档写入"></a><strong>文档写入</strong></h3><p><code>document.write(string)</code>和<code>document.writeln(string)</code>：向页面动态添加内容，使用<code>document.writeln(string)</code>则会在<code>string</code>参数后面自动添加换行符（<code>&quot;\n&quot;</code>）。在页面加载的过程中使用这两个方法可以直接向页面输出内容，而如果是在页面加载结束调用这两个方法，则输出的内容会重写整个页面的内容。</p>
+<p><a name="element类型"></a></p>
+<h2 id="Element类型"><a href="#Element类型" class="headerlink" title="Element类型"></a><strong>Element类型</strong></h2><p>访问元素的标签名，除了可以通过元素的<code>nodeName</code>属性访问，还可以通过<code>tagName</code>属性。<strong>注意：</strong>两者返回的标签名都是大写的。<br>访问元素的<code>class</code>属性，需要通过元素的<code>className</code>属性来访问，因为<code>class</code>是<code>javascript</code>中保留字。<br><a name="操作元素的属性"></a></p>
+<h3 id="操作元素的属性"><a href="#操作元素的属性" class="headerlink" title="操作元素的属性"></a><strong>操作元素的属性</strong></h3><p>获取元素的属性：<code>getAttribute(attr)</code>，此时访问元素的<code>class</code>属性，需要传入<code>&quot;class&quot;</code>而不是<code>&quot;className&quot;</code>。如果要访问的属性不存在，则返回<code>null</code>。<br>除了自定义属性之外，直接通过<code>HTMLElement</code>对象上的属性就可以访问到定义在元素标签上的属性值。而通过<code>getAttribute(attr)</code>方法可以访问定义在元素标签上的所有属性（包括自定义属性）。但它直接返回元素标签上对应的属性值（该值为字符串），导致在访问一些属性时返回的值与直接访问<code>HTMLElement</code>对象上的属性得到的值有所差异。<br>设置元素的属性：<code>setAttribute(attr, value)</code>，<br>移除元素的属性：<code>removeAttribute(attr)</code><br>这三个方法可以认为是直接操作元素标签上的属性和值。</p>
+<p><a name="元素节点的attributes属性"></a></p>
+<h3 id="元素节点的attributes属性"><a href="#元素节点的attributes属性" class="headerlink" title="元素节点的attributes属性"></a><strong>元素节点的attributes属性</strong></h3><p><code>Element</code>类型对象上包含了<code>attributes</code>属性，该属性指向一个<code>NamedNodeMap</code>对象，该对象和<code>NodeList</code>对象类似。元素标签上定义的每一个属性都有一个Attr节点表示，一个元素的所有<code>Attr</code>节点就保存在一个<code>NamedNodeMap</code>对象中。<code>NamedNodeMap</code>对象拥有的方法：<br><code>getNamedItem(name)</code>：返回<code>nodeName</code>属性等于<code>name</code>的<code>Attr</code>节点<br><code>removeNamedItem(name)</code>：从<code>Attr</code>节点列表中移除<code>nodeName</code>属性等于<code>name</code>的节点并返回该节点<br><code>setNamedItem(Attr)</code>：向<code>Attr</code>节点列表中添加新的<code>Attr</code>节点<br><code>item(pos)</code>：返回索引为<code>pos</code>对应的<code>Attr</code>节点<br>利用<code>attributes</code>属性来访问元素的属性比直接使用<code>getAttribute(attr)</code>等方法要繁琐的多，实际用到的场景也不多，不过用它来遍历元素的属性还是很方便的。</p>
+<p><a name="text类型"></a></p>
+<h2 id="Text类型"><a href="#Text类型" class="headerlink" title="Text类型"></a><strong>Text类型</strong></h2><p>文本节点用<code>Text</code>类型来表示。可以通过<code>nodeValue</code>属性或<code>data</code>属性来访问文本节点中的内容，两者返回的值是一样的。也可以通过这两个属性来修改文本节点里面的内容。<br><a name="一些操作文本节点内容的属性和方法"></a></p>
+<h3 id="一些操作文本节点内容的属性和方法"><a href="#一些操作文本节点内容的属性和方法" class="headerlink" title="一些操作文本节点内容的属性和方法"></a><strong>一些操作文本节点内容的属性和方法</strong></h3><ul>
+<li><code>length</code>：保存着文本节点中字符的个数</li>
+<li><code>appendData(text)</code>：将<code>text</code>添加到节点的末尾</li>
+<li><code>deleteData(offset, count)</code>：从<code>offset</code>指定的位置开始删除<code>count</code>个字符</li>
+<li><code>insertData(offset, text)</code>：在<code>offset</code>指定的位置插入<code>text</code></li>
+<li><code>replaceData(offset, count, text)</code>：用<code>text</code>替换从<code>offset</code>指定的位置开始到<code>offset``+``count</code>为止处的文本</li>
+<li><code>splitText(offset)</code>：从<code>offset</code>指定的位置将文本节点分成两个文本节点。原来的文本节点保存从<code>0</code>到指定位置处的文本内容，然后创建一个新的包含剩下文本的文本节点并返回。</li>
+<li><code>substringData(offset, count)</code>：提取从<code>offset</code>指定的位置开始到<code>offset``+``count</code>为止处字符串<br><strong>注意：</strong>通过文本节点添加的内容里面的特殊字符（如<code>&lt;</code> <code>&gt;</code>）会被自动进行<code>HTML</code>编码。</li>
+</ul>
+<p><a name="多个连续文本节点的合并"></a></p>
+<h3 id="多个连续文本节点的合并"><a href="#多个连续文本节点的合并" class="headerlink" title="多个连续文本节点的合并"></a><strong>多个连续文本节点的合并</strong></h3><p>在<code>DOM</code>操作中，有时会面临同一节点内部存在着多个连续的文本节点，这容易造成混乱，让人无法识别哪个文本节点表示哪个字符串。此时在父节点上调用<code>normalize()</code>方法可以将多个连续的文本节点合并成一个文本节点。</p>
+<p><a name="documentfragment类型"></a></p>
+<h2 id="DocumentFragment类型"><a href="#DocumentFragment类型" class="headerlink" title="DocumentFragment类型"></a><strong>DocumentFragment类型</strong></h2><p><code>DocumentFragment</code>类型的对象常用来存放待添加到文档中的节点。<br>创建文档片段的方法：<code>document.createDocumentFragment()</code><br>如果将文档中的节点添加到文档片段中时，就会从文档树中移除该节点。可以使用前面的通用的<code>DOM</code>操作方法（<code>appendChild()</code>、<code>insertBefore()</code>等方法）将节点添加到文档节点中或者将文档节点添加到文档树中。将文档片段添加到文档树中时，只有内部的子节点会添加到文档树中，文档片段本身不会添加到文档树中。</p>
+<p><a name="attr类型"></a></p>
+<h2 id="Attr类型"><a href="#Attr类型" class="headerlink" title="Attr类型"></a><strong>Attr类型</strong></h2><p>元素标签上定义的属性在<code>DOM</code>中用<code>Attr</code>类型来表示。<br>创建属性节点：<code>document.createAttribute(name)</code>，该方法返回一个属性节点的引用，另外还需要为该属性节点的<code>value</code>属性指定属性节点的值<br><code>Attr</code>对象有两个常用的属性：</p>
+<ul>
+<li><code>name</code>：元素标签上定义的属性名称</li>
+<li><code>value</code>：元素标签上定义的属性的值<br>将新创建出来的属性节点添加到元素中，还必须调用元素节点的<code>setAttributeNode(AttrNode)</code>方法，传入新创建的属性节点即可。</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-javascriptSerial-7" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/02/javascriptSerial-7/" class="article-date">
+  	<time datetime="2016-05-02T01:45:28.000Z" itemprop="datePublished">2016-05-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/02/javascriptSerial-7/">你所不知道的javascript之BOM</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天让我们一起走近<code>BOM</code>（浏览器对象模型）的核心 —— <code>window</code>对象。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#window对象"><strong>window对象</strong></a><ul>
+<li><a href="#全局作用域中的变量"><strong>全局作用域中的变量</strong></a></li>
+<li><a href="#window对象上那些和框架相关的属性"><strong>window对象上那些和框架相关的属性</strong></a></li>
+<li><a href="#窗口位置和大小"><strong>窗口位置和大小</strong></a></li>
+<li><a href="#打开新窗口"><strong>打开新窗口</strong></a></li>
+</ul>
+</li>
+<li><a href="#location对象"><strong>location对象</strong></a><ul>
+<li><a href="#location对象的常用属性"><strong>location对象的常用属性</strong></a></li>
+<li><a href="#通过location对象跟浏览器位置有关的方法"><strong>通过location对象跟浏览器位置有关的方法</strong></a></li>
+</ul>
+</li>
+<li><a href="#history对象"><strong>history对象</strong></a><ul>
+<li><a href="#history对象的常用方法和属性"><strong>history对象的常用方法和属性</strong></a></li>
+</ul>
+</li>
+<li><a href="#navigator对象"><strong>navigator对象</strong></a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="window对象"></a></p>
+<h2 id="window对象"><a href="#window对象" class="headerlink" title="window对象"></a><strong>window对象</strong></h2><p><a name="全局作用域中的变量"></a></p>
+<h3 id="全局作用域中的变量"><a href="#全局作用域中的变量" class="headerlink" title="全局作用域中的变量"></a><strong>全局作用域中的变量</strong></h3><p>我们都知道在全局作用域中定义一个变量，都会成为<code>window</code>对象上的一个属性。在大部分情况下，它们两者是相同的。但是在对两者使用<code>delete</code>操作符时还是有区别的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"hb"</span>;</span><br><span class="line"><span class="built_in">window</span>.age = <span class="number">27</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">window</span>.name; <span class="comment">// 在IE9以下版本删除window对象上的属性会报错，而在这种情况下其他浏览器会返回false</span></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">window</span>.age; <span class="comment">// 在IE9以下版本会报错，其他浏览器中返回true</span></span><br></pre></td></tr></table></figure></p>
+<p><code>javascript</code>中使用<code>var</code>声明变量作为属性添加到<code>window</code>对象上时，该属性的<code>configurable</code>特性默认设置为<code>false</code>，因此在使用<code>delete</code>删除属性时会返回<code>false</code>。而在<code>IE9</code>以下版本删除<code>window</code>对象上的属性都会报错，无论该属性是通过<code>var</code>声明变量添加的还是在<code>window</code>对象上直接添加的。<br><a name="window对象上那些和框架相关的属性"></a></p>
+<h3 id="window对象上那些和框架相关的属性"><a href="#window对象上那些和框架相关的属性" class="headerlink" title="window对象上那些和框架相关的属性"></a><strong>window对象上那些和框架相关的属性</strong></h3><p><code>window.top</code> 对象始终指向最外层的框架<br><code>window.parent</code> 对象指向当前框架的直接上层框架<br><code>window.self</code> 对象指向当前的<code>window</code>对象（和<code>window.window</code>属性指向同一个对象）<br><a name="窗口位置和大小"></a></p>
+<h3 id="窗口位置和大小"><a href="#窗口位置和大小" class="headerlink" title="窗口位置和大小"></a><strong>窗口位置和大小</strong></h3><p><code>window.screenLeft</code>和<code>window.screenTop</code>（在<code>firefox</code>中使用<code>window.screenX</code>和<code>window.screenY</code>）：表示窗口相对于屏幕左边和上边的距离。在不同的浏览器中它表示的含义还有些不同。比如在<code>IE</code>、<code>Opera</code>中，<code>screenLeft</code>和<code>screenTop</code>中保存的是从屏幕左边和上边到页面可见区域的距离，而在<code>chrome</code>、<code>safari</code>和<code>firefox</code>中，这两个属性保存的时整个浏览器窗口相对于屏幕左边和上边的距离。<br><code>window.innerWidth</code>和<code>window.innerHeight</code>：表示页面视图的宽高<br><code>window.outerWidth</code>和<code>window.outerHeight</code>：表示浏览器窗口本身的宽高<br>在<code>IE</code>、<code>firefox</code>、<code>chrome</code>、<code>safari</code>和<code>opera</code>中，<code>document.documentElement.clientWidth</code>和<code>document.documentElement.clientHeight</code>保存了页面视口的宽高（这两个属性在<code>IE6</code>中仅在标准模式下有效），在混杂模式下使用<code>document.body.clientWidth</code>和<code>document.body.clientHeight</code>。<br><a name="打开新窗口"></a></p>
+<h3 id="打开新窗口"><a href="#打开新窗口" class="headerlink" title="打开新窗口"></a><strong>打开新窗口</strong></h3><p><code>window.open()</code>方法接收四个参数：要加载的<code>url</code>、窗口目标（已有窗口或框架的名称，在指定的窗口或框架中加载新页面）、一个特性字符串以及一个表示新页面是否在浏览器页面历史中代替当前页面的布尔值（该值仅在不打开新窗口的情况下使用）。<br>第二个参数除了可以指定现有窗口或框架名称，也可以是以下的字符串之一：<br><code>_self</code>：在当前窗口显示目标网页<br><code>_parent</code>：在当前框架的直接上层框架中显示目标网页<br><code>_top</code>：在最外层的框架中显示目标网页<br><code>_blank</code>：在新窗口中显示目标网页<br>第三个参数可以设置的新窗口选项：<br><code>width</code>：数值，<code>height</code>：数值，<br><code>left</code>：数值，<code>top</code>：数值，<code>left</code>和<code>top</code>分别指定打开的窗口距离屏幕左边和上边的距离，<br><code>resizable</code>：<code>yes</code>或<code>no</code><br><code>status</code>：<code>yes</code>或<code>no</code>（是否显示状态栏），<code>toolbar</code>：<code>yes</code>或<code>no</code>（是否显示工具栏），<br><code>scrollbars</code>：<code>yes</code>或<code>no</code>（是否显示滚动条）<br><code>window.open()</code>方法会返回一个对新窗口的引用。例如<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.open(<span class="string">'http://www.imooc.com'</span>,<span class="string">'_blank'</span>,<span class="string">'width=300,height=200,menubar=no,toolbar=no, status=no,scrollbars=yes'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>可以通过<code>window.close()</code>来关闭弹出窗口。<br>新建的<code>window</code>对象有一个<code>opener</code>属性，保存着打开它的原始窗口对象。<br><a name="location对象"></a></p>
+<h2 id="location对象"><a href="#location对象" class="headerlink" title="location对象"></a><strong>location对象</strong></h2><p><code>location</code>对象提供了当前窗口中加载的文档有关的信息，还将<code>URL</code>解析成独立的片段供我们使用。它既是<code>window</code>对象的属性，也是<code>document</code>的属性。<br><a name="location对象的常用属性"></a></p>
+<h3 id="location对象的常用属性"><a href="#location对象的常用属性" class="headerlink" title="location对象的常用属性"></a><strong>location对象的常用属性</strong></h3><p><code>hash</code> 返回<code>url</code>中的<code>hash</code>（即<code>#</code>号后面跟零或多个字符）<br><code>host</code> 返回服务器主机的域名和端口号<br><code>hostname</code> 返回服务器主机的域名（不带端口号）<br><code>href</code> 返回当前页面的完整<code>url</code>（<code>location</code>对象的<code>toString</code>方法也返回这个值）<br><code>pathname</code> 返回当前<code>url</code>中的路径信息<br><code>port</code> 返回当前<code>url</code>中的端口号<br><code>protocol</code> 返回当前<code>url</code>所使用的协议<br><code>search</code> 返回当前<code>url</code>的查询参数（如果有的话，返回的字符串以问号开头）<br><a name="通过location对象跟浏览器位置有关的方法"></a></p>
+<h3 id="通过location对象跟浏览器位置有关的方法"><a href="#通过location对象跟浏览器位置有关的方法" class="headerlink" title="通过location对象跟浏览器位置有关的方法"></a><strong>通过location对象跟浏览器位置有关的方法</strong></h3><ul>
+<li>使用<code>location</code>对象的<code>assign</code>方法<br>该方法接收一个<code>url</code>字符串，该方法立即打开新的页面并在浏览器的历史记录中生成一条记录。此外，修改<code>location.href</code>或<code>window.location</code>的值，也会调用<code>location.assign</code>方法。</li>
+<li>使用<code>location</code>对象的<code>replace</code>方法<br>该方法也是接收一个<code>url</code>字符串，该方法会导致浏览器位置改变，但不会浏览器的历史记录中生成一条记录，也就是说，用户无法通过后退按钮返回前一个页面。</li>
+<li>使用<code>location</code>对象的<code>reload</code>方法<br>该方法用于重新加载当前页面，它会选择最有效的方式来加载。默认情况下，如果当前页面自上次请求以来没有被修改，则会从浏览器的缓存中加载当前页面。如果要强制从服务器重新加载页面，则可以给该方法传递一个布尔值：<code>true</code>。</li>
+</ul>
+<p><a name="history对象"></a></p>
+<h2 id="history对象"><a href="#history对象" class="headerlink" title="history对象"></a><strong>history对象</strong></h2><p><code>history</code>对象保存着用户上网的历史记录。每个浏览器窗口、每个标签页以及每个框架都有自己的<code>history</code>对象和特定的<code>window</code>对象相关联。</p>
+<p><a name="history对象的常用方法和属性"></a></p>
+<h3 id="history对象的常用方法和属性"><a href="#history对象的常用方法和属性" class="headerlink" title="history对象的常用方法和属性"></a><strong>history对象的常用方法和属性</strong></h3><p><code>history.go()</code>：该方法接收一个数值，负数表示向后跳转的页面数，而正数则表示向前跳转。该方法也可以接收一个字符串参数，表示跳转到历史记录中包含指定字符串的记录对应的第一个页面（有可能向前跳转也有可能向后）<br><code>history.back()</code>：模仿浏览器上的后退按钮<br><code>history.forward()</code>：模仿浏览器上的前进按钮<br><code>history.length</code>：保存着历史记录的数量<br><a name="navigator对象"></a></p>
+<h2 id="navigator对象"><a href="#navigator对象" class="headerlink" title="navigator对象"></a><strong>navigator对象</strong></h2><p><code>navigator</code>对象主要用于识别客户端浏览器，比如它有一个常用的属性：<code>navigator.userAgent</code>。该属性返回用户代理头的字符串表示(就是包括浏览器版本信息等的字符串)</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-javascriptSerial-6" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -209,7 +637,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/01/javascriptSerial-6/">你所不知道的javascript（六）</a>
+      <a class="article-title" href="/2016/05/01/javascriptSerial-6/">你所不知道的javascript之对象和继承</a>
     </h1>
   
 
@@ -374,7 +802,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/30/javascriptSerial-5/">你所不知道的javascript（五）</a>
+      <a class="article-title" href="/2016/04/30/javascriptSerial-5/">你所不知道的javascript之函数</a>
     </h1>
   
 
@@ -449,466 +877,6 @@
     <div class="article-info article-info-index">
       
       
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-javascriptSerial-4" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/30/javascriptSerial-4/" class="article-date">
-  	<time datetime="2016-04-30T08:50:30.000Z" itemprop="datePublished">2016-04-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/30/javascriptSerial-4/">你所不知道的javascript（四）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>除了前面提到过的引用类型和基本包装类型以外，在<code>javascript</code>中还存在着一个顶级的全局对象，在浏览器端它被实现为<code>window</code>这个全局对象，很多我们平时直接使用的属性方法都是挂载在window这个对象上的，比如前面提到过的<code>parseInt()</code>，还有我们再熟悉不过的<code>undefined</code>，其实是<code>window</code>对象上的一个属性！另外还有<code>alert()</code>，<code>setTimeout()</code>等等。所以，今天我们来聊一聊那些挂载在<code>window</code>上的常用的辅助函数都有哪些。</p>
-<hr>
-<!-- MarkdownTOC -->
-<ul>
-<li><a href="#javascript中的编码问题"><strong>javascript中的编码问题</strong></a></li>
-<li><a href="#math对象"><strong>Math对象</strong></a></li>
-<li><a href="#json"><strong>JSON</strong></a></li>
-<li><a href="#定时器"><strong>定时器</strong></a></li>
-<li><a href="#其他函数"><strong>其他函数</strong></a></li>
-</ul>
-<!-- /MarkdownTOC -->
-<hr>
-<p><a name="javascript中的编码问题"></a></p>
-<h2 id="javascript中的编码问题"><a href="#javascript中的编码问题" class="headerlink" title="javascript中的编码问题"></a><strong>javascript中的编码问题</strong></h2><ul>
-<li>escape()方法<br><strong>用法：</strong> <code>escape(str)</code><br>该方法返回一个可在所有计算机上读取的编码 <code>String</code> 对象。<br>它可以使用类似 <code>&quot;%xx&quot;</code> 编码形式（其中 <code>xx</code> 等于表示该字符的十六进制数，字符值大于 <code>255</code> 的字符以 <code>%uxxxx</code> 格式存储）替换一些字符，而不会被此方法编码的字符有 <code>&quot;@&quot;</code> <code>&quot;*&quot;</code> <code>&quot;/&quot;</code> <code>&quot;+&quot;</code> <code>&quot;-&quot;</code> <code>&quot;_&quot;</code> <code>&quot;.&quot;</code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">escape</span>(<span class="string">"你好"</span>)); <span class="comment">//"%u4F60%u597D"</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>对应的解码方法：<code>unescape(str)</code>：从用 <code>escape</code> 方法编码的 <code>String</code> 对象中返回已解码的字符串。</p>
-<ul>
-<li><p>encodeURI()方法<br><strong>用法：</strong> <code>encodeURI(str)</code><br>该方法返回编码为有效的<code>统一资源标识符 (URI)</code> 的字符串。<br>encodeURI 方法一般用于对一个 url 进行整体上的编码。不会被此方法编码的字符有 <code>&quot;!&quot;</code> <code>&quot;@&quot;</code> <code>&quot;#&quot;</code> <code>&quot;$&quot;</code> <code>&quot;&amp;&quot;</code> <code>&quot;*&quot;</code> <code>&quot;(&quot;</code> <code>&quot;)&quot;</code> <code>&quot;=&quot;</code> <code>&quot;:&quot;</code> <code>&quot;/&quot;</code> <code>&quot;;&quot;</code> <code>&quot;?&quot;</code> <code>&quot;+&quot;</code> <code>&quot;&#39;&quot;</code><br>如果将编码结果传递给 <code>decodeURI(str)</code>，则将返回初始的字符串。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">encodeURI</span>(<span class="string">"http://hbchou.github.io/javascript?word=你好"</span>));</span><br><span class="line"><span class="comment">// "http://hbchou.github.io/javascript?word=%E4%BD%A0%E5%A5%BD"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>encodeURIComponent()方法<br><strong>用法：</strong> <code>encodeURIComponent(str)</code><br>该方法返回编码为<code>统一资源标识符 (URI)</code> 的有效组件的字符串。<br><code>encodeURIComponent</code> 方法一般用于对 <code>url</code> 中的请求参数名称和参数值进行编码，相当于对请求参数包含的特殊字符进行转义。不会被此方法编码的字符有 <code>&quot;!&quot;</code> <code>&quot;*&quot;</code> <code>&quot;(&quot;</code> <code>&quot;)&quot;</code> <code>&quot;&#39;&quot;</code> <code>&quot;.&quot;</code><br>如果将编码结果传递给 <code>decodeURIComponent(str)</code>，则将返回初始的字符串。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"http://hbChou.github.io/javascript="</span> + <span class="built_in">encodeURIComponent</span>(<span class="string">"http://www.baidu.com"</span>));</span><br><span class="line"><span class="comment">// "http://hbChou.github.io/javascript=http%3A%2F%2Fwww.baidu.com"</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><a name="math对象"></a></p>
-<h2 id="Math对象"><a href="#Math对象" class="headerlink" title="Math对象"></a><strong>Math对象</strong></h2><p>很明显，<code>Math</code>对象在<code>javascript</code>中是用于辅助计算的对象。在<code>Math</code>对象上保存着很多常用的方法：</p>
-<ul>
-<li><p>Math.min(num1, num2, …)和Math.max(num1, num2, …)方法<br>利用这两个方法可以很容易地获取数组中的最小值和最大值：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numbers = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">var</span> maxInNumber = <span class="built_in">Math</span>.max.apply(<span class="built_in">Math</span>, numbers); <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>舍入方法</p>
-</li>
-<li><code>Math.ceil(num)</code>总是将数值向上舍入为最接近的整数</li>
-<li><code>Math.floor(num)</code>总是将数值向下舍入为最接近的整数</li>
-<li><code>Math.round(num)</code>总是将数值四舍五入为最接近的整数</li>
-<li><p>另外，可以通过”~~”连续取反进行取整，不过它的取整规则和上面的不一样，它仅保留数值的整数部分</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(~~<span class="literal">null</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(~~<span class="number">11.4</span>); <span class="comment">// 11</span></span><br><span class="line"><span class="built_in">console</span>.log(~~<span class="number">11.5</span>); <span class="comment">// 11</span></span><br><span class="line"><span class="built_in">console</span>.log(~~<span class="number">-1.5</span>); <span class="comment">// -1</span></span><br><span class="line"><span class="built_in">console</span>.log(~~<span class="number">-1.4</span>); <span class="comment">// -1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>random()方法<br><code>Math.random()</code>方法总是返回大于等于 <code>0</code> 小于 <code>1</code> 的一个随机数。下面举几个有关它的应用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在最小值min和最大值max之间产生一个随机整数</span></span><br><span class="line"><span class="keyword">var</span>  x = <span class="built_in">Math</span>.floor( <span class="built_in">Math</span>.random() * (max - min + <span class="number">1</span>) ) + min;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将一个数组中的元素次序尽可能打乱</span></span><br><span class="line"><span class="keyword">var</span> numbers = [<span class="number">1</span>, <span class="number">23</span>, <span class="number">-4</span>, <span class="number">7</span>, <span class="number">5324</span>, <span class="number">-7873839</span>, <span class="number">0</span>, <span class="number">43</span>];</span><br><span class="line">numbers = numbers.sort(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">Math</span>.random() - <span class="number">0.5</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成由字母和数字构成的随机字符串</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">generateRandomAlphaNum</span>(<span class="params">len</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> rdmString = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">for</span>( ; rdmString.length &lt; len; rdmString += <span class="built_in">Math</span>.random().toString(<span class="number">36</span>).substr(<span class="number">2</span>));</span><br><span class="line">	<span class="keyword">return</span> rdmString.substr(<span class="number">0</span>, len);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>其他方法</p>
-</li>
-<li><code>Math.abs(num)</code> 返回<code>num</code>的绝对值</li>
-<li><code>Math.exp(num)</code> 返回<code>Math.E</code>的<code>num</code>次幂</li>
-<li><code>Math.pow(num, power)</code> 返回<code>num</code>的<code>power</code>次幂</li>
-<li><code>Math.sqrt(num)</code> 返回<code>num</code>的平方根</li>
-</ul>
-<p><a name="json"></a></p>
-<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a><strong>JSON</strong></h2><p><strong>首先需要明确的一点是，</strong><code>json</code><strong>有自己的数据类型：字符串（字符串必须使用双引号）、数值、布尔值和</strong><code>null</code><strong>（不支持</strong><code>javascript</code><strong>中的</strong><code>undefined</code><strong>值），另外还支持对象（对象属性名称必须加双引号）和数组，不支持函数。</strong><br><code>javascript</code>中为<code>json</code>格式数据的解析和序列化提供了<code>JSON</code>对象，该对象上主要有两个方法：</p>
-<ul>
-<li>JSON.parse()<br><strong>用法：</strong>JSON.parse(string[, function(key, value) {}])<br>调用<code>JSON.parse(str)</code>解析字符串时，单引号内部必须是一个有效的<code>json</code>格式的数据，即必须严格按照上面的规则来定义，否则会报错！<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// var result = JSON.parse("&#123;'name':'javascript'&#125;"); 报错，字符串必须使用双引号</span></span><br><span class="line"><span class="comment">// var result = JSON.parse('&#123;name:"javascript"&#125;'); 报错，对象属性名必须加双引号</span></span><br><span class="line"><span class="keyword">var</span> result = <span class="built_in">JSON</span>.parse(<span class="string">'&#123;"fruit":["apple","pear"]&#125;'</span>); <span class="comment">// 正确，json中支持数组</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>可以向<code>JSON.parse</code>函数中传入函数作为第二个参数，传入的函数在解析得到的对象键值对上调用，<strong>该函数必须返回一个值</strong>，如果返回的是<code>undefined</code>，则会从结果中删除对应的键；否则会将返回的结果插入到最后解析得到的<code>javascript</code>对象中。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">	title: <span class="string">"java"</span>,</span><br><span class="line">	author: <span class="string">"hbChou"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> str = <span class="built_in">JSON</span>.stringify(book);</span><br><span class="line"><span class="keyword">var</span> result = <span class="built_in">JSON</span>.parse(str, <span class="function"><span class="keyword">function</span>(<span class="params">key, value</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(key === <span class="string">"title"</span>) &#123;</span><br><span class="line">		<span class="comment">// 由于解析得到的是javascript中的对象，此时可以返回所有javascript中支持的类型，包括函数</span></span><br><span class="line">		<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">"hello,I am javascript!"</span>);</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">// 对于其他不需要修改的字段，需要将原来的值返回，否则解析不成功</span></span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;); <span class="comment">// &#123;title: function() &#123;...&#125;, author: "hbChou"&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>-JSON.stringify()<br><strong>用法：</strong>JSON.stringify(obj[, filter, indentOrNot])<br><code>JSON.stringify()</code>方法不仅可以将<code>javascript</code>中的一个对象转化为<code>json</code>字符串，也可以将数组转化为<code>json</code>字符串（因为本身<code>json</code>就支持数组）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])); <span class="comment">// '[1,2,3,4]'</span></span><br></pre></td></tr></table></figure></p>
-<p>另外还可以给<code>JSON.stringify()</code>函数指定额外的参数，传入的<code>filter</code>参数可以是数组（指定最终<code>json</code>字符串中要保留的对象属性，以字符串的形式给出），也可以是函数，传入的函数接受两个参数，分别是<code>json</code>对象的属性名和属性值，同样的，<strong>该函数必须返回一个值</strong>；<code>indentOrNot</code>参数表示是否在<code>json</code>字符串中保持缩进，缩进参数如果是字符串而非数值时，则该字符串将被用作缩进字符。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">	title: <span class="string">"java"</span>,</span><br><span class="line">	author: <span class="string">"hbChou"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> result = <span class="built_in">JSON</span>.stringify(book, <span class="function"><span class="keyword">function</span> (<span class="params">key, value</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (key === <span class="string">"title"</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"javascript"</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;, <span class="string">"-"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure></p>
-<p>打印出来的结果：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">-<span class="string">"title"</span>: <span class="string">"javascript"</span>,</span><br><span class="line">-<span class="string">"author"</span>: <span class="string">"hbChou"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>注意：</strong>在使用<code>JSON.stringify</code>序列化<code>javascript</code>中的对象时，对象中的函数会被忽略（因为<code>json</code>本身并不支持函数，包括从<code>filter</code>函数返回的函数也会被忽略），任何<code>undefined</code>的值对应的属性都会被跳过，结果中最终保留的都是值为有效<code>json</code>数据类型的实例属性。</p>
-<p>除了可以调用<code>JSON.stringify()</code>函数对对象进行序列化，还可以在对象上实现一个<code>toJSON</code>方法，用于自定义对象序列化后得到的<code>json</code>字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	name: <span class="string">"hb"</span>,</span><br><span class="line">	age: <span class="number">27</span>,</span><br><span class="line">	toJSON: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			name: <span class="string">"haibin"</span>,</span><br><span class="line">			func: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(obj)); <span class="comment">// '&#123;"name": "hb"&#125;'</span></span><br></pre></td></tr></table></figure></p>
-<p>从上面的例子可以看出，一旦在对象上自定义了<code>toJSON</code>方法，则在调用<code>JSON.stringify</code>函数会直接调用对象的<code>toJSON</code>方法返回结果。但不是说这就是最终序列化的结果，对于toJSON方法返回的数据并不是有效的json格式，<code>JSON.stringify</code>函数还会做进一步的处理，只保留有效的<code>json</code>数据类型的实例属性。如果此时<code>JSON.stringify</code>函数还指定了filter参数，则还会根据filter参数做进一步的过滤。</p>
-<p><a name="定时器"></a></p>
-<h2 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a><strong>定时器</strong></h2><p>我们都知道，<code>javascript</code>中提供了两个函数来实现类似定时器的功能：</p>
-<ul>
-<li><code>setTimeout(funciton(){}, timeout)</code>：超时调用函数，返回一个定时器的<code>ID</code>值，可用于取消该定时器。</li>
-<li><code>setInterval(function(){}, interval)</code>：重复间隔调用函数，同样返回一个<code>ID</code>值。<br>清除定时器：<code>clearTimeout(timer)</code>或者<code>clearInterval(timer)</code>:只能取消在队列中尚未执行的定时器，如果要取消的定时器正在执行，则无法取消。</li>
-</ul>
-<p>关于<code>setTimeout()</code>和<code>setInterval()</code>的区别：</p>
-<ul>
-<li>很明显，两者的功能不同，一个超时调用，一个则是重复间隔调用</li>
-<li>使用<code>setTimeout()</code>嵌套可以实现类似<code>setInterval()</code>的功能，但是两者还是有区别的：<br><code>setInterval(function, interval)</code>：本意上是每隔<code>interval</code>毫秒的时间间隔执行一次回调函数，但这是回调函数执行时间小于设置的<code>interval</code>毫秒的时间间隔的情况。如果回调函数的执行时间超过了<code>interval</code>毫秒的时间间隔，则在回调函数的执行过程中按<code>interval</code>毫秒的时间间隔将下一个回调函数添加到执行队列中，如果当前执行队列中存在一个尚未执行的定时器代码实例，则不会添加回调函数添加到执行队列中，这样可能会丢失一些回调函数。而<code>setTimeout</code>函数嵌套则不会发生这样的情况：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	...</span><br><span class="line">	setTimeout(argument.callee, timeout);</span><br><span class="line">&#125;, timeout);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>在<code>setTimeout</code>函数嵌套中，无论中间的代码执行经过多长时间，都会在每次执行操作后经过<code>timeout</code>毫秒的时间间隔之后将回调函数添加到执行队列中，然后执行，确保不会错过任何的回调函数。</p>
-<p><a name="其他函数"></a></p>
-<h2 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a><strong>其他函数</strong></h2><ul>
-<li>confirm()<br><code>confirm()</code> 通常用于弹出对话框(包括一个确定按钮和一个取消按钮)。<br><strong>用法：</strong><code>confirm(str)</code><br><code>str</code>参数表示要在消息对话框中显示的文本。函数返回一个布尔值，当用户点击”确定”按钮时，返回<code>true</code>；当用户点击”取消”按钮时，返回<code>false</code>。</li>
-<li>prompt()<br><code>prompt()</code> 通常用于询问一些需要与用户交互的信息。弹出消息对话框（包含一个确定按钮、取消按钮与一个文本输入框）。<br><strong>用法：</strong><code>prompt(str1, str2)</code><br><code>str1</code>参数表示要显示在消息对话框中的文本，不可修改；<code>str2</code>参数表示需要用户输入的文本框中显示的内容，可以修改。函数的返回值：当点击确定按钮，文本框中的内容将作为函数返回值；点击取消按钮，将返回<code>null</code>。</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-javascriptSerial-3" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/30/javascriptSerial-3/" class="article-date">
-  	<time datetime="2016-04-30T06:05:50.000Z" itemprop="datePublished">2016-04-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/30/javascriptSerial-3/">你所不知道的javascript（三）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>趁热打铁，让我们接着向<code>javascript</code>中另外的几种对象类型做进一步的认识。它们就是<code>javascript</code>中的基本包装类型，说是包装类型是有原因的，因为它们来源于<code>javascript</code>中的基本类型，只是做了适当的包装就变成了对象类型。下面让我们欢迎今天的嘉宾隆重登场，他们就是<code>Number</code>，<code>Boolean</code>和<code>String</code>。</p>
-<hr>
-<!-- MarkdownTOC -->
-<ul>
-<li><a href="#number类型"><strong>Number类型</strong></a></li>
-<li><a href="#boolean类型"><strong>Boolean类型</strong></a></li>
-<li><a href="#string类型"><strong>String类型</strong></a></li>
-</ul>
-<!-- /MarkdownTOC -->
-<hr>
-<p><a name="number类型"></a></p>
-<h2 id="Number类型"><a href="#Number类型" class="headerlink" title="Number类型"></a><strong>Number类型</strong></h2><p><code>Number</code>对象自身具有一些方法，最常用的就是 <code>toFixed(num)</code>这个方法了。它主要用于保留数值指定位数的小数，对于多余的小数部分则进行四舍五入的方法进行取舍。对于Number，String这些对象上的方法，作为对应的基本类型<code>number</code>和<code>string</code>是可以直接使用的，这其中就涉及到基本包装类型对象的自动创建问题，而在执行完基本类型调用引用类型方法的这一行代码时，自动创建的基本包装类型对象又会被自动销毁。</p>
-<p><a name="boolean类型"></a></p>
-<h2 id="Boolean类型"><a href="#Boolean类型" class="headerlink" title="Boolean类型"></a><strong>Boolean类型</strong></h2><p><code>Boolean</code>对象自身没有比较常用的方法，不仅如此，使用<code>Boolean</code>对象更是容易造成误解，比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> boolObj = <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="string">"false"</span>);</span><br><span class="line"><span class="built_in">console</span>(<span class="literal">true</span> &amp;&amp; boolObj); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
-<p>因为对象本身会转化成布尔值<code>true</code>，所以才会导致这个完全相反的结果。因此实际应用中一般不使用<code>Boolean</code>对象来表示布尔值，类似的情况在<code>Number</code>和<code>String</code>类型中也是存在的。</p>
-<p><a name="string类型"></a></p>
-<h2 id="String类型"><a href="#String类型" class="headerlink" title="String类型"></a><strong>String类型</strong></h2><p>在实际的使用中，我们经常要对字符串进行处理，所以<code>String</code>类型提供了大量有用的方法供我们使用。但在实际过程中我们并不需要通过创建<code>String</code>对象来使用这些方法，而是直接在基本类型<code>string</code>上使用这些方法：</p>
-<ul>
-<li><code>charAt(index)</code>：返回指定索引处的字符</li>
-<li><code>charCodeAt(index)</code>：返回指定索引处的字符对应的字符编码</li>
-<li><code>concat(str)</code>：连接字符串，返回新的字符串，而原字符串保持不变</li>
-<li>截取字符串的方法（返回新的字符串，而原字符串保持不变）：</li>
-<li><code>slice(start, [end])</code>：截取从<code>start</code>到<code>end - 1</code>处的字符串。其中<code>start</code>参数必须小于<code>end</code>参数。当传入的参数为负数时，会与字符串的长度相加转化为非负数。</li>
-<li><p><code>substring(start, [end])</code>：作用跟<code>slice</code>一样。只是在传入的参数为负数的时候有区别。<code>substring</code>方法会统一将传入的负数转化为<code>0</code>。<code>start</code>可以大于<code>end</code>：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"javascript"</span>.substring(<span class="number">4</span>,<span class="number">0</span>)); <span class="comment">// "java"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"javascript"</span>.substring(<span class="number">-6</span>, <span class="number">-1</span>)); <span class="comment">// ""</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>substr(start, [howmany])</code>：从<code>start</code>处开始，截取<code>howmany</code>个字符返回。当传入的参数为负数时，会将负的第一个参数加上字符串的长度，而将负的第二个参数转化为<code>0</code>。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"javascript"</span>.substr(<span class="number">-6</span>, <span class="number">6</span>)); <span class="comment">// "script"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"javascript"</span>.substr(<span class="number">4</span>, <span class="number">-1</span>)); <span class="comment">// ""</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>indexOf(str, [start])</code>：从指定的位置开始从前向后查找字符串，<code>start</code>不可以为负数</p>
-</li>
-<li><code>lastIndexOf(str, [start])</code>：从指定的位置开始从后往前查找字符串，同样<code>start</code>不可以为负数</li>
-<li><code>trim()</code>：去掉字符串的前后空格，返回新的字符串。不修改原来的字符串</li>
-<li><code>toUpperCase()</code>：将字符串中的字母转换为大写，原字符串保持不变（<code>toLowerCase()</code>与此相反）</li>
-<li><p><code>match(reg)</code>：将字符串与模式进行匹配，结果返回与<code>reg.exec(str)</code>相同的数组。<strong>注意：</strong><code>与reg.exec(str)</code>和<code>reg.test(str)</code>等方法不同的是，使用<code>str.match(reg)</code>，在模式匹配到字符串时，<code>RegExp</code>对象上的<code>lastIndex</code>属性并不会得到更新，一直保持为 <code>0</code> 不变（包括在使用<code>str.search(reg)</code>时也是一样的情况），即使<code>RegExp</code>对象使用了全局匹配模式。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"abcdef"</span>;</span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/abc/gi</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg)); <span class="comment">// ["abc"]</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.lastIndex); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>search(reg)</code>：返回第一个匹配项的索引，每次都是从头开始匹配。如果没有找到匹配项，则返回 <code>-1</code> 。</p>
-</li>
-<li><code>replace(RegExp或string, string或function(match, group1, group2, ..., pos, input) {})</code>：替换字符串。第一个参数可以传入<code>RegExp</code>对象或者字符串，而第二个参数传入的是字符串，可以在字符串中使用特殊的字符序列，比如：<ul>
-<li><code>$&amp;</code> 表示匹配整个模式的子字符串，与RegExp.lastMatch的值相同</li>
-<li><code>$&#39;</code> 表示匹配的字符串之前的子字符串</li>
-<li>$` 表示匹配的字符串之后的子字符串</li>
-<li><code>$1</code>，<code>$2</code>，… 表示模式中的捕获组匹配到的字符串<br><code>replace</code>方法可以接收一个函数作为第二个参数。该函数接收的参数是整个模式匹配到的字符串，第一个捕获组匹配到的字符串，第二个捕获组匹配到的字符串，…，匹配整个模式的字符串在原字符串中的位置以及原字符串的值。</li>
-</ul>
-</li>
-<li><code>split(RegExp或string, [arrSize])</code>：分割字符串。分隔符可以是字符串，也可以是模式匹配到的字符串。不给出分隔符，则将该字符串作为数组仅有的一项返回。该方法还可以指定第二个参数，表示返回的数组不能超过指定的大小。（返回的数组长度可以小于指定的大小）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"a-b-c"</span>.split(<span class="string">"-"</span>, <span class="number">2</span>)); <span class="comment">// ["a", "b"]</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>另外，在<code>String</code>构造函数上具有的静态方法</p>
-<ul>
-<li><code>String.fromCharCode(code1, code2, ...)</code>：返回由指定的字符编码对应的字符构成的字符串</li>
-</ul>
-<p><code>String</code>、<code>Number</code>和<code>Boolean</code>等基本包装类型在实际中其实很少使用，甚至要避免使用。更多时候，我们通过基本类型来使用其对应的基本包装类型对象上的方法。虽然有些方法看上去很简单，但也往往因此被我们忽略。希望我们都可以做一个有心人。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-javascriptSerial-2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/30/javascriptSerial-2/" class="article-date">
-  	<time datetime="2016-04-30T01:47:33.000Z" itemprop="datePublished">2016-04-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/30/javascriptSerial-2/">你所不知道的javascript（二）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前一篇讲了<code>javascript</code>中的数据类型和几种操作符的操作数的隐性类型转换问题，接下来让我们谈谈<code>javascript</code>中几种引用类型：<code>Array</code>，<code>Date</code>和<code>RegExp</code>。</p>
-<hr>
-<!-- MarkdownTOC -->
-<ul>
-<li><a href="#array类型">Array类型</a></li>
-<li><a href="#date类型">Date类型</a></li>
-<li><a href="#regexp类型">RegExp类型</a></li>
-</ul>
-<!-- /MarkdownTOC -->
-<hr>
-<p><a name="array类型"></a></p>
-<h2 id="Array类型"><a href="#Array类型" class="headerlink" title="Array类型"></a>Array类型</h2><ul>
-<li><p>Array的构造<br><code>javascript</code>中的数组有以下几种构造方式：</p>
-<ul>
-<li><p>使用<code>Array</code>构造函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colors = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"><span class="keyword">var</span> sports = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">20</span>); <span class="comment">// 创建长度为20的数组</span></span><br><span class="line"><span class="keyword">var</span> food = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="string">"beef"</span>, <span class="string">"vegetables"</span>, <span class="string">"fruits"</span>); <span class="comment">// 使用指定的元素创建数组</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>直接使用数组字面量，方便快捷</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> food = [<span class="string">"beef"</span>, <span class="string">"vegetables"</span>, <span class="string">"fruits"</span>];</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>检测数组<br>除了可以使用<code>Object</code>构造函数原型上的<code>toString</code>方法来判断某个变量是否为数组以外，还可以直接使用<code>Array</code>构造函数上的<code>isArray</code>方法来判断：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colors = [];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(colors)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>数组对象常用的方法</p>
-<ul>
-<li><code>toString()</code>方法：该方法返回由数组中的每一项拼接而成，以逗号分隔的字符串，不包含 <code>[]</code></li>
-<li><code>push(item)</code>方法和<code>unshift(item)</code>方法：分别向数组的尾部和首部添加元素，<strong>结果返回新数组的长度</strong></li>
-<li><code>pop()</code>方法和<code>shift()</code>方法：分别从数组尾部和首部弹出元素，返回被移除的元素值。</li>
-<li><code>join([separator])</code>方法：用于把数组中的所有元素放入一个字符串，元素之间通过指定的分隔符进行分隔。不指定参数默认以逗号隔开。</li>
-<li><code>splice(start, howmany, [item1, item2, ...])</code>方法：从指定项<code>start</code>处开始删除<code>howmany</code>个元素，并从<code>start</code>处添加新的元素。该方法会直接修改原数组，并<strong>返回由删除项构成的数组</strong></li>
-<li><p>返回修改后的新数组的方法：</p>
-<ul>
-<li><code>reverse()</code>方法：将数组元素进行反转，该方法会直接修改原数组</li>
-<li><p><code>sort([function (a, b) {}])</code>方法：将数组元素按照指定的规则进行排序，默认情况下会将所有元素转化为字符串，然后逐个字符比较其在<code>ASCII码表</code>中出现的先后顺序再对整体进行排序。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">12</span>, <span class="number">34</span>, <span class="number">22</span>, <span class="number">54</span>];</span><br><span class="line">arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a - b;		<span class="comment">// 常用的升序排序方法，当然仅对数组元素全部为数值时才有效</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>concat(arr)</code>方法：拼接数组，原数组不会发生修改</p>
-</li>
-<li><code>slice(start, [end])</code>方法：截取数组的一部分，原数组不会发生修改（当 <code>end &lt;= start</code> 时返回空数组）</li>
-</ul>
-</li>
-<li><code>indexOf(item, [start])</code>方法：从前向后查找指定元素，<code>start</code>参数可以为负数</li>
-<li><code>lastIndexOf(item, [start])</code>方法：从后向前查找指定元素，<code>start</code>参数可以为负数</li>
-<li>迭代方法（以下方法都可以接收两个参数：在数组每一项上要运行的函数和<code>context</code>参数，函数可以接收三个参数：<strong>每一项元素的值，索引和数组对象本身</strong>，<code>context</code>参数用于修改指定函数的<code>this</code>指向的对象）<ul>
-<li><code>every(function(value, index, arr) {}, [context])</code>方法：如果指定的函数对传入的数组每一项都返回<code>true</code>，就返回<code>true</code>，否则返回<code>false</code></li>
-<li><code>filter(...)</code>方法：返回的数组只保留传入函数返回<code>true</code>的元素</li>
-<li><code>forEach(...)</code>方法：对数组的每一项执行给定的函数，该方法没有返回值</li>
-<li><code>map(...)</code>方法：对数组的每一项执行给定函数，返回每次函数执行结果构成的数组</li>
-<li><code>some(...)</code>方法：如果指定的函数对传入的数组元素只要有一个返回<code>true</code>，就返回<code>true</code></li>
-</ul>
-</li>
-<li>归并方法（以下方法都可以接收两个参数：归并函数和初始值，其中归并函数接收四个参数：<strong>前一个值，当前值，当前项的索引和数组对象本身</strong>，如果给定初始值，则第一次调用归并函数的第一个和第二个参数分别是初始值和数组第一项的值。每一次归并函数的调用结果都会作为第一个参数传递到下一次调用的归并函数）<ul>
-<li><code>reduce(function(prev, cur, index, arr) {}, [initial])</code>方法：从前向后进行归并</li>
-<li><code>reduceRight(...)</code>方法：从后往前进行归并</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><a name="date类型"></a></p>
-<h2 id="Date类型"><a href="#Date类型" class="headerlink" title="Date类型"></a>Date类型</h2><ul>
-<li><p>构造Date对象<br>构造<code>Date</code>对象有两种方法：</p>
-<ul>
-<li><p>根据传递的毫秒数创建：<br>需要指定的毫秒数从何而来</p>
-<ul>
-<li><p><code>Date.parse()</code>：该方法接收一个表示日期的字符串，根据传入的字符串返回相应日期的毫秒数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">Date</span>.parse(<span class="string">"4/30/2016"</span>)); <span class="comment">// 传入的字符串格式："月/日/年"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>Date.UTC(year, month, day, hour, minute, second)</code>：该方法也可以返回对应日期的毫秒数，<strong>注意这里有个坑，月份是从0开始算起的</strong></p>
-</li>
-<li><code>Date.now()</code>：返回当前时间的毫秒数，不过该方法常用于简化使用Date对象分析代码的工作：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> start = <span class="built_in">Date</span>.now();</span><br><span class="line"></span><br><span class="line">doSomething();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> stop = <span class="built_in">Date</span>.now();</span><br><span class="line"><span class="built_in">console</span>.log(stop - start); <span class="comment">// 可以直接获取到代码的执行时间</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在不支持Date.now()方法的浏览器中，可以使用+操作符获取Date对象的时间戳</span></span><br><span class="line"><span class="comment">// +new Date() &lt;==&gt; Date.now()</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>根据传递进来的年份，月份等信息创建：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2016</span>, <span class="number">3</span>, <span class="number">30</span>, <span class="number">11</span>, <span class="number">30</span>); <span class="comment">// 2016年4月30日11:30</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>Date对象常用的方法</p>
-<ul>
-<li><code>getTime()</code>：返回Date对象对应时间的毫秒数</li>
-<li><code>getFullYear()</code>：返回Date对象对应时间的年份</li>
-<li><code>getMonth()</code>：返回Date对象对应时间的月份</li>
-<li><code>getDate()</code>：返回Date对象对应时间在该月份的天数</li>
-<li><code>getDay()</code>：返回Date对象对应时间是星期几，返回的是 <code>0-6</code> 的数字，<code>0</code> 表示星期天。</li>
-<li><code>getHours()</code>：返回Date对象对应时间的小时数</li>
-<li><code>getMinutes()</code>：返回Date对象对应时间的分钟数</li>
-<li><code>getSeconds()</code>：返回Date对象对应时间的秒数</li>
-<li><code>getMilliseconds()</code>：返回Date对象对应时间的毫秒数（<strong>注意：</strong>不是时间戳）</li>
-</ul>
-</li>
-</ul>
-<p><a name="regexp类型"></a></p>
-<h2 id="RegExp类型"><a href="#RegExp类型" class="headerlink" title="RegExp类型"></a>RegExp类型</h2><ul>
-<li>先来认识认识这些元字符<ul>
-<li><code>\d</code>：数字0-9</li>
-<li><code>\D</code>：非\d</li>
-<li><code>\w</code>：数字0-9或字母a-z，A-Z，或下划线</li>
-<li><code>\W</code>：非\w</li>
-<li><code>\s</code>：空格符，TAB，换页符，换行符</li>
-<li><code>\S</code>：非\s</li>
-<li><code>()</code>：分组，并记录匹配到的字符串，用于后续引用匹配到的字符串</li>
-<li><code>\数字</code>：表示使用分组符号()匹配到的字符串，例：/(abc)\1/匹配字符串”abcabc”</li>
-<li><code>(?:)</code>：仅分组，不用于后续引用匹配到的字符串，如/(?:abc)(def)\1/此时匹配的是”abcdefdef”。</li>
-<li><code>字符*?</code>：匹配重复指定字符0次或多次，非贪婪匹配</li>
-<li><code>字符+?</code>：匹配重复指定字符1次或多次，非贪婪匹配</li>
-<li><code>字符?</code>：匹配字符出现0次或1次；</li>
-<li><code>字符{n}</code>：匹配前面的字符出现n次；</li>
-<li><code>字符{n,}</code>：匹配前面的字符出现n次或多次（大于n次）；</li>
-<li><code>字符{n,m}</code>：匹配前面的字符出现n次到m次</li>
-</ul>
-</li>
-<li><p>构造RegExp对象<br>构造<code>RegExp</code>对象有两种方法</p>
-<ul>
-<li><p>使用RegExp构造函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"\\(abc\\)"</span>, <span class="string">"gi"</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用RegExp对象字面量</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/\(abc\)/gi</span>; <span class="comment">// 跟上面的写法是等价的</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>注意：</strong>使用正则字面量和使用<code>new RegExp(string,flag)</code>创建<code>RegExp</code>对象区别在于<code>new RegExp(string,flag)</code>方式中<code>string</code>需要对正则字面量中的“\”进行转义。</p>
-<ul>
-<li><p>RegExp对象的实例属性</p>
-<ul>
-<li><code>global</code>：布尔值，表示是否设置了g标志</li>
-<li><code>ignoreCase</code>：布尔值，表示是否设置了i标志</li>
-<li><code>lastIndex</code>：表示开始搜索下一个匹配项的字符所在位置</li>
-<li><code>multiline</code>：布尔值，表示是否设置了m标志</li>
-<li><code>source</code>：正则表达式的字符串表示，<strong>按照字面量形式返回而不是传入构造函数的字符串格式</strong></li>
-</ul>
-</li>
-<li><p>RegExp实例方法</p>
-<ul>
-<li>exec()方法<br>该方法接收一个参数：用于匹配模式的字符串。结果返回包含第一个匹配项信息的数组，或者在没有匹配项的情况下返回<code>null</code>。返回的数组包含两个额外的属性：<code>index</code>（匹配项在字符串中的位置）和<code>input</code>（用于匹配模式的字符串）。该数组中的第一项是匹配到的字符串，往后每一项是模式中的每一个捕获组匹配到的字符串。<br>在模式设置了全局匹配的标志之后，每一次调用同一个<code>RegExp</code>对象上的<code>exec()</code>方法会上一次匹配到的字符串之后继续匹配新的字符串。<strong>在全局匹配的模式下，同一个</strong><code>RegExp</code><strong>对象应用</strong><code>exec()</code><strong>方法在每一次匹配到字符串之后，自身的</strong><code>lastIndex</code><strong>属性作出相应的修改。</strong></li>
-<li>test()方法<br>该方法也是接收一个相同的字符串参数。在模式匹配到字符串的情况下返回<code>true</code>，否则返回<code>false</code>。同样的，<strong>在全局匹配的模式下，同一个</strong><code>RegExp</code><strong>对象应用</strong><code>test()</code><strong>方法在每一次匹配到字符串之后，自身的</strong><code>lastIndex</code><strong>属性作出相应的修改。</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/abc/gi</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"abcdef"</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.lastIndex); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>RegExp构造函数的静态属性<br>这些属性适用于作用域中所有的正则表达式，并且基于最近一次执行正则表达式操作的结果而变化。<strong>无论是调用</strong><code>exec()</code><strong>方法还是</strong><code>test()</code><strong>方法，都会更新这些属性。</strong>这些属性有：</p>
-<ul>
-<li><code>RegExp.input</code>：最近一次要匹配模式的字符串</li>
-<li><code>RegExp.lastMatch</code>：最近一次匹配到的字符串</li>
-<li><code>RegExp.lastParen</code>：最近一次匹配到的捕获组，在最近使用的一个模式中可能包含多个捕获组，该属性保存的是该模式最后一个捕获组所匹配到的字符串</li>
-<li><code>RegExp.leftContext</code>：input字符串中lastMatch前面的字符串</li>
-<li><code>RegExp.rightContext</code>：input字符串中lastMatch后面的字符串</li>
-<li><code>RegExp.multiline</code>：布尔值，表示是否所有的表达式都使用多行模式</li>
-<li><code>RegExp.$1</code>，<code>RegExp.$2</code>，…：保存上一次匹配中模式的第一个，第二个，…捕获组所匹配到的字符串</li>
-</ul>
-</li>
-</ul>
-<p><code>javascript</code>中的<code>Array</code>，<code>Date</code>和<code>RegExp</code>类型在很多地方都会用到，也是我们掌握好<code>javascript</code>的基础和关键。我们只有多次运用它们自身所具有的这些属性和方法，才能真正做到烂熟于胸。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
-	</div>
-
       
 
       
