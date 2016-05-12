@@ -42,7 +42,7 @@ Array的构造javascript中的数组有以下几种构造方式：
 
 使用Array构造函数
 123var colors = new Array();v">
-<meta property="og:updated_time" content="2016-05-07T14:08:34.232Z">
+<meta property="og:updated_time" content="2016-05-10T02:17:27.412Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你所不知道的javascript之Array、Date和RegExp">
 <meta name="twitter:description" content="前一篇讲了javascript中的数据类型和几种操作符的操作数的隐性类型转换问题，接下来让我们谈谈javascript中几种引用类型：Array，Date和RegExp。
@@ -324,7 +324,7 @@ Array的构造javascript中的数组有以下几种构造方式：
 <li>迭代方法（以下方法都可以接收两个参数：在数组每一项上要运行的函数和<code>context</code>参数，函数可以接收三个参数：<strong>每一项元素的值，索引和数组对象本身</strong>，<code>context</code>参数用于修改指定函数的<code>this</code>指向的对象）<ul>
 <li><code>every(function(value, index, arr) {}, [context])</code>方法：如果指定的函数对传入的数组每一项都返回<code>true</code>，就返回<code>true</code>，否则返回<code>false</code></li>
 <li><code>filter(...)</code>方法：返回的数组只保留传入函数返回<code>true</code>的元素</li>
-<li><code>forEach(...)</code>方法：对数组的每一项执行给定的函数，该方法没有返回值</li>
+<li><code>forEach(...)</code>方法：对数组的每一项执行给定的函数，该方法没有返回值。使用<code>forEach</code>遍历数组的一个不足之处在于中途不能退出<code>forEach</code>循环，使用<code>return</code>，break<code>和</code>continue`都不能奏效。</li>
 <li><code>map(...)</code>方法：对数组的每一项执行给定函数，返回每次函数执行结果构成的数组</li>
 <li><code>some(...)</code>方法：如果指定的函数对传入的数组元素只要有一个返回<code>true</code>，就返回<code>true</code></li>
 </ul>
