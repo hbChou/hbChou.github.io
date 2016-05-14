@@ -48,7 +48,7 @@ input标签上的通用属性
 
 
 s">
-<meta property="og:updated_time" content="2016-05-14T13:18:23.035Z">
+<meta property="og:updated_time" content="2016-05-14T13:20:22.643Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML5中的增强表单">
 <meta name="twitter:description" content="form元素
@@ -310,23 +310,31 @@ s">
 <hr>
 <p><a name="form元素"></a></p>
 <h2 id="form元素"><a href="#form元素" class="headerlink" title="form元素"></a><strong>form元素</strong></h2><p><a name="form元素的一些基本属性"></a></p>
-<h3 id="form元素的一些基本属性"><a href="#form元素的一些基本属性" class="headerlink" title="form元素的一些基本属性"></a><strong>form元素的一些基本属性</strong></h3><p><strong>action</strong>属性说明了要往哪个<code>URL</code>地址提交表单数据。<br><strong>method</strong>属性指定了提交表单数据所使用的HTTP方法，默认值是<code>&quot;get&quot;</code>，但其实大多数表单都是通过<code>&quot;post&quot;</code>方法提交的。<br>这里延伸拓展一下关于<code>get</code>方法和<code>post</code>方法的区别：</p>
+<h3 id="form元素的一些基本属性"><a href="#form元素的一些基本属性" class="headerlink" title="form元素的一些基本属性"></a><strong>form元素的一些基本属性</strong></h3><p><strong>action</strong>属性说明了要往哪个<code>URL</code>地址提交表单数据。</p>
+<p><strong>method</strong>属性指定了提交表单数据所使用的HTTP方法，默认值是<code>&quot;get&quot;</code>，但其实大多数表单都是通过<code>&quot;post&quot;</code>方法提交的。<br>这里延伸拓展一下关于<code>get</code>方法和<code>post</code>方法的区别：</p>
 <ul>
 <li><code>get</code>方法主要用于从服务器端获取数据，<code>post</code>方法主要用于向服务器端发送数据</li>
 <li><code>get</code>方法要传递到服务器端的数据包含在浏览器地址栏的<code>URL</code>中，而<code>post</code>方法提交的数据包含在<code>HTTP</code>报文的主体部分中</li>
 <li><code>get</code>请求用于安全交互，同一个请求可以发起任意多次而不会对服务器端产生副作用，这就决定了<code>get</code>请求是<strong>幂等</strong>的；而<code>post</code>方法用于不安全交互，提交数据的行为可能会导致服务器端一些状态的改变</li>
 <li><code>get</code>请求提交的数据量较小，受<code>URL</code>长度的限制一般不能超过<code>2KB</code>，而<code>post</code>方法则没有这方面的限制</li>
-<li><code>get</code>方法可以传递的数据被限制为<code>ASCII</code>码，而<code>post</code>方法则可以支持整个<code>ISO10646</code>字符集。<br>此外<code>form</code>元素具有的其他属性还有：<br><strong>enctype</strong>属性指定了浏览器对发送给服务器的数据采用的编码格式，其可能取值有：</li>
+<li><code>get</code>方法可以传递的数据被限制为<code>ASCII</code>码，而<code>post</code>方法则可以支持整个<code>ISO10646</code>字符集。<br>此外<code>form</code>元素具有的其他属性还有：</li>
+</ul>
+<p><strong>enctype</strong>属性指定了浏览器对发送给服务器的数据采用的编码格式，其可能取值有：</p>
+<ul>
 <li><code>&quot;application/x-www-form-urlencoded&quot;</code>：这是默认编码方式</li>
 <li><code>&quot;multipart/form-data&quot;</code>：用于将文件上传到服务器</li>
-<li><code>&quot;text/plain&quot;</code>：在各大浏览器中存在差异，不推荐<code>使用
-**autocomplete**属性是</code>HTML5<code>中新增的用于</code>form<code>元素的属性。可以用于开启或关闭表单的自动完成功能。当开启该功能时，浏览器会根据以往用户在其他表单输入的数据，自动帮助用户填写此表单。注：</code>autocomplete<code>属性设置的是表单中</code>input<code>元素的行为方式，该属性也可以定义在</code>input<code>标签上，用于覆盖表单上定义的</code>autocomplete`属性。<br><strong>target</strong>属性用于指定表单提交后服务器端反馈回来的信息的显示位置。可选的值有：</li>
+<li><code>&quot;text/plain&quot;</code>：在各大浏览器中存在差异，不推荐使用</li>
+</ul>
+<p><strong>autocomplete</strong>属性是<code>HTML5</code>中新增的用于<code>form</code>元素的属性。可以用于开启或关闭表单的自动完成功能。当开启该功能时，浏览器会根据以往用户在其他表单输入的数据，自动帮助用户填写此表单。注：<code>autocomplete</code>属性设置的是表单中<code>input</code>元素的行为方式，该属性也可以定义在<code>input</code>标签上，用于覆盖表单上定义的<code>autocomplete</code>属性。</p>
+<p><strong>target</strong>属性用于指定表单提交后服务器端反馈回来的信息的显示位置。可选的值有：</p>
+<ul>
 <li><code>&quot;_blank&quot;</code>：显示在新窗口中</li>
 <li><code>&quot;_parent&quot;</code>：显示在父框架中</li>
 <li><code>&quot;_self&quot;</code>：显示在当前窗口或框架中，这是默认值</li>
 <li><code>&quot;_top&quot;</code>：显示在顶层窗口中</li>
-<li><code>&quot;&lt;frame&gt;&quot;</code>：显示在指定框架中<br><strong>name</strong>属性用于定义表单的名字。</li>
+<li><code>&quot;&lt;frame&gt;&quot;</code>：显示在指定框架中</li>
 </ul>
+<p><strong>name</strong>属性用于定义表单的名字。</p>
 <p><a name="button元素"></a></p>
 <h2 id="button元素"><a href="#button元素" class="headerlink" title="button元素"></a><strong>button元素</strong></h2><p><code>button</code>元素可以通过设置<code>type</code>属性来定义它的三种不同用法：</p>
 <ul>
