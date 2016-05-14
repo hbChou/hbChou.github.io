@@ -116,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 16.67px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 13.33px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -191,6 +191,143 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-StorageInHTML5" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/05/StorageInHTML5/" class="article-date">
+  	<time datetime="2016-05-05T11:48:51.000Z" itemprop="datePublished">2016-05-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/05/StorageInHTML5/">HTML5中的客户端存储</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>HTML5</code>新增了很多诱人的新特性，比如语义化的<code>HTML</code>标签、还有现在要聊的离线缓存等多种客户端存储手段。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#离线缓存（application-cache）"><strong>离线缓存（Application Cache）</strong></a><ul>
+<li><a href="#manifest文件的格式"><strong>Manifest文件的格式</strong></a></li>
+<li><a href="#applicationcache对象常用属性和方法"><strong>applicationCache对象常用属性和方法</strong></a></li>
+<li><a href="#与离线缓存有关的事件"><strong>与离线缓存有关的事件</strong></a></li>
+<li><a href="#离线缓存存在的不足"><strong>离线缓存存在的不足</strong></a></li>
+</ul>
+</li>
+<li><a href="#数据存储"><strong>数据存储</strong></a><ul>
+<li><a href="#cookie"><strong>Cookie</strong></a></li>
+<li><a href="#web存储机制"><strong>Web存储机制</strong></a><ul>
+<li><a href="#storage类型具有的属性和方法"><strong>Storage类型具有的属性和方法</strong></a></li>
+<li><a href="#sessionstorage"><strong>sessionStorage</strong></a></li>
+<li><a href="#globalstorage"><strong>globalStorage</strong></a></li>
+<li><a href="#localstorage"><strong>localStorage</strong></a></li>
+</ul>
+</li>
+<li><a href="#ie中的userdata"><strong>IE中的userData</strong></a><ul>
+<li><a href="#userdata的访问限制"><strong>userData的访问限制</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="离线缓存（application-cache）"></a></p>
+<h2 id="离线缓存（Application-Cache）"><a href="#离线缓存（Application-Cache）" class="headerlink" title="离线缓存（Application Cache）"></a><strong>离线缓存（Application Cache）</strong></h2><p><code>HTML5</code>新增的离线缓存为支持离线<code>web</code>应用开发提供了一套解决方案。要开发离线<code>web</code>应用，首先就需要获取用户的在线信息。通过<code>navigator.onLine</code>属性可以检测当前用户是否在线。<br><code>Application Cache</code>就是从浏览器的缓存中分出来的一块缓存区。要想在这块缓存区中保存数据，在<code>html</code>标签中通过给出<code>manifest</code>属性指定<code>Manifest</code>文件。浏览器会下载缓存<code>Manifest</code>文件中指定缓存的文件，每次从缓存中加载资源后，在在线的情况下检查<code>server</code>端的<code>Manifest</code>文件。一旦<code>Manifest</code>文件有更新，就会重新下载更新。</p>
+<p><a name="manifest文件的格式"></a></p>
+<h3 id="Manifest文件的格式"><a href="#Manifest文件的格式" class="headerlink" title="Manifest文件的格式"></a><strong>Manifest文件的格式</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">CACHE MANIFEST</span><br><span class="line">#如果缓存文件内容有更新，可以通过修改以下版本号通过浏览器更新</span><br><span class="line">#version n.n</span><br><span class="line"></span><br><span class="line">CACHE:</span><br><span class="line">#需要缓存的文件</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">NETWORK:</span><br><span class="line">#每次需要通过网络拉取的文件（下面的*号表示除上面CACHE列出的文件其他所有文件都是通过网络获取）</span><br><span class="line">*</span><br><span class="line"></span><br><span class="line">FALLBACK：</span><br><span class="line">#离线状况下的代替文件（下面例子表示在离线状况下所有文件替代为offline.html）</span><br><span class="line">/   offline.html</span><br></pre></td></tr></table></figure>
+<p>另外，需要修改<code>apache</code>服务器下的文件<code>/conf/mime.types</code>，向其中添加一行<br>    `text/cache-manifest appcache    //appcache为manifest文件的后缀名<br><strong>注意：</strong></p>
+<ul>
+<li>使用<code>manifest</code>属性的当前请求页面即使没有出现在<code>Manifest</code>文件中即不要求被缓存，最终也会被浏览器缓存下来。</li>
+<li>不建议带参数访问含有<code>mainfest</code>属性的页面，例如<code>index.html</code>和<code>index.html?renew=1</code>会被认为是不同文件并被分别缓存下来。<br><a name="applicationcache对象常用属性和方法"></a><h3 id="applicationCache对象常用属性和方法"><a href="#applicationCache对象常用属性和方法" class="headerlink" title="applicationCache对象常用属性和方法"></a><strong>applicationCache对象常用属性和方法</strong></h3><code>window.applicationCache.status</code>：获取当前缓存的状态<br>获取到的状态值可能是</li>
+<li><code>window.applicationCache.UNCACHED = 0</code></li>
+<li><code>window.applicationCache.IDLE = 1</code></li>
+<li><code>window.applicationCache.CHECKING = 2</code></li>
+<li><code>window.applicationCache.DOWNLOADING = 3</code></li>
+<li><code>window.applicationCache.UPDATEREADY = 4</code></li>
+<li><code>window.applicationCache.OBSOLETE = 5</code><br><code>window.applicationCache.update()</code>：更新缓存<br><code>window.applicationCache.swapCache()</code>：将缓存里面的内容更新为重新向<code>server</code>拉取的内容</li>
+</ul>
+<p><a name="与离线缓存有关的事件"></a></p>
+<h3 id="与离线缓存有关的事件"><a href="#与离线缓存有关的事件" class="headerlink" title="与离线缓存有关的事件"></a><strong>与离线缓存有关的事件</strong></h3><p><code>oncached</code>：在缓存完毕时触发<br><code>onchecking</code>：检查更新时触发<br><code>ondownloading</code>：下载更新内容时触发<br><code>onerror</code>：发生错误时触发<br><code>onnoupdate</code>：<code>manifest</code>文件内容没有更新时触发<br><code>onobsolete</code>：客户端在请求<code>Manifest</code>文件时获取不到<code>Manifest</code>文件时触发<br><code>onprogress</code>：下载资源的过程中触发<br><code>onupdateready</code>：缓存更新完毕时触发，接下来就可以调用<code>swapCache</code>方法来更新缓存中的内容</p>
+<p><a name="离线缓存存在的不足"></a></p>
+<h3 id="离线缓存存在的不足"><a href="#离线缓存存在的不足" class="headerlink" title="离线缓存存在的不足"></a><strong>离线缓存存在的不足</strong></h3><ul>
+<li>更新存在延迟，需等到下次才生效；</li>
+<li>每一次缓存的文件出现更新，都会从服务器端将<code>Manifest</code>文件中指定的缓存文件全部重新获取一遍，存在一定的性能问题。</li>
+</ul>
+<p><a name="数据存储"></a></p>
+<h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a><strong>数据存储</strong></h2><p><a name="cookie"></a></p>
+<h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a><strong>Cookie</strong></h3><p><code>Cookie</code>最初是用于在客户端存储会话信息的。通常一个由服务器端返回的设置<code>cookie</code>的形式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: name=value; expires=Mon, 22-Jan-07 07:10:24 GMT; domain=xx.com; path=/; secure</span><br></pre></td></tr></table></figure></p>
+<p><code>expires</code>字段指定<code>cookie</code>的失效时间，默认情况下当浏览器会话结束时就会将<code>cookie</code>删除；<br><code>path</code>指定的路径表示对于该路径，客户端应该向服务器发送该<code>cookie</code>，设置了这个值，则对于同一个域名下的其他路径则不会发送该<code>cookie</code>；<br>最后的安全标志表示只有在使用<code>SSL</code>连接的时候才将该<code>cookie</code>发送到服务器端。<br>而在以后客户端想该域名下的服务器发送请求时，都会通过以下请求首部发送<code>cookie</code>：<br>Cookie: name=value<br>在<code>javascript</code>中可以直接通过<code>document.cookie</code>访问到当前页面所有<code>cookie</code>构成的字符串（每个<code>cookie</code>的形式类似服务器端设置<code>cookie</code>的格式）。也可以通过该属性设置当前页面的<code>cookie</code>。<br><code>Cookie</code>的不足：<br>1、每个特定的域名下可以生成的 <code>cookie</code>数量有限制；每个<code>cookie</code>长度不能超过<code>4KB</code>；<br>2、每次你在该域名下的子域中请求一个新的页面时，<code>Cookie</code> <code>都会被发送过去，这在无形中浪费了带宽，另外</code>cookie` 还需要指定作用域，因此不可以跨域调用。</p>
+<p><a name="web存储机制"></a></p>
+<h3 id="Web存储机制"><a href="#Web存储机制" class="headerlink" title="Web存储机制"></a><strong>Web存储机制</strong></h3><p>Web存储的主要目标是提供一种在<code>cookie</code>之外存储会话数据的途径；同时提供一种<strong>存储大量可以跨会话存在的数据</strong>的机制。最初的<code>Web</code>存储（<code>Storage</code>类型）主要包含了两个对象：<code>sessionStorage</code>和<code>globalStorage</code>。</p>
+<p><a name="storage类型具有的属性和方法"></a></p>
+<h4 id="Storage类型具有的属性和方法"><a href="#Storage类型具有的属性和方法" class="headerlink" title="Storage类型具有的属性和方法"></a><strong>Storage类型具有的属性和方法</strong></h4><ul>
+<li><code>length</code>：返回当前<code>Storage</code>对象包含的键值对的数量</li>
+<li><code>getItem(name)</code>：获取属性名<code>name</code>对应的值</li>
+<li><code>setItem(name, value)</code>：设置新的键值对</li>
+<li><code>key(index)</code>：返回指定位置的属性名称</li>
+<li><code>removeItem(name)</code>：删除由name指定的键值对</li>
+</ul>
+<p><a name="sessionstorage"></a></p>
+<h4 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a><strong>sessionStorage</strong></h4><p><code>sessionStorage</code>对象存储某个会话的数据，该数据只保持到浏览器关闭。存储在<code>sessionStorage</code>中的数据可以由最初给对象存储数据的页面及其相关联的页面访问到，而与之不相干的页面则访问不到。<br>存储数据的两种方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sessionStorage.setItem(name, value);</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line">sessionStorage.name = value;</span><br></pre></td></tr></table></figure></p>
+<p>同样获取数据也有两种方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value = sessionStorage.getItem(name);</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">var</span> value = sessionStorage.name;</span><br></pre></td></tr></table></figure></p>
+<p>另外可以通过该对象上<code>length``属性和</code>key<code>方法（根据位置获取对应的属性名称）来遍历</code>sessionStorage`对象上的值：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>, len=sessionStorage.length; i&lt;len; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> key = sessionStorage.key(i);</span><br><span class="line">    <span class="keyword">var</span> value = sessionStorage.getItem(key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>删除数据也有两种方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sessionStorage.removeItem(name);</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">delete</span> sessionStorage.name;</span><br></pre></td></tr></table></figure></p>
+<p>`<br><a name="globalstorage"></a></p>
+<h4 id="globalStorage"><a href="#globalStorage" class="headerlink" title="globalStorage"></a><strong>globalStorage</strong></h4><p>该对象可以跨会话存储数据，但有特定的访问限制。要使用<code>globalStorage</code>，首先要指定哪些域可以访问该数据。例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">globalStorage[<span class="string">"xxx.com"</span>].name = <span class="string">"hb"</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这里定义了一个针对<code>&quot;xxx.com&quot;</code>域名的存储空间，即<code>globalStorage[&quot;xxx.com&quot;]</code>对象（该对象是<code>Storage</code>类型的实例）。该存储空间中的数据对于<code>xxx.com</code>及其子域都是可以访问到的，而其他域名（协议、端口不同也认为是不同域名）则访问不到。如果事先不能确定域名，可以使用<code>location.host</code>的属性值作为<code>globalStorage</code>的属性名比较安全。如果不使用removeItem或者delete删除键值对，则存储在<code>globalStorage</code>对象中的键值对会一直保留在磁盘中。</p>
+<p><a name="localstorage"></a></p>
+<h4 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a><strong>localStorage</strong></h4><p><code>localStorage</code>对象在HTML5规范中作为在客户端持久保存数据的方案取代了<code>globalStorage</code>。与<code>globalStorage</code>对象不同的是，访问规则事先就制定好了。要访问同一个<code>localStorage</code>对象，页面必须来自同一个域名（子域名无效），使用同一种协议，同一个端口。存取数据的方法与前面都类似。<br>缺陷：<strong>子域名间不能共享存储数据</strong><br>使用场景：适用于弱网络的环境下（高延迟，低带宽）</p>
+<p><a name="ie中的userdata"></a></p>
+<h3 id="IE中的userData"><a href="#IE中的userData" class="headerlink" title="IE中的userData"></a><strong>IE中的userData</strong></h3><p><code>IE10</code>及以下版本均支持<code>userData</code>。要使用<code>userData</code>，首先需要使用<code>CSS</code>在某个元素上指定<code>userData</code>行为：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"behavior:url(#default#userData)"</span> <span class="attr">id</span>=<span class="string">"dataStore"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>一旦定义了元素的<code>userData</code>行为，就可以使用<code>setAttribute()</code>方法在元素上面保存数据了。为了将数据提交到浏览器缓存中，还必须调用<code>save(dataSpace)</code>方法保存到指定的数据空间。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dataStore = <span class="built_in">document</span>.getElementById(<span class="string">"dataStore"</span>);</span><br><span class="line">dataStore.setAttribute(<span class="string">"name"</span>, <span class="string">"javascript"</span>);</span><br><span class="line">dataStore.save(<span class="string">"nameInfo"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>页面载入之后，就可以使用<code>load</code>方法指定同样的数据空间名称来获取数据：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dataStore.load(<span class="string">"nameInfo"</span>);</span><br><span class="line">dataStore.getAttribute(<span class="string">"name"</span>); <span class="comment">// "javascript"</span></span><br></pre></td></tr></table></figure></p>
+<p>删除存储的数据可以使用<code>removeAttribute(name)</code>方法，删除之后还需要调用<code>save(dataSpace)</code>方法来保存修改。<br><a name="userdata的访问限制"></a></p>
+<h4 id="userData的访问限制"><a href="#userData的访问限制" class="headerlink" title="userData的访问限制"></a><strong>userData的访问限制</strong></h4><p>其他页面如果要访问保存在页面某个元素上的<code>userData</code>，必须先获取到该元素，才能进一步获取保存在该元素上的数据。一般而言，只有内嵌框架才能做到。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML5/">HTML5</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-javascriptSerial-11" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -767,154 +904,6 @@
 <p><code>firefox</code>不支持<code>innerText</code>属性，但它支持类似的<code>textContent</code>属性。</p>
 <ul>
 <li><code>outerText</code>属性<br>在读取文本值时，<code>innerText</code>属性和<code>outerText</code>属性读取到的值是一样的。而在通过<code>outerText</code>属性修改文本值时会将包含新内容的文本节点替换整个元素和所有子节点。</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-javascriptSerial-8" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/03/javascriptSerial-8/" class="article-date">
-  	<time datetime="2016-05-03T03:26:39.000Z" itemprop="datePublished">2016-05-03</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/03/javascriptSerial-8/">你所不知道的javascript之DOM</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>从这一节开始，我们聊一聊<code>javascript</code>中另外一个比较重要的话题 —— <code>DOM（文档对象模型）</code>。需要特别注意的一点是，<code>IE</code>中所有的<code>DOM</code>对象都是以<code>COM（Component Object Model，组件对象模型）</code>对象的形式实现的。</p>
-<hr>
-<!-- MarkdownTOC -->
-<ul>
-<li><a href="#dom中的节点"><strong>DOM中的节点</strong></a></li>
-<li><a href="#node类型"><strong>Node类型</strong></a><ul>
-<li><a href="#节点具有的一般属性和方法"><strong>节点具有的一般属性和方法</strong></a></li>
-<li><a href="#javascript中一些操作节点的方法"><strong>javascript中一些操作节点的方法</strong></a></li>
-</ul>
-</li>
-<li><a href="#document类型"><strong>Document类型</strong></a><ul>
-<li><a href="#document对象上的常用属性"><strong>document对象上的常用属性</strong></a></li>
-<li><a href="#通过document对象获取元素"><strong>通过document对象获取元素</strong></a></li>
-<li><a href="#文档写入"><strong>文档写入</strong></a></li>
-</ul>
-</li>
-<li><a href="#element类型"><strong>Element类型</strong></a><ul>
-<li><a href="#操作元素的属性"><strong>操作元素的属性</strong></a></li>
-<li><a href="#元素节点的attributes属性"><strong>元素节点的attributes属性</strong></a></li>
-</ul>
-</li>
-<li><a href="#text类型"><strong>Text类型</strong></a><ul>
-<li><a href="#一些操作文本节点内容的属性和方法"><strong>一些操作文本节点内容的属性和方法</strong></a></li>
-<li><a href="#多个连续文本节点的合并"><strong>多个连续文本节点的合并</strong></a></li>
-</ul>
-</li>
-<li><a href="#documentfragment类型"><strong>DocumentFragment类型</strong></a></li>
-<li><a href="#attr类型"><strong>Attr类型</strong></a></li>
-</ul>
-<!-- /MarkdownTOC -->
-<hr>
-<p><a name="dom中的节点"></a></p>
-<h2 id="DOM中的节点"><a href="#DOM中的节点" class="headerlink" title="DOM中的节点"></a><strong>DOM中的节点</strong></h2><p><code>DOM</code>可以将任何HTML或XML文档描述成一个多层节点构成的树状结构。文档节点（在<code>HTML</code>中即我们常用的<code>document</code>对象）是整个文档的根节点。对于<code>HTML</code>或者<code>XML</code>文档，文档节点通常包含一个文档元素，文档元素是文档的最外层元素，文档中的其他所有元素都包含在文档元素中。在一般的<code>HTML</code>文档中，文档节点通常只包含两个子节点，即文档类型节点（<code>&lt;!DOCTYPE html&gt;</code>）和文档元素（即<code>html</code>元素）。而在XML文档中，任何元素都可能成为文档元素。</p>
-<p><a name="node类型"></a></p>
-<h2 id="Node类型"><a href="#Node类型" class="headerlink" title="Node类型"></a><strong>Node类型</strong></h2><p><code>javascript</code>中的所有节点类型都继承<code>Node</code>类型。除了<code>IE</code>之外，其他浏览器中都可以访问到<code>Node</code>这个接口。<br>每个节点都一个<code>nodeType</code>属性，表示元素的类型。常见的元素类型（后面的数值表示类型对应的数值常量）有：</p>
-<ul>
-<li><code>Node.ELEMENT_NODE</code>（元素节点）  <code>1</code></li>
-<li><code>Node.ATTRIBUTE_NODE</code>（属性节点：在文档树中不作为单独的节点出现）    <code>2</code></li>
-<li><code>Node.TEXT_NODE</code>（文本节点：元素中包含的文字以及元素之间的空白均属于文本节点）    <code>3</code></li>
-<li><code>Node.COMMENT_NODE</code>（注释节点）  <code>8</code></li>
-<li><code>Node.DOCUMENT_NODE</code>（文档节点：文档的根节点，根节点不等同于根元素，例如根元素（如html元素）外部可以有注释节点等其他节点）  <code>9</code></li>
-<li><code>Node.DOCUMENT_TYPE_NODE</code>（文档类型节点：在HTML文档中的第一行<code>&lt;!DOCTYPE html&gt;</code>就属于文档类型节点）  <code>10</code></li>
-<li><code>Node.DOCUMENT_FRAGMENT_NODE</code>（文档片段节点：不属于文档树）   <code>11</code><br><strong>注意：</strong>在判断某个节点的类型时，常将该节点的<code>nodeType</code>属性和对应的数值常量进行比较，才能保证实现跨浏览器。这是因为IE浏览器没有公开<code>Node</code>类型的构造函数。</li>
-</ul>
-<p>此外每个节点还包含一个<code>nodeName</code>和<code>nodeValue</code>属性。<br><code>nodeName</code>属性：用于获取节点的名称。对于元素节点，<code>nodeName</code>代表的是元素的标签名称；对于属性节点，<code>nodeName</code>代表的是属性名称；对于文本节点，<code>nodeName</code>是<code>&quot;#text&quot;</code>；对于注释节点，<code>nodeName</code>是<code>&quot;#comment&quot;</code>。获取文档类型可以使用<code>document.doctype</code>，在HTML文档中该节点的<code>nodeName</code>为<code>&quot;html&quot;</code>，对于文档片段节点，<code>nodeName</code>为<code>`&quot;#document-fragment&quot;</code>。<br><code>nodeValue</code>属性：用于获取节点的值；对于元素节点，<code>nodeValue</code>代表的是<code>null</code>；对于属性节点，<code>nodeValue</code> 返回的是属性值；对于文本节点，<code>nodeValue</code>返回的是节点所包含的文本；对于注释节点，<code>nodeValue</code>返回的是注释内容；对于文档类型节点，<code>nodeValue</code>的值为<code>null</code>；对于文档片段节点，<code>nodeValue</code>为<code>null</code>。</p>
-<p><a name="节点具有的一般属性和方法"></a></p>
-<h3 id="节点具有的一般属性和方法"><a href="#节点具有的一般属性和方法" class="headerlink" title="节点具有的一般属性和方法"></a><strong>节点具有的一般属性和方法</strong></h3><p>每个节点都有一个<code>childNodes</code>属性，该属性保存着一个<code>NodeList</code>对象，该对象是一个类数组对象。（<strong>如果该节点没有子节点，则返回一个长度为<code>0</code>的<code>NodeList</code>对象，而不是<code>null</code></strong>）访问<code>NodeList</code>中的节点，可以使用方括号的形式，也可以使用该对象上的<code>item</code>方法。<strong>注意：</strong><code>NodeList</code>对象中的节点会随着<code>DOM</code>结构中节点的变化而实时更新，不是第一次创建它们时那一瞬间拍下来的一张快照。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nodes = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(nodes.length); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(nodes[<span class="number">0</span>].className); <span class="comment">//div1</span></span><br><span class="line"><span class="keyword">var</span> newDiv = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(newDiv);</span><br><span class="line"><span class="built_in">console</span>.log(nodes.length); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(nodes.item(<span class="number">0</span>).className); <span class="comment">// div1</span></span><br></pre></td></tr></table></figure>
-<p>在除<code>IE</code>之外的其他主流浏览器中，节点内部的换行符会被看成是一个文本节点。这意味着在执行某项操作时，需要特别留意由节点中间的换行符形成的文本节点，通常需要先判断节点的<code>nodeType</code>属性。</p>
-<p>每个节点都有一个<code>parentNode</code>属性，该属性指向当前节点的父节点。<code>parentNode</code>属性指向同一对象的所有为同胞节点，可以通过<code>previousSibling</code>和<code>nextSibling</code>属性访问节点的其他同胞节点。<br>包含子节点的节点可以通过<code>firstChild</code>和<code>lastChild</code>属性分别访问该节点的第一个子节点和最后一个子节点。而对于不确定是否包含子节点的节点可以通过<code>hasChildNodes()</code>方法来判断是否包含子节点，该方法在节点包含一个或多个子节点的情况下返回<code>true</code>。<br>每个节点都有一个<code>ownerDocument</code>属性，该属性指向整个文档的文档节点。</p>
-<p>每个节点都一个<code>cloneNode()</code>方法，该方法用于创建并返回跟调用此方法的节点相同的一个副本。该方法接收一个布尔值参数，表示是否执行深复制。在参数为<code>true</code>的情况下，执行深复制，也就是复制该节点及其以下的整个子节点树。而执行浅复制时，则只复制该节点本身，内部的子节点不会被复制，也就是说，复制得到的节点只有一个，该节点不包含子节点。<br><strong>注意：</strong>该方法不会复制添加到<code>DOM</code>节点中的事件处理程序。</p>
-<p><a name="javascript中一些操作节点的方法"></a></p>
-<h3 id="javascript中一些操作节点的方法"><a href="#javascript中一些操作节点的方法" class="headerlink" title="javascript中一些操作节点的方法"></a><strong>javascript中一些操作节点的方法</strong></h3><p>创建元素节点：<code>document.createElement(tagName)</code>：该方法返回一个新创建元素节点的引用。<br>创建文本节点：<code>document.createTextNode(string)</code>：该方法返回一个新创建文本节点的引用。<br>创建注释节点：<code>document.createComment(string)</code>：该方法返回一个新创建注释节点的引用。<br><code>appendChild(newNode)</code>方法用于向指定节点的尾部插入新节点。更新完成后，该方法返回新增的节点。<br>如果传入的新节点已经是当前文档的一部分了，则会将该新节点从原来的位置转移到指定的节点的尾部。<br>如果需要将节点插入到另一个节点中特定的位置，则可以使用<code>insertBefore(newNode, referenceNode)</code>方法。该方法接受两个参数：要插入的节点和作为参照的节点。同样返回新插入的节点。<br>替换节点：<code>replaceChild(newNode, referenceNode)</code>，该方法接受两个参数：要插入的节点和要被替换的节点。返回被替换掉的节点。<br>移除节点：<code>removeChild(Node)</code>，该方法接收一个参数：即要被移除的节点。返回被移除的节点。<br>以上这四个方法操作的都是某个节点的子节点，因此要使用这些方法，需要先获取到要操作的这些节点的父节点。</p>
-<p><a name="document类型"></a></p>
-<h2 id="Document类型"><a href="#Document类型" class="headerlink" title="Document类型"></a><strong>Document类型</strong></h2><p><a name="document对象上的常用属性"></a></p>
-<h3 id="document对象上的常用属性"><a href="#document对象上的常用属性" class="headerlink" title="document对象上的常用属性"></a><strong>document对象上的常用属性</strong></h3><p><code>document.documentElement</code>：指向当前<code>html</code>文档的文档元素<br><code>document.body</code>：指向当前<code>html</code>文档的<code>body</code>元素<br><code>document.doctype</code>：指向当前<code>html</code>文档的文档类型节点（在<code>IE8</code>及以下版本为<code>null</code>，而其他浏览器在关于文档类型节点属不属于文档的子节点的问题上有较大差异）<br><code>document.doctype.name</code>：返回文档类型的名称<br><code>document.title</code>：包含<code>title</code>元素中的文本<br><code>document.URL</code>：包含当前页面完整的<code>URL</code><br><code>document.domain</code>：包含当前页面所在的域名，该属性可以设置。但不能将该属性设置为<code>URL</code>中不包含的域名。此外还有一个限制，<code>document.domain</code>设置的值不能比原有的值范围更窄。比如<code>document.domain</code>的值原本是<code>github.io</code>，就不能再把它设置成<code>xxx.github.io</code>。<br>由于同源策略的限制，来自不同子域的页面无法通过<code>javascript</code>进行通信。这时候可以在不同的子域下的页面中将<code>document.domain</code>设置成相同的值，然后在主页面中通过内嵌框架加载需要进行通信的页面，就能够实现来自不同子域的页面进行通信。<br><code>document.referrer</code>：包含链接到当前页面的另一个页面的<code>URL</code></p>
-<p><a name="通过document对象获取元素"></a></p>
-<h3 id="通过document对象获取元素"><a href="#通过document对象获取元素" class="headerlink" title="通过document对象获取元素"></a><strong>通过document对象获取元素</strong></h3><p><code>document.getElementById(id)</code>：查找具有指定<code>id</code>属性值的元素。如果不存在该元素，则返回<code>null</code>。<br><code>document.getElementsByTagName(tagName)</code>：查找具有指定标签名的元素集合。结果返回包含零个或多个元素的<code>HTMLCollection</code>对象。<code>HTMLCollection</code>对象和<code>NodeList</code>对象类似。可以通过方括号或者<code>item</code>方法访问集合中的元素。此外，<code>HTMLCollection</code>对象上还有一个<code>namedItem(name)</code>方法，该方法接收一个元素的<code>name</code>属性值，返回集合中具有指定<code>name</code>属性的元素。<br><code>document.getElementsByName(name)</code>：返回带有指定<code>name</code>属性的所有元素。该方法也会返回一个<code>HTMLCollection</code>对象。<br>以下的<code>document</code>对象属性同样也会返回<code>HTMLCollection</code>对象：</p>
-<ul>
-<li><code>document.anchors</code>：该属性会返回页面中所有带有<code>name</code>属性的<code>a</code>标签</li>
-<li><code>document.forms</code>：该属性会返回页面中所有的<code>form</code>元素</li>
-<li><code>document.images</code>：该属性会返回页面中所有的<code>image</code>元素</li>
-<li><code>doucment.links</code>：该属性会返回页面中带有<code>href</code>属性的所有<code>a</code>元素</li>
-</ul>
-<p><a name="文档写入"></a></p>
-<h3 id="文档写入"><a href="#文档写入" class="headerlink" title="文档写入"></a><strong>文档写入</strong></h3><p><code>document.write(string)</code>和<code>document.writeln(string)</code>：向页面动态添加内容，使用<code>document.writeln(string)</code>则会在<code>string</code>参数后面自动添加换行符（<code>&quot;\n&quot;</code>）。在页面加载的过程中使用这两个方法可以直接向页面输出内容，而如果是在页面加载结束调用这两个方法，则输出的内容会重写整个页面的内容。</p>
-<p><a name="element类型"></a></p>
-<h2 id="Element类型"><a href="#Element类型" class="headerlink" title="Element类型"></a><strong>Element类型</strong></h2><p>访问元素的标签名，除了可以通过元素的<code>nodeName</code>属性访问，还可以通过<code>tagName</code>属性。<strong>注意：</strong>两者返回的标签名都是大写的。<br>访问元素的<code>class</code>属性，需要通过元素的<code>className</code>属性来访问，因为<code>class</code>是<code>javascript</code>中保留字。<br><a name="操作元素的属性"></a></p>
-<h3 id="操作元素的属性"><a href="#操作元素的属性" class="headerlink" title="操作元素的属性"></a><strong>操作元素的属性</strong></h3><p>获取元素的属性：<code>getAttribute(attr)</code>，此时访问元素的<code>class</code>属性，需要传入<code>&quot;class&quot;</code>而不是<code>&quot;className&quot;</code>。如果要访问的属性不存在，则返回<code>null</code>。<br>除了自定义属性之外，直接通过<code>HTMLElement</code>对象上的属性就可以访问到定义在元素标签上的属性值。而通过<code>getAttribute(attr)</code>方法可以访问定义在元素标签上的所有属性（包括自定义属性）。但它直接返回元素标签上对应的属性值（该值为字符串），导致在访问一些属性时返回的值与直接访问<code>HTMLElement</code>对象上的属性得到的值有所差异。<br>设置元素的属性：<code>setAttribute(attr, value)</code>，<br>移除元素的属性：<code>removeAttribute(attr)</code><br>这三个方法可以认为是直接操作元素标签上的属性和值。</p>
-<p><a name="元素节点的attributes属性"></a></p>
-<h3 id="元素节点的attributes属性"><a href="#元素节点的attributes属性" class="headerlink" title="元素节点的attributes属性"></a><strong>元素节点的attributes属性</strong></h3><p><code>Element</code>类型对象上包含了<code>attributes</code>属性，该属性指向一个<code>NamedNodeMap</code>对象，该对象和<code>NodeList</code>对象类似。元素标签上定义的每一个属性都有一个Attr节点表示，一个元素的所有<code>Attr</code>节点就保存在一个<code>NamedNodeMap</code>对象中。<code>NamedNodeMap</code>对象拥有的方法：<br><code>getNamedItem(name)</code>：返回<code>nodeName</code>属性等于<code>name</code>的<code>Attr</code>节点<br><code>removeNamedItem(name)</code>：从<code>Attr</code>节点列表中移除<code>nodeName</code>属性等于<code>name</code>的节点并返回该节点<br><code>setNamedItem(Attr)</code>：向<code>Attr</code>节点列表中添加新的<code>Attr</code>节点<br><code>item(pos)</code>：返回索引为<code>pos</code>对应的<code>Attr</code>节点<br>利用<code>attributes</code>属性来访问元素的属性比直接使用<code>getAttribute(attr)</code>等方法要繁琐的多，实际用到的场景也不多，不过用它来遍历元素的属性还是很方便的。</p>
-<p><a name="text类型"></a></p>
-<h2 id="Text类型"><a href="#Text类型" class="headerlink" title="Text类型"></a><strong>Text类型</strong></h2><p>文本节点用<code>Text</code>类型来表示。可以通过<code>nodeValue</code>属性或<code>data</code>属性来访问文本节点中的内容，两者返回的值是一样的。也可以通过这两个属性来修改文本节点里面的内容。<br><a name="一些操作文本节点内容的属性和方法"></a></p>
-<h3 id="一些操作文本节点内容的属性和方法"><a href="#一些操作文本节点内容的属性和方法" class="headerlink" title="一些操作文本节点内容的属性和方法"></a><strong>一些操作文本节点内容的属性和方法</strong></h3><ul>
-<li><code>length</code>：保存着文本节点中字符的个数</li>
-<li><code>appendData(text)</code>：将<code>text</code>添加到节点的末尾</li>
-<li><code>deleteData(offset, count)</code>：从<code>offset</code>指定的位置开始删除<code>count</code>个字符</li>
-<li><code>insertData(offset, text)</code>：在<code>offset</code>指定的位置插入<code>text</code></li>
-<li><code>replaceData(offset, count, text)</code>：用<code>text</code>替换从<code>offset</code>指定的位置开始到<code>offset``+``count</code>为止处的文本</li>
-<li><code>splitText(offset)</code>：从<code>offset</code>指定的位置将文本节点分成两个文本节点。原来的文本节点保存从<code>0</code>到指定位置处的文本内容，然后创建一个新的包含剩下文本的文本节点并返回。</li>
-<li><code>substringData(offset, count)</code>：提取从<code>offset</code>指定的位置开始到<code>offset``+``count</code>为止处字符串<br><strong>注意：</strong>通过文本节点添加的内容里面的特殊字符（如<code>&lt;</code> <code>&gt;</code>）会被自动进行<code>HTML</code>编码。</li>
-</ul>
-<p><a name="多个连续文本节点的合并"></a></p>
-<h3 id="多个连续文本节点的合并"><a href="#多个连续文本节点的合并" class="headerlink" title="多个连续文本节点的合并"></a><strong>多个连续文本节点的合并</strong></h3><p>在<code>DOM</code>操作中，有时会面临同一节点内部存在着多个连续的文本节点，这容易造成混乱，让人无法识别哪个文本节点表示哪个字符串。此时在父节点上调用<code>normalize()</code>方法可以将多个连续的文本节点合并成一个文本节点。</p>
-<p><a name="documentfragment类型"></a></p>
-<h2 id="DocumentFragment类型"><a href="#DocumentFragment类型" class="headerlink" title="DocumentFragment类型"></a><strong>DocumentFragment类型</strong></h2><p><code>DocumentFragment</code>类型的对象常用来存放待添加到文档中的节点。<br>创建文档片段的方法：<code>document.createDocumentFragment()</code><br>如果将文档中的节点添加到文档片段中时，就会从文档树中移除该节点。可以使用前面的通用的<code>DOM</code>操作方法（<code>appendChild()</code>、<code>insertBefore()</code>等方法）将节点添加到文档节点中或者将文档节点添加到文档树中。将文档片段添加到文档树中时，只有内部的子节点会添加到文档树中，文档片段本身不会添加到文档树中。</p>
-<p><a name="attr类型"></a></p>
-<h2 id="Attr类型"><a href="#Attr类型" class="headerlink" title="Attr类型"></a><strong>Attr类型</strong></h2><p>元素标签上定义的属性在<code>DOM</code>中用<code>Attr</code>类型来表示。<br>创建属性节点：<code>document.createAttribute(name)</code>，该方法返回一个属性节点的引用，另外还需要为该属性节点的<code>value</code>属性指定属性节点的值<br><code>Attr</code>对象有两个常用的属性：</p>
-<ul>
-<li><code>name</code>：元素标签上定义的属性名称</li>
-<li><code>value</code>：元素标签上定义的属性的值<br>将新创建出来的属性节点添加到元素中，还必须调用元素节点的<code>setAttributeNode(AttrNode)</code>方法，传入新创建的属性节点即可。</li>
 </ul>
 
       
