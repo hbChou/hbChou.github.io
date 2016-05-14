@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>HTML5中的增强表单 | hbChou</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="form元素form元素的一些基本属性action属性说明了要往哪个URL地址提交表单数据。method属性指定了提交表单数据所使用的HTTP方法，默认值是&amp;quot;get&amp;quot;，但其实大多数表单都是通过&amp;quot;post&amp;quot;方法提交的。这里延伸拓展一下关于get方法和post方法的区别：
+
+get方法主要用于从服务器端获取数据，post方法主要用于向服务器端发送数据
+get方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML5中的增强表单">
+<meta property="og:url" content="http://yoursite.com/2016/05/14/HTML5中的增强表单/index.html">
+<meta property="og:site_name" content="hbChou">
+<meta property="og:description" content="form元素form元素的一些基本属性action属性说明了要往哪个URL地址提交表单数据。method属性指定了提交表单数据所使用的HTTP方法，默认值是&amp;quot;get&amp;quot;，但其实大多数表单都是通过&amp;quot;post&amp;quot;方法提交的。这里延伸拓展一下关于get方法和post方法的区别：
+
+get方法主要用于从服务器端获取数据，post方法主要用于向服务器端发送数据
+get方法">
+<meta property="og:updated_time" content="2016-05-14T13:14:06.401Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML5中的增强表单">
+<meta name="twitter:description" content="form元素form元素的一些基本属性action属性说明了要往哪个URL地址提交表单数据。method属性指定了提交表单数据所使用的HTTP方法，默认值是&amp;quot;get&amp;quot;，但其实大多数表单都是通过&amp;quot;post&amp;quot;方法提交的。这里延伸拓展一下关于get方法和post方法的区别：
+
+get方法主要用于从服务器端获取数据，post方法主要用于向服务器端发送数据
+get方法">
+  
+    <link rel="alternative" href="/atom.xml" title="hbChou" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/image.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">hbChou</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">每天都要有所收获</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ES6/" style="font-size: 16.67px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 13.33px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://segmentfault.com/">segmentfault社区</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">hbChou</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/image.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">hbChou</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">每天都要有所收获</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-HTML5中的增强表单" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/14/HTML5中的增强表单/" class="article-date">
+  	<time datetime="2016-05-14T09:58:33.000Z" itemprop="datePublished">2016-05-14</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HTML5中的增强表单
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML5/">HTML5</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="form元素"><a href="#form元素" class="headerlink" title="form元素"></a><strong>form元素</strong></h2><h3 id="form元素的一些基本属性"><a href="#form元素的一些基本属性" class="headerlink" title="form元素的一些基本属性"></a><strong>form元素的一些基本属性</strong></h3><p><strong>action</strong>属性说明了要往哪个<code>URL</code>地址提交表单数据。<br><strong>method</strong>属性指定了提交表单数据所使用的HTTP方法，默认值是<code>&quot;get&quot;</code>，但其实大多数表单都是通过<code>&quot;post&quot;</code>方法提交的。<br>这里延伸拓展一下关于<code>get</code>方法和<code>post</code>方法的区别：</p>
+<ul>
+<li><code>get</code>方法主要用于从服务器端获取数据，<code>post</code>方法主要用于向服务器端发送数据</li>
+<li><code>get</code>方法要传递到服务器端的数据包含在浏览器地址栏的<code>URL</code>中，而<code>post</code>方法提交的数据包含在<code>HTTP</code>报文的主体部分中</li>
+<li><code>get</code>请求用于安全交互，同一个请求可以发起任意多次而不会对服务器端产生副作用，这就决定了<code>get</code>请求是<strong>幂等</strong>的；而<code>post</code>方法用于不安全交互，提交数据的行为可能会导致服务器端一些状态的改变</li>
+<li><code>get</code>请求提交的数据量较小，受<code>URL</code>长度的限制一般不能超过<code>2KB</code>，而<code>post</code>方法则没有这方面的限制</li>
+<li><code>get</code>方法可以传递的数据被限制为<code>ASCII</code>码，而<code>post</code>方法则可以支持整个<code>ISO10646</code>字符集。<br>此外<code>form</code>元素具有的其他属性还有：<br><strong>enctype</strong>属性指定了浏览器对发送给服务器的数据采用的编码格式，其可能取值有：</li>
+<li><code>&quot;application/x-www-form-urlencoded&quot;</code>：这是默认编码方式</li>
+<li><code>&quot;multipart/form-data&quot;</code>：用于将文件上传到服务器</li>
+<li><code>&quot;text/plain&quot;</code>：在各大浏览器中存在差异，不推荐<code>使用
+**autocomplete**属性是</code>HTML5中<code>新增的用于</code>form<code>元素的属性。可以用于开启或关闭表单的自动完成功能。当开启该功能时，浏览器会根据以往用户在其他表单输入的数据，自动帮助用户填写此表单。注：</code>autocomplete<code>属性设置的是表单中</code>input<code>元素的行为方式，该属性也可以定义在</code>input<code>标签上，用于覆盖表单上定义的</code>autocomplete`属性。<br><strong>target</strong>属性用于指定表单提交后服务器端反馈回来的信息的显示位置。可选的值有：</li>
+<li>`”_blank”：显示在新窗口中</li>
+<li><code>&quot;_parent&quot;</code>：显示在父框架中</li>
+<li><code>&quot;_self&quot;</code>：显示在当前窗口或框架中，这是默认值</li>
+<li><code>&quot;_top&quot;</code>：显示在顶层窗口中</li>
+<li><code>&quot;&lt;frame&gt;&quot;</code>：显示在指定框架中<br><strong>name</strong>属性用于定义表单的名字。</li>
+</ul>
+<h2 id="button元素"><a href="#button元素" class="headerlink" title="button元素"></a><strong>button元素</strong></h2><p><code>button</code>元素可以通过设置<code>type</code>属性来定义它的三种不同用法：</p>
+<ul>
+<li><code>&quot;submit&quot;</code>：用于提交表单，默认值，也就是说，默认情况下按下按钮就可以提交表单</li>
+<li><code>&quot;reset&quot;</code>：用于重置表单，当<code>button</code>定义为这样的按钮时没有其他的属性可用</li>
+<li><code>&quot;button&quot;</code>：定义普通的按钮，没有特别的语义，在按下时不会发生任何事情</li>
+</ul>
+<p>对于作为提交表单的按钮（即<code>type</code>属性值为<code>&quot;submit&quot;</code>），它具有的属性有：</p>
+<ul>
+<li><code>&quot;form&quot;</code>：指定按钮关联的表单，需要将该值设置为对应表单的id属性值</li>
+<li><code>&quot;formaction&quot;</code>，<code>&quot;formenctype&quot;</code>，<code>&quot;formmethod&quot;</code>，<code>&quot;formtarget&quot;</code>，<code>&quot;formnovalidate&quot;</code>：分别可以覆盖关联表单上定义的对应属性值</li>
+</ul>
+<h2 id="input元素"><a href="#input元素" class="headerlink" title="input元素"></a><strong>input元素</strong></h2><h3 id="input标签上的通用属性"><a href="#input标签上的通用属性" class="headerlink" title="input标签上的通用属性"></a><strong>input标签上的通用属性</strong></h3><p>对于<code>input</code>标签，可以定义<code>autofocus</code>属性来自动聚焦到页面中的某个<code>input</code>元素。（单选框，复选框以及提交按钮都可以使用这个属性，但要注意，页面中只有一个元素可以使用该属性，如果有多个，后面的元素的<code>autofocus</code>属性会覆盖前面的）<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">autofocus</span>=<span class="string">"on"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>禁用某个<code>input</code>元素可以定义<code>disabled</code>属性：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">disabled</span>=<span class="string">"true"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="用于输入文本的input元素"><a href="#用于输入文本的input元素" class="headerlink" title="用于输入文本的input元素"></a><strong>用于输入文本的input元素</strong></h3><p>用于输入文本的<code>input</code>元素，即<code>type</code>属性值定义为<code>&quot;text&quot;</code>的<code>input</code>元素，或者未设置<code>type</code>属性的<code>input</code>元素。它所具有的属性有：</p>
+<ul>
+<li><code>&quot;list&quot;</code>：指定为文本框提供参考值的<code>datalist</code>元素，其属性值为<code>datalist</code>元素的<code>id</code>值</li>
+<li><code>&quot;maxlength&quot;</code>：设定用户可以在文本框中输入的字符的最大长度</li>
+<li><code>&quot;pattern&quot;</code>：指定一个用于验证输入的正则表达式</li>
+<li><code>&quot;placeholder&quot;</code>：指定在输入前显示在文本框中的提示信息</li>
+<li><code>&quot;readonly&quot;</code>：将文本框设置为只读以防止用户修改其内容</li>
+<li><code>&quot;required&quot;</code>：用于指定该项为必填项</li>
+<li><code>&quot;size&quot;</code>：根据指定文本框中可见的字符长度设定其宽度</li>
+<li><code>&quot;value&quot;</code>：设置文本框初始值<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">maxlength</span>=<span class="string">"20"</span> <span class="attr">size</span>=<span class="string">"10"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>支持同样所有这些属性的<code>input</code>元素还有的是将<code>type</code>属性设置为<code>&quot;email&quot;</code>，<code>&quot;tel&quot;</code>或<code>&quot;url&quot;</code>的<code>input</code>元素。</p>
+<h3 id="用于输入密码的input元素"><a href="#用于输入密码的input元素" class="headerlink" title="用于输入密码的input元素"></a><strong>用于输入密码的input元素</strong></h3><p>用于输入文本的<code>input</code>元素，即<code>type</code>属性值定义为<code>&quot;password&quot;</code>的<code>input</code>元素。除了上面用于输入文本的<code>input</code>元素具有的<code>list</code>属性之外，用于输入密码的<code>input</code>元素也拥有其他相同的属性。</p>
+<h3 id="用于生成按钮的input元素"><a href="#用于生成按钮的input元素" class="headerlink" title="用于生成按钮的input元素"></a><strong>用于生成按钮的input元素</strong></h3><p>跟<code>button</code>元素一样，使用<code>input</code>元素通过定义其<code>type</code>属性可以定义三种不同的按钮：</p>
+<ul>
+<li><code>&quot;submit&quot;</code>：用于提交表单，也具有同<code>type</code>属性值为<code>submit</code>的<code>button</code>元素相同的属性</li>
+<li><code>&quot;reset&quot;</code>：用于重置表单，当<code>input</code>元素定义为这样的按钮时没有其他的属性可用</li>
+<li><code>&quot;button&quot;</code>：定义普通的按钮，没有特别的语义，在按下时不会发生任何事情</li>
+</ul>
+<h3 id="只接受数值的文本框"><a href="#只接受数值的文本框" class="headerlink" title="只接受数值的文本框"></a><strong>只接受数值的文本框</strong></h3><p>将<code>input</code>元素的<code>type</code>属性值定义为<code>&quot;number&quot;</code>生成的输入框只接受数值。它具有的属性有：</p>
+<ul>
+<li><code>&quot;list&quot;</code>：指定为文本框提供参考值的<code>datalist</code>元素，其属性值为<code>datalist</code>元素的<code>id</code>值</li>
+<li><code>&quot;readonly&quot;</code>：将文本框设置为只读以防止用户修改其内容</li>
+<li><code>&quot;required&quot;</code>：用于指定该项为必填项</li>
+<li><code>&quot;value&quot;</code>：设置文本框初始值</li>
+<li><code>&quot;min&quot;</code>：设定可接受的最小值</li>
+<li><code>&quot;max&quot;</code>：设定可接受的最大值</li>
+<li><code>&quot;step&quot;</code>：设定上下调节数值的步长<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">min</span>=<span class="string">"0"</span> <span class="attr">max</span>=<span class="string">"50"</span> <span class="attr">step</span>=<span class="string">"5"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>另外一种只接受数值的<code>input</code>元素是<code>type</code>属性值为<code>&quot;range&quot;</code>的<code>input</code>元素。用户只能从给定的数值范围中选择一个数作为要提交的数据。它支持的属性和<code>type</code>属性值为<code>&quot;number&quot;</code>的<code>input</code>元素完全相同。</p>
+<h3 id="用于获取布尔型输入的input元素"><a href="#用于获取布尔型输入的input元素" class="headerlink" title="用于获取布尔型输入的input元素"></a><strong>用于获取布尔型输入的input元素</strong></h3><p>将多个<code>input</code>元素的<code>type</code>属性设置为<code>&quot;checkbox&quot;</code>可以生成复选框。这类<code>input</code>元素支持的属性有：</p>
+<ul>
+<li><code>&quot;checked&quot;</code>：设置该复选框刚显示出来时或重置表单后呈勾选状态</li>
+<li><code>&quot;required&quot;</code>：表示用户必须勾选该复选框</li>
+<li><code>&quot;value&quot;</code>：设定复选框呈勾选状态时提交给服务器的值</li>
+</ul>
+<h3 id="用于生成单选按钮的input元素"><a href="#用于生成单选按钮的input元素" class="headerlink" title="用于生成单选按钮的input元素"></a><strong>用于生成单选按钮的input元素</strong></h3><p>定义单选按钮，需要将<code>input</code>元素的属性设置为<code>&quot;radio&quot;</code>。它具有的属性和定义复选框的<code>input</code>元素完全相同。</p>
+<h3 id="用于生成隐蔽数据项的input元素"><a href="#用于生成隐蔽数据项的input元素" class="headerlink" title="用于生成隐蔽数据项的input元素"></a><strong>用于生成隐蔽数据项的input元素</strong></h3><p>将<code>input</code>元素的<code>type</code>属性设置为<code>&quot;hidden&quot;</code>，可以用来生成隐蔽数据项。最常用到的就是它的<code>name</code>属性和<code>value</code>属性。</p>
+<h3 id="用于生成图片按钮的input元素"><a href="#用于生成图片按钮的input元素" class="headerlink" title="用于生成图片按钮的input元素"></a><strong>用于生成图片按钮的input元素</strong></h3><p>可以将要定义为提交按钮的<code>input</code>元素的<code>type</code>属性设置为<code>&quot;image&quot;</code>，用于生成图片按钮。将<code>input</code>元素的<code>type</code>属性设置为”<code>image&quot;</code>也可以用来生成分区响应图。它具有的属性有：</p>
+<ul>
+<li><code>&quot;width&quot;</code>：以像素为单位定义图片按钮的宽</li>
+<li><code>&quot;height&quot;</code>：以像素为单位定义图片按钮的高</li>
+<li><code>&quot;src&quot;</code>：指定图片来源</li>
+<li><code>&quot;alt&quot;</code>：提供元素的说明文字</li>
+<li><code>&quot;formaction&quot;</code>，<code>&quot;formenctype&quot;</code>，<code>&quot;formmethod&quot;</code>，<code>&quot;formtarget&quot;</code>，<code>&quot;formnovalidate&quot;</code>：分别可以覆盖<code>input</code>元素所处的表单定义的对应属性值。<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"image"</span> <span class="attr">src</span>=<span class="string">"xxx.jpg"</span> <span class="attr">width</span>=<span class="string">"100"</span> <span class="attr">height</span>=<span class="string">"100"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="定义上传文件的input元素"><a href="#定义上传文件的input元素" class="headerlink" title="定义上传文件的input元素"></a><strong>定义上传文件的input元素</strong></h3><p>将<code>input</code>元素的<code>type</code>属性设置为<code>&quot;file&quot;</code>可以定义选择框，用户可以通过该选择框选择本地文件并上传到服务器。该元素支持的属性有：</p>
+<ul>
+<li><code>&quot;accept&quot;</code>：指定接受的<code>MIME</code>类型</li>
+<li><code>&quot;multiple&quot;</code>：设置这个属性表示可以同时上传多个文件</li>
+<li><code>&quot;required&quot;</code>：表示用户必须上传文件<br>需要特别注意的一点是，要上传文件，必须将表单的编码类型（即<code>enctype</code>属性）设置为<code>&quot;multipart/form-data&quot;</code>。</li>
+</ul>
+<p>除了上面的这些各有各的用途的<code>input</code>元素之外，还可以定义用于获取日期和时间的<code>input</code>元素（将<code>input</code>元素的<code>type</code>属性值定义为<code>&quot;datatime&quot;</code>，<code>&quot;date&quot;</code>，<code>&quot;time&quot;</code>，<code>&quot;month&quot;</code>和<code>&quot;week&quot;</code>，具有的属性和只接受数值的<code>input</code>元素完全相同）以及可以用来获取颜色的<code>input</code>元素（将<code>input</code>元素的<code>type</code>属性定义为<code>&quot;color&quot;</code>，它只支持<code>&quot;list&quot;</code>属性）</p>
+<h2 id="select元素"><a href="#select元素" class="headerlink" title="select元素"></a><strong>select元素</strong></h2><p><code>select</code>元素通常用于定义一个选项列表供用户选择。它所具有的属性有：</p>
+<ul>
+<li><code>&quot;name&quot;</code>：设置选项列表的名称</li>
+<li><code>&quot;disabled&quot;</code>：禁用该选项列表</li>
+<li><code>&quot;form&quot;</code>：设置选项列表关联的表单</li>
+<li><code>&quot;autofocus&quot;</code>：自动聚焦</li>
+<li><code>&quot;required&quot;</code>：用户必须从选项列表中选出一项</li>
+<li><code>&quot;multiple&quot;</code>：用户可以从选项列表中同时选择多个选项</li>
+<li><code>&quot;size&quot;</code>：设定呈现给用户的选项个数</li>
+</ul>
+<h2 id="textarea元素"><a href="#textarea元素" class="headerlink" title="textarea元素"></a><strong>textarea元素</strong></h2><p><code>textarea</code>元素用于生成多行文本框。它所具有的属性有：</p>
+<ul>
+<li><code>&quot;name&quot;</code>：设置选项列表的名称</li>
+<li><code>&quot;disabled&quot;</code>：禁用该选项列表</li>
+<li><code>&quot;form&quot;</code>：设置选项列表关联的表单</li>
+<li><code>&quot;autofocus&quot;</code>：自动聚焦</li>
+<li><code>&quot;required&quot;</code>：用户必须从选项列表中选出一项</li>
+<li><code>&quot;maxlength&quot;</code>：设定允许用户输入字符的最大长度</li>
+<li><code>&quot;readonly&quot;</code>：设置文本框为只读，不允许用户修改其内容</li>
+<li><code>&quot;placeholder&quot;</code>：指定在输入前显示在文本框中的提示信息</li>
+<li><code>&quot;rows&quot;</code>：通过指定行数来设置文本框的高度</li>
+<li><code>&quot;cols&quot;</code>：通过指定列数来设置文本框的宽度</li>
+<li><code>&quot;wrap&quot;</code>：用于控制用户在输入文字时插入换行符的方式，可选的值有<code>&quot;soft&quot;</code>和<code>&quot;hard&quot;</code>。使用<code>&quot;hard&quot;</code>可以保证每行的字符个数不会超过<code>cols</code>属性的大小。</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/05/08/ECMAScript6-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ES 6的新特性之对象的扩展和Symbol</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="HTML5中的增强表单" data-title="HTML5中的增强表单" data-url="http://yoursite.com/2016/05/14/HTML5中的增强表单/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 hbChou
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

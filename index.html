@@ -79,7 +79,7 @@
 						<li>Links</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -116,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/ES6/" style="font-size: 16.67px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 13.33px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -191,6 +191,172 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-HTML5中的增强表单" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/14/HTML5中的增强表单/" class="article-date">
+  	<time datetime="2016-05-14T09:58:33.000Z" itemprop="datePublished">2016-05-14</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/14/HTML5中的增强表单/">HTML5中的增强表单</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="form元素"><a href="#form元素" class="headerlink" title="form元素"></a><strong>form元素</strong></h2><h3 id="form元素的一些基本属性"><a href="#form元素的一些基本属性" class="headerlink" title="form元素的一些基本属性"></a><strong>form元素的一些基本属性</strong></h3><p><strong>action</strong>属性说明了要往哪个<code>URL</code>地址提交表单数据。<br><strong>method</strong>属性指定了提交表单数据所使用的HTTP方法，默认值是<code>&quot;get&quot;</code>，但其实大多数表单都是通过<code>&quot;post&quot;</code>方法提交的。<br>这里延伸拓展一下关于<code>get</code>方法和<code>post</code>方法的区别：</p>
+<ul>
+<li><code>get</code>方法主要用于从服务器端获取数据，<code>post</code>方法主要用于向服务器端发送数据</li>
+<li><code>get</code>方法要传递到服务器端的数据包含在浏览器地址栏的<code>URL</code>中，而<code>post</code>方法提交的数据包含在<code>HTTP</code>报文的主体部分中</li>
+<li><code>get</code>请求用于安全交互，同一个请求可以发起任意多次而不会对服务器端产生副作用，这就决定了<code>get</code>请求是<strong>幂等</strong>的；而<code>post</code>方法用于不安全交互，提交数据的行为可能会导致服务器端一些状态的改变</li>
+<li><code>get</code>请求提交的数据量较小，受<code>URL</code>长度的限制一般不能超过<code>2KB</code>，而<code>post</code>方法则没有这方面的限制</li>
+<li><code>get</code>方法可以传递的数据被限制为<code>ASCII</code>码，而<code>post</code>方法则可以支持整个<code>ISO10646</code>字符集。<br>此外<code>form</code>元素具有的其他属性还有：<br><strong>enctype</strong>属性指定了浏览器对发送给服务器的数据采用的编码格式，其可能取值有：</li>
+<li><code>&quot;application/x-www-form-urlencoded&quot;</code>：这是默认编码方式</li>
+<li><code>&quot;multipart/form-data&quot;</code>：用于将文件上传到服务器</li>
+<li><code>&quot;text/plain&quot;</code>：在各大浏览器中存在差异，不推荐<code>使用
+**autocomplete**属性是</code>HTML5中<code>新增的用于</code>form<code>元素的属性。可以用于开启或关闭表单的自动完成功能。当开启该功能时，浏览器会根据以往用户在其他表单输入的数据，自动帮助用户填写此表单。注：</code>autocomplete<code>属性设置的是表单中</code>input<code>元素的行为方式，该属性也可以定义在</code>input<code>标签上，用于覆盖表单上定义的</code>autocomplete`属性。<br><strong>target</strong>属性用于指定表单提交后服务器端反馈回来的信息的显示位置。可选的值有：</li>
+<li>`”_blank”：显示在新窗口中</li>
+<li><code>&quot;_parent&quot;</code>：显示在父框架中</li>
+<li><code>&quot;_self&quot;</code>：显示在当前窗口或框架中，这是默认值</li>
+<li><code>&quot;_top&quot;</code>：显示在顶层窗口中</li>
+<li><code>&quot;&lt;frame&gt;&quot;</code>：显示在指定框架中<br><strong>name</strong>属性用于定义表单的名字。</li>
+</ul>
+<h2 id="button元素"><a href="#button元素" class="headerlink" title="button元素"></a><strong>button元素</strong></h2><p><code>button</code>元素可以通过设置<code>type</code>属性来定义它的三种不同用法：</p>
+<ul>
+<li><code>&quot;submit&quot;</code>：用于提交表单，默认值，也就是说，默认情况下按下按钮就可以提交表单</li>
+<li><code>&quot;reset&quot;</code>：用于重置表单，当<code>button</code>定义为这样的按钮时没有其他的属性可用</li>
+<li><code>&quot;button&quot;</code>：定义普通的按钮，没有特别的语义，在按下时不会发生任何事情</li>
+</ul>
+<p>对于作为提交表单的按钮（即<code>type</code>属性值为<code>&quot;submit&quot;</code>），它具有的属性有：</p>
+<ul>
+<li><code>&quot;form&quot;</code>：指定按钮关联的表单，需要将该值设置为对应表单的id属性值</li>
+<li><code>&quot;formaction&quot;</code>，<code>&quot;formenctype&quot;</code>，<code>&quot;formmethod&quot;</code>，<code>&quot;formtarget&quot;</code>，<code>&quot;formnovalidate&quot;</code>：分别可以覆盖关联表单上定义的对应属性值</li>
+</ul>
+<h2 id="input元素"><a href="#input元素" class="headerlink" title="input元素"></a><strong>input元素</strong></h2><h3 id="input标签上的通用属性"><a href="#input标签上的通用属性" class="headerlink" title="input标签上的通用属性"></a><strong>input标签上的通用属性</strong></h3><p>对于<code>input</code>标签，可以定义<code>autofocus</code>属性来自动聚焦到页面中的某个<code>input</code>元素。（单选框，复选框以及提交按钮都可以使用这个属性，但要注意，页面中只有一个元素可以使用该属性，如果有多个，后面的元素的<code>autofocus</code>属性会覆盖前面的）<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">autofocus</span>=<span class="string">"on"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>禁用某个<code>input</code>元素可以定义<code>disabled</code>属性：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">disabled</span>=<span class="string">"true"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="用于输入文本的input元素"><a href="#用于输入文本的input元素" class="headerlink" title="用于输入文本的input元素"></a><strong>用于输入文本的input元素</strong></h3><p>用于输入文本的<code>input</code>元素，即<code>type</code>属性值定义为<code>&quot;text&quot;</code>的<code>input</code>元素，或者未设置<code>type</code>属性的<code>input</code>元素。它所具有的属性有：</p>
+<ul>
+<li><code>&quot;list&quot;</code>：指定为文本框提供参考值的<code>datalist</code>元素，其属性值为<code>datalist</code>元素的<code>id</code>值</li>
+<li><code>&quot;maxlength&quot;</code>：设定用户可以在文本框中输入的字符的最大长度</li>
+<li><code>&quot;pattern&quot;</code>：指定一个用于验证输入的正则表达式</li>
+<li><code>&quot;placeholder&quot;</code>：指定在输入前显示在文本框中的提示信息</li>
+<li><code>&quot;readonly&quot;</code>：将文本框设置为只读以防止用户修改其内容</li>
+<li><code>&quot;required&quot;</code>：用于指定该项为必填项</li>
+<li><code>&quot;size&quot;</code>：根据指定文本框中可见的字符长度设定其宽度</li>
+<li><code>&quot;value&quot;</code>：设置文本框初始值<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">maxlength</span>=<span class="string">"20"</span> <span class="attr">size</span>=<span class="string">"10"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>支持同样所有这些属性的<code>input</code>元素还有的是将<code>type</code>属性设置为<code>&quot;email&quot;</code>，<code>&quot;tel&quot;</code>或<code>&quot;url&quot;</code>的<code>input</code>元素。</p>
+<h3 id="用于输入密码的input元素"><a href="#用于输入密码的input元素" class="headerlink" title="用于输入密码的input元素"></a><strong>用于输入密码的input元素</strong></h3><p>用于输入文本的<code>input</code>元素，即<code>type</code>属性值定义为<code>&quot;password&quot;</code>的<code>input</code>元素。除了上面用于输入文本的<code>input</code>元素具有的<code>list</code>属性之外，用于输入密码的<code>input</code>元素也拥有其他相同的属性。</p>
+<h3 id="用于生成按钮的input元素"><a href="#用于生成按钮的input元素" class="headerlink" title="用于生成按钮的input元素"></a><strong>用于生成按钮的input元素</strong></h3><p>跟<code>button</code>元素一样，使用<code>input</code>元素通过定义其<code>type</code>属性可以定义三种不同的按钮：</p>
+<ul>
+<li><code>&quot;submit&quot;</code>：用于提交表单，也具有同<code>type</code>属性值为<code>submit</code>的<code>button</code>元素相同的属性</li>
+<li><code>&quot;reset&quot;</code>：用于重置表单，当<code>input</code>元素定义为这样的按钮时没有其他的属性可用</li>
+<li><code>&quot;button&quot;</code>：定义普通的按钮，没有特别的语义，在按下时不会发生任何事情</li>
+</ul>
+<h3 id="只接受数值的文本框"><a href="#只接受数值的文本框" class="headerlink" title="只接受数值的文本框"></a><strong>只接受数值的文本框</strong></h3><p>将<code>input</code>元素的<code>type</code>属性值定义为<code>&quot;number&quot;</code>生成的输入框只接受数值。它具有的属性有：</p>
+<ul>
+<li><code>&quot;list&quot;</code>：指定为文本框提供参考值的<code>datalist</code>元素，其属性值为<code>datalist</code>元素的<code>id</code>值</li>
+<li><code>&quot;readonly&quot;</code>：将文本框设置为只读以防止用户修改其内容</li>
+<li><code>&quot;required&quot;</code>：用于指定该项为必填项</li>
+<li><code>&quot;value&quot;</code>：设置文本框初始值</li>
+<li><code>&quot;min&quot;</code>：设定可接受的最小值</li>
+<li><code>&quot;max&quot;</code>：设定可接受的最大值</li>
+<li><code>&quot;step&quot;</code>：设定上下调节数值的步长<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">min</span>=<span class="string">"0"</span> <span class="attr">max</span>=<span class="string">"50"</span> <span class="attr">step</span>=<span class="string">"5"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>另外一种只接受数值的<code>input</code>元素是<code>type</code>属性值为<code>&quot;range&quot;</code>的<code>input</code>元素。用户只能从给定的数值范围中选择一个数作为要提交的数据。它支持的属性和<code>type</code>属性值为<code>&quot;number&quot;</code>的<code>input</code>元素完全相同。</p>
+<h3 id="用于获取布尔型输入的input元素"><a href="#用于获取布尔型输入的input元素" class="headerlink" title="用于获取布尔型输入的input元素"></a><strong>用于获取布尔型输入的input元素</strong></h3><p>将多个<code>input</code>元素的<code>type</code>属性设置为<code>&quot;checkbox&quot;</code>可以生成复选框。这类<code>input</code>元素支持的属性有：</p>
+<ul>
+<li><code>&quot;checked&quot;</code>：设置该复选框刚显示出来时或重置表单后呈勾选状态</li>
+<li><code>&quot;required&quot;</code>：表示用户必须勾选该复选框</li>
+<li><code>&quot;value&quot;</code>：设定复选框呈勾选状态时提交给服务器的值</li>
+</ul>
+<h3 id="用于生成单选按钮的input元素"><a href="#用于生成单选按钮的input元素" class="headerlink" title="用于生成单选按钮的input元素"></a><strong>用于生成单选按钮的input元素</strong></h3><p>定义单选按钮，需要将<code>input</code>元素的属性设置为<code>&quot;radio&quot;</code>。它具有的属性和定义复选框的<code>input</code>元素完全相同。</p>
+<h3 id="用于生成隐蔽数据项的input元素"><a href="#用于生成隐蔽数据项的input元素" class="headerlink" title="用于生成隐蔽数据项的input元素"></a><strong>用于生成隐蔽数据项的input元素</strong></h3><p>将<code>input</code>元素的<code>type</code>属性设置为<code>&quot;hidden&quot;</code>，可以用来生成隐蔽数据项。最常用到的就是它的<code>name</code>属性和<code>value</code>属性。</p>
+<h3 id="用于生成图片按钮的input元素"><a href="#用于生成图片按钮的input元素" class="headerlink" title="用于生成图片按钮的input元素"></a><strong>用于生成图片按钮的input元素</strong></h3><p>可以将要定义为提交按钮的<code>input</code>元素的<code>type</code>属性设置为<code>&quot;image&quot;</code>，用于生成图片按钮。将<code>input</code>元素的<code>type</code>属性设置为”<code>image&quot;</code>也可以用来生成分区响应图。它具有的属性有：</p>
+<ul>
+<li><code>&quot;width&quot;</code>：以像素为单位定义图片按钮的宽</li>
+<li><code>&quot;height&quot;</code>：以像素为单位定义图片按钮的高</li>
+<li><code>&quot;src&quot;</code>：指定图片来源</li>
+<li><code>&quot;alt&quot;</code>：提供元素的说明文字</li>
+<li><code>&quot;formaction&quot;</code>，<code>&quot;formenctype&quot;</code>，<code>&quot;formmethod&quot;</code>，<code>&quot;formtarget&quot;</code>，<code>&quot;formnovalidate&quot;</code>：分别可以覆盖<code>input</code>元素所处的表单定义的对应属性值。<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"image"</span> <span class="attr">src</span>=<span class="string">"xxx.jpg"</span> <span class="attr">width</span>=<span class="string">"100"</span> <span class="attr">height</span>=<span class="string">"100"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="定义上传文件的input元素"><a href="#定义上传文件的input元素" class="headerlink" title="定义上传文件的input元素"></a><strong>定义上传文件的input元素</strong></h3><p>将<code>input</code>元素的<code>type</code>属性设置为<code>&quot;file&quot;</code>可以定义选择框，用户可以通过该选择框选择本地文件并上传到服务器。该元素支持的属性有：</p>
+<ul>
+<li><code>&quot;accept&quot;</code>：指定接受的<code>MIME</code>类型</li>
+<li><code>&quot;multiple&quot;</code>：设置这个属性表示可以同时上传多个文件</li>
+<li><code>&quot;required&quot;</code>：表示用户必须上传文件<br>需要特别注意的一点是，要上传文件，必须将表单的编码类型（即<code>enctype</code>属性）设置为<code>&quot;multipart/form-data&quot;</code>。</li>
+</ul>
+<p>除了上面的这些各有各的用途的<code>input</code>元素之外，还可以定义用于获取日期和时间的<code>input</code>元素（将<code>input</code>元素的<code>type</code>属性值定义为<code>&quot;datatime&quot;</code>，<code>&quot;date&quot;</code>，<code>&quot;time&quot;</code>，<code>&quot;month&quot;</code>和<code>&quot;week&quot;</code>，具有的属性和只接受数值的<code>input</code>元素完全相同）以及可以用来获取颜色的<code>input</code>元素（将<code>input</code>元素的<code>type</code>属性定义为<code>&quot;color&quot;</code>，它只支持<code>&quot;list&quot;</code>属性）</p>
+<h2 id="select元素"><a href="#select元素" class="headerlink" title="select元素"></a><strong>select元素</strong></h2><p><code>select</code>元素通常用于定义一个选项列表供用户选择。它所具有的属性有：</p>
+<ul>
+<li><code>&quot;name&quot;</code>：设置选项列表的名称</li>
+<li><code>&quot;disabled&quot;</code>：禁用该选项列表</li>
+<li><code>&quot;form&quot;</code>：设置选项列表关联的表单</li>
+<li><code>&quot;autofocus&quot;</code>：自动聚焦</li>
+<li><code>&quot;required&quot;</code>：用户必须从选项列表中选出一项</li>
+<li><code>&quot;multiple&quot;</code>：用户可以从选项列表中同时选择多个选项</li>
+<li><code>&quot;size&quot;</code>：设定呈现给用户的选项个数</li>
+</ul>
+<h2 id="textarea元素"><a href="#textarea元素" class="headerlink" title="textarea元素"></a><strong>textarea元素</strong></h2><p><code>textarea</code>元素用于生成多行文本框。它所具有的属性有：</p>
+<ul>
+<li><code>&quot;name&quot;</code>：设置选项列表的名称</li>
+<li><code>&quot;disabled&quot;</code>：禁用该选项列表</li>
+<li><code>&quot;form&quot;</code>：设置选项列表关联的表单</li>
+<li><code>&quot;autofocus&quot;</code>：自动聚焦</li>
+<li><code>&quot;required&quot;</code>：用户必须从选项列表中选出一项</li>
+<li><code>&quot;maxlength&quot;</code>：设定允许用户输入字符的最大长度</li>
+<li><code>&quot;readonly&quot;</code>：设置文本框为只读，不允许用户修改其内容</li>
+<li><code>&quot;placeholder&quot;</code>：指定在输入前显示在文本框中的提示信息</li>
+<li><code>&quot;rows&quot;</code>：通过指定行数来设置文本框的高度</li>
+<li><code>&quot;cols&quot;</code>：通过指定列数来设置文本框的宽度</li>
+<li><code>&quot;wrap&quot;</code>：用于控制用户在输入文字时插入换行符的方式，可选的值有<code>&quot;soft&quot;</code>和<code>&quot;hard&quot;</code>。使用<code>&quot;hard&quot;</code>可以保证每行的字符个数不会超过<code>cols</code>属性的大小。</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML5/">HTML5</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-ECMAScript6-3" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -635,91 +801,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML5/">HTML5</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-javascriptSerial-11" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/05/javascriptSerial-11/" class="article-date">
-  	<time datetime="2016-05-05T09:42:30.000Z" itemprop="datePublished">2016-05-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/05/javascriptSerial-11/">你所不知道的javascript之常用的API</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这一篇让我们了解一些常用的API。</p>
-<hr>
-<!-- MarkdownTOC -->
-<ul>
-<li><a href="#file-api"><strong>File API</strong></a><ul>
-<li><a href="#filereader类型"><strong>FileReader类型</strong></a></li>
-<li><a href="#对象url"><strong>对象URL</strong></a></li>
-</ul>
-</li>
-<li><a href="#formdata"><strong>FormData</strong></a></li>
-</ul>
-<!-- /MarkdownTOC -->
-<hr>
-<p><a name="file-api"></a></p>
-<h2 id="File-API"><a href="#File-API" class="headerlink" title="File API"></a><strong>File API</strong></h2><p><code>HTML5</code>在<code>DOM</code>中为文件输入元素添加了<code>files</code>集合属性，集合中包含了一组<code>File</code>对象，每个<code>File</code>对象对应了一个文件，每个<code>File</code>对象都有以下只读属性：</p>
-<ul>
-<li><code>name</code>：文件名</li>
-<li><code>size</code>：文件的大小</li>
-<li><code>type</code>：文件的MIME类型</li>
-<li><code>lastModifiedDate</code>：文件上一次被修改的时间（只有Chrome实现了这个属性）<br><code>File</code>对象还支持一个<code>slice()</code>方法（在<code>firefox</code>中的实现叫<code>mozSlice()</code>，在<code>Chrome</code>中的实现叫<code>webkitSlice()</code>），该方法接受两个参数：起始字节和要读取的字节数。该方法返回一个<code>Blob</code>对象，<code>Blob</code>类型是<code>File</code>类型的父类型。<code>Blob</code>对象有一个<code>size</code>属性和<code>type</code>属性，本身也有一个<code>slice()</code>方法。<br><a name="filereader类型"></a><h3 id="FileReader类型"><a href="#FileReader类型" class="headerlink" title="FileReader类型"></a><strong>FileReader类型</strong></h3><code>FileReader</code>类型实现的是一种异步读取文件的机制。<br><code>FileReader</code>对象具有的方法：<br><code>readAsText(File|Blob[, encoding])</code>：以纯文本形式读取文件<br><code>readAsDataURL(File|Blob)</code>：以数据<code>URI</code>的形式读取文件<br><code>readAsBinaryString(File|Blob)</code>：以二进制的形式读取文件<br><code>readAsArrayBuffer(File|Blob)</code>：以<code>ArrayBuffer</code>的形式读取文件<br>读取到的结果保存在<code>FileReader</code>对象的<code>result</code>属性上。同时<code>FileReader</code>也提供了<code>progress</code>、<code>error</code>和<code>load</code>事件。在使用<code>FileReader</code>对象读取文件内容的过程中，<code>progress</code>事件每隔<code>50ms</code>触发一次。通过<code>event</code>对象可以读取到一些进度信息：</li>
-<li><code>lengthComputable</code>：表示进度消息是否可用</li>
-<li><code>loaded</code>：已经读取到的数据量</li>
-<li><code>total</code>：文件的总大小</li>
-</ul>
-<p><a name="对象url"></a></p>
-<h3 id="对象URL"><a href="#对象URL" class="headerlink" title="对象URL"></a><strong>对象URL</strong></h3><p>对象<code>URL</code>也叫做<code>blob URL</code>，指的是引用保存在<code>File</code>或<code>Blob</code>对象中数据的<code>URL</code>。使用对象<code>URL</code>的好处是不必通过读取文件而直接使用文件内容，对象URL可以用在需要文件内容的地方（比如<code>img</code>元素的<code>src</code>属性上）。要创建对象<code>URL</code>，可以使用<code>window.URL.createObjectURL()</code>方法，传入一个<code>File</code>对象或者<code>Blob</code>对象。该方法在<code>Chrome</code>中的实现叫做<code>window.webkitURL.createObjectURL()</code>。</p>
-<p><a name="formdata"></a></p>
-<h2 id="FormData"><a href="#FormData" class="headerlink" title="FormData"></a><strong>FormData</strong></h2><p>在表单提交时频繁使用的一项功能就是表单的序列化。<code>XMLHttpRequest 2</code>级为此定义了<code>FormData</code>类型。创建<code>FormData</code>对象可以直接使用<code>FormData</code>构造函数构造，也可以使用页面中的表单元素作为参数传入<code>FormData</code>构造函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> form1 = <span class="keyword">new</span> FormData();</span><br><span class="line">form1.append(name, value);</span><br><span class="line"><span class="keyword">var</span> form2 = <span class="keyword">new</span> FormData(<span class="built_in">document</span>.forms[<span class="number">1</span>]);</span><br></pre></td></tr></table></figure></p>
-<p>直接使用<code>FormData</code>构造函数创建了<code>FormData</code>对象之后，可以通过调用该对象上的<code>append</code>方法添加新的键值对。使用页面中的表单元素作为参数传入<code>FormData</code>构造函数创建的<code>FormData</code>对象则可以直接作为参数传入<code>XMLHttpRequest</code>对象的<code>send</code>方法，作为请求数据。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 	</div>
 
       
