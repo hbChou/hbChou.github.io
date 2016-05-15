@@ -459,7 +459,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/15/Sass的使用之嵌套、混合宏、继承、占位符和插值/">Sass的使用之嵌套、混合宏、继承、占位符和插值</a>
+      <a class="article-title" href="/2016/05/15/Sass的使用之嵌套、混合宏、继承、占位符和插值/">Sass的使用之Sass的编译、嵌套、混合宏、继承、占位符和插值</a>
     </h1>
   
 
@@ -471,6 +471,7 @@
         <hr>
 <!-- MarkdownTOC -->
 <ul>
+<li><a href="#sass的编译"><strong>Sass的编译</strong></a></li>
 <li><a href="#声明默认变量"><strong>声明默认变量</strong></a></li>
 <li><a href="#嵌套"><strong>嵌套</strong></a><ul>
 <li><a href="#选择器嵌套"><strong>选择器嵌套</strong></a></li>
@@ -485,6 +486,17 @@
 </ul>
 <!-- /MarkdownTOC -->
 <hr>
+<p><a name="sass的编译"></a></p>
+<h2 id="Sass的编译"><a href="#Sass的编译" class="headerlink" title="Sass的编译"></a><strong>Sass的编译</strong></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sass &lt;要编译的Sass文件路径&gt;/style.scss:&lt;要输出CSS文件路径&gt;/style.css</span><br></pre></td></tr></table></figure>
+<p>也可以开启”watch”功能，这样就不需要每次修改完手动进行编译：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sass --watch &lt;要编译的Sass文件路径&gt;/style.scss:&lt;要输出CSS文件路径&gt;/style.css</span><br></pre></td></tr></table></figure></p>
+<p>如果是要编译一个目录下的所有Sass文件，也可以直接进行编译：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sass sass/:css/</span><br></pre></td></tr></table></figure></p>
+<p>此外在编译时还可以指定其他额外的选项，比如指定输入<code>CSS</code>的格式，通过<code>&quot;--style&quot;</code>选项进行指定，该选项可选的值有：</p>
+<ul>
+<li>嵌套输出方式 nested</li>
+<li>展开输出方式 expanded</li>
+<li>紧凑输出方式 compact</li>
+<li>压缩输出方式 compressed</li>
+</ul>
 <p><a name="声明默认变量"></a></p>
 <h2 id="声明默认变量"><a href="#声明默认变量" class="headerlink" title="声明默认变量"></a><strong>声明默认变量</strong></h2><p><code>Sass</code> 的默认变量仅需要在值后面加上 <code>!default</code> 即可。<br><code>Sass</code> 的默认变量一般是用来设置默认值，然后根据需求来覆盖的，覆盖的方式也很简单，只需要在默认变量之前重新声明下变量即可。</p>
 <p><a name="嵌套"></a></p>
