@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Sass的使用之嵌套、混合宏、继承、占位符和插值 | hbChou</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="声明默认变量
+嵌套
+选择器嵌套
+属性嵌套
+伪类嵌套
+
+
+混合宏
+继承
+占位符%placeholder
+插值#{}
+
+
+
+
+声明默认变量Sass 的默认变量仅需要在值后面加上 !default 即可。Sass 的默认变量一般是用来设置默认值，然后根据需求来覆盖的，覆盖的方式也很简单，只需要在默认变量之前重新声明下变量即可。
+
+嵌套
+选择器嵌套例如123456nav a &amp;#123;  colo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sass的使用之嵌套、混合宏、继承、占位符和插值">
+<meta property="og:url" content="http://yoursite.com/2016/05/15/Sass的使用之嵌套、混合宏、继承、占位符和插值/index.html">
+<meta property="og:site_name" content="hbChou">
+<meta property="og:description" content="声明默认变量
+嵌套
+选择器嵌套
+属性嵌套
+伪类嵌套
+
+
+混合宏
+继承
+占位符%placeholder
+插值#{}
+
+
+
+
+声明默认变量Sass 的默认变量仅需要在值后面加上 !default 即可。Sass 的默认变量一般是用来设置默认值，然后根据需求来覆盖的，覆盖的方式也很简单，只需要在默认变量之前重新声明下变量即可。
+
+嵌套
+选择器嵌套例如123456nav a &amp;#123;  colo">
+<meta property="og:updated_time" content="2016-05-15T10:10:40.609Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sass的使用之嵌套、混合宏、继承、占位符和插值">
+<meta name="twitter:description" content="声明默认变量
+嵌套
+选择器嵌套
+属性嵌套
+伪类嵌套
+
+
+混合宏
+继承
+占位符%placeholder
+插值#{}
+
+
+
+
+声明默认变量Sass 的默认变量仅需要在值后面加上 !default 即可。Sass 的默认变量一般是用来设置默认值，然后根据需求来覆盖的，覆盖的方式也很简单，只需要在默认变量之前重新声明下变量即可。
+
+嵌套
+选择器嵌套例如123456nav a &amp;#123;  colo">
+  
+    <link rel="alternative" href="/atom.xml" title="hbChou" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/image.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">hbChou</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">每天都要有所收获</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://segmentfault.com/">segmentfault社区</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">hbChou</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/image.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">hbChou</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">每天都要有所收获</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Sass的使用之嵌套、混合宏、继承、占位符和插值" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/15/Sass的使用之嵌套、混合宏、继承、占位符和插值/" class="article-date">
+  	<time datetime="2016-05-15T09:43:07.000Z" itemprop="datePublished">2016-05-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Sass的使用之嵌套、混合宏、继承、占位符和插值
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sass/">Sass</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#声明默认变量"><strong>声明默认变量</strong></a></li>
+<li><a href="#嵌套"><strong>嵌套</strong></a><ul>
+<li><a href="#选择器嵌套"><strong>选择器嵌套</strong></a></li>
+<li><a href="#属性嵌套"><strong>属性嵌套</strong></a></li>
+<li><a href="#伪类嵌套"><strong>伪类嵌套</strong></a></li>
+</ul>
+</li>
+<li><a href="#混合宏"><strong>混合宏</strong></a></li>
+<li><a href="#继承"><strong>继承</strong></a></li>
+<li><a href="#占位符%placeholder"><strong>占位符%placeholder</strong></a></li>
+<li><a href="#插值"><strong>插值#{}</strong></a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="声明默认变量"></a></p>
+<h2 id="声明默认变量"><a href="#声明默认变量" class="headerlink" title="声明默认变量"></a><strong>声明默认变量</strong></h2><p><code>Sass</code> 的默认变量仅需要在值后面加上 <code>!default</code> 即可。<br><code>Sass</code> 的默认变量一般是用来设置默认值，然后根据需求来覆盖的，覆盖的方式也很简单，只需要在默认变量之前重新声明下变量即可。</p>
+<p><a name="嵌套"></a></p>
+<h2 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a><strong>嵌套</strong></h2><p><a name="选择器嵌套"></a></p>
+<h3 id="选择器嵌套"><a href="#选择器嵌套" class="headerlink" title="选择器嵌套"></a><strong>选择器嵌套</strong></h3><p>例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nav a &#123;</span><br><span class="line">  color:red;</span><br><span class="line">&#125;</span><br><span class="line">header nav a &#123;</span><br><span class="line">  color:green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么在 <code>Sass</code> 中，就可以使用选择器的嵌套来实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nav &#123;</span><br><span class="line">  a &#123;</span><br><span class="line">    color: red;</span><br><span class="line">    header &amp; &#123;</span><br><span class="line">      color:green;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="属性嵌套"></a></p>
+<h3 id="属性嵌套"><a href="#属性嵌套" class="headerlink" title="属性嵌套"></a><strong>属性嵌套</strong></h3><p>例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">    border-top: 1px solid red;</span><br><span class="line">    border-bottom: 1px solid green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 <code>Sass</code> 中我们可以这样写：（注意嵌套之后 <code>border</code> 后面有一个冒号）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  border: &#123;</span><br><span class="line">   top: 1px solid red;</span><br><span class="line">   bottom: 1px solid green;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="伪类嵌套"></a></p>
+<h3 id="伪类嵌套"><a href="#伪类嵌套" class="headerlink" title="伪类嵌套"></a><strong>伪类嵌套</strong></h3><p>跟选择器嵌套类似，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.clearfix&#123;</span><br><span class="line">    &amp;:before,</span><br><span class="line">    &amp;:after &#123;</span><br><span class="line">        content:&quot;&quot;;</span><br><span class="line">        display: table;</span><br><span class="line">    &#125;</span><br><span class="line">    &amp;:after &#123;</span><br><span class="line">        clear:both;</span><br><span class="line">        overflow: hidden;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的 <code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">clearfix:before, .clearfix:after &#123;</span><br><span class="line">  content: &quot;&quot;;</span><br><span class="line">  display: table;</span><br><span class="line">&#125;</span><br><span class="line">.clearfix:after &#123;</span><br><span class="line">  clear: both;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="混合宏"></a></p>
+<h2 id="混合宏"><a href="#混合宏" class="headerlink" title="混合宏"></a><strong>混合宏</strong></h2><p>主要作用：重用 <code>CSS</code> 代码<br>使用<code>&quot;@mixin&quot;</code>来定义混合宏，它可以传递参数<br>调用混合宏，使用<code>&quot;@include mixin_name&quot;</code><br>混合宏的缺点：容易造成代码的冗余，相同的代码会在编译出来的CSS文件出现多处</p>
+<p><a name="继承"></a></p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a><strong>继承</strong></h2><p>继承：将多个使用相同 <code>CSS</code> 代码的选择器合并（构成组合选择器）使用同一套 <code>CSS</code> 代码，解决了使用混合宏存在的问题<br>要使用继承，就必须先定义基类（例如下面的<code>.btn</code>）。使用”@extend”来实现继承，直接引用基类即可。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.btn &#123;</span><br><span class="line">  border: 1px solid #ccc;</span><br><span class="line">  padding: 6px 10px;</span><br><span class="line">  font-size: 14px;</span><br><span class="line">&#125;</span><br><span class="line">.btn-primary &#123;</span><br><span class="line">  background-color: #f36;</span><br><span class="line">  color: #fff;</span><br><span class="line">  @extend .btn;</span><br><span class="line">&#125;</span><br><span class="line">.btn-second &#123;</span><br><span class="line">  background-color: orange;</span><br><span class="line">  color: #fff;</span><br><span class="line">  @extend .btn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来之后：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//CSS</span><br><span class="line">.btn, .btn-primary, .btn-second &#123;</span><br><span class="line">  border: 1px solid #ccc;</span><br><span class="line">  padding: 6px 10px;</span><br><span class="line">  font-size: 14px;</span><br><span class="line">&#125;</span><br><span class="line">.btn-primary &#123;</span><br><span class="line">  background-color: #f36;</span><br><span class="line">  color: #fff;</span><br><span class="line">&#125;</span><br><span class="line">.btn-second &#123;</span><br><span class="line">  background-clor: orange;</span><br><span class="line">  color: #fff;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>&quot;@extend&quot;</code> 可以扩展任何选择器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.hoverlink &#123;</span><br><span class="line">  @extend a:hover;</span><br><span class="line">&#125;</span><br><span class="line">a:hover &#123;</span><br><span class="line">  text-decoration: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a:hover, .hoverlink &#123;</span><br><span class="line">  text-decoration: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>稍微复杂的栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.hoverlink &#123;</span><br><span class="line">  @extend a:hover;</span><br><span class="line">&#125;</span><br><span class="line">.comment a.user:hover &#123;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的 <code>CSS</code> ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.comment a.user:hover, .comment .user.hoverlink &#123;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在使用继承时，可以认为是将基类选择器去掉与<code>&quot;@extend&quot;</code>相同的部分，如果将基类选择器的最后一级全部去掉了，则再将调用<code>&quot;@extend&quot;</code>的选择器名作为基类选择器的最后一级；如果只是原来的基类选择器的最后一级还有部分保留，则将调用<code>&quot;@extend&quot;</code>的选择器名拼接到基类选择器的最后一级中（注意不是作为后代选择器）。<br>使用继承存在的问题是上面的.btn选择器最终也会编译到<code>CSS</code>代码中。</p>
+<p><a name="占位符%placeholder"></a></p>
+<h2 id="占位符-placeholder"><a href="#占位符-placeholder" class="headerlink" title="占位符%placeholder"></a><strong>占位符%placeholder</strong></h2><p>可以使用<code>%placeholder</code>来解决继承存在的问题。只有当基类被 <code>@extend</code> 调用，才会生成<code>CSS</code>代码。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//SCSS</span><br><span class="line">%mt5 &#123;</span><br><span class="line">  margin-top: 5px;</span><br><span class="line">&#125;</span><br><span class="line">%pt5&#123;</span><br><span class="line">  padding-top: 5px;</span><br><span class="line">&#125;</span><br><span class="line">.btn &#123;</span><br><span class="line">  @extend %mt5;</span><br><span class="line">  @extend %pt5;</span><br><span class="line">&#125;</span><br><span class="line">.block &#123;</span><br><span class="line">  @extend %mt5;</span><br><span class="line">  span &#123;</span><br><span class="line">    @extend %pt5;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的<code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//CSS`</span><br><span class="line">.btn, .block &#123;</span><br><span class="line">  margin-top: 5px;</span><br><span class="line">&#125;</span><br><span class="line">.btn, .block span &#123;</span><br><span class="line">  padding-top: 5px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="插值"></a></p>
+<h2 id="插值"><a href="#插值" class="headerlink" title="插值#{}"></a><strong>插值#{}</strong></h2><p>大括号里面可以是变量<br>插值的作用：<br>1、构建属性名字符串<br>2、构建选择器名称<br>但它不能用于构建变量名，另外在使用<code>&quot;@include&quot;</code>调用混合宏时，插值不能用于构建混合宏名称；使用<code>&quot;@extend&quot;</code>继承时，基类名称或者占位符名称可以用插值构建。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/05/15/Sass的使用之数据类型、运算和指令/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Sass的使用之数据类型、运算和指令
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/05/14/盘点HTML5新增的标签/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">盘点HTML5新增的标签</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Sass的使用之嵌套、混合宏、继承、占位符和插值" data-title="Sass的使用之嵌套、混合宏、继承、占位符和插值" data-url="http://yoursite.com/2016/05/15/Sass的使用之嵌套、混合宏、继承、占位符和插值/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 hbChou
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
