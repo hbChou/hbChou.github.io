@@ -42,7 +42,7 @@ Cookie
 HTML5中的Web存储
 两种Storage类型具有的属性和方法
 sessionStora">
-<meta property="og:updated_time" content="2016-05-15T02:51:40.170Z">
+<meta property="og:updated_time" content="2016-05-15T03:34:18.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML5中的客户端存储">
 <meta name="twitter:description" content="HTML5新增了很多诱人的新特性，比如语义化的HTML标签、还有现在要聊的离线缓存等多种客户端存储手段。
@@ -125,7 +125,7 @@ sessionStora">
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -162,7 +162,7 @@ sessionStora">
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/Sass/" style="font-size: 10px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -305,7 +305,22 @@ sessionStora">
 <h2 id="离线缓存（Application-Cache）"><a href="#离线缓存（Application-Cache）" class="headerlink" title="离线缓存（Application Cache）"></a><strong>离线缓存（Application Cache）</strong></h2><p><code>HTML5</code>新增的离线缓存为支持离线<code>web</code>应用开发提供了一套解决方案。要开发离线<code>web</code>应用，首先就需要获取用户的在线信息。通过<code>navigator.onLine</code>属性可以检测当前用户是否在线。<br><code>Application Cache</code>就是从浏览器的缓存中分出来的一块缓存区。要想在这块缓存区中保存数据，在<code>html</code>标签中通过给出<code>manifest</code>属性指定<code>Manifest</code>文件。浏览器会下载缓存<code>Manifest</code>文件中指定缓存的文件，每次从缓存中加载资源后，在在线的情况下检查<code>server</code>端的<code>Manifest</code>文件。一旦<code>Manifest</code>文件有更新，就会重新下载更新。</p>
 <p><a name="manifest文件的格式"></a></p>
 <h3 id="Manifest文件的格式"><a href="#Manifest文件的格式" class="headerlink" title="Manifest文件的格式"></a><strong>Manifest文件的格式</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">CACHE MANIFEST</span><br><span class="line">#如果缓存文件内容有更新，可以通过修改以下版本号通过浏览器更新</span><br><span class="line">#version n.n</span><br><span class="line"></span><br><span class="line">CACHE:</span><br><span class="line">#需要缓存的文件</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">NETWORK:</span><br><span class="line">#每次需要通过网络拉取的文件（下面的*号表示除上面CACHE列出的文件其他所有文件都是通过网络获取）</span><br><span class="line">*</span><br><span class="line"></span><br><span class="line">FALLBACK：</span><br><span class="line">#离线状况下的代替文件（下面例子表示在离线状况下所有文件替代为offline.html）</span><br><span class="line">/   offline.html</span><br></pre></td></tr></table></figure>
-<p>另外，需要修改<code>apache</code>服务器下的文件<code>/conf/mime.types</code>，向其中添加一行<br>    `text/cache-manifest appcache           //appcache为manifest文件的后缀名<br><strong>注意：</strong></p>
+<p>清单文件可使用任何文件扩展名，但必须以正确的 MIME 类型提供，这里只需要将manifest 的文件类型定义为 text/cache-manifest 即可。<br>下面是常见的服务器系统的配置方式（这里的 manifest 文件后缀是 .manifest）：</p>
+<ul>
+<li><p>让 Apache 支持 manifest<br>新建或者编辑现有的 .htaccess 文件，在里面加上一行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddType text/cache-manifest .manifest</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>让 Nginx 支持 manifest<br>修改 mime.types 文件，在里面增加 manifest 文件的映射：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">text/cache-manifest manifest</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>让 Tomcat 支持 manifest<br>修改 web.xml 文件，在里面增加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;mime-mapping&gt;</span><br><span class="line">    &lt;extension&gt;manifest&lt;/extension&gt;</span><br><span class="line">    &lt;mime-type&gt;text/cache-manifest&lt;/mime-type&gt;</span><br><span class="line">&lt;/mime-mapping&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>让 GAE 支持 manifest<br>修改 app.yaml，在里面增加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- url: /mystaticdir/(.*\.manifest)</span><br><span class="line">  static_files: mystaticdir/\1</span><br><span class="line">  mime_type: text/cache-manifest</span><br><span class="line">  upload: mystaticdir/(.*\.manifest)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>注意：</strong></p>
 <ul>
 <li>使用<code>manifest</code>属性的当前请求页面即使没有出现在<code>Manifest</code>文件中即不要求被缓存，最终也会被浏览器缓存下来。</li>
 <li>不建议带参数访问含有<code>mainfest</code>属性的页面，例如<code>index.html</code>和<code>index.html?renew=1</code>会被认为是不同文件并被分别缓存下来。<br><a name="applicationcache对象常用属性和方法"></a><h3 id="applicationCache对象常用属性和方法"><a href="#applicationCache对象常用属性和方法" class="headerlink" title="applicationCache对象常用属性和方法"></a><strong>applicationCache对象常用属性和方法</strong></h3><code>window.applicationCache.status</code>：获取当前缓存的状态<br>获取到的状态值可能是</li>
@@ -326,8 +341,8 @@ sessionStora">
 <p><a name="数据存储"></a></p>
 <h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a><strong>数据存储</strong></h2><p><a name="cookie"></a></p>
 <h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a><strong>Cookie</strong></h3><p><code>Cookie</code>最初是用于在客户端存储会话信息的，它并不是HTML5中新增的客户端存储手段，但我觉得还是有必要在这里聊一聊。通常一个由服务器端返回的设置<code>cookie</code>的形式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: name=value; expires=Mon, 22-Jan-07 07:10:24 GMT; domain=xx.com; path=/; secure</span><br></pre></td></tr></table></figure></p>
-<p><code>expires</code>字段指定<code>cookie</code>的失效时间，默认情况下当浏览器会话结束时就会将<code>cookie</code>删除；<br><code>path</code>指定的路径表示对于该路径，客户端应该向服务器发送该<code>cookie</code>，设置了这个值，则对于同一个域名下的其他路径则不会发送该<code>cookie</code>；<br>最后的安全标志表示只有在使用<code>SSL</code>连接的时候才将该<code>cookie</code>发送到服务器端。此外服务器端发送的<code>cookie</code>可能会包含<code>HttpOnly</code>这个选项，它表示只有服务器有权访问和修改该<code>cookie</code>，而客户端则不具备此权限。<br>而在以后客户端想该域名下的服务器发送请求时，都会通过以下请求首部发送<code>cookie</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie: name=value</span><br></pre></td></tr></table></figure></p>
-<p>在<code>javascript</code>中可以直接通过<code>document.cookie</code>访问到当前页面所有<code>cookie</code>构成的字符串（每个<code>cookie</code>的形式类似服务器端设置<code>cookie</code>的格式）。也可以通过该属性设置当前页面的<code>cookie</code>。<br><code>Cookie</code>的不足：<br>1、每个特定的域名下可以生成的 <code>cookie</code>数量有限制；一个域名下存储的<code>cookie</code>总大小不能超过<code>4KB</code>；<br>2、每次你在该域名下的子域中请求一个新的页面时，<code>Cookie</code> 都会被发送过去，这在无形中浪费了带宽，而且也存在着一定的安全隐患。<br>3、<code>cookie</code> 需要指定作用域，不可以跨域调用。</p>
+<p><code>expires</code>字段指定<code>cookie</code>的失效时间，默认情况下当浏览器会话结束时就会将<code>cookie</code>删除；<br><code>path</code>指定的路径表示对于该路径，客户端应该向服务器发送该<code>cookie</code>，设置了这个值，则对于同一个域名下的其他路径则不会发送该<code>cookie</code>；<br>最后的安全标志表示只有在使用<code>SSL</code>连接的时候才将该<code>cookie</code>发送到服务器端。此外服务器端发送的<code>cookie</code>可能会包含<code>HttpOnly</code>这个选项，它表示只有服务器有权访问和修改该<code>cookie</code>，而客户端则不具备此权限。<strong>该选项在一定程度上可以避免受到<code>XSS</code>攻击。</strong><br>而在以后客户端想该域名下的服务器发送请求时，都会通过以下请求首部发送<code>cookie</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie: name=value</span><br></pre></td></tr></table></figure></p>
+<p>在<code>javascript</code>中可以直接通过<code>document.cookie</code>访问到当前页面所有<code>cookie</code>构成的字符串（每个<code>cookie</code>的形式类似服务器端设置<code>cookie</code>的格式）。也可以通过该属性设置当前页面的<code>cookie</code>。<br><code>Cookie</code>的不足：<br>1、每个特定的域名下可以生成的<code>cookie</code>数量有限制，一个域名下存储的<code>cookie</code>总大小不能超过<code>4KB</code>。<br>2、每次你在该域名下的子域中请求一个新的页面时，<code>Cookie</code> 都会被发送过去，这在无形中浪费了带宽，而且也存在着一定的安全隐患。<br>3、<code>cookie</code> 需要指定作用域，不可以跨域调用。</p>
 <p><a name="html5中的web存储"></a></p>
 <h3 id="HTML5中的Web存储"><a href="#HTML5中的Web存储" class="headerlink" title="HTML5中的Web存储"></a><strong>HTML5中的Web存储</strong></h3><p>Web存储的主要目标是提供一种在<code>cookie</code>之外存储会话数据的途径；同时提供一种<strong>存储大量可以跨会话存在的数据</strong>的机制。之所以<code>HTML5</code>会提出新的<code>web</code>存储机制，它的目标就在于解决以前<code>web</code>存储过程中存在的一些问题：</p>
 <ul>

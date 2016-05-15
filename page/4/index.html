@@ -79,7 +79,7 @@
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -116,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/Sass/" style="font-size: 10px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -191,6 +191,143 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-你所不知道的javascript之window对象上的一些常用方法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/30/你所不知道的javascript之window对象上的一些常用方法/" class="article-date">
+  	<time datetime="2016-04-30T08:50:30.000Z" itemprop="datePublished">2016-04-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/30/你所不知道的javascript之window对象上的一些常用方法/">你所不知道的javascript之window对象上的一些常用方法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>除了前面提到过的引用类型和基本包装类型以外，在<code>javascript</code>中还存在着一个顶级的全局对象，在浏览器端它被实现为<code>window</code>这个全局对象，很多我们平时直接使用的属性方法都是挂载在window这个对象上的，比如前面提到过的<code>parseInt()</code>，还有我们再熟悉不过的<code>undefined</code>，其实是<code>window</code>对象上的一个属性！另外还有<code>alert()</code>，<code>setTimeout()</code>等等。所以，今天我们来聊一聊那些挂载在<code>window</code>上的常用的辅助函数都有哪些。</p>
+<hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#javascript中的编码问题"><strong>javascript中的编码问题</strong></a></li>
+<li><a href="#math对象"><strong>Math对象</strong></a></li>
+<li><a href="#json"><strong>JSON</strong></a></li>
+<li><a href="#定时器"><strong>定时器</strong></a></li>
+<li><a href="#其他函数"><strong>其他函数</strong></a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="javascript中的编码问题"></a></p>
+<h2 id="javascript中的编码问题"><a href="#javascript中的编码问题" class="headerlink" title="javascript中的编码问题"></a><strong>javascript中的编码问题</strong></h2><ul>
+<li>escape()方法<br><strong>用法：</strong> <code>escape(str)</code><br>该方法返回一个可在所有计算机上读取的编码 <code>String</code> 对象。<br>它可以使用类似 <code>&quot;%xx&quot;</code> 编码形式（其中 <code>xx</code> 等于表示该字符的十六进制数，字符值大于 <code>255</code> 的字符以 <code>%uxxxx</code> 格式存储）替换一些字符，而不会被此方法编码的字符有 <code>&quot;@&quot;</code> <code>&quot;*&quot;</code> <code>&quot;/&quot;</code> <code>&quot;+&quot;</code> <code>&quot;-&quot;</code> <code>&quot;_&quot;</code> <code>&quot;.&quot;</code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">escape</span>(<span class="string">"你好"</span>)); <span class="comment">//"%u4F60%u597D"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>对应的解码方法：<code>unescape(str)</code>：从用 <code>escape</code> 方法编码的 <code>String</code> 对象中返回已解码的字符串。</p>
+<ul>
+<li><p>encodeURI()方法<br><strong>用法：</strong> <code>encodeURI(str)</code><br>该方法返回编码为有效的<code>统一资源标识符 (URI)</code> 的字符串。<br>encodeURI 方法一般用于对一个 url 进行整体上的编码。不会被此方法编码的字符有 <code>&quot;!&quot;</code> <code>&quot;@&quot;</code> <code>&quot;#&quot;</code> <code>&quot;$&quot;</code> <code>&quot;&amp;&quot;</code> <code>&quot;*&quot;</code> <code>&quot;(&quot;</code> <code>&quot;)&quot;</code> <code>&quot;=&quot;</code> <code>&quot;:&quot;</code> <code>&quot;/&quot;</code> <code>&quot;;&quot;</code> <code>&quot;?&quot;</code> <code>&quot;+&quot;</code> <code>&quot;&#39;&quot;</code><br>如果将编码结果传递给 <code>decodeURI(str)</code>，则将返回初始的字符串。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">encodeURI</span>(<span class="string">"http://hbchou.github.io/javascript?word=你好"</span>));</span><br><span class="line"><span class="comment">// "http://hbchou.github.io/javascript?word=%E4%BD%A0%E5%A5%BD"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>encodeURIComponent()方法<br><strong>用法：</strong> <code>encodeURIComponent(str)</code><br>该方法返回编码为<code>统一资源标识符 (URI)</code> 的有效组件的字符串。<br><code>encodeURIComponent</code> 方法一般用于对 <code>url</code> 中的请求参数名称和参数值进行编码，相当于对请求参数包含的特殊字符进行转义。不会被此方法编码的字符有 <code>&quot;!&quot;</code> <code>&quot;*&quot;</code> <code>&quot;(&quot;</code> <code>&quot;)&quot;</code> <code>&quot;&#39;&quot;</code> <code>&quot;.&quot;</code><br>如果将编码结果传递给 <code>decodeURIComponent(str)</code>，则将返回初始的字符串。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"http://hbChou.github.io/javascript="</span> + <span class="built_in">encodeURIComponent</span>(<span class="string">"http://www.baidu.com"</span>));</span><br><span class="line"><span class="comment">// "http://hbChou.github.io/javascript=http%3A%2F%2Fwww.baidu.com"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a name="math对象"></a></p>
+<h2 id="Math对象"><a href="#Math对象" class="headerlink" title="Math对象"></a><strong>Math对象</strong></h2><p>很明显，<code>Math</code>对象在<code>javascript</code>中是用于辅助计算的对象。在<code>Math</code>对象上保存着很多常用的方法：</p>
+<ul>
+<li><p>Math.min(num1, num2, …)和Math.max(num1, num2, …)方法<br>利用这两个方法可以很容易地获取数组中的最小值和最大值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numbers = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">var</span> maxInNumber = <span class="built_in">Math</span>.max.apply(<span class="built_in">Math</span>, numbers); <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>舍入方法</p>
+</li>
+<li><code>Math.ceil(num)</code>总是将数值向上舍入为最接近的整数</li>
+<li><code>Math.floor(num)</code>总是将数值向下舍入为最接近的整数</li>
+<li><code>Math.round(num)</code>总是将数值四舍五入为最接近的整数</li>
+<li><p>另外，可以通过”~~”连续取反进行取整，不过它的取整规则和上面的不一样，它仅保留数值的整数部分</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(~~<span class="literal">null</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(~~<span class="number">11.4</span>); <span class="comment">// 11</span></span><br><span class="line"><span class="built_in">console</span>.log(~~<span class="number">11.5</span>); <span class="comment">// 11</span></span><br><span class="line"><span class="built_in">console</span>.log(~~<span class="number">-1.5</span>); <span class="comment">// -1</span></span><br><span class="line"><span class="built_in">console</span>.log(~~<span class="number">-1.4</span>); <span class="comment">// -1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>random()方法<br><code>Math.random()</code>方法总是返回大于等于 <code>0</code> 小于 <code>1</code> 的一个随机数。下面举几个有关它的应用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在最小值min和最大值max之间产生一个随机整数</span></span><br><span class="line"><span class="keyword">var</span>  x = <span class="built_in">Math</span>.floor( <span class="built_in">Math</span>.random() * (max - min + <span class="number">1</span>) ) + min;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将一个数组中的元素次序尽可能打乱</span></span><br><span class="line"><span class="keyword">var</span> numbers = [<span class="number">1</span>, <span class="number">23</span>, <span class="number">-4</span>, <span class="number">7</span>, <span class="number">5324</span>, <span class="number">-7873839</span>, <span class="number">0</span>, <span class="number">43</span>];</span><br><span class="line">numbers = numbers.sort(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">Math</span>.random() - <span class="number">0.5</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成由字母和数字构成的随机字符串</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">generateRandomAlphaNum</span>(<span class="params">len</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> rdmString = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">for</span>( ; rdmString.length &lt; len; rdmString += <span class="built_in">Math</span>.random().toString(<span class="number">36</span>).substr(<span class="number">2</span>));</span><br><span class="line">	<span class="keyword">return</span> rdmString.substr(<span class="number">0</span>, len);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其他方法</p>
+</li>
+<li><code>Math.abs(num)</code> 返回<code>num</code>的绝对值</li>
+<li><code>Math.exp(num)</code> 返回<code>Math.E</code>的<code>num</code>次幂</li>
+<li><code>Math.pow(num, power)</code> 返回<code>num</code>的<code>power</code>次幂</li>
+<li><code>Math.sqrt(num)</code> 返回<code>num</code>的平方根</li>
+</ul>
+<p><a name="json"></a></p>
+<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a><strong>JSON</strong></h2><p><strong>首先需要明确的一点是，</strong><code>json</code><strong>有自己的数据类型：字符串（字符串必须使用双引号）、数值、布尔值和</strong><code>null</code><strong>（不支持</strong><code>javascript</code><strong>中的</strong><code>undefined</code><strong>值），另外还支持对象（对象属性名称必须加双引号）和数组，不支持函数。</strong><br><code>javascript</code>中为<code>json</code>格式数据的解析和序列化提供了<code>JSON</code>对象，该对象上主要有两个方法：</p>
+<ul>
+<li>JSON.parse()<br><strong>用法：</strong>JSON.parse(string[, function(key, value) {}])<br>调用<code>JSON.parse(str)</code>解析字符串时，单引号内部必须是一个有效的<code>json</code>格式的数据，即必须严格按照上面的规则来定义，否则会报错！<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// var result = JSON.parse("&#123;'name':'javascript'&#125;"); 报错，字符串必须使用双引号</span></span><br><span class="line"><span class="comment">// var result = JSON.parse('&#123;name:"javascript"&#125;'); 报错，对象属性名必须加双引号</span></span><br><span class="line"><span class="keyword">var</span> result = <span class="built_in">JSON</span>.parse(<span class="string">'&#123;"fruit":["apple","pear"]&#125;'</span>); <span class="comment">// 正确，json中支持数组</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>可以向<code>JSON.parse</code>函数中传入函数作为第二个参数，传入的函数在解析得到的对象键值对上调用，<strong>该函数必须返回一个值</strong>，如果返回的是<code>undefined</code>，则会从结果中删除对应的键；否则会将返回的结果插入到最后解析得到的<code>javascript</code>对象中。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">	title: <span class="string">"java"</span>,</span><br><span class="line">	author: <span class="string">"hbChou"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> str = <span class="built_in">JSON</span>.stringify(book);</span><br><span class="line"><span class="keyword">var</span> result = <span class="built_in">JSON</span>.parse(str, <span class="function"><span class="keyword">function</span>(<span class="params">key, value</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(key === <span class="string">"title"</span>) &#123;</span><br><span class="line">		<span class="comment">// 由于解析得到的是javascript中的对象，此时可以返回所有javascript中支持的类型，包括函数</span></span><br><span class="line">		<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">"hello,I am javascript!"</span>);</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">// 对于其他不需要修改的字段，需要将原来的值返回，否则解析不成功</span></span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;); <span class="comment">// &#123;title: function() &#123;...&#125;, author: "hbChou"&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>-JSON.stringify()<br><strong>用法：</strong>JSON.stringify(obj[, filter, indentOrNot])<br><code>JSON.stringify()</code>方法不仅可以将<code>javascript</code>中的一个对象转化为<code>json</code>字符串，也可以将数组转化为<code>json</code>字符串（因为本身<code>json</code>就支持数组）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])); <span class="comment">// '[1,2,3,4]'</span></span><br></pre></td></tr></table></figure></p>
+<p>另外还可以给<code>JSON.stringify()</code>函数指定额外的参数，传入的<code>filter</code>参数可以是数组（指定最终<code>json</code>字符串中要保留的对象属性，以字符串的形式给出），也可以是函数，传入的函数接受两个参数，分别是<code>json</code>对象的属性名和属性值，同样的，<strong>该函数必须返回一个值</strong>；<code>indentOrNot</code>参数表示是否在<code>json</code>字符串中保持缩进，缩进参数如果是字符串而非数值时，则该字符串将被用作缩进字符。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">	title: <span class="string">"java"</span>,</span><br><span class="line">	author: <span class="string">"hbChou"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> result = <span class="built_in">JSON</span>.stringify(book, <span class="function"><span class="keyword">function</span> (<span class="params">key, value</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (key === <span class="string">"title"</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"javascript"</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;, <span class="string">"-"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure></p>
+<p>打印出来的结果：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">-<span class="string">"title"</span>: <span class="string">"javascript"</span>,</span><br><span class="line">-<span class="string">"author"</span>: <span class="string">"hbChou"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意：</strong>在使用<code>JSON.stringify</code>序列化<code>javascript</code>中的对象时，对象中的函数会被忽略（因为<code>json</code>本身并不支持函数，包括从<code>filter</code>函数返回的函数也会被忽略），任何<code>undefined</code>的值对应的属性都会被跳过，结果中最终保留的都是值为有效<code>json</code>数据类型的实例属性。</p>
+<p>除了可以调用<code>JSON.stringify()</code>函数对对象进行序列化，还可以在对象上实现一个<code>toJSON</code>方法，用于自定义对象序列化后得到的<code>json</code>字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	name: <span class="string">"hb"</span>,</span><br><span class="line">	age: <span class="number">27</span>,</span><br><span class="line">	toJSON: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			name: <span class="string">"haibin"</span>,</span><br><span class="line">			func: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(obj)); <span class="comment">// '&#123;"name": "hb"&#125;'</span></span><br></pre></td></tr></table></figure></p>
+<p>从上面的例子可以看出，一旦在对象上自定义了<code>toJSON</code>方法，则在调用<code>JSON.stringify</code>函数会直接调用对象的<code>toJSON</code>方法返回结果。但不是说这就是最终序列化的结果，对于toJSON方法返回的数据并不是有效的json格式，<code>JSON.stringify</code>函数还会做进一步的处理，只保留有效的<code>json</code>数据类型的实例属性。如果此时<code>JSON.stringify</code>函数还指定了filter参数，则还会根据filter参数做进一步的过滤。</p>
+<p><a name="定时器"></a></p>
+<h2 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a><strong>定时器</strong></h2><p>我们都知道，<code>javascript</code>中提供了两个函数来实现类似定时器的功能：</p>
+<ul>
+<li><code>setTimeout(funciton(){}, timeout)</code>：超时调用函数，返回一个定时器的<code>ID</code>值，可用于取消该定时器。</li>
+<li><code>setInterval(function(){}, interval)</code>：重复间隔调用函数，同样返回一个<code>ID</code>值。<br>清除定时器：<code>clearTimeout(timer)</code>或者<code>clearInterval(timer)</code>:只能取消在队列中尚未执行的定时器，如果要取消的定时器正在执行，则无法取消。</li>
+</ul>
+<p>关于<code>setTimeout()</code>和<code>setInterval()</code>的区别：</p>
+<ul>
+<li>很明显，两者的功能不同，一个超时调用，一个则是重复间隔调用</li>
+<li>使用<code>setTimeout()</code>嵌套可以实现类似<code>setInterval()</code>的功能，但是两者还是有区别的：<br><code>setInterval(function, interval)</code>：本意上是每隔<code>interval</code>毫秒的时间间隔执行一次回调函数，但这是回调函数执行时间小于设置的<code>interval</code>毫秒的时间间隔的情况。如果回调函数的执行时间超过了<code>interval</code>毫秒的时间间隔，则在回调函数的执行过程中按<code>interval</code>毫秒的时间间隔将下一个回调函数添加到执行队列中，如果当前执行队列中存在一个尚未执行的定时器代码实例，则不会添加回调函数添加到执行队列中，这样可能会丢失一些回调函数。而<code>setTimeout</code>函数嵌套则不会发生这样的情况：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	...</span><br><span class="line">	setTimeout(argument.callee, timeout);</span><br><span class="line">&#125;, timeout);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在<code>setTimeout</code>函数嵌套中，无论中间的代码执行经过多长时间，都会在每次执行操作后经过<code>timeout</code>毫秒的时间间隔之后将回调函数添加到执行队列中，然后执行，确保不会错过任何的回调函数。</p>
+<p><a name="其他函数"></a></p>
+<h2 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a><strong>其他函数</strong></h2><ul>
+<li>confirm()<br><code>confirm()</code> 通常用于弹出对话框(包括一个确定按钮和一个取消按钮)。<br><strong>用法：</strong><code>confirm(str)</code><br><code>str</code>参数表示要在消息对话框中显示的文本。函数返回一个布尔值，当用户点击”确定”按钮时，返回<code>true</code>；当用户点击”取消”按钮时，返回<code>false</code>。</li>
+<li>prompt()<br><code>prompt()</code> 通常用于询问一些需要与用户交互的信息。弹出消息对话框（包含一个确定按钮、取消按钮与一个文本输入框）。<br><strong>用法：</strong><code>prompt(str1, str2)</code><br><code>str1</code>参数表示要显示在消息对话框中的文本，不可修改；<code>str2</code>参数表示需要用户输入的文本框中显示的内容，可以修改。函数的返回值：当点击确定按钮，文本框中的内容将作为函数返回值；点击取消按钮，将返回<code>null</code>。</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-你所不知道的javascript之包装类型" class="article article-type-post" itemscope itemprop="blogPost">
   

@@ -90,7 +90,7 @@ CSRF
 
 
 浏览器是">
-<meta property="og:updated_time" content="2016-05-15T01:12:59.744Z">
+<meta property="og:updated_time" content="2016-05-15T03:25:01.425Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端优化方案和安全问题">
 <meta name="twitter:description" content="这一节让我们来总结一些常见的前端优化方案以及一些安全问题。
@@ -197,7 +197,7 @@ CSRF
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -234,7 +234,7 @@ CSRF
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/Sass/" style="font-size: 10px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -454,15 +454,14 @@ CSRF
 <li>解决加载缓慢的第三方内容如图标和广告等的加载问题</li>
 <li><code>Security sandbox</code>（安全沙箱）<ul>
 <li>禁止访问父页面的<code>DOM</code>（从技术角度来说，这是因为相对于父页面<code>iframe</code>已经成为不同的源了）</li>
-<li>禁止执行脚本</li>
 <li>禁止对<code>cookie</code>、本地存储或本地<code>SQL</code>数据库的读写</li>
 </ul>
 </li>
-<li>并行加载脚本</li>
+<li><strong>并行加载脚本，此时并不会阻塞主页面的加载</strong></li>
 </ul>
 <p>缺点：</p>
 <ul>
-<li><code>iframe</code>会阻塞主页面的<code>onload</code>事件；</li>
+<li>对于需要加载静态资源的<code>iframe</code>会阻塞主页面的<code>onload</code>事件</li>
 <li>即使内容为空，加载也需要时间</li>
 </ul>
 <p><a name="什么是cdn"></a></p>
@@ -493,7 +492,7 @@ CSRF
 <p>防止超链接访问过后<code>hover</code>样式就不出现了，以及被点击访问过的超链接样式不再具有<code>hover</code>和<code>active</code>样式了</p>
 <p><a name="前端安全问题"></a></p>
 <h2 id="前端安全问题"><a href="#前端安全问题" class="headerlink" title="前端安全问题"></a><strong>前端安全问题</strong></h2><p><a name="xss"></a></p>
-<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a><strong>XSS</strong></h3><p><code>XSS</code> 全称“跨站脚本”，是注入攻击的一种。其特点是不对服务器端造成任何伤害，而是通过一些正常的站内交互途径，例如发布评论，提交含有 <code>JavaScript</code> 的内容文本。这时服务器端如果没有过滤或转义掉这些脚本，作为内容发布到了页面上，其他用户访问这个页面的时候就会运行这些脚本。</p>
+<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a><strong>XSS</strong></h3><p><code>XSS</code> 全称“跨站脚本”，是注入攻击的一种。其特点是不对服务器端造成任何伤害，而是通过一些正常的站内交互途径，例如<strong>发布评论，提交含有 <code>JavaScript</code> 的内容文本</strong>。这时服务器端如果没有过滤或转义掉这些脚本，作为内容发布到了页面上，其他用户访问这个页面的时候就会运行这些脚本。</p>
 <p><a name="跨站脚本攻击的解决思路"></a></p>
 <h4 id="跨站脚本攻击的解决思路"><a href="#跨站脚本攻击的解决思路" class="headerlink" title="跨站脚本攻击的解决思路"></a><strong>跨站脚本攻击的解决思路</strong></h4><p>预防<code>XSS</code>攻击的基本方法是：确保任何被输出到<code>HTML</code>页面中的数据以<code>HTML</code>的方式进行转义<code>（HTML escape）</code>。例如<code>PHP</code>输出：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span>&lt;?php echo $articleText; ?&gt;<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>如果这个<code>articleText</code>是由用户自行输入的，那么攻击者很有可能输入一段包含<code>javascript</code>恶意攻击代码的文本，使得最终输出变成：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">alert(<span class="string">'hello'</span>)<span class="string">'</span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
