@@ -79,7 +79,7 @@
 						<li>Links</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -116,7 +116,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/Sass/" style="font-size: 10px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -192,11 +192,11 @@
 
       <div class="body-wrap">
   
-    <article id="post-Sass的使用" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Sass的使用之内置函数、Map和-mediaa" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/05/15/Sass的使用/" class="article-date">
-  	<time datetime="2016-05-15T09:43:07.000Z" itemprop="datePublished">2016-05-15</time>
+      <a href="/2016/05/15/Sass的使用之内置函数、Map和-mediaa/" class="article-date">
+  	<time datetime="2016-05-15T10:08:18.000Z" itemprop="datePublished">2016-05-15</time>
 </a>
     </div>
   
@@ -209,7 +209,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/15/Sass的使用/">Sass的使用</a>
+      <a class="article-title" href="/2016/05/15/Sass的使用之内置函数、Map和-mediaa/">Sass的使用之内置函数、Map和@mediaa</a>
     </h1>
   
 
@@ -221,39 +221,6 @@
         <hr>
 <!-- MarkdownTOC -->
 <ul>
-<li><a href="#声明默认变量"><strong>声明默认变量</strong></a></li>
-<li><a href="#嵌套"><strong>嵌套</strong></a><ul>
-<li><a href="#选择器嵌套"><strong>选择器嵌套</strong></a></li>
-<li><a href="#属性嵌套"><strong>属性嵌套</strong></a></li>
-<li><a href="#伪类嵌套"><strong>伪类嵌套</strong></a></li>
-</ul>
-</li>
-<li><a href="#混合宏"><strong>混合宏</strong></a></li>
-<li><a href="#继承"><strong>继承</strong></a></li>
-<li><a href="#占位符%placeholder"><strong>占位符%placeholder</strong></a></li>
-<li><a href="#插值"><strong>插值#{}</strong></a></li>
-<li><a href="#sass中的数据类型"><strong>SASS中的数据类型</strong></a><ul>
-<li><a href="#字符串"><strong>字符串</strong></a></li>
-<li><a href="#值列表"><strong>值列表</strong></a></li>
-</ul>
-</li>
-<li><a href="#运算"><strong>运算</strong></a><ul>
-<li><a href="#加法"><strong>加法</strong></a></li>
-<li><a href="#乘法"><strong>乘法</strong></a></li>
-<li><a href="#除法"><strong>除法</strong></a></li>
-<li><a href="#的其他用法"><strong>“+”的其他用法</strong></a></li>
-</ul>
-</li>
-<li><a href="#指令"><strong>指令</strong></a><ul>
-<li><a href="#if指令"><strong>@if指令</strong></a></li>
-<li><a href="#for循环"><strong>@for循环</strong></a><ul>
-<li><a href="#for循环的两种语法"><strong>@for循环的两种语法</strong></a></li>
-</ul>
-</li>
-<li><a href="#while循环"><strong>@while循环</strong></a></li>
-<li><a href="#each循环"><strong>@each循环</strong></a></li>
-</ul>
-</li>
 <li><a href="#内置函数"><strong>内置函数</strong></a><ul>
 <li><a href="#字符串函数"><strong>字符串函数</strong></a></li>
 <li><a href="#数字函数"><strong>数字函数</strong></a></li>
@@ -272,76 +239,6 @@
 </ul>
 <!-- /MarkdownTOC -->
 <hr>
-<p><a name="声明默认变量"></a></p>
-<h2 id="声明默认变量"><a href="#声明默认变量" class="headerlink" title="声明默认变量"></a><strong>声明默认变量</strong></h2><p><code>Sass</code> 的默认变量仅需要在值后面加上 <code>!default</code> 即可。<br><code>Sass</code> 的默认变量一般是用来设置默认值，然后根据需求来覆盖的，覆盖的方式也很简单，只需要在默认变量之前重新声明下变量即可。</p>
-<p><a name="嵌套"></a></p>
-<h2 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a><strong>嵌套</strong></h2><p><a name="选择器嵌套"></a></p>
-<h3 id="选择器嵌套"><a href="#选择器嵌套" class="headerlink" title="选择器嵌套"></a><strong>选择器嵌套</strong></h3><p>例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nav a &#123;</span><br><span class="line">  color:red;</span><br><span class="line">&#125;</span><br><span class="line">header nav a &#123;</span><br><span class="line">  color:green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>那么在 <code>Sass</code> 中，就可以使用选择器的嵌套来实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nav &#123;</span><br><span class="line">  a &#123;</span><br><span class="line">    color: red;</span><br><span class="line">    header &amp; &#123;</span><br><span class="line">      color:green;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a name="属性嵌套"></a></p>
-<h3 id="属性嵌套"><a href="#属性嵌套" class="headerlink" title="属性嵌套"></a><strong>属性嵌套</strong></h3><p>例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">    border-top: 1px solid red;</span><br><span class="line">    border-bottom: 1px solid green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在 <code>Sass</code> 中我们可以这样写：（注意嵌套之后 <code>border</code> 后面有一个冒号）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  border: &#123;</span><br><span class="line">   top: 1px solid red;</span><br><span class="line">   bottom: 1px solid green;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a name="伪类嵌套"></a></p>
-<h3 id="伪类嵌套"><a href="#伪类嵌套" class="headerlink" title="伪类嵌套"></a><strong>伪类嵌套</strong></h3><p>跟选择器嵌套类似，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.clearfix&#123;</span><br><span class="line">    &amp;:before,</span><br><span class="line">    &amp;:after &#123;</span><br><span class="line">        content:&quot;&quot;;</span><br><span class="line">        display: table;</span><br><span class="line">    &#125;</span><br><span class="line">    &amp;:after &#123;</span><br><span class="line">        clear:both;</span><br><span class="line">        overflow: hidden;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>编译出来的 <code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">clearfix:before, .clearfix:after &#123;</span><br><span class="line">  content: &quot;&quot;;</span><br><span class="line">  display: table;</span><br><span class="line">&#125;</span><br><span class="line">.clearfix:after &#123;</span><br><span class="line">  clear: both;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a name="混合宏"></a></p>
-<h2 id="混合宏"><a href="#混合宏" class="headerlink" title="混合宏"></a><strong>混合宏</strong></h2><p>主要作用：重用 <code>CSS</code> 代码<br>使用<code>&quot;@mixin&quot;</code>来定义混合宏，它可以传递参数<br>调用混合宏，使用<code>&quot;@include mixin_name&quot;</code><br>混合宏的缺点：容易造成代码的冗余，相同的代码会在编译出来的CSS文件出现多处</p>
-<p><a name="继承"></a></p>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a><strong>继承</strong></h2><p>继承：将多个使用相同 <code>CSS</code> 代码的选择器合并（构成组合选择器）使用同一套 <code>CSS</code> 代码，解决了使用混合宏存在的问题<br>要使用继承，就必须先定义基类（例如下面的<code>.btn</code>）。使用”@extend”来实现继承，直接引用基类即可。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.btn &#123;</span><br><span class="line">  border: 1px solid #ccc;</span><br><span class="line">  padding: 6px 10px;</span><br><span class="line">  font-size: 14px;</span><br><span class="line">&#125;</span><br><span class="line">.btn-primary &#123;</span><br><span class="line">  background-color: #f36;</span><br><span class="line">  color: #fff;</span><br><span class="line">  @extend .btn;</span><br><span class="line">&#125;</span><br><span class="line">.btn-second &#123;</span><br><span class="line">  background-color: orange;</span><br><span class="line">  color: #fff;</span><br><span class="line">  @extend .btn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>编译出来之后：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//CSS</span><br><span class="line">.btn, .btn-primary, .btn-second &#123;</span><br><span class="line">  border: 1px solid #ccc;</span><br><span class="line">  padding: 6px 10px;</span><br><span class="line">  font-size: 14px;</span><br><span class="line">&#125;</span><br><span class="line">.btn-primary &#123;</span><br><span class="line">  background-color: #f36;</span><br><span class="line">  color: #fff;</span><br><span class="line">&#125;</span><br><span class="line">.btn-second &#123;</span><br><span class="line">  background-clor: orange;</span><br><span class="line">  color: #fff;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><code>&quot;@extend&quot;</code> 可以扩展任何选择器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.hoverlink &#123;</span><br><span class="line">  @extend a:hover;</span><br><span class="line">&#125;</span><br><span class="line">a:hover &#123;</span><br><span class="line">  text-decoration: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>编译出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a:hover, .hoverlink &#123;</span><br><span class="line">  text-decoration: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>稍微复杂的栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.hoverlink &#123;</span><br><span class="line">  @extend a:hover;</span><br><span class="line">&#125;</span><br><span class="line">.comment a.user:hover &#123;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>编译出来的 <code>CSS</code> ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.comment a.user:hover, .comment .user.hoverlink &#123;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在使用继承时，可以认为是将基类选择器去掉与<code>&quot;@extend&quot;</code>相同的部分，如果将基类选择器的最后一级全部去掉了，则再将调用<code>&quot;@extend&quot;</code>的选择器名作为基类选择器的最后一级；如果只是原来的基类选择器的最后一级还有部分保留，则将调用<code>&quot;@extend&quot;</code>的选择器名拼接到基类选择器的最后一级中（注意不是作为后代选择器）。<br>使用继承存在的问题是上面的.btn选择器最终也会编译到<code>CSS</code>代码中。</p>
-<p><a name="占位符%placeholder"></a></p>
-<h2 id="占位符-placeholder"><a href="#占位符-placeholder" class="headerlink" title="占位符%placeholder"></a><strong>占位符%placeholder</strong></h2><p>可以使用<code>%placeholder</code>来解决继承存在的问题。只有当基类被 <code>@extend</code> 调用，才会生成<code>CSS</code>代码。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//SCSS</span><br><span class="line">%mt5 &#123;</span><br><span class="line">  margin-top: 5px;</span><br><span class="line">&#125;</span><br><span class="line">%pt5&#123;</span><br><span class="line">  padding-top: 5px;</span><br><span class="line">&#125;</span><br><span class="line">.btn &#123;</span><br><span class="line">  @extend %mt5;</span><br><span class="line">  @extend %pt5;</span><br><span class="line">&#125;</span><br><span class="line">.block &#123;</span><br><span class="line">  @extend %mt5;</span><br><span class="line">  span &#123;</span><br><span class="line">    @extend %pt5;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>编译出来的<code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//CSS`</span><br><span class="line">.btn, .block &#123;</span><br><span class="line">  margin-top: 5px;</span><br><span class="line">&#125;</span><br><span class="line">.btn, .block span &#123;</span><br><span class="line">  padding-top: 5px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a name="插值"></a></p>
-<h2 id="插值"><a href="#插值" class="headerlink" title="插值#{}"></a><strong>插值#{}</strong></h2><p>大括号里面可以是变量<br>插值的作用：<br>1、构建属性名字符串<br>2、构建选择器名称<br>但它不能用于构建变量名，另外在使用<code>&quot;@include&quot;</code>调用混合宏时，插值不能用于构建混合宏名称；使用<code>&quot;@extend&quot;</code>继承时，基类名称或者占位符名称可以用插值构建。</p>
-<p><a name="sass中的数据类型"></a></p>
-<h2 id="SASS中的数据类型"><a href="#SASS中的数据类型" class="headerlink" title="SASS中的数据类型"></a><strong>SASS中的数据类型</strong></h2><p><a name="字符串"></a></p>
-<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a><strong>字符串</strong></h3><p>字符串有两种：<br>有引号字符串<code>(quoted strings)</code>，如 <code>&quot;Lucida Grande&quot;</code> 、<code>&#39;http://sass-lang.com&#39;</code>；<br>无引号字符串<code>(unquoted strings)</code>，如 <code>sans-serifbold</code>。<br>在编译 <code>CSS</code> 文件时不会改变其类型。只有一种情况例外，使用 <code>#{}</code>插值语句时，有引号字符串将被编译为无引号字符串，这样方便了在混合指令 (<code>mixin</code>) 中引用选择器名。</p>
-<p><a name="值列表"></a></p>
-<h3 id="值列表"><a href="#值列表" class="headerlink" title="值列表"></a><strong>值列表</strong></h3><p>通过空格或者逗号分隔的一系列的值。<br>值列表函数</p>
-<ol>
-<li><code>nth</code>函数可以直接访问值列表中的某一项；</li>
-<li><code>join</code>函数可以将多个值列表连结在一起；</li>
-<li><code>append</code>函数可以在值列表中添加值；</li>
-<li><code>@each</code>规则能够给值列表中的每个项目添加样式。<br>值列表中可以再包含值列表，比如 <code>1px 2px, 5px 6px</code> 是包含 <code>1px 2px</code> 与 <code>5px 6px</code> 两个值列表的值列表。如果内外两层值列表使用相同的分隔方式，要用圆括号包裹内层，所以也可以写成 <code>(1px 2px) (5px 6px)</code>。当值列表被编译为 <code>CSS</code> 时，<code>Sass</code> 不会添加任何圆括号，因为 <code>CSS</code> 不允许这样做。<code>(1px 2px) (5px 6px)</code>与 <code>1px 2px 5px 6px</code> 在编译后的 <code>CSS</code> 文件中是一样的，但是它们在 <code>Sass</code> 文件中却有不同的意义，前者是包含两个值列表的值列表，而后者是包含四个值的值列表。</li>
-</ol>
-<p><a name="运算"></a></p>
-<h2 id="运算"><a href="#运算" class="headerlink" title="运算"></a><strong>运算</strong></h2><p><a name="加法"></a></p>
-<h3 id="加法"><a href="#加法" class="headerlink" title="加法"></a><strong>加法</strong></h3><p>对于携带不同类型的单位时，在 <code>Sass</code> 中计算会报错<br>做加法运算时，加号两边某个值如果不带单位，默认和另一个值单位相同。减法和加法类似。</p>
-<p><a name="乘法"></a></p>
-<h3 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a><strong>乘法</strong></h3><p>相乘的两个值都带单位会报错。在运算中有不同类型的单位时，也将会报错。</p>
-<p><a name="除法"></a></p>
-<h3 id="除法"><a href="#除法" class="headerlink" title="除法"></a><strong>除法</strong></h3><ul>
-<li>单独两个值做除法运算时，需要给除法表达式添加圆括号。否则编译器会理解为是字符串。</li>
-<li>如果<code>“/”</code>符号在已有的数学表达式中时，也会被认作除法符号。</li>
-<li>当用变量进行除法运算时，<code>“/”</code>符号也会自动被识别成除法。<br>例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">  font: 10px/8px;             // 纯 CSS，不是除法运算</span><br><span class="line">  $width: 1000px;</span><br><span class="line">  width: $width/2;            // 使用了变量，是除法运算</span><br><span class="line">  width: round(1.5)/2;        // 使用了函数，是除法运算</span><br><span class="line">  height: (500px/2);          // 使用了圆括号，是除法运算</span><br><span class="line">  margin-left: 5px + 8px/2px; // 使用了加（+）号，是除法运算</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>在除法运算时，如果两个值带有相同的单位值时，除法运算之后会得到一个不带单位的数值。</p>
-<p><a name="的其他用法"></a></p>
-<h3 id="“-”的其他用法"><a href="#“-”的其他用法" class="headerlink" title="“+”的其他用法"></a><strong>“+”的其他用法</strong></h3><p>除此之外，可以通过加法符号<code>“+”</code>在变量或属性值中对字符串进行连接。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$content: &quot;Hello&quot; + &quot;&quot; + &quot;Sass!&quot;;</span><br><span class="line">.box:before &#123;</span><br><span class="line">  content: &quot; #&#123;$content&#125; &quot;;</span><br><span class="line">&#125;</span><br><span class="line">div &#123;</span><br><span class="line">  cursor: e + -resize;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果有引号的字符串被添加了一个没有引号的字符串 （也就是，带引号的字符串在 <code>&quot;+&quot;</code> 符号左侧），结果会是一个有引号的字符串。同样的，如果一个没有引号的字符串被添加了一个有引号的字符串 （没有引号的字符串在 <code>&quot;+&quot;</code> 符号左侧）， 结果将是一个没有引号的字符串。</p>
-<p><a name="指令"></a></p>
-<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a><strong>指令</strong></h2><p><a name="if指令"></a></p>
-<h3 id="if指令"><a href="#if指令" class="headerlink" title="@if指令"></a><strong>@if指令</strong></h3><p>它可以根据条件来处理样式块，如果条件为 <code>true</code> 返回一个样式块，反之 <code>false</code> 返回另一个样式块。在 <code>Sass</code> 中除了可以单独使用 <code>@if</code> 之外，还可以配合 <code>@else if</code> 和 <code>@else</code> 一起使用。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@mixin blockOrHidden($boolean:true) &#123;</span><br><span class="line">  @if $boolean &#123;</span><br><span class="line">      @debug &quot;$boolean is #&#123;$boolean&#125;&quot;;</span><br><span class="line">      display: block;</span><br><span class="line">    &#125;</span><br><span class="line">  @else &#123;</span><br><span class="line">      @debug &quot;$boolean is #&#123;$boolean&#125;&quot;;</span><br><span class="line">      display: none;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.block &#123;</span><br><span class="line">  @include blockOrHidden;</span><br><span class="line">&#125;</span><br><span class="line">.hidden&#123;</span><br><span class="line">  @include blockOrHidden(false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>编译出来的<code>CSS</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.block &#123;</span><br><span class="line">  display: block;</span><br><span class="line">&#125;</span><br><span class="line">.hidden &#123;</span><br><span class="line">  display: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a name="for循环"></a></p>
-<h3 id="for循环"><a href="#for循环" class="headerlink" title="@for循环"></a><strong>@for循环</strong></h3><p><a name="for循环的两种语法"></a></p>
-<h4 id="for循环的两种语法"><a href="#for循环的两种语法" class="headerlink" title="@for循环的两种语法"></a><strong>@for循环的两种语法</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@for $i from &lt;start&gt; through &lt;end&gt;</span><br><span class="line">@for $i from &lt;start&gt; to &lt;end&gt;</span><br></pre></td></tr></table></figure>
-<p>这两个的区别是关键字 <code>through</code> 表示包括 <code>end</code> 这个数，而 <code>to</code> 则不包括 <code>end</code> 这个数。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$grid-prefix: span !default;</span><br><span class="line">$grid-width: 60px !default;</span><br><span class="line">$grid-gutter: 20px !default;</span><br><span class="line">%grid &#123;</span><br><span class="line">  float: left;</span><br><span class="line">  margin-left: $grid-gutter / 2;</span><br><span class="line">  margin-right: $grid-gutter / 2;</span><br><span class="line">&#125;</span><br><span class="line">@for $i from 1 through 4 &#123;</span><br><span class="line">  .#&#123;$grid-prefix&#125;#&#123;$i&#125;&#123;</span><br><span class="line">    width: $grid-width * $i + $grid-gutter * ($i - 1);</span><br><span class="line">    @extend %grid;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>编译出来的 <code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8, .span9, .span10, .span11, .span12 &#123;</span><br><span class="line">  float: left;</span><br><span class="line">  margin-left: 10px;</span><br><span class="line">  margin-right: 10px;</span><br><span class="line">&#125;</span><br><span class="line">.span1 &#123;</span><br><span class="line">  width: 60px;</span><br><span class="line">&#125;</span><br><span class="line">.span2 &#123;</span><br><span class="line">  width: 140px;</span><br><span class="line">&#125;</span><br><span class="line">.span3 &#123;</span><br><span class="line">  width: 220px;</span><br><span class="line">&#125;</span><br><span class="line">.span4 &#123;</span><br><span class="line">  width: 300px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a name="while循环"></a></p>
-<h3 id="while循环"><a href="#while循环" class="headerlink" title="@while循环"></a><strong>@while循环</strong></h3><p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$types: 4;</span><br><span class="line">$type-width: 20px;</span><br><span class="line">@while $types &gt; 0 &#123;</span><br><span class="line">    .while-#&#123;$types&#125; &#123;</span><br><span class="line">        width: $type-width + $types;</span><br><span class="line">    &#125;</span><br><span class="line">    $types: $types - 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>编译出来的 <code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.while-4 &#123;</span><br><span class="line">  width: 24px;</span><br><span class="line">&#125;</span><br><span class="line">.while-3 &#123;</span><br><span class="line">  width: 23px;</span><br><span class="line">&#125;</span><br><span class="line">.while-2 &#123;</span><br><span class="line">  width: 22px;</span><br><span class="line">&#125;</span><br><span class="line">.while-1 &#123;</span><br><span class="line">  width: 21px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a name="each循环"></a></p>
-<h3 id="each循环"><a href="#each循环" class="headerlink" title="@each循环"></a><strong>@each循环</strong></h3><p><code>@each</code> 循环就是去遍历一个列表，然后从列表中取出对应的值。<br><code>@each</code> 循环指令的形式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@each $var in &lt;list&gt;</span><br></pre></td></tr></table></figure></p>
-<p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$list: adam john wynn mason kuroir;//$list 就是一个列表</span><br><span class="line">@mixin author-images &#123;</span><br><span class="line">    @each $author in $list &#123;</span><br><span class="line">        .photo-#&#123;$author&#125; &#123;</span><br><span class="line">            background: url(&quot;/images/avatars/#&#123;$author&#125;.png&quot;) no-repeat;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.author-bio &#123;</span><br><span class="line">    @include author-images;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>编译出 <code>CSS</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.author-bio .photo-adam &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/adam.png&quot;) no-repeat; &#125;</span><br><span class="line">.author-bio .photo-john &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/john.png&quot;) no-repeat; &#125;</span><br><span class="line">.author-bio .photo-wynn &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/wynn.png&quot;) no-repeat; &#125;</span><br><span class="line">.author-bio .photo-mason &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/mason.png&quot;) no-repeat; &#125;</span><br><span class="line">.author-bio .photo-kuroir &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/kuroir.png&quot;) no-repeat; &#125;</span><br></pre></td></tr></table></figure></p>
 <p><a name="内置函数"></a></p>
 <h2 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a><strong>内置函数</strong></h2><p><a name="字符串函数"></a></p>
 <h3 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a><strong>字符串函数</strong></h3><p>字符串函数顾名思意是用来处理字符串的函数。<code>Sass</code> 的字符串函数主要包括：<br><code>unquote($string)</code>：删除字符串中的引号；<br><code>quote($string)</code>：给字符串添加引号。如果字符串自身带有引号会统一换成双引号 <code>&quot;&quot;</code>。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.test1 &#123;</span><br><span class="line">    content:  quote(&apos;Hello Sass!&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -388,6 +285,233 @@
 <p>此时编译出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@media screen and (orientation: landscape) &#123;</span><br><span class="line">  .sidebar &#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>在使用 <code>@media</code> 时，还可以使用插值<code>#{}</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$media: screen;</span><br><span class="line">$feature: -webkit-min-device-pixel-ratio;</span><br><span class="line">$value: 1.5;</span><br><span class="line">@media #&#123;$media&#125; and ($feature: $value) &#123;</span><br><span class="line">  .sidebar &#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>编译出来的 <code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@media screen and (-webkit-min-device-pixel-ratio: 1.5) &#123;</span><br><span class="line">  .sidebar &#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sass/">Sass</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Sass的使用之数据类型、运算和指令" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/15/Sass的使用之数据类型、运算和指令/" class="article-date">
+  	<time datetime="2016-05-15T10:07:21.000Z" itemprop="datePublished">2016-05-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/15/Sass的使用之数据类型、运算和指令/">Sass的使用之数据类型、运算和指令</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#sass中的数据类型"><strong>SASS中的数据类型</strong></a><ul>
+<li><a href="#字符串"><strong>字符串</strong></a></li>
+<li><a href="#值列表"><strong>值列表</strong></a></li>
+</ul>
+</li>
+<li><a href="#运算"><strong>运算</strong></a><ul>
+<li><a href="#加法"><strong>加法</strong></a></li>
+<li><a href="#乘法"><strong>乘法</strong></a></li>
+<li><a href="#除法"><strong>除法</strong></a></li>
+<li><a href="#的其他用法"><strong>“+”的其他用法</strong></a></li>
+</ul>
+</li>
+<li><a href="#指令"><strong>指令</strong></a><ul>
+<li><a href="#if指令"><strong>@if指令</strong></a></li>
+<li><a href="#for循环"><strong>@for循环</strong></a><ul>
+<li><a href="#for循环的两种语法"><strong>@for循环的两种语法</strong></a></li>
+</ul>
+</li>
+<li><a href="#while循环"><strong>@while循环</strong></a></li>
+<li><a href="#each循环"><strong>@each循环</strong></a></li>
+</ul>
+</li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="sass中的数据类型"></a></p>
+<h2 id="SASS中的数据类型"><a href="#SASS中的数据类型" class="headerlink" title="SASS中的数据类型"></a><strong>SASS中的数据类型</strong></h2><p><a name="字符串"></a></p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a><strong>字符串</strong></h3><p>字符串有两种：<br>有引号字符串<code>(quoted strings)</code>，如 <code>&quot;Lucida Grande&quot;</code> 、<code>&#39;http://sass-lang.com&#39;</code>；<br>无引号字符串<code>(unquoted strings)</code>，如 <code>sans-serifbold</code>。<br>在编译 <code>CSS</code> 文件时不会改变其类型。只有一种情况例外，使用 <code>#{}</code>插值语句时，有引号字符串将被编译为无引号字符串，这样方便了在混合指令 (<code>mixin</code>) 中引用选择器名。</p>
+<p><a name="值列表"></a></p>
+<h3 id="值列表"><a href="#值列表" class="headerlink" title="值列表"></a><strong>值列表</strong></h3><p>通过空格或者逗号分隔的一系列的值。<br>值列表函数</p>
+<ol>
+<li><code>nth</code>函数可以直接访问值列表中的某一项；</li>
+<li><code>join</code>函数可以将多个值列表连结在一起；</li>
+<li><code>append</code>函数可以在值列表中添加值；</li>
+<li><code>@each</code>规则能够给值列表中的每个项目添加样式。<br>值列表中可以再包含值列表，比如 <code>1px 2px, 5px 6px</code> 是包含 <code>1px 2px</code> 与 <code>5px 6px</code> 两个值列表的值列表。如果内外两层值列表使用相同的分隔方式，要用圆括号包裹内层，所以也可以写成 <code>(1px 2px) (5px 6px)</code>。当值列表被编译为 <code>CSS</code> 时，<code>Sass</code> 不会添加任何圆括号，因为 <code>CSS</code> 不允许这样做。<code>(1px 2px) (5px 6px)</code>与 <code>1px 2px 5px 6px</code> 在编译后的 <code>CSS</code> 文件中是一样的，但是它们在 <code>Sass</code> 文件中却有不同的意义，前者是包含两个值列表的值列表，而后者是包含四个值的值列表。</li>
+</ol>
+<p><a name="运算"></a></p>
+<h2 id="运算"><a href="#运算" class="headerlink" title="运算"></a><strong>运算</strong></h2><p><a name="加法"></a></p>
+<h3 id="加法"><a href="#加法" class="headerlink" title="加法"></a><strong>加法</strong></h3><p>对于携带不同类型的单位时，在 <code>Sass</code> 中计算会报错<br>做加法运算时，加号两边某个值如果不带单位，默认和另一个值单位相同。减法和加法类似。</p>
+<p><a name="乘法"></a></p>
+<h3 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a><strong>乘法</strong></h3><p>相乘的两个值都带单位会报错。在运算中有不同类型的单位时，也将会报错。</p>
+<p><a name="除法"></a></p>
+<h3 id="除法"><a href="#除法" class="headerlink" title="除法"></a><strong>除法</strong></h3><ul>
+<li>单独两个值做除法运算时，需要给除法表达式添加圆括号。否则编译器会理解为是字符串。</li>
+<li>如果<code>“/”</code>符号在已有的数学表达式中时，也会被认作除法符号。</li>
+<li>当用变量进行除法运算时，<code>“/”</code>符号也会自动被识别成除法。<br>例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">  font: 10px/8px;             // 纯 CSS，不是除法运算</span><br><span class="line">  $width: 1000px;</span><br><span class="line">  width: $width/2;            // 使用了变量，是除法运算</span><br><span class="line">  width: round(1.5)/2;        // 使用了函数，是除法运算</span><br><span class="line">  height: (500px/2);          // 使用了圆括号，是除法运算</span><br><span class="line">  margin-left: 5px + 8px/2px; // 使用了加（+）号，是除法运算</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在除法运算时，如果两个值带有相同的单位值时，除法运算之后会得到一个不带单位的数值。</p>
+<p><a name="的其他用法"></a></p>
+<h3 id="“-”的其他用法"><a href="#“-”的其他用法" class="headerlink" title="“+”的其他用法"></a><strong>“+”的其他用法</strong></h3><p>除此之外，可以通过加法符号<code>“+”</code>在变量或属性值中对字符串进行连接。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$content: &quot;Hello&quot; + &quot;&quot; + &quot;Sass!&quot;;</span><br><span class="line">.box:before &#123;</span><br><span class="line">  content: &quot; #&#123;$content&#125; &quot;;</span><br><span class="line">&#125;</span><br><span class="line">div &#123;</span><br><span class="line">  cursor: e + -resize;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果有引号的字符串被添加了一个没有引号的字符串 （也就是，带引号的字符串在 <code>&quot;+&quot;</code> 符号左侧），结果会是一个有引号的字符串。同样的，如果一个没有引号的字符串被添加了一个有引号的字符串 （没有引号的字符串在 <code>&quot;+&quot;</code> 符号左侧）， 结果将是一个没有引号的字符串。</p>
+<p><a name="指令"></a></p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a><strong>指令</strong></h2><p><a name="if指令"></a></p>
+<h3 id="if指令"><a href="#if指令" class="headerlink" title="@if指令"></a><strong>@if指令</strong></h3><p>它可以根据条件来处理样式块，如果条件为 <code>true</code> 返回一个样式块，反之 <code>false</code> 返回另一个样式块。在 <code>Sass</code> 中除了可以单独使用 <code>@if</code> 之外，还可以配合 <code>@else if</code> 和 <code>@else</code> 一起使用。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@mixin blockOrHidden($boolean:true) &#123;</span><br><span class="line">  @if $boolean &#123;</span><br><span class="line">      @debug &quot;$boolean is #&#123;$boolean&#125;&quot;;</span><br><span class="line">      display: block;</span><br><span class="line">    &#125;</span><br><span class="line">  @else &#123;</span><br><span class="line">      @debug &quot;$boolean is #&#123;$boolean&#125;&quot;;</span><br><span class="line">      display: none;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.block &#123;</span><br><span class="line">  @include blockOrHidden;</span><br><span class="line">&#125;</span><br><span class="line">.hidden&#123;</span><br><span class="line">  @include blockOrHidden(false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的<code>CSS</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.block &#123;</span><br><span class="line">  display: block;</span><br><span class="line">&#125;</span><br><span class="line">.hidden &#123;</span><br><span class="line">  display: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="for循环"></a></p>
+<h3 id="for循环"><a href="#for循环" class="headerlink" title="@for循环"></a><strong>@for循环</strong></h3><p><a name="for循环的两种语法"></a></p>
+<h4 id="for循环的两种语法"><a href="#for循环的两种语法" class="headerlink" title="@for循环的两种语法"></a><strong>@for循环的两种语法</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@for $i from &lt;start&gt; through &lt;end&gt;</span><br><span class="line">@for $i from &lt;start&gt; to &lt;end&gt;</span><br></pre></td></tr></table></figure>
+<p>这两个的区别是关键字 <code>through</code> 表示包括 <code>end</code> 这个数，而 <code>to</code> 则不包括 <code>end</code> 这个数。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$grid-prefix: span !default;</span><br><span class="line">$grid-width: 60px !default;</span><br><span class="line">$grid-gutter: 20px !default;</span><br><span class="line">%grid &#123;</span><br><span class="line">  float: left;</span><br><span class="line">  margin-left: $grid-gutter / 2;</span><br><span class="line">  margin-right: $grid-gutter / 2;</span><br><span class="line">&#125;</span><br><span class="line">@for $i from 1 through 4 &#123;</span><br><span class="line">  .#&#123;$grid-prefix&#125;#&#123;$i&#125;&#123;</span><br><span class="line">    width: $grid-width * $i + $grid-gutter * ($i - 1);</span><br><span class="line">    @extend %grid;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的 <code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8, .span9, .span10, .span11, .span12 &#123;</span><br><span class="line">  float: left;</span><br><span class="line">  margin-left: 10px;</span><br><span class="line">  margin-right: 10px;</span><br><span class="line">&#125;</span><br><span class="line">.span1 &#123;</span><br><span class="line">  width: 60px;</span><br><span class="line">&#125;</span><br><span class="line">.span2 &#123;</span><br><span class="line">  width: 140px;</span><br><span class="line">&#125;</span><br><span class="line">.span3 &#123;</span><br><span class="line">  width: 220px;</span><br><span class="line">&#125;</span><br><span class="line">.span4 &#123;</span><br><span class="line">  width: 300px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="while循环"></a></p>
+<h3 id="while循环"><a href="#while循环" class="headerlink" title="@while循环"></a><strong>@while循环</strong></h3><p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$types: 4;</span><br><span class="line">$type-width: 20px;</span><br><span class="line">@while $types &gt; 0 &#123;</span><br><span class="line">    .while-#&#123;$types&#125; &#123;</span><br><span class="line">        width: $type-width + $types;</span><br><span class="line">    &#125;</span><br><span class="line">    $types: $types - 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的 <code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.while-4 &#123;</span><br><span class="line">  width: 24px;</span><br><span class="line">&#125;</span><br><span class="line">.while-3 &#123;</span><br><span class="line">  width: 23px;</span><br><span class="line">&#125;</span><br><span class="line">.while-2 &#123;</span><br><span class="line">  width: 22px;</span><br><span class="line">&#125;</span><br><span class="line">.while-1 &#123;</span><br><span class="line">  width: 21px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="each循环"></a></p>
+<h3 id="each循环"><a href="#each循环" class="headerlink" title="@each循环"></a><strong>@each循环</strong></h3><p><code>@each</code> 循环就是去遍历一个列表，然后从列表中取出对应的值。<br><code>@each</code> 循环指令的形式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@each $var in &lt;list&gt;</span><br></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$list: adam john wynn mason kuroir;//$list 就是一个列表</span><br><span class="line">@mixin author-images &#123;</span><br><span class="line">    @each $author in $list &#123;</span><br><span class="line">        .photo-#&#123;$author&#125; &#123;</span><br><span class="line">            background: url(&quot;/images/avatars/#&#123;$author&#125;.png&quot;) no-repeat;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.author-bio &#123;</span><br><span class="line">    @include author-images;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出 <code>CSS</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.author-bio .photo-adam &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/adam.png&quot;) no-repeat; &#125;</span><br><span class="line">.author-bio .photo-john &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/john.png&quot;) no-repeat; &#125;</span><br><span class="line">.author-bio .photo-wynn &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/wynn.png&quot;) no-repeat; &#125;</span><br><span class="line">.author-bio .photo-mason &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/mason.png&quot;) no-repeat; &#125;</span><br><span class="line">.author-bio .photo-kuroir &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/kuroir.png&quot;) no-repeat; &#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sass/">Sass</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Sass的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/15/Sass的使用/" class="article-date">
+  	<time datetime="2016-05-15T09:43:07.000Z" itemprop="datePublished">2016-05-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/15/Sass的使用/">Sass的使用中的嵌套、混合宏、继承、占位符和插值</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#声明默认变量"><strong>声明默认变量</strong></a></li>
+<li><a href="#嵌套"><strong>嵌套</strong></a><ul>
+<li><a href="#选择器嵌套"><strong>选择器嵌套</strong></a></li>
+<li><a href="#属性嵌套"><strong>属性嵌套</strong></a></li>
+<li><a href="#伪类嵌套"><strong>伪类嵌套</strong></a></li>
+</ul>
+</li>
+<li><a href="#混合宏"><strong>混合宏</strong></a></li>
+<li><a href="#继承"><strong>继承</strong></a></li>
+<li><a href="#占位符%placeholder"><strong>占位符%placeholder</strong></a></li>
+<li><a href="#插值"><strong>插值#{}</strong></a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="声明默认变量"></a></p>
+<h2 id="声明默认变量"><a href="#声明默认变量" class="headerlink" title="声明默认变量"></a><strong>声明默认变量</strong></h2><p><code>Sass</code> 的默认变量仅需要在值后面加上 <code>!default</code> 即可。<br><code>Sass</code> 的默认变量一般是用来设置默认值，然后根据需求来覆盖的，覆盖的方式也很简单，只需要在默认变量之前重新声明下变量即可。</p>
+<p><a name="嵌套"></a></p>
+<h2 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a><strong>嵌套</strong></h2><p><a name="选择器嵌套"></a></p>
+<h3 id="选择器嵌套"><a href="#选择器嵌套" class="headerlink" title="选择器嵌套"></a><strong>选择器嵌套</strong></h3><p>例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nav a &#123;</span><br><span class="line">  color:red;</span><br><span class="line">&#125;</span><br><span class="line">header nav a &#123;</span><br><span class="line">  color:green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么在 <code>Sass</code> 中，就可以使用选择器的嵌套来实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nav &#123;</span><br><span class="line">  a &#123;</span><br><span class="line">    color: red;</span><br><span class="line">    header &amp; &#123;</span><br><span class="line">      color:green;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="属性嵌套"></a></p>
+<h3 id="属性嵌套"><a href="#属性嵌套" class="headerlink" title="属性嵌套"></a><strong>属性嵌套</strong></h3><p>例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">    border-top: 1px solid red;</span><br><span class="line">    border-bottom: 1px solid green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 <code>Sass</code> 中我们可以这样写：（注意嵌套之后 <code>border</code> 后面有一个冒号）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  border: &#123;</span><br><span class="line">   top: 1px solid red;</span><br><span class="line">   bottom: 1px solid green;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="伪类嵌套"></a></p>
+<h3 id="伪类嵌套"><a href="#伪类嵌套" class="headerlink" title="伪类嵌套"></a><strong>伪类嵌套</strong></h3><p>跟选择器嵌套类似，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.clearfix&#123;</span><br><span class="line">    &amp;:before,</span><br><span class="line">    &amp;:after &#123;</span><br><span class="line">        content:&quot;&quot;;</span><br><span class="line">        display: table;</span><br><span class="line">    &#125;</span><br><span class="line">    &amp;:after &#123;</span><br><span class="line">        clear:both;</span><br><span class="line">        overflow: hidden;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的 <code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">clearfix:before, .clearfix:after &#123;</span><br><span class="line">  content: &quot;&quot;;</span><br><span class="line">  display: table;</span><br><span class="line">&#125;</span><br><span class="line">.clearfix:after &#123;</span><br><span class="line">  clear: both;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="混合宏"></a></p>
+<h2 id="混合宏"><a href="#混合宏" class="headerlink" title="混合宏"></a><strong>混合宏</strong></h2><p>主要作用：重用 <code>CSS</code> 代码<br>使用<code>&quot;@mixin&quot;</code>来定义混合宏，它可以传递参数<br>调用混合宏，使用<code>&quot;@include mixin_name&quot;</code><br>混合宏的缺点：容易造成代码的冗余，相同的代码会在编译出来的CSS文件出现多处</p>
+<p><a name="继承"></a></p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a><strong>继承</strong></h2><p>继承：将多个使用相同 <code>CSS</code> 代码的选择器合并（构成组合选择器）使用同一套 <code>CSS</code> 代码，解决了使用混合宏存在的问题<br>要使用继承，就必须先定义基类（例如下面的<code>.btn</code>）。使用”@extend”来实现继承，直接引用基类即可。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.btn &#123;</span><br><span class="line">  border: 1px solid #ccc;</span><br><span class="line">  padding: 6px 10px;</span><br><span class="line">  font-size: 14px;</span><br><span class="line">&#125;</span><br><span class="line">.btn-primary &#123;</span><br><span class="line">  background-color: #f36;</span><br><span class="line">  color: #fff;</span><br><span class="line">  @extend .btn;</span><br><span class="line">&#125;</span><br><span class="line">.btn-second &#123;</span><br><span class="line">  background-color: orange;</span><br><span class="line">  color: #fff;</span><br><span class="line">  @extend .btn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来之后：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//CSS</span><br><span class="line">.btn, .btn-primary, .btn-second &#123;</span><br><span class="line">  border: 1px solid #ccc;</span><br><span class="line">  padding: 6px 10px;</span><br><span class="line">  font-size: 14px;</span><br><span class="line">&#125;</span><br><span class="line">.btn-primary &#123;</span><br><span class="line">  background-color: #f36;</span><br><span class="line">  color: #fff;</span><br><span class="line">&#125;</span><br><span class="line">.btn-second &#123;</span><br><span class="line">  background-clor: orange;</span><br><span class="line">  color: #fff;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>&quot;@extend&quot;</code> 可以扩展任何选择器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.hoverlink &#123;</span><br><span class="line">  @extend a:hover;</span><br><span class="line">&#125;</span><br><span class="line">a:hover &#123;</span><br><span class="line">  text-decoration: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a:hover, .hoverlink &#123;</span><br><span class="line">  text-decoration: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>稍微复杂的栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.hoverlink &#123;</span><br><span class="line">  @extend a:hover;</span><br><span class="line">&#125;</span><br><span class="line">.comment a.user:hover &#123;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的 <code>CSS</code> ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.comment a.user:hover, .comment .user.hoverlink &#123;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在使用继承时，可以认为是将基类选择器去掉与<code>&quot;@extend&quot;</code>相同的部分，如果将基类选择器的最后一级全部去掉了，则再将调用<code>&quot;@extend&quot;</code>的选择器名作为基类选择器的最后一级；如果只是原来的基类选择器的最后一级还有部分保留，则将调用<code>&quot;@extend&quot;</code>的选择器名拼接到基类选择器的最后一级中（注意不是作为后代选择器）。<br>使用继承存在的问题是上面的.btn选择器最终也会编译到<code>CSS</code>代码中。</p>
+<p><a name="占位符%placeholder"></a></p>
+<h2 id="占位符-placeholder"><a href="#占位符-placeholder" class="headerlink" title="占位符%placeholder"></a><strong>占位符%placeholder</strong></h2><p>可以使用<code>%placeholder</code>来解决继承存在的问题。只有当基类被 <code>@extend</code> 调用，才会生成<code>CSS</code>代码。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//SCSS</span><br><span class="line">%mt5 &#123;</span><br><span class="line">  margin-top: 5px;</span><br><span class="line">&#125;</span><br><span class="line">%pt5&#123;</span><br><span class="line">  padding-top: 5px;</span><br><span class="line">&#125;</span><br><span class="line">.btn &#123;</span><br><span class="line">  @extend %mt5;</span><br><span class="line">  @extend %pt5;</span><br><span class="line">&#125;</span><br><span class="line">.block &#123;</span><br><span class="line">  @extend %mt5;</span><br><span class="line">  span &#123;</span><br><span class="line">    @extend %pt5;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的<code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//CSS`</span><br><span class="line">.btn, .block &#123;</span><br><span class="line">  margin-top: 5px;</span><br><span class="line">&#125;</span><br><span class="line">.btn, .block span &#123;</span><br><span class="line">  padding-top: 5px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="插值"></a></p>
+<h2 id="插值"><a href="#插值" class="headerlink" title="插值#{}"></a><strong>插值#{}</strong></h2><p>大括号里面可以是变量<br>插值的作用：<br>1、构建属性名字符串<br>2、构建选择器名称<br>但它不能用于构建变量名，另外在使用<code>&quot;@include&quot;</code>调用混合宏时，插值不能用于构建混合宏名称；使用<code>&quot;@extend&quot;</code>继承时，基类名称或者占位符名称可以用插值构建。</p>
 
       
     </div>
@@ -733,228 +857,9 @@
 
 
   
-    <article id="post-ES 6的新特性之对象的扩展和Symbol" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/08/ES 6的新特性之对象的扩展和Symbol/" class="article-date">
-  	<time datetime="2016-05-08T05:32:07.000Z" itemprop="datePublished">2016-05-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/08/ES 6的新特性之对象的扩展和Symbol/">ES 6的新特性之对象的扩展和Symbol</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<!-- MarkdownTOC -->
-<ul>
-<li><a href="#对象的扩展"><strong>对象的扩展</strong></a><ul>
-<li><a href="#对象的简写"><strong>对象的简写</strong></a></li>
-<li><a href="#属性表达式"><strong>属性表达式</strong></a></li>
-<li><a href="#object新增的静态方法"><strong>Object新增的静态方法</strong></a></li>
-</ul>
-</li>
-<li><a href="#symbol"><strong>Symbol</strong></a><ul>
-<li><a href="#创建symbol"><strong>创建Symbol</strong></a></li>
-<li><a href="#symbol值作为属性名"><strong>Symbol值作为属性名</strong></a></li>
-<li><a href="#属性名的遍历"><strong>属性名的遍历</strong></a></li>
-<li><a href="#symbol函数上的静态方法"><strong>Symbol函数上的静态方法</strong></a></li>
-</ul>
-</li>
-</ul>
-<!-- /MarkdownTOC -->
-<hr>
-<p><a name="对象的扩展"></a></p>
-<h2 id="对象的扩展"><a href="#对象的扩展" class="headerlink" title="对象的扩展"></a><strong>对象的扩展</strong></h2><p><a name="对象的简写"></a></p>
-<h3 id="对象的简写"><a href="#对象的简写" class="headerlink" title="对象的简写"></a><strong>对象的简写</strong></h3><p><code>ES 6</code>中的对象字面量支持简写。允许直接写入变量和函数名作为对象的属性和方法。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"hb"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getAge</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getFullYear() - <span class="number">1990</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> male = &#123;name, getAge&#125;;</span><br><span class="line"><span class="comment">// 等效于</span></span><br><span class="line"><span class="keyword">var</span> male = &#123;</span><br><span class="line">    name: name,</span><br><span class="line">    getAge: getAge</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>对于对象中的方法还有另外一种简写方式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> male = &#123;</span><br><span class="line">    getAge() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getFullYear() - <span class="number">1990</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>对于<code>Generator</code>方法，则需要在函数名前面加一个<code>&quot;*&quot;</code>号：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> computer = &#123;</span><br><span class="line">    * print() &#123;</span><br><span class="line">        <span class="keyword">yield</span> <span class="string">"hello world"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p><a name="属性表达式"></a></p>
-<h3 id="属性表达式"><a href="#属性表达式" class="headerlink" title="属性表达式"></a><strong>属性表达式</strong></h3><p><code>ES 6</code>中直接使用方括号语法来定义对象字面量中的属性和方法。方括号中可以是一些表达式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"name"</span>;</span><br><span class="line"><span class="keyword">var</span> male = &#123;</span><br><span class="line">    [name]: <span class="string">"hb"</span>,</span><br><span class="line">    [<span class="string">"say"</span> + <span class="string">"hello"</span>]() &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p><strong>注意：</strong>属性名表达式与上面的属性简写方式不能混用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"name"</span>;</span><br><span class="line"><span class="keyword">var</span> male = &#123;</span><br><span class="line">    [name]</span><br><span class="line">&#125;; <span class="comment">// 报错</span></span><br></pre></td></tr></table></figure></p>
-<p><a name="object新增的静态方法"></a></p>
-<h3 id="Object新增的静态方法"><a href="#Object新增的静态方法" class="headerlink" title="Object新增的静态方法"></a><strong>Object新增的静态方法</strong></h3><p><code>Object.assign(target, source1, source2, ...)</code>：将多个源对象自身的所有可枚举属性（不包括继承而来的属性）复制到目标对象上。如果目标对象上和源对象上有同名属性，或多个源对象上有同名属性，则后面的属性会覆盖前面的属性。<br>需要特别注意的是，这种复制是一种浅复制。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    name: <span class="string">"hb"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;</span><br><span class="line">    fruits: [<span class="string">"apple"</span>]</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Object</span>.assign(obj1, obj2);</span><br><span class="line"><span class="built_in">console</span>.log(obj1); <span class="comment">// &#123;name: "hb", fruits: ["apple"]&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj1.fruits === obj2.fruits); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
-<p>如果目标对象和源对象上存在某个同名属性的值都是一个对象，<code>Object.assign()</code>的处理方法是直接替换：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> target = &#123;a: &#123;b: <span class="string">"c"</span>, d: <span class="string">"e"</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">var</span> source = &#123;a: &#123;b: <span class="string">"d"</span>&#125;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.assign(target, source);</span><br><span class="line"><span class="comment">// target = &#123;a: &#123;b: "d"&#125;&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>注意：</strong>该方法也可以用于处理数组，不过它会将数组看成是一个对象，处理的结果可能会不符合我们的预期：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>]); <span class="comment">// [4, 5, 3]</span></span><br></pre></td></tr></table></figure></p>
-<p><a name="symbol"></a></p>
-<h2 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a><strong>Symbol</strong></h2><p><a name="创建symbol"></a></p>
-<h3 id="创建Symbol"><a href="#创建Symbol" class="headerlink" title="创建Symbol"></a><strong>创建Symbol</strong></h3><p><code>ES 6</code>中引入了一种新的数据类型：<code>Symbol</code>。引入<code>Symbol</code>主要是为了防止对象的属性名称出现冲突。<code>Symbol</code>值通过函数<code>Symbol</code>生成的，注意：<code>Symbol</code>类型不属于引用类型，基本上它是一种类似字符串的数据类型。创建<code>Symbol</code>时可以不传入参数，也可以传入一个字符串，表示该<code>Symbol</code>值的名称，以便于和其他<code>Symbol</code>区分。<br>创建出来的每一个<code>Symbol</code>值都是不同的，即使传入的参数一样。<code>Symbol</code>值不能和其他类型的值进行运算。但它可以转化为字符串或者布尔值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sym1 = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">var</span> sym2 = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="built_in">console</span>.log(sym1 === sym2); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(sym1); <span class="comment">// "Symbol()"</span></span><br><span class="line"><span class="built_in">console</span>.log(sym2); <span class="comment">// "Symbol()"</span></span><br></pre></td></tr></table></figure></p>
-<p><a name="symbol值作为属性名"></a></p>
-<h3 id="Symbol值作为属性名"><a href="#Symbol值作为属性名" class="headerlink" title="Symbol值作为属性名"></a><strong>Symbol值作为属性名</strong></h3><p>创建完<code>Symbol</code>值，就可以将它作为标识符用于对象的属性名，以此保证不会出现同名的属性。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sym1 = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">var</span> a = &#123;&#125;;</span><br><span class="line">a[sym1] = <span class="string">"javascript"</span>;</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    [sym1]: <span class="string">"javascript"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">var</span> a = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, sym1, <span class="string">"javascript"</span>);</span><br><span class="line"><span class="comment">// 获取Symbol作为属性名对应的值</span></span><br><span class="line"><span class="built_in">console</span>.log(a[sym1]); <span class="comment">// "javascript"</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>注意：</strong>使用<code>Symbol</code>值作为属性名时，不能使用点运算符。否则会将存放<code>Symbol</code>值的变量名当作字符串，而不是<code>Symbol</code>值。无论是在对象内部还是外部使用<code>Symbol</code>值定义或访问属性，都必须将<code>Symbol</code>值放在方括号中。定义方法也是同样的道理：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sym2 = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">var</span> a = &#123;&#125;;</span><br><span class="line">a[sym2] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    [sym2]: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">    [sym2]() &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p><a name="属性名的遍历"></a></p>
-<h3 id="属性名的遍历"><a href="#属性名的遍历" class="headerlink" title="属性名的遍历"></a><strong>属性名的遍历</strong></h3><p><code>Symbol</code>作为属性名，该属性不会出现<code>for...in</code>，<code>for...of</code>循环中，也不会被 <code>Object.keys()</code> ， <code>Object.getOwnPropertyNames()</code> 返回。它并不是私有属性，可以通过<code>Object.getOwnPropertySymbols(obj)</code>方法获取到某个对象上所有的<code>Symbol</code>属性名。该方法返回一个数组，数组成员是作为属性名的<code>Symbol</code>值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sym = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">var</span> male = &#123;</span><br><span class="line">    [sym]: <span class="string">"hb"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertySymbols(male)); <span class="comment">// [Symbol()]</span></span><br></pre></td></tr></table></figure></p>
-<p><a name="symbol函数上的静态方法"></a></p>
-<h3 id="Symbol函数上的静态方法"><a href="#Symbol函数上的静态方法" class="headerlink" title="Symbol函数上的静态方法"></a><strong>Symbol函数上的静态方法</strong></h3><ul>
-<li><code>Symbol.for(string)</code>：该方法方便我们重新使用某些<code>Symbol</code>值。它接收一个字符串参数，然后搜索有没有以该参数为作为名称<code>（key）</code>的<code>Symbol</code>值，如果有就直接返回该<code>Symbol</code>值，否则就新建以该字符串为名称的<code>Symbol</code>值并返回。<br><code>Symbol.for()</code>和<code>Symbol()</code>方法的区别：两者都会生成<code>Symbol</code>值。区别在于前者生成的<code>Symbol</code>值会被添加到全局环境中以供搜索，方便以后再次使用；而后者在每一次调用时都会返回一个全新的<code>Symbol</code>值。</li>
-<li><code>Symbol.keyFor(Symbol)</code>：返回给定的<strong>已经登记过</strong>的<code>Symbol</code>值（该Symbol值必须是通过<code>Symbol.for()</code>方法创建的）对应的名称<code>（key）</code>。对于通过<code>Symbol()</code>方法创建的<code>Symbol</code>值返回<code>undefined</code>。<br>需要注意的是，<code>Symbol.for()</code>为<code>Symbol</code>值登记的名字是位于全局环境下的，可以在不同的<code>iframe</code>或者<code>service worker</code>中取到相同的值。</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-ES 6的新特性之函数的扩展" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/08/ES 6的新特性之函数的扩展/" class="article-date">
-  	<time datetime="2016-05-08T03:28:51.000Z" itemprop="datePublished">2016-05-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/08/ES 6的新特性之函数的扩展/">ES 6的新特性之函数的扩展</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<!-- MarkdownTOC -->
-<ul>
-<li><a href="#函数参数默认值"><strong>函数参数默认值</strong></a></li>
-<li><a href="#函数的length属性"><strong>函数的length属性</strong></a></li>
-<li><a href="#默认值的作用域"><strong>默认值的作用域</strong></a></li>
-<li><a href="#rest参数"><strong>rest参数</strong></a></li>
-<li><a href="#扩展运算符"><strong>扩展运算符</strong></a><ul>
-<li><a href="#扩展运算符的应用"><strong>扩展运算符的应用</strong></a></li>
-</ul>
-</li>
-<li><a href="#函数的name属性"><strong>函数的name属性</strong></a></li>
-<li><a href="#箭头函数"><strong>箭头函数</strong></a><ul>
-<li><a href="#使用箭头函数需要注意的几点："><strong>使用箭头函数需要注意的几点：</strong></a></li>
-<li><a href="#箭头函数的嵌套"><strong>箭头函数的嵌套</strong></a></li>
-</ul>
-</li>
-</ul>
-<!-- /MarkdownTOC -->
-<hr>
-<p><a name="函数参数默认值"></a></p>
-<h2 id="函数参数默认值"><a href="#函数参数默认值" class="headerlink" title="函数参数默认值"></a><strong>函数参数默认值</strong></h2><p>在<code>ES 6</code>中，可以给函数参数设置默认值，当传递给函数的参数为<code>undefined</code>时，之前设置的默认值便会生效。注意以下两种默认值的差异：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">&#123;x = 0, y = 0&#125; = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [x, y];</span><br><span class="line">&#125;</span><br><span class="line">fn(&#123;x: <span class="number">3</span>, y: <span class="number">4</span>&#125;); <span class="comment">// [3, 4]</span></span><br><span class="line">fn(&#123;x: <span class="number">3</span>&#125;); <span class="comment">// [3, 0]</span></span><br><span class="line">fn(&#123;&#125;); <span class="comment">// [0, 0]</span></span><br><span class="line">fn(); <span class="comment">// [0, 0]</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ff</span>(<span class="params">&#123;x, y&#125; = &#123;x: 0,y: 0&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [x, y];</span><br><span class="line">&#125;</span><br><span class="line">ff(&#123;x: <span class="number">3</span>, y: <span class="number">4</span>&#125;); <span class="comment">// [3, 4]</span></span><br><span class="line">ff(&#123;x: <span class="number">3</span>&#125;); <span class="comment">// [3, undefined]</span></span><br><span class="line">ff(&#123;&#125;); <span class="comment">// [undefined, undefined]</span></span><br><span class="line">ff(); <span class="comment">// [0, 0]</span></span><br></pre></td></tr></table></figure></p>
-<p><a name="函数的length属性"></a></p>
-<h2 id="函数的length属性"><a href="#函数的length属性" class="headerlink" title="函数的length属性"></a><strong>函数的length属性</strong></h2><p>指定了函数参数的默认值之后，函数的<code>length</code>属性将返回没有指定默认值的参数个数。因为<code>length</code>属性的含义是函数预期传入的参数个数。同理，<code>rest</code>参数也不会计入<code>length</code>属性中。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">a</span>) </span>&#123;&#125;).length <span class="comment">// 1</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">a, b, c = 1</span>) </span>&#123;&#125;).length <span class="comment">// 2</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>&#123;&#125;).length <span class="comment">// 0</span></span><br></pre></td></tr></table></figure></p>
-<p><a name="默认值的作用域"></a></p>
-<h2 id="默认值的作用域"><a href="#默认值的作用域" class="headerlink" title="默认值的作用域"></a><strong>默认值的作用域</strong></h2><p>如果参数默认值是一个变量，则该变量所处的作用域与函数中其他变量的作用域规则是一样的，即先是当前函数的作用域，然后才是全局作用域。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x, y = x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [x, y];</span><br><span class="line">&#125;</span><br><span class="line">f(<span class="number">2</span>); <span class="comment">// [2, 2]</span></span><br></pre></td></tr></table></figure></p>
-<p>如果默认值引用的值还没有生成，则使用外部变量的值：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">y = x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> x = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">return</span> [x, y];</span><br><span class="line">&#125;</span><br><span class="line">f(); <span class="comment">// [2, 1]</span></span><br></pre></td></tr></table></figure></p>
-<p>如果函数<code>A</code>参数的默认值是函数<code>B</code>，则该函数<code>B</code>的作用域是其声明时所在的域。即函数<code>B</code>的作用域不是函数<code>A</code>，而是全局作用域：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> foo = <span class="string">"outer"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ff</span>(<span class="params">func = (</span>) =&gt; <span class="title">foo</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> foo = <span class="string">"inner"</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(func());</span><br><span class="line">&#125;</span><br><span class="line">ff(); <span class="comment">// "outer"</span></span><br></pre></td></tr></table></figure></p>
-<p><a name="rest参数"></a></p>
-<h2 id="rest参数"><a href="#rest参数" class="headerlink" title="rest参数"></a><strong>rest参数</strong></h2><p><code>ES 6</code>中给函数引入了<code>rest</code>参数，用于接收函数的多余参数。形式为<code>&quot;...变量名&quot;</code>。该参数在函数中访问时是一个数组，所有可以用于数组的操作，都可以用于<code>rest</code>参数。</p>
-<p><a name="扩展运算符"></a></p>
-<h2 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a><strong>扩展运算符</strong></h2><p>扩展运算符：<code>&quot;...&quot;</code>，它可以将一个数组或者类数组转为用逗号隔开的参数序列。该运算主要用于函数调用。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line">add(...[<span class="number">12</span>, <span class="number">34</span>]); <span class="comment">// 46</span></span><br></pre></td></tr></table></figure></p>
-<p><a name="扩展运算符的应用"></a></p>
-<h3 id="扩展运算符的应用"><a href="#扩展运算符的应用" class="headerlink" title="扩展运算符的应用"></a><strong>扩展运算符的应用</strong></h3><ul>
-<li><p>合并数组</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr1 = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">var</span> arr2 = [<span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">var</span> arr3 = [...arr1, ...arr2]; <span class="comment">// [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>用于为数组赋值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[first, ...rest] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]; <span class="comment">// first = 1; rest = [2, 3, 4]</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>这样的效果类似给函数中的<code>rest</code>参数赋值。</p>
-<ul>
-<li>可以将字符串、类数组转化为真正的数组<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[...<span class="string">"hello"</span>] <span class="comment">// ["h", "e", "l", "l", "o"]</span></span><br><span class="line">[...document.querySelectorAll(<span class="string">"div"</span>)] <span class="comment">// [&lt;div&gt;, &lt;div&gt;, &lt;div&gt;]</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><a name="函数的name属性"></a></p>
-<h2 id="函数的name属性"><a href="#函数的name属性" class="headerlink" title="函数的name属性"></a><strong>函数的name属性</strong></h2><p>在<code>ES 5</code>中，如果将某个匿名函数赋给某个变量，通过该变量访问<code>name</code>属性，得到的是空字符串，而在<code>ES 6</code>中<code>name</code>属性会返回实际的变量名。<br>如果将一个具名函数赋给一个变量，<code>ES 5</code>和<code>ES 6</code>中访问该函数的<code>name</code>属性都会返回具名函数原来的函数名。<br>通过<code>Function</code>构造的函数实例的<code>name</code>属性为<code>&quot;anonymous&quot;</code>字符串。<br><code>bind</code>方法返回的函数的name属性值返回以<code>&quot;bind&quot;</code>为前缀，后面加上被绑定了上下文对象的函数的名称。</p>
-<p><a name="箭头函数"></a></p>
-<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a><strong>箭头函数</strong></h2><p>箭头函数是通过<code>&quot;=&gt;&quot;</code>来定义函数的。如果箭头函数不需要参数或者有多个参数，需要使用圆括号<code>()</code>或者在圆括号<code>()</code>中列出形式参数。如果箭头函数的代码部分不止一条语句，需要使用大括号<code>{}</code>将代码部分包裹起来，并使用<code>return</code>语句返回。由于大括号被解释为代码块，因此如果箭头函数返回的是一个对象时，需要使用圆括号<code>()</code>将返回的对象包裹起来。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = (name, age) =&gt; (&#123;name: name, age: age&#125;);</span><br></pre></td></tr></table></figure></p>
-<p><a name="使用箭头函数需要注意的几点："></a></p>
-<h3 id="使用箭头函数需要注意的几点："><a href="#使用箭头函数需要注意的几点：" class="headerlink" title="使用箭头函数需要注意的几点："></a><strong>使用箭头函数需要注意的几点：</strong></h3><ul>
-<li><p>箭头函数体内的<code>this</code>对象指向的是定义时所在的对象（也就是说箭头函数内部的<code>this</code>对象和箭头函数外部的<code>this</code>对象指向同一对象），而不是使用时所在的对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"id: "</span> + <span class="keyword">this</span>.id);</span><br><span class="line">    &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br><span class="line">foo.call(&#123;id: <span class="number">42</span>&#125;); <span class="comment">// id: 42</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>因为箭头函数内部的<code>this</code>就是外层代码块的<code>this</code>，因此箭头函数不可以用作构造函数。</p>
-</li>
-<li>箭头函数内部不可以访问到<code>arguments</code>对象。</li>
-<li>不可以使用<code>yield</code>语句，因此箭头函数不能用作<code>Generator</code>函数。</li>
-<li>由于箭头函数没有自己的<code>this</code>，当然也就不能使用<code>apply()</code>，<code>call()</code>和<code>bind()</code>这些方法的<code>this</code>指向。</li>
-</ul>
-<p><a name="箭头函数的嵌套"></a></p>
-<h3 id="箭头函数的嵌套"><a href="#箭头函数的嵌套" class="headerlink" title="箭头函数的嵌套"></a><strong>箭头函数的嵌套</strong></h3><p>举个栗子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> val + a + b;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 上面的代码和以下使用箭头函数是等效的</span></span><br><span class="line"><span class="keyword">var</span> fn = () =&gt; val =&gt; (a, b) =&gt; val + a + b;</span><br><span class="line"><span class="built_in">console</span>.log(fn()(<span class="number">3</span>)(<span class="number">4</span>, <span class="number">5</span>)); <span class="comment">// 12`</span></span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>

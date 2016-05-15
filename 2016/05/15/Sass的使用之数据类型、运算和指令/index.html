@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Sass的使用之数据类型、运算和指令 | hbChou</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="SASS中的数据类型
+字符串
+值列表
+
+
+运算
+加法
+乘法
+除法
+“+”的其他用法
+
+
+指令
+@if指令
+@for循环
+@for循环的两种语法
+
+
+@while循环
+@each循环
+
+
+
+
+
+
+SASS中的数据类型
+字符串字符串有两种：有引号字符串(quoted strings)，如 &amp;quot;Lucida Grande&amp;quot; 、&amp;#39;http://sass-lang.com&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sass的使用之数据类型、运算和指令">
+<meta property="og:url" content="http://yoursite.com/2016/05/15/Sass的使用之数据类型、运算和指令/index.html">
+<meta property="og:site_name" content="hbChou">
+<meta property="og:description" content="SASS中的数据类型
+字符串
+值列表
+
+
+运算
+加法
+乘法
+除法
+“+”的其他用法
+
+
+指令
+@if指令
+@for循环
+@for循环的两种语法
+
+
+@while循环
+@each循环
+
+
+
+
+
+
+SASS中的数据类型
+字符串字符串有两种：有引号字符串(quoted strings)，如 &amp;quot;Lucida Grande&amp;quot; 、&amp;#39;http://sass-lang.com&amp;#">
+<meta property="og:updated_time" content="2016-05-15T10:09:48.461Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sass的使用之数据类型、运算和指令">
+<meta name="twitter:description" content="SASS中的数据类型
+字符串
+值列表
+
+
+运算
+加法
+乘法
+除法
+“+”的其他用法
+
+
+指令
+@if指令
+@for循环
+@for循环的两种语法
+
+
+@while循环
+@each循环
+
+
+
+
+
+
+SASS中的数据类型
+字符串字符串有两种：有引号字符串(quoted strings)，如 &amp;quot;Lucida Grande&amp;quot; 、&amp;#39;http://sass-lang.com&amp;#">
+  
+    <link rel="alternative" href="/atom.xml" title="hbChou" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/image.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">hbChou</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">每天都要有所收获</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://segmentfault.com/">segmentfault社区</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">hbChou</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/image.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">hbChou</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">每天都要有所收获</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Sass的使用之数据类型、运算和指令" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/15/Sass的使用之数据类型、运算和指令/" class="article-date">
+  	<time datetime="2016-05-15T10:07:21.000Z" itemprop="datePublished">2016-05-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Sass的使用之数据类型、运算和指令
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sass/">Sass</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#sass中的数据类型"><strong>SASS中的数据类型</strong></a><ul>
+<li><a href="#字符串"><strong>字符串</strong></a></li>
+<li><a href="#值列表"><strong>值列表</strong></a></li>
+</ul>
+</li>
+<li><a href="#运算"><strong>运算</strong></a><ul>
+<li><a href="#加法"><strong>加法</strong></a></li>
+<li><a href="#乘法"><strong>乘法</strong></a></li>
+<li><a href="#除法"><strong>除法</strong></a></li>
+<li><a href="#的其他用法"><strong>“+”的其他用法</strong></a></li>
+</ul>
+</li>
+<li><a href="#指令"><strong>指令</strong></a><ul>
+<li><a href="#if指令"><strong>@if指令</strong></a></li>
+<li><a href="#for循环"><strong>@for循环</strong></a><ul>
+<li><a href="#for循环的两种语法"><strong>@for循环的两种语法</strong></a></li>
+</ul>
+</li>
+<li><a href="#while循环"><strong>@while循环</strong></a></li>
+<li><a href="#each循环"><strong>@each循环</strong></a></li>
+</ul>
+</li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="sass中的数据类型"></a></p>
+<h2 id="SASS中的数据类型"><a href="#SASS中的数据类型" class="headerlink" title="SASS中的数据类型"></a><strong>SASS中的数据类型</strong></h2><p><a name="字符串"></a></p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a><strong>字符串</strong></h3><p>字符串有两种：<br>有引号字符串<code>(quoted strings)</code>，如 <code>&quot;Lucida Grande&quot;</code> 、<code>&#39;http://sass-lang.com&#39;</code>；<br>无引号字符串<code>(unquoted strings)</code>，如 <code>sans-serifbold</code>。<br>在编译 <code>CSS</code> 文件时不会改变其类型。只有一种情况例外，使用 <code>#{}</code>插值语句时，有引号字符串将被编译为无引号字符串，这样方便了在混合指令 (<code>mixin</code>) 中引用选择器名。</p>
+<p><a name="值列表"></a></p>
+<h3 id="值列表"><a href="#值列表" class="headerlink" title="值列表"></a><strong>值列表</strong></h3><p>通过空格或者逗号分隔的一系列的值。<br>值列表函数</p>
+<ol>
+<li><code>nth</code>函数可以直接访问值列表中的某一项；</li>
+<li><code>join</code>函数可以将多个值列表连结在一起；</li>
+<li><code>append</code>函数可以在值列表中添加值；</li>
+<li><code>@each</code>规则能够给值列表中的每个项目添加样式。<br>值列表中可以再包含值列表，比如 <code>1px 2px, 5px 6px</code> 是包含 <code>1px 2px</code> 与 <code>5px 6px</code> 两个值列表的值列表。如果内外两层值列表使用相同的分隔方式，要用圆括号包裹内层，所以也可以写成 <code>(1px 2px) (5px 6px)</code>。当值列表被编译为 <code>CSS</code> 时，<code>Sass</code> 不会添加任何圆括号，因为 <code>CSS</code> 不允许这样做。<code>(1px 2px) (5px 6px)</code>与 <code>1px 2px 5px 6px</code> 在编译后的 <code>CSS</code> 文件中是一样的，但是它们在 <code>Sass</code> 文件中却有不同的意义，前者是包含两个值列表的值列表，而后者是包含四个值的值列表。</li>
+</ol>
+<p><a name="运算"></a></p>
+<h2 id="运算"><a href="#运算" class="headerlink" title="运算"></a><strong>运算</strong></h2><p><a name="加法"></a></p>
+<h3 id="加法"><a href="#加法" class="headerlink" title="加法"></a><strong>加法</strong></h3><p>对于携带不同类型的单位时，在 <code>Sass</code> 中计算会报错<br>做加法运算时，加号两边某个值如果不带单位，默认和另一个值单位相同。减法和加法类似。</p>
+<p><a name="乘法"></a></p>
+<h3 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a><strong>乘法</strong></h3><p>相乘的两个值都带单位会报错。在运算中有不同类型的单位时，也将会报错。</p>
+<p><a name="除法"></a></p>
+<h3 id="除法"><a href="#除法" class="headerlink" title="除法"></a><strong>除法</strong></h3><ul>
+<li>单独两个值做除法运算时，需要给除法表达式添加圆括号。否则编译器会理解为是字符串。</li>
+<li>如果<code>“/”</code>符号在已有的数学表达式中时，也会被认作除法符号。</li>
+<li>当用变量进行除法运算时，<code>“/”</code>符号也会自动被识别成除法。<br>例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">  font: 10px/8px;             // 纯 CSS，不是除法运算</span><br><span class="line">  $width: 1000px;</span><br><span class="line">  width: $width/2;            // 使用了变量，是除法运算</span><br><span class="line">  width: round(1.5)/2;        // 使用了函数，是除法运算</span><br><span class="line">  height: (500px/2);          // 使用了圆括号，是除法运算</span><br><span class="line">  margin-left: 5px + 8px/2px; // 使用了加（+）号，是除法运算</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在除法运算时，如果两个值带有相同的单位值时，除法运算之后会得到一个不带单位的数值。</p>
+<p><a name="的其他用法"></a></p>
+<h3 id="“-”的其他用法"><a href="#“-”的其他用法" class="headerlink" title="“+”的其他用法"></a><strong>“+”的其他用法</strong></h3><p>除此之外，可以通过加法符号<code>“+”</code>在变量或属性值中对字符串进行连接。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$content: &quot;Hello&quot; + &quot;&quot; + &quot;Sass!&quot;;</span><br><span class="line">.box:before &#123;</span><br><span class="line">  content: &quot; #&#123;$content&#125; &quot;;</span><br><span class="line">&#125;</span><br><span class="line">div &#123;</span><br><span class="line">  cursor: e + -resize;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果有引号的字符串被添加了一个没有引号的字符串 （也就是，带引号的字符串在 <code>&quot;+&quot;</code> 符号左侧），结果会是一个有引号的字符串。同样的，如果一个没有引号的字符串被添加了一个有引号的字符串 （没有引号的字符串在 <code>&quot;+&quot;</code> 符号左侧）， 结果将是一个没有引号的字符串。</p>
+<p><a name="指令"></a></p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a><strong>指令</strong></h2><p><a name="if指令"></a></p>
+<h3 id="if指令"><a href="#if指令" class="headerlink" title="@if指令"></a><strong>@if指令</strong></h3><p>它可以根据条件来处理样式块，如果条件为 <code>true</code> 返回一个样式块，反之 <code>false</code> 返回另一个样式块。在 <code>Sass</code> 中除了可以单独使用 <code>@if</code> 之外，还可以配合 <code>@else if</code> 和 <code>@else</code> 一起使用。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@mixin blockOrHidden($boolean:true) &#123;</span><br><span class="line">  @if $boolean &#123;</span><br><span class="line">      @debug &quot;$boolean is #&#123;$boolean&#125;&quot;;</span><br><span class="line">      display: block;</span><br><span class="line">    &#125;</span><br><span class="line">  @else &#123;</span><br><span class="line">      @debug &quot;$boolean is #&#123;$boolean&#125;&quot;;</span><br><span class="line">      display: none;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.block &#123;</span><br><span class="line">  @include blockOrHidden;</span><br><span class="line">&#125;</span><br><span class="line">.hidden&#123;</span><br><span class="line">  @include blockOrHidden(false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的<code>CSS</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.block &#123;</span><br><span class="line">  display: block;</span><br><span class="line">&#125;</span><br><span class="line">.hidden &#123;</span><br><span class="line">  display: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="for循环"></a></p>
+<h3 id="for循环"><a href="#for循环" class="headerlink" title="@for循环"></a><strong>@for循环</strong></h3><p><a name="for循环的两种语法"></a></p>
+<h4 id="for循环的两种语法"><a href="#for循环的两种语法" class="headerlink" title="@for循环的两种语法"></a><strong>@for循环的两种语法</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@for $i from &lt;start&gt; through &lt;end&gt;</span><br><span class="line">@for $i from &lt;start&gt; to &lt;end&gt;</span><br></pre></td></tr></table></figure>
+<p>这两个的区别是关键字 <code>through</code> 表示包括 <code>end</code> 这个数，而 <code>to</code> 则不包括 <code>end</code> 这个数。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$grid-prefix: span !default;</span><br><span class="line">$grid-width: 60px !default;</span><br><span class="line">$grid-gutter: 20px !default;</span><br><span class="line">%grid &#123;</span><br><span class="line">  float: left;</span><br><span class="line">  margin-left: $grid-gutter / 2;</span><br><span class="line">  margin-right: $grid-gutter / 2;</span><br><span class="line">&#125;</span><br><span class="line">@for $i from 1 through 4 &#123;</span><br><span class="line">  .#&#123;$grid-prefix&#125;#&#123;$i&#125;&#123;</span><br><span class="line">    width: $grid-width * $i + $grid-gutter * ($i - 1);</span><br><span class="line">    @extend %grid;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的 <code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.span1, .span2, .span3, .span4, .span5, .span6, .span7, .span8, .span9, .span10, .span11, .span12 &#123;</span><br><span class="line">  float: left;</span><br><span class="line">  margin-left: 10px;</span><br><span class="line">  margin-right: 10px;</span><br><span class="line">&#125;</span><br><span class="line">.span1 &#123;</span><br><span class="line">  width: 60px;</span><br><span class="line">&#125;</span><br><span class="line">.span2 &#123;</span><br><span class="line">  width: 140px;</span><br><span class="line">&#125;</span><br><span class="line">.span3 &#123;</span><br><span class="line">  width: 220px;</span><br><span class="line">&#125;</span><br><span class="line">.span4 &#123;</span><br><span class="line">  width: 300px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="while循环"></a></p>
+<h3 id="while循环"><a href="#while循环" class="headerlink" title="@while循环"></a><strong>@while循环</strong></h3><p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$types: 4;</span><br><span class="line">$type-width: 20px;</span><br><span class="line">@while $types &gt; 0 &#123;</span><br><span class="line">    .while-#&#123;$types&#125; &#123;</span><br><span class="line">        width: $type-width + $types;</span><br><span class="line">    &#125;</span><br><span class="line">    $types: $types - 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的 <code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.while-4 &#123;</span><br><span class="line">  width: 24px;</span><br><span class="line">&#125;</span><br><span class="line">.while-3 &#123;</span><br><span class="line">  width: 23px;</span><br><span class="line">&#125;</span><br><span class="line">.while-2 &#123;</span><br><span class="line">  width: 22px;</span><br><span class="line">&#125;</span><br><span class="line">.while-1 &#123;</span><br><span class="line">  width: 21px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="each循环"></a></p>
+<h3 id="each循环"><a href="#each循环" class="headerlink" title="@each循环"></a><strong>@each循环</strong></h3><p><code>@each</code> 循环就是去遍历一个列表，然后从列表中取出对应的值。<br><code>@each</code> 循环指令的形式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@each $var in &lt;list&gt;</span><br></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$list: adam john wynn mason kuroir;//$list 就是一个列表</span><br><span class="line">@mixin author-images &#123;</span><br><span class="line">    @each $author in $list &#123;</span><br><span class="line">        .photo-#&#123;$author&#125; &#123;</span><br><span class="line">            background: url(&quot;/images/avatars/#&#123;$author&#125;.png&quot;) no-repeat;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.author-bio &#123;</span><br><span class="line">    @include author-images;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出 <code>CSS</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.author-bio .photo-adam &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/adam.png&quot;) no-repeat; &#125;</span><br><span class="line">.author-bio .photo-john &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/john.png&quot;) no-repeat; &#125;</span><br><span class="line">.author-bio .photo-wynn &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/wynn.png&quot;) no-repeat; &#125;</span><br><span class="line">.author-bio .photo-mason &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/mason.png&quot;) no-repeat; &#125;</span><br><span class="line">.author-bio .photo-kuroir &#123;</span><br><span class="line">  background: url(&quot;/images/avatars/kuroir.png&quot;) no-repeat; &#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/05/15/Sass的使用之内置函数、Map和-mediaa/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Sass的使用之内置函数、Map和@mediaa
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/05/15/Sass的使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Sass的使用中的嵌套、混合宏、继承、占位符和插值</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Sass的使用之数据类型、运算和指令" data-title="Sass的使用之数据类型、运算和指令" data-url="http://yoursite.com/2016/05/15/Sass的使用之数据类型、运算和指令/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 hbChou
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
