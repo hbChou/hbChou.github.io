@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Sass的使用之内置函数、Map、@import和@media | hbChou</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="内置函数
+字符串函数
+数字函数
+列表函数
+Introspection 函数
+Miscellaneous函数
+颜色函数
+
+
+Map
+Map的定义
+Map的操作函数
+
+
+@import
+@media
+
+
+
+
+内置函数
+字符串函数字符串函数顾名思意是用来处理字符串的函数。Sass 的字符串函数主要包括：unquote($string)：删除字符串中的引号；quote($string)：给字符串添加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sass的使用之内置函数、Map、@import和@media">
+<meta property="og:url" content="http://yoursite.com/2016/05/15/Sass的使用之内置函数、Map、@import和@media/index.html">
+<meta property="og:site_name" content="hbChou">
+<meta property="og:description" content="内置函数
+字符串函数
+数字函数
+列表函数
+Introspection 函数
+Miscellaneous函数
+颜色函数
+
+
+Map
+Map的定义
+Map的操作函数
+
+
+@import
+@media
+
+
+
+
+内置函数
+字符串函数字符串函数顾名思意是用来处理字符串的函数。Sass 的字符串函数主要包括：unquote($string)：删除字符串中的引号；quote($string)：给字符串添加">
+<meta property="og:updated_time" content="2016-05-15T12:51:04.811Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sass的使用之内置函数、Map、@import和@media">
+<meta name="twitter:description" content="内置函数
+字符串函数
+数字函数
+列表函数
+Introspection 函数
+Miscellaneous函数
+颜色函数
+
+
+Map
+Map的定义
+Map的操作函数
+
+
+@import
+@media
+
+
+
+
+内置函数
+字符串函数字符串函数顾名思意是用来处理字符串的函数。Sass 的字符串函数主要包括：unquote($string)：删除字符串中的引号；quote($string)：给字符串添加">
+  
+    <link rel="alternative" href="/atom.xml" title="hbChou" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/image.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">hbChou</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">每天都要有所收获</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://segmentfault.com/">segmentfault社区</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">hbChou</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/image.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">hbChou</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">每天都要有所收获</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Sass的使用之内置函数、Map、@import和@media" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/15/Sass的使用之内置函数、Map、@import和@media/" class="article-date">
+  	<time datetime="2016-05-15T10:08:18.000Z" itemprop="datePublished">2016-05-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Sass的使用之内置函数、Map、@import和@media
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sass/">Sass</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#内置函数"><strong>内置函数</strong></a><ul>
+<li><a href="#字符串函数"><strong>字符串函数</strong></a></li>
+<li><a href="#数字函数"><strong>数字函数</strong></a></li>
+<li><a href="#列表函数"><strong>列表函数</strong></a></li>
+<li><a href="#introspection-函数"><strong>Introspection 函数</strong></a></li>
+<li><a href="#miscellaneous函数"><strong>Miscellaneous函数</strong></a></li>
+<li><a href="#颜色函数"><strong>颜色函数</strong></a></li>
+</ul>
+</li>
+<li><a href="#map"><strong>Map</strong></a><ul>
+<li><a href="#map的定义"><strong>Map的定义</strong></a></li>
+<li><a href="#map的操作函数"><strong>Map的操作函数</strong></a></li>
+</ul>
+</li>
+<li><a href="#import"><strong>@import</strong></a></li>
+<li><a href="#media"><strong>@media</strong></a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<hr>
+<p><a name="内置函数"></a></p>
+<h2 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a><strong>内置函数</strong></h2><p><a name="字符串函数"></a></p>
+<h3 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a><strong>字符串函数</strong></h3><p>字符串函数顾名思意是用来处理字符串的函数。<code>Sass</code> 的字符串函数主要包括：<br><code>unquote($string)</code>：删除字符串中的引号；<br><code>quote($string)</code>：给字符串添加引号。如果字符串自身带有引号会统一换成双引号 <code>&quot;&quot;</code>。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.test1 &#123;</span><br><span class="line">    content:  quote(&apos;Hello Sass!&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的<code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.test1 &#123;</span><br><span class="line">  content: &quot;Hello Sass!&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：在使用<code>quote</code>函数时，如果字符串中间有单引号或者空格时，需要用单引号或双引号括起，否则编译的时候将会报错。同样，碰到特殊符号，比如： <code>!</code>、<code>?</code>、<code>&gt;</code> 等，除中折号 <code>-</code> 和下划线<code>_</code>外，都需要使用双引号括起。</p>
+<p><code>To-upper-case()</code> 函数将字符串小写字母转换成大写字母（与此相反的还有<code>To-lower-case()</code>）</p>
+<p><a name="数字函数"></a></p>
+<h3 id="数字函数"><a href="#数字函数" class="headerlink" title="数字函数"></a><strong>数字函数</strong></h3><p><code>percentage($value)</code>：将一个不带单位的数转换成百分比值；如果转换的值是一个带有单位的值，那么在编译的时候会报错误信息<br><code>round($value)</code>：将数值四舍五入，转换成一个最接近的整数；参数可以是携带任意单位的数值<br><code>ceil($value)</code>：将大于自己的小数转换成下一位整数；<br><code>floor($value)</code>：将一个数去除他的小数部分；<br><code>abs($value)</code>：返回一个数的绝对值；<br><code>min($numbers…)</code>：找出几个数值之间的最小值；在 <code>min()</code> 函数中同时出现两种不同类型的单位，将会报错<br><code>max($numbers…)</code>：找出几个数值之间的最大值；<br><code>random()</code>: 获取随机数</p>
+<p><a name="列表函数"></a></p>
+<h3 id="列表函数"><a href="#列表函数" class="headerlink" title="列表函数"></a><strong>列表函数</strong></h3><p><code>length($list)</code>：返回一个列表的长度值；<code>length()</code>函数中的列表参数之间使用空格隔开，不能使用逗号，否则函数将会出错。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">length(10px 20px (border 1px solid) 2em)    //4</span><br></pre></td></tr></table></figure></p>
+<p><code>nth($list, $n)</code>：返回一个列表中指定的某个标签值，$n 必须是大于 0 的整数。</p>
+<p><code>join($list1, $list2, [$separator])</code>：将两个列给连接在一起，变成一个列表；只能将两个列表连接成一个列表，如果直接连接两个以上的列表将会报错。参数 <code>$separator</code>主要是用来给列表函数连接列表值时使用的分隔符号，默认值为 <code>auto</code>。<br><code>join()</code> 函数中 <code>$separator</code> 除了默认值 <code>auto</code> 之外，还有 <code>comma</code> 和 <code>space</code> 两个值，其中 <code>comma</code> 值指定列表中的列表项值之间使用逗号（<code>&quot;,&quot;</code>）分隔，<code>space</code> 值指定列表中的列表项值之间使用空格（<code>&quot; &quot;</code>）分隔。不明确指定分隔符时，会出现以下情况：<br>如果列表中的第一个列表中有多个值，那么 <code>join()</code> 函数合并的列表中每个列表项之间使用第一个列表中的分隔符进行分隔；但当第一个列表中只有一个列表项，那么 <code>join()</code> 函数合并的列表项目中每个列表项目之间将会使用第二个列表项使用的分隔符。如果两个列表都只有一项，则合成的列表中每一项使用空格进行分隔。</p>
+<p><code>append($list1, $val, [$separator])</code>：将某个值放在列表的最后；在不明确指定分隔符时，如果列表只有一个列表项，那么插入进来的值将和原来的值以空格的方式分隔。</p>
+<p><code>zip($lists…)</code>：将几个列表结合成一个多维的列表。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip(1px 2px 3px,solid dashed dotted,green blue red)</span><br><span class="line">//((1px &quot;solid&quot; #008000), (2px &quot;dashed&quot; #0000ff), (3px &quot;dotted&quot; #ff0000))</span><br></pre></td></tr></table></figure></p>
+<p><code>index($list, $value)</code>：返回一个值在列表中的位置值。如果指定的值不在列表中（没有找到相应的值），那么返回的值将是 <code>false</code>，否则会返回对应的值在列表中所处的位置。</p>
+<p><a name="introspection-函数"></a></p>
+<h3 id="Introspection-函数"><a href="#Introspection-函数" class="headerlink" title="Introspection 函数"></a><strong>Introspection 函数</strong></h3><p><code>Introspection</code> 函数包括了几个判断型函数：<br><code>type-of($value)</code>：返回一个值的类型。<br><code>type-of()</code> 函数主要用来判断一个值是属于什么类型：<br>返回值：<code>number</code> 为数值型。<code>string</code> 为字符串型。<code>bool</code> 为布尔型。<code>color</code> 为颜色型。</p>
+<p><code>unit($number)</code>：返回一个值的单位。碰到复杂的计算时，其能根据运算得到一个“多单位组合”的值，不过只允许乘、除运算（得到的结果在大多数情况下都是没有意义的）：<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unit(10px / 3em)    //&quot;px/em&quot;</span><br><span class="line">unit(10px * 2em / 3cm / 1rem)   //&quot;em/rem&quot;</span><br></pre></td></tr></table></figure></p>
+<p>但加、减碰到不同单位时，<code>unit()</code> 函数将会报错，除 <code>px</code> 与 <code>cm</code>、<code>mm</code> 运算之外：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unit(1px + 1mm)     //&quot;px&quot;</span><br></pre></td></tr></table></figure></p>
+<p><code>unitless($number)</code>：判断一个值是否带有单位；如果不带单位返回的值为 <code>true</code>，带单位返回的值为 <code>false</code>。<br>应用场景：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@mixin adjust-location($x, $y) &#123;</span><br><span class="line">  @if unitless($x) &#123;</span><br><span class="line">    $x: 1px * $x;</span><br><span class="line">  &#125;</span><br><span class="line">  @if unitless($y) &#123;</span><br><span class="line">    $y: 1px * $y;</span><br><span class="line">  &#125;</span><br><span class="line">  position: relative;</span><br><span class="line">  left: $x;</span><br><span class="line">  top: $y;</span><br><span class="line">&#125;</span><br><span class="line">.botton&#123;</span><br><span class="line">    @include adjust-location(20px, 30);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>comparable($number-1, $number-2)</code>：判断两个值是否可以做加、减和合并，如果可以返回的值为 <code>true</code>，如果不可以返回 <code>false</code>。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">comparable(2px,1em)     //false</span><br><span class="line">comparable(2rem,1em)    //false</span><br></pre></td></tr></table></figure></p>
+<p><a name="miscellaneous函数"></a></p>
+<h3 id="Miscellaneous函数"><a href="#Miscellaneous函数" class="headerlink" title="Miscellaneous函数"></a><strong>Miscellaneous函数</strong></h3><p><code>Miscellaneous</code>函数也称为三元条件函数，它的调用方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if($condition,$if-true,$if-false)</span><br></pre></td></tr></table></figure></p>
+<p>上面表达式的意思是当 <code>$condition</code> 条件成立时，返回的值为 <code>$if-true</code>，否则返回的是 <code>$if-false</code> 值。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(true,1px,2px)    //1px</span><br></pre></td></tr></table></figure></p>
+<p><a name="颜色函数"></a></p>
+<h3 id="颜色函数"><a href="#颜色函数" class="headerlink" title="颜色函数"></a><strong>颜色函数</strong></h3><p><code>rgb($red,$green,$blue)</code>：根据红、绿、蓝三个值创建一个颜色；<br><code>rgba($red,$green,$blue,$alpha)</code>：根据红、绿、蓝和透明度值创建一个颜色；<br><code>rgba</code>的两种语法格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rgba($red,$green,$blue,$alpha)</span><br><span class="line">rgba($color,$alpha)     // 其中的 $color 参数是 Hex 表示的颜色</span><br></pre></td></tr></table></figure></p>
+<p><code>red($color)</code>：从一个颜色中获取其中红色值；<br><code>green($color)</code>：从一个颜色中获取其中绿色值；<br><code>blue($color)</code>：从一个颜色中获取其中蓝色值；<br><code>mix($color-1,$color-2,[$weight]</code>：把两种颜色混合在一起。<code>$weight</code> 为 合并的比例（选择权重），默认值为 <code>50%</code>，其取值范围是 <code>0~1</code> 之间。<code>$color-1</code> 和 <code>$color-2</code> 分别所占的比例是 <code>$weight</code> 和 <code>1 - $weight</code>。</p>
+<p><a name="map"></a></p>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a><strong>Map</strong></h2><p><a name="map的定义"></a></p>
+<h3 id="Map的定义"><a href="#Map的定义" class="headerlink" title="Map的定义"></a><strong>Map的定义</strong></h3><p><code>Map</code>的定义格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$name: (</span><br><span class="line">    $key1: value1,</span><br><span class="line">    $key2: value2,</span><br><span class="line">    $key3: value3</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p><code>Map</code>中也可以嵌套<code>Map</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$map: (</span><br><span class="line">    key1: value1,</span><br><span class="line">    key2: (</span><br><span class="line">        key-1: value-1,</span><br><span class="line">        key-2: value-2,</span><br><span class="line">    ),</span><br><span class="line">    key3: value3</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p><a name="map的操作函数"></a></p>
+<h3 id="Map的操作函数"><a href="#Map的操作函数" class="headerlink" title="Map的操作函数"></a><strong>Map的操作函数</strong></h3><p><code>map-get($map,$key)</code>：根据给定的 <code>key</code> 值，返回 <code>map</code> 中相关的值。如果 <code>$key</code> 不在 <code>$map</code> 中，不会编译出 <code>CSS</code>，其实在 <code>Sass</code> 中，<code>map-get($social- colors,weibo)</code> 返回了一个 <code>null</code> 值。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.btn-weibo&#123;</span><br><span class="line">  font-size: 12px;</span><br><span class="line">  color: map-get($social-colors,weibo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此时编译出来的<code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.btn-weibo &#123;</span><br><span class="line">  font-size: 12px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结果不符合我们的要求，但此时不会报错，因此不好排错。最好是先使用<code>map-has-key($map,$key)</code>判断一下是否存在指定的<code>$key</code>再进行获取。</p>
+<p><code>map-has-key($map,$key)</code>：根据给定的 <code>key</code> 值判断 <code>map</code> 是否有对应的 <code>value</code> 值，如果有返回 <code>true</code>，否则返回 <code>false</code>。<br>改进上面的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@function colors($color)&#123;</span><br><span class="line">    @if not map-has-key($social-colors,$color)&#123;</span><br><span class="line">        @warn &quot;No color found for `#&#123;$color&#125;` in $social-colors map. Property omitted.&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    @return map-get($social-colors,$color);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>map-merge($map1,$map2)</code>：将两个 <code>map</code> 合并成一个新的 <code>map</code>。如果 <code>$map1</code> 和 <code>$map2</code> 中有相同的 <code>$key</code> 名，那么将 <code>$map2</code> 中的 <code>$key</code> 对应的值会覆盖 <code>$map1</code> 中的 <code>$key</code> 对应的值。<br><code>map-remove($map,$key)</code>：从 <code>map</code> 中删除一个 <code>key</code>，返回一个新 <code>map</code>。<br><code>map-keys($map)</code>：返回 <code>map</code> 中所有的 <code>key</code>，返回结果是一个列表。<br><code>map-values($map)</code>：返回 <code>map</code> 中所有的 <code>value</code>，返回结果也是一个列表。如果有相同的 <code>value</code> 也将会被全部获取。</p>
+<p><code>keywords($args)</code>：可以动态创建 <code>Map</code> 。参数 <code>$args</code> 是一个键值对的列表，其中 <code>$args</code> 的每一项的键名变成 <code>Map</code> 中的 <code>key</code>(会自动去掉<code>$</code>符号)，而键名对应的值就是 <code>Map</code> 中的 <code>value</code>。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@mixin map($args...)&#123;</span><br><span class="line">    @debug keywords($args);</span><br><span class="line">&#125;</span><br><span class="line">@include map(</span><br><span class="line">  $dribble: #ea4c89,</span><br><span class="line">  $facebook: #3b5998,</span><br><span class="line">  $github: #171515,</span><br><span class="line">  $google: #db4437,</span><br><span class="line">  $twitter: #55acee</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>在命令终端可以看到一个输入的 <code>@debug</code> 信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEBUG: (dribble: #ea4c89, facebook: #3b5998, github: #171515, google: #db4437, twitter: #55acee)</span><br></pre></td></tr></table></figure></p>
+<p><a name="import"></a></p>
+<h2 id="import"><a href="#import" class="headerlink" title="@import"></a><strong>@import</strong></h2><p>此处的<code>@import</code>与<code>css</code>中原生的@import命令不同。 默认情况下，它会寻找 <code>Sass</code> 文件并直接引入， 但是，在少数几种情况下，它会被编译成 <code>CSS</code> 的 <code>@import</code> 规则：</p>
+<ul>
+<li>如果文件的扩展名是 <code>.css</code>。</li>
+<li>如果文件名以 <code>http://</code> 开头。</li>
+<li>如果文件名是 <code>url()</code>。</li>
+<li>如果 <code>@import</code> 包含了任何媒体查询（<code>media queries</code>）。<br>如果上述情况都没有出现，并且扩展名是 <code>.scss</code> 或 <code>.sass</code>，该名称的 <code>Sass</code> 或 <code>SCSS</code> 文件就会被引入。 如果没有扩展名， <code>Sass</code> 将试着找出具有 <code>.scss</code> 或 <code>.sass</code> 扩展名的同名文件并将其引入。例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@import &quot;foo.scss&quot;;</span><br><span class="line">@import &quot;foo&quot;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>两者都将引入 <code>foo.scss</code> 文件。如果你有一个 <code>SCSS</code> 或 <code>Sass</code> 文件需要引入， 但是你又不希望它被编译为一个 <code>CSS</code> 文件，这时，你就可以在文件名前面加一个下划线，就能避免被编译。 这将告诉 <code>Sass</code> 不要把它编译成 <code>CSS</code> 文件。指定该文件名时也可以省略文件名前面的下划线。<br>注意，在同一个目录不能同时存在带下划线和不带下划线的同名文件。另外，除了可以在顶层文件中使用<code>@import</code>导入外部<code>Sass</code>文件之外，也可以在<code>CSS</code>规则中嵌入<code>@import</code>语句来导入外部<code>Sass</code>文件。这相当于选择器嵌套：<br>假设要引入的样式文件<code>example.scss</code>文件中包含这样的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.test1 &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">.test2&#123;</span><br><span class="line">  font-size: 12px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后这样引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#main &#123;</span><br><span class="line">  @import &quot;example&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的 CSS：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#main .test1 &#123;</span><br><span class="line">  color: red; &#125;</span><br><span class="line">#main .test2` &#123;</span><br><span class="line">  font-size: 12px; &#125;</span><br></pre></td></tr></table></figure></p>
+<p><a name="media"></a></p>
+<h2 id="media"><a href="#media" class="headerlink" title="@media"></a><strong>@media</strong></h2><p>作为响应式布局的重要组成，<code>@media</code>在<code>Sass</code>中还可以嵌套在<code>CSS</code>规则中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.sidebar &#123;</span><br><span class="line">  width: 300px;</span><br><span class="line">  @media screen and (orientation: landscape) &#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.sidebar &#123;</span><br><span class="line">  width: 300px;</span><br><span class="line">&#125;</span><br><span class="line">@media screen and (orientation: landscape) &#123;</span><br><span class="line">  .sidebar &#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>@media</code> 也可以嵌套 <code>@media</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@media screen &#123;</span><br><span class="line">  .sidebar &#123;</span><br><span class="line">    @media (orientation: landscape) &#123;</span><br><span class="line">      width: 500px;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此时编译出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@media screen and (orientation: landscape) &#123;</span><br><span class="line">  .sidebar &#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在使用 <code>@media</code> 时，还可以使用插值<code>#{}</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$media: screen;</span><br><span class="line">$feature: -webkit-min-device-pixel-ratio;</span><br><span class="line">$value: 1.5;</span><br><span class="line">@media #&#123;$media&#125; and ($feature: $value) &#123;</span><br><span class="line">  .sidebar &#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的 <code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@media screen and (-webkit-min-device-pixel-ratio: 1.5) &#123;</span><br><span class="line">  .sidebar &#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/05/15/Sass的使用之数据类型、运算和指令/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Sass的使用之数据类型、运算和指令</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Sass的使用之内置函数、Map、@import和@media" data-title="Sass的使用之内置函数、Map、@import和@media" data-url="http://yoursite.com/2016/05/15/Sass的使用之内置函数、Map、@import和@media/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 hbChou
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -192,10 +192,10 @@
 
       <div class="body-wrap">
   
-    <article id="post-Sass的使用之内置函数、Map和-mediaa" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Sass的使用之内置函数、Map、@import和@media" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/05/15/Sass的使用之内置函数、Map和-mediaa/" class="article-date">
+      <a href="/2016/05/15/Sass的使用之内置函数、Map、@import和@media/" class="article-date">
   	<time datetime="2016-05-15T10:08:18.000Z" itemprop="datePublished">2016-05-15</time>
 </a>
     </div>
@@ -209,7 +209,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/15/Sass的使用之内置函数、Map和-mediaa/">Sass的使用之内置函数、Map和@mediaa</a>
+      <a class="article-title" href="/2016/05/15/Sass的使用之内置函数、Map、@import和@media/">Sass的使用之内置函数、Map、@import和@media</a>
     </h1>
   
 
@@ -235,6 +235,7 @@
 <li><a href="#map的操作函数"><strong>Map的操作函数</strong></a></li>
 </ul>
 </li>
+<li><a href="#import"><strong>@import</strong></a></li>
 <li><a href="#media"><strong>@media</strong></a></li>
 </ul>
 <!-- /MarkdownTOC -->
@@ -278,6 +279,18 @@
 <p><code>map-merge($map1,$map2)</code>：将两个 <code>map</code> 合并成一个新的 <code>map</code>。如果 <code>$map1</code> 和 <code>$map2</code> 中有相同的 <code>$key</code> 名，那么将 <code>$map2</code> 中的 <code>$key</code> 对应的值会覆盖 <code>$map1</code> 中的 <code>$key</code> 对应的值。<br><code>map-remove($map,$key)</code>：从 <code>map</code> 中删除一个 <code>key</code>，返回一个新 <code>map</code>。<br><code>map-keys($map)</code>：返回 <code>map</code> 中所有的 <code>key</code>，返回结果是一个列表。<br><code>map-values($map)</code>：返回 <code>map</code> 中所有的 <code>value</code>，返回结果也是一个列表。如果有相同的 <code>value</code> 也将会被全部获取。</p>
 <p><code>keywords($args)</code>：可以动态创建 <code>Map</code> 。参数 <code>$args</code> 是一个键值对的列表，其中 <code>$args</code> 的每一项的键名变成 <code>Map</code> 中的 <code>key</code>(会自动去掉<code>$</code>符号)，而键名对应的值就是 <code>Map</code> 中的 <code>value</code>。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@mixin map($args...)&#123;</span><br><span class="line">    @debug keywords($args);</span><br><span class="line">&#125;</span><br><span class="line">@include map(</span><br><span class="line">  $dribble: #ea4c89,</span><br><span class="line">  $facebook: #3b5998,</span><br><span class="line">  $github: #171515,</span><br><span class="line">  $google: #db4437,</span><br><span class="line">  $twitter: #55acee</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
 <p>在命令终端可以看到一个输入的 <code>@debug</code> 信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEBUG: (dribble: #ea4c89, facebook: #3b5998, github: #171515, google: #db4437, twitter: #55acee)</span><br></pre></td></tr></table></figure></p>
+<p><a name="import"></a></p>
+<h2 id="import"><a href="#import" class="headerlink" title="@import"></a><strong>@import</strong></h2><p>此处的<code>@import</code>与<code>css</code>中原生的@import命令不同。 默认情况下，它会寻找 <code>Sass</code> 文件并直接引入， 但是，在少数几种情况下，它会被编译成 <code>CSS</code> 的 <code>@import</code> 规则：</p>
+<ul>
+<li>如果文件的扩展名是 <code>.css</code>。</li>
+<li>如果文件名以 <code>http://</code> 开头。</li>
+<li>如果文件名是 <code>url()</code>。</li>
+<li>如果 <code>@import</code> 包含了任何媒体查询（<code>media queries</code>）。<br>如果上述情况都没有出现，并且扩展名是 <code>.scss</code> 或 <code>.sass</code>，该名称的 <code>Sass</code> 或 <code>SCSS</code> 文件就会被引入。 如果没有扩展名， <code>Sass</code> 将试着找出具有 <code>.scss</code> 或 <code>.sass</code> 扩展名的同名文件并将其引入。例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@import &quot;foo.scss&quot;;</span><br><span class="line">@import &quot;foo&quot;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>两者都将引入 <code>foo.scss</code> 文件。如果你有一个 <code>SCSS</code> 或 <code>Sass</code> 文件需要引入， 但是你又不希望它被编译为一个 <code>CSS</code> 文件，这时，你就可以在文件名前面加一个下划线，就能避免被编译。 这将告诉 <code>Sass</code> 不要把它编译成 <code>CSS</code> 文件。指定该文件名时也可以省略文件名前面的下划线。<br>注意，在同一个目录不能同时存在带下划线和不带下划线的同名文件。另外，除了可以在顶层文件中使用<code>@import</code>导入外部<code>Sass</code>文件之外，也可以在<code>CSS</code>规则中嵌入<code>@import</code>语句来导入外部<code>Sass</code>文件。这相当于选择器嵌套：<br>假设要引入的样式文件<code>example.scss</code>文件中包含这样的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.test1 &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">.test2&#123;</span><br><span class="line">  font-size: 12px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后这样引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#main &#123;</span><br><span class="line">  @import &quot;example&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译出来的 CSS：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#main .test1 &#123;</span><br><span class="line">  color: red; &#125;</span><br><span class="line">#main .test2` &#123;</span><br><span class="line">  font-size: 12px; &#125;</span><br></pre></td></tr></table></figure></p>
 <p><a name="media"></a></p>
 <h2 id="media"><a href="#media" class="headerlink" title="@media"></a><strong>@media</strong></h2><p>作为响应式布局的重要组成，<code>@media</code>在<code>Sass</code>中还可以嵌套在<code>CSS</code>规则中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.sidebar &#123;</span><br><span class="line">  width: 300px;</span><br><span class="line">  @media screen and (orientation: landscape) &#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>编译出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.sidebar &#123;</span><br><span class="line">  width: 300px;</span><br><span class="line">&#125;</span><br><span class="line">@media screen and (orientation: landscape) &#123;</span><br><span class="line">  .sidebar &#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
