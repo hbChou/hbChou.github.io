@@ -79,7 +79,7 @@
 						<li>Links</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -219,8 +219,47 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>我们大家都知道，HTML5新增了很多新的特性，比如HTML5 Canvas 绘图、HTML5 SVG、音频和视频处理、表单处理、表单验证、Geolocation API、WebSockets API、Forms API、HTML5 拖放、Web Workers API、Web Storage API、离线Web 应用等等。除此之外，HTML5更是强调了我们在使用HTML标签的语义化，力求做到语义与呈现的真正分离。今天就让我们来盘点一下HTML5中都新添了哪些标签。</p>
-<h2 id="文本元素"><a href="#文本元素" class="headerlink" title="文本元素"></a><strong>文本元素</strong></h2><p><strong>del</strong>表示从文档中删除的文字<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">del</span>&gt;</span>此内容已从文档中删除<span class="tag">&lt;/<span class="name">del</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/2016-05-14_214648.png" alt="图片"><br><strong>mark</strong>表示一段因为与上下文另一词语相关而被突出显示的内容</p>
+<h2 id="文本元素"><a href="#文本元素" class="headerlink" title="文本元素"></a><strong>文本元素</strong></h2><p><strong>del</strong>表示从文档中删除的文字。使用<strong>s</strong>标签也有同样的效果，但<strong>s</strong>标签还表示另一层含义，它表示文字已不再准确。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">del</span>&gt;</span>此内容已从文档中删除<span class="tag">&lt;/<span class="name">del</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/2016-05-14_214648.png" alt="图片"></p>
+<p><strong>mark</strong>表示一段因为与上下文另一词语相关而被突出显示的内容<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mark</span>&gt;</span>Content<span class="tag">&lt;/<span class="name">mark</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/2016-05-14_214648.png" alt="图片"></p>
+<p><strong>time</strong>表示时间或日期<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">time</span>&gt;</span>2016年05月14日<span class="tag">&lt;/<span class="name">time</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/2016-05-14_214648.png" alt="图片"></p>
+<h2 id="对内容分组"><a href="#对内容分组" class="headerlink" title="对内容分组"></a><strong>对内容分组</strong></h2><p><strong>figcaption</strong>表示figure元素的标题，figcaption元素必须是figure元素的第一个或最后一个子元素。</p>
+<p><strong>figure</strong>表示插图<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">figure</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">figcaption</span>&gt;</span>这是一幅插图<span class="tag">&lt;/<span class="name">figcaption</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"xxx.jpg"</span> <span class="attr">alt</span>=<span class="string">"xxx.jpg"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="划分内容"><a href="#划分内容" class="headerlink" title="划分内容"></a><strong>划分内容</strong></h2><p><strong>address</strong>表示文档或article的联系信息</p>
+<p><strong>article</strong>表示一段独立的内容</p>
+<p><strong>aside</strong>表示与周边内容稍有牵涉的内容</p>
+<p><strong>details</strong>生成一个区域，用户将其展开可以获得更多细节信息</p>
+<p><strong>footer</strong>表示尾部</p>
+<p><strong>header</strong>表示首部</p>
+<p><strong>hgroup</strong>将一组标题组织在一起，以便文档大纲只显示其中第一个标题</p>
+<p><strong>nav</strong>表示有意集中在一起的导航元素</p>
+<p><strong>section</strong>表示一个重要的概念或主题</p>
+<p><strong>summary</strong>用在details元素中，表示该元素内容的标题或说明</p>
+<h2 id="创建表单"><a href="#创建表单" class="headerlink" title="创建表单"></a><strong>创建表单</strong></h2><p><strong>output</strong>表示计算结果</p>
+<h2 id="嵌入内容"><a href="#嵌入内容" class="headerlink" title="嵌入内容"></a><strong>嵌入内容</strong></h2><p><strong>audio</strong>表示一个音频资源</p>
+<p><strong>canvas</strong>生成一个动态的图形画布</p>
+<p><strong>embed</strong>用插件在HTML文档中嵌入内容</p>
+<p><strong>progress</strong>嵌入目标进展或任务完成情况的图形表示</p>
+<p><strong>source</strong>表示媒体资源</p>
+<p><strong>svg</strong>表示结构化矢量内容</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a><strong>其他</strong></h2><p><strong>datalist</strong>用于为用户在输入时提供一些参考值。提供给用户的值各用一个option元素指定。input标签最终使用的值就是被选中的option元素的value属性值。显示在参考值列表中的值是由option标签的label属性值或者option元素之间的内容决定的。所以应该尽量保证option元素的value属性值和option标签的label属性值或者option元素之间的内容保持一致。否则会让用户在选择时感到困惑。</p>
+<p>HTML5中除了新增了一些新的标签，还定义了一些可以用在所有标签上的全局属性，虽然说有些属性用在某些标签上不起作用或者毫无意义。</p>
+<p><strong>accesskey</strong>属性用于设定一个或多个可以用来选择页面元素的快捷键。在windows系统上可以使用Alt键加accesskey属性值对应的键选择到指定的元素。</p>
+<p><strong>class</strong>属性用于对文档中某类元素应用统一的CSS样式。</p>
+<p><strong>contenteditable</strong>属性可以启动或关闭让用户修改页面中内容的功能。</p>
+<p><strong>contextmenu</strong>属性用于定义右键快捷菜单</p>
+<p><strong>dir</strong>属性用于规定元素中文字的方向。可选的值有：”ltr”（默认值）和”rtl”。</p>
+<p><strong>draggable</strong>属性用来定义元素是否可以进行拖放。</p>
+<p><strong>dropzone</strong>属性用于表示元素拖曳之后最终可以选择的放置区域</p>
+<p><strong>hidden</strong>属性用于隐藏某些元素</p>
+<p><strong>id</strong>属性值用于定义某个元素区别于其他元素的唯一标识符</p>
+<p><strong>lang</strong>属性用于说明元素内容所使用的语言</p>
+<p><strong>spellcheck</strong>属性用于启动或关闭对输入内容的拼写检查功能，该属性用在用户可编辑<br>的元素上才有意义</p>
+<p><strong>style</strong>属性用于定义某个元素的行内样式</p>
+<p><strong>tabindex</strong>属性用于定义在使用TAB键切换页面中的元素时的转移顺序</p>
+<p><strong>title</strong>属性用于提供对元素的说明信息</p>
 
       
     </div>
@@ -277,7 +316,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="HTML5中不仅新增加了一些新的表单标签属性，而且还增加了表单验证的功能。今天让我们一起来盘点那些常用的表单输入元素。"><a href="#HTML5中不仅新增加了一些新的表单标签属性，而且还增加了表单验证的功能。今天让我们一起来盘点那些常用的表单输入元素。" class="headerlink" title="HTML5中不仅新增加了一些新的表单标签属性，而且还增加了表单验证的功能。今天让我们一起来盘点那些常用的表单输入元素。"></a>HTML5中不仅新增加了一些新的表单标签属性，而且还增加了表单验证的功能。今天让我们一起来盘点那些常用的表单输入元素。</h2><!-- MarkdownTOC -->
+        <p>HTML5中不仅新增加了一些新的表单标签属性，而且还增加了表单验证的功能。今天让我们一起来盘点那些常用的表单输入元素。</p>
+<hr>
+<!-- MarkdownTOC -->
 <ul>
 <li><a href="#form元素"><strong>form元素</strong></a><ul>
 <li><a href="#form元素的一些基本属性"><strong>form元素的一些基本属性</strong></a></li>
