@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>web的基础--HTTP协议 | hbChou</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HTTP协议，作为应用层的一种协议，是典型的B/S架构通信的基础。
+协议版本目前正在使用的HTTP协议都有以下几个版本：
+
+HTTP/1.0是第一个得到广泛使用的HTTP版本。
+HTTP/1.0+增加了一些新特性，包括持久的keep-alive连接、支持虚拟主机和代理连接。
+HTTP/1.1是当前使用的HTTP版本。
+
+HTTP报文组成HTTP报文可以分成两种：请求报文和响应报文。报文一般由以下三">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web的基础--HTTP协议">
+<meta property="og:url" content="http://yoursite.com/2016/05/16/web的基础-HTTP协议/index.html">
+<meta property="og:site_name" content="hbChou">
+<meta property="og:description" content="HTTP协议，作为应用层的一种协议，是典型的B/S架构通信的基础。
+协议版本目前正在使用的HTTP协议都有以下几个版本：
+
+HTTP/1.0是第一个得到广泛使用的HTTP版本。
+HTTP/1.0+增加了一些新特性，包括持久的keep-alive连接、支持虚拟主机和代理连接。
+HTTP/1.1是当前使用的HTTP版本。
+
+HTTP报文组成HTTP报文可以分成两种：请求报文和响应报文。报文一般由以下三">
+<meta property="og:updated_time" content="2016-05-16T15:23:39.537Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web的基础--HTTP协议">
+<meta name="twitter:description" content="HTTP协议，作为应用层的一种协议，是典型的B/S架构通信的基础。
+协议版本目前正在使用的HTTP协议都有以下几个版本：
+
+HTTP/1.0是第一个得到广泛使用的HTTP版本。
+HTTP/1.0+增加了一些新特性，包括持久的keep-alive连接、支持虚拟主机和代理连接。
+HTTP/1.1是当前使用的HTTP版本。
+
+HTTP报文组成HTTP报文可以分成两种：请求报文和响应报文。报文一般由以下三">
+  
+    <link rel="alternative" href="/atom.xml" title="hbChou" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/image.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">hbChou</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">每天都要有所收获</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://segmentfault.com/">segmentfault社区</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我就是我，是颜色不一样的烟火</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">hbChou</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/image.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">hbChou</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">每天都要有所收获</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/hbChou" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/3301672992?s=6cm7D0&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-hai-bin-63" title="zhihu">zhihu</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-web的基础-HTTP协议" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/16/web的基础-HTTP协议/" class="article-date">
+  	<time datetime="2016-05-16T12:21:50.000Z" itemprop="datePublished">2016-05-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      web的基础--HTTP协议
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>HTTP</code>协议，作为应用层的一种协议，是典型的<code>B/S</code>架构通信的基础。</p>
+<h2 id="协议版本"><a href="#协议版本" class="headerlink" title="协议版本"></a><strong>协议版本</strong></h2><p>目前正在使用的<code>HTTP</code>协议都有以下几个版本：</p>
+<ul>
+<li><code>HTTP/1.0</code>是第一个得到广泛使用的<code>HTTP</code>版本。</li>
+<li><code>HTTP/1.0+</code>增加了一些新特性，包括持久的<code>keep-alive</code>连接、支持虚拟主机和代理连接。</li>
+<li><code>HTTP/1.1</code>是当前使用的<code>HTTP</code>版本。</li>
+</ul>
+<h2 id="HTTP报文组成"><a href="#HTTP报文组成" class="headerlink" title="HTTP报文组成"></a><strong>HTTP报文组成</strong></h2><p>HTTP报文可以分成两种：请求报文和响应报文。报文一般由以下三部分组成：起始行、首部和主体。其中在首部和主体之间留有一个空行。<br>以下是请求报文的格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;method&gt; &lt;request-URL&gt; &lt;version&gt;</span><br><span class="line">&lt;headers&gt;</span><br><span class="line"></span><br><span class="line">&lt;entity-body&gt;</span><br></pre></td></tr></table></figure></p>
+<p>以下是响应报文的格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;version&gt; &lt;status&gt; &lt;reason-phrase&gt;</span><br><span class="line">&lt;headers&gt;</span><br><span class="line"></span><br><span class="line">&lt;entity-body&gt;</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>&lt;version&gt;</code>的格式为：<code>HTTP/&lt;major&gt;.&lt;minor&gt;</code>。</p>
+<h3 id="起始行"><a href="#起始行" class="headerlink" title="起始行"></a><strong>起始行</strong></h3><h4 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a><strong>请求行</strong></h4><p>在请求行中，需要指定客户端希望服务器对资源执行的动作。常用的HTTP方法有：</p>
+<ul>
+<li><strong>GET</strong>：从服务器获取一份文档</li>
+<li><strong>POST</strong>：向服务器发送需要处理的数据</li>
+<li><strong>PUT</strong>：将请求的主体部分存储到服务器上</li>
+<li><strong>DELETE</strong>：从服务器删除一份文档。客户端无法保证删除操作一定会执行，因为<code>HTTP</code>规范允许服务器在不通知客户端的情况下撤销请求。</li>
+<li><strong>OPTIONS</strong>：询问服务器可以执行哪些方法</li>
+<li><strong>HEAD</strong>：只从服务器获取文档的首部。遵循<code>HTTP/1.1</code>规范，必须实现<code>HEAD</code>方法</li>
+<li><strong>TRACE</strong>：对可能经过代理服务器传送到服务器的报文进行追踪。行程中最后一站的服务器返回的响应主体中携带它收到的原始请求报文，以此和响应报文的首部比较，判断在请求/响应过程中请求报文是否被修改。</li>
+</ul>
+<h4 id="响应行"><a href="#响应行" class="headerlink" title="响应行"></a><strong>响应行</strong></h4><p>响应行中包含了响应报文使用的协议版本，响应状态码和响应状态说明信息。常见的状态码分成五类，分别是信息性状态码（100~199），成功状态码（200~299），重定向状态码（300~399），客户端错误状态码（400~499）和服务器端错误状态码（500~599）。<table><tr><th style="width: 60px;text-align: center;">状态码</th><th style="text-align: center;">原因短语</th><th style="text-align: center;">含义</th></tr><tr><td style="text-align: center;">100</td><td style="text-align: center;">Continue</td><td>客户端在发送一个实体内容给服务器之前，希望查看一下服务器是否接受这个实体（客户端会发送一个携带了值为100 Continue的Expect请求首部）</td></tr><tr><td style="text-align: center;">200</td><td style="text-align: center;">OK</td><td>表示响应主体部分已经包含所请求的资源</td></tr><tr><td style="text-align: center;">301</td><td style="text-align: center;">Moved Permanently</td><td>在请求的资源被移除时使用，响应的Location首部中应该包含了资源现在所处的URL</td></tr><tr><td style="text-align: center;">302</td><td style="text-align: center;">Found</td><td>客户端应该使用Location首部给出的URL来临时定位资源，将来的请求仍应使用老的URL</td></tr><tr><td style="text-align: center;">304</td><td style="text-align: center;">Not Modified</td><td>表示资源未被修改，带有这个状态码的响应不应该包含实体主体部分</td></tr><tr><td style="text-align: center;">307</td><td style="text-align: center;">Temporary Redirect</td><td>与302状态码类似，客户端应该使用Location首部给出的URL来临时定位资源，将来的请求仍应使用老的URL</td></tr><tr><td style="text-align: center;">403</td><td style="text-align: center;">Forbidden</td><td>表示请求被服务器拒绝了</td></tr><tr><td style="text-align: center;">404</td><td style="text-align: center;">Not Found</td><td>表示服务器无法找到请求的URL</td></tr></table></p>
+<h3 id="首部"><a href="#首部" class="headerlink" title="首部"></a><strong>首部</strong></h3><p>HTTP报文中的首部可以分为四个主要的类型：</p>
+<ul>
+<li><strong>通用首部</strong> 指的是客户端或服务器都可以使用的首部</li>
+<li><strong>请求首部</strong> 这一部分是在请求报文中特有的首部</li>
+<li><strong>响应首部</strong> 这一部分是在响应报文中特有的首部</li>
+<li><strong>实体首部</strong> 用于说明实体主体部分的首部<br>这里只列出常见首部。</li>
+</ul>
+<h4 id="通用首部"><a href="#通用首部" class="headerlink" title="通用首部"></a><strong>通用首部</strong></h4><table><tr><th style="text-align: center;">首部</th><th style="text-align: center;">描述</th></tr><tr><td style="text-align: center;">Connection</td><td>允许客户端和服务器端指定与连接相关的选项</td></tr><tr><td style="text-align: center;">Date</td><td>提供日期和时间标志，说明报文是什么时候创建的</td></tr><tr><td style="text-align: center;">Transfer-Encoding</td><td>告知接收端报文采用何种编码方式</td></tr><tr><td style="text-align: center;">Update</td><td>给出了发送端可能想要升级使用的新版本或协议（不局限于HTTP协议）</td></tr><tr><td style="text-align: center;">Via</td><td>显示了报文经过的中间节点（代理、网关）</td></tr><tr><td style="text-align: center;">Cache-Control</td><td>随报文传送缓存指示</td></tr></table>
+
+<h4 id="请求首部"><a href="#请求首部" class="headerlink" title="请求首部"></a><strong>请求首部</strong></h4><table><tr><th style="text-align: center;">首部</th><th style="text-align: center;">描述</th></tr><tr><td style="text-align: center;">Host</td><td>给出了接受请求的服务器的主机名和端口号</td></tr><tr><td style="text-align: center;">Referer</td><td>提供了包含当前请求URL的文档的URL</td></tr><tr><td style="text-align: center;">User-Agent</td><td>告知服务器发起请求的客户端应用程序名称</td></tr><tr><td style="text-align: center;">Accept</td><td>告知服务器能够发送哪些媒体类型</td></tr><tr><td style="text-align: center;">Accept-Charset</td><td>告知服务器能够发送哪些字符集</td></tr><tr><td style="text-align: center;">Accept-Encoding</td><td>告知服务器能够发送哪些编码方式</td></tr><tr><td style="text-align: center;">Accept-Language</td><td>告知服务器能够发送哪些语言</td></tr><tr><td style="text-align: center;">Expect</td><td>允许客户端列出某请求所要求的服务器行为</td></tr><tr><td style="text-align: center;">If-Match</td><td>如果实体标记与文档当前的实体标记相匹配，就获取这份文档</td></tr><tr><td style="text-align: center;">If-Modified-Since</td><td>询问服务器所请求的URL指向的文档自从过去某个时间点以来是否发生修改</td></tr><tr><td style="text-align: center;">Cookie</td><td>用于发送Cookie的首部</td></tr></table>
+
+<h4 id="响应首部"><a href="#响应首部" class="headerlink" title="响应首部"></a><strong>响应首部</strong></h4><table><tr><th style="text-align: center;">首部</th><th style="text-align: center;">描述</th></tr><tr><td style="text-align: center;">Age</td><td>表示（从最初创建开始）响应持续时间</td></tr><tr><td style="text-align: center;">Public</td><td>服务器为其资源提供的请求方法列表</td></tr><tr><td style="text-align: center;">Retry-After</td><td>表示资源不可用时，在指定的日期和时间重试</td></tr><tr><td style="text-align: center;">Server</td><td>服务器应用程序的名称和版本</td></tr><tr><td style="text-align: center;">Set-Cookie</td><td>在客户端设置Cookie</td></tr></table>
+
+<h4 id="实体首部"><a href="#实体首部" class="headerlink" title="实体首部"></a><strong>实体首部</strong></h4><table><tr><th style="text-align: center;">首部</th><th style="text-align: center;">描述</th></tr><tr><td style="text-align: center;">Allow</td><td>列出了可以对此实体执行的请求方法</td></tr><tr><td style="text-align: center;">Location</td><td>用于将接收端定向到给定的URL上</td></tr><tr><td style="text-align: center;">Content-Base</td><td>解析主体内容中的相对URL时使用的基础URL</td></tr><tr><td style="text-align: center;">Content-Length</td><td>主体的长度</td></tr><tr><td style="text-align: center;">Content-Type</td><td>主体的对象类型</td></tr><tr><td style="text-align: center;">ETag</td><td>与此实体相关的实体标记</td></tr><tr><td style="text-align: center;">Expires</td><td>实体不再有效，需要从服务器端再次获取此实体的日期和时间</td></tr><tr><td style="text-align: center;">Last-Modified</td><td>实体最后一次被修改的日期和时间</td></tr></table>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/05/16/你所不知道的javascript之Ajax的使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">你所不知道的javascript之Ajax的使用</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="web的基础-HTTP协议" data-title="web的基础--HTTP协议" data-url="http://yoursite.com/2016/05/16/web的基础-HTTP协议/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 hbChou
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

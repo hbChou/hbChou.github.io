@@ -54,7 +54,7 @@ Map的操作函数
 
 内置函数
 字符串函数字符串函数顾名思意是用来处理字符串的函数。Sass 的字符串函数主要包括：unquote($string)：删除字符串中的引号；quote($string)：给字符串添加">
-<meta property="og:updated_time" content="2016-05-15T12:51:04.811Z">
+<meta property="og:updated_time" content="2016-05-17T11:45:57.986Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sass的使用之内置函数、Map、@import和@media">
 <meta name="twitter:description" content="内置函数
@@ -143,7 +143,7 @@ Map的操作函数
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -180,7 +180,7 @@ Map的操作函数
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -329,7 +329,7 @@ Map的操作函数
 <p><code>zip($lists…)</code>：将几个列表结合成一个多维的列表。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip(1px 2px 3px,solid dashed dotted,green blue red)</span><br><span class="line">//((1px &quot;solid&quot; #008000), (2px &quot;dashed&quot; #0000ff), (3px &quot;dotted&quot; #ff0000))</span><br></pre></td></tr></table></figure></p>
 <p><code>index($list, $value)</code>：返回一个值在列表中的位置值。如果指定的值不在列表中（没有找到相应的值），那么返回的值将是 <code>false</code>，否则会返回对应的值在列表中所处的位置。</p>
 <p><a name="introspection-函数"></a></p>
-<h3 id="Introspection-函数"><a href="#Introspection-函数" class="headerlink" title="Introspection 函数"></a><strong>Introspection 函数</strong></h3><p><code>Introspection</code> 函数包括了几个判断型函数：<br><code>type-of($value)</code>：返回一个值的类型。<br><code>type-of()</code> 函数主要用来判断一个值是属于什么类型：<br>返回值：<code>number</code> 为数值型。<code>string</code> 为字符串型。<code>bool</code> 为布尔型。<code>color</code> 为颜色型。</p>
+<h3 id="Introspection-函数"><a href="#Introspection-函数" class="headerlink" title="Introspection 函数"></a><strong>Introspection 函数</strong></h3><p><code>Introspection</code> 函数包括了几个判断型函数：<br><code>type-of($value)</code>：返回一个值的类型。返回值：<code>number</code> 为数值型。<code>string</code> 为字符串型。<code>bool</code> 为布尔型。<code>color</code> 为颜色型。</p>
 <p><code>unit($number)</code>：返回一个值的单位。碰到复杂的计算时，其能根据运算得到一个“多单位组合”的值，不过只允许乘、除运算（得到的结果在大多数情况下都是没有意义的）：<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unit(10px / 3em)    //&quot;px/em&quot;</span><br><span class="line">unit(10px * 2em / 3cm / 1rem)   //&quot;em/rem&quot;</span><br></pre></td></tr></table></figure></p>
 <p>但加、减碰到不同单位时，<code>unit()</code> 函数将会报错，除 <code>px</code> 与 <code>cm</code>、<code>mm</code> 运算之外：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unit(1px + 1mm)     //&quot;px&quot;</span><br></pre></td></tr></table></figure></p>
 <p><code>unitless($number)</code>：判断一个值是否带有单位；如果不带单位返回的值为 <code>true</code>，带单位返回的值为 <code>false</code>。<br>应用场景：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@mixin adjust-location($x, $y) &#123;</span><br><span class="line">  @if unitless($x) &#123;</span><br><span class="line">    $x: 1px * $x;</span><br><span class="line">  &#125;</span><br><span class="line">  @if unitless($y) &#123;</span><br><span class="line">    $y: 1px * $y;</span><br><span class="line">  &#125;</span><br><span class="line">  position: relative;</span><br><span class="line">  left: $x;</span><br><span class="line">  top: $y;</span><br><span class="line">&#125;</span><br><span class="line">.botton&#123;</span><br><span class="line">    @include adjust-location(20px, 30);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -379,6 +379,15 @@ Map的操作函数
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/05/16/你所不知道的javascript之Ajax的使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          你所不知道的javascript之Ajax的使用
+        
+      </div>
+    </a>
   
   
     <a href="/2016/05/15/Sass的使用之数据类型、运算和指令/" id="article-nav-older" class="article-nav-link-wrap">

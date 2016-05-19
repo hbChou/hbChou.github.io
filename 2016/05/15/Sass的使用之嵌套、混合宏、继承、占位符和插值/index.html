@@ -46,7 +46,7 @@ Sass的编译1sass &amp;lt;要编译的Sass文件路径&amp;gt;/style.scss:&amp;
 
 Sass的编译1sass &amp;lt;要编译的Sass文件路径&amp;gt;/style.scss:&amp;lt;要输出CSS文件路径&amp;gt;/style.css
 也可以开启”watch”功能，这样就不需要每次修改完手动进行编译：1sass --watch &amp;lt;要编译">
-<meta property="og:updated_time" content="2016-05-15T12:30:20.425Z">
+<meta property="og:updated_time" content="2016-05-17T11:37:36.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sass的使用之Sass的编译、嵌套、混合宏、继承、占位符和插值">
 <meta name="twitter:description" content="Sass的编译
@@ -131,7 +131,7 @@ Sass的编译1sass &amp;lt;要编译的Sass文件路径&amp;gt;/style.scss:&amp;
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -168,7 +168,7 @@ Sass的编译1sass &amp;lt;要编译的Sass文件路径&amp;gt;/style.scss:&amp;
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -321,7 +321,7 @@ Sass的编译1sass &amp;lt;要编译的Sass文件路径&amp;gt;/style.scss:&amp;
 <h3 id="伪类嵌套"><a href="#伪类嵌套" class="headerlink" title="伪类嵌套"></a><strong>伪类嵌套</strong></h3><p>跟选择器嵌套类似，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.clearfix&#123;</span><br><span class="line">    &amp;:before,</span><br><span class="line">    &amp;:after &#123;</span><br><span class="line">        content:&quot;&quot;;</span><br><span class="line">        display: table;</span><br><span class="line">    &#125;</span><br><span class="line">    &amp;:after &#123;</span><br><span class="line">        clear:both;</span><br><span class="line">        overflow: hidden;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>编译出来的 <code>CSS</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">clearfix:before, .clearfix:after &#123;</span><br><span class="line">  content: &quot;&quot;;</span><br><span class="line">  display: table;</span><br><span class="line">&#125;</span><br><span class="line">.clearfix:after &#123;</span><br><span class="line">  clear: both;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><a name="混合宏"></a></p>
-<h2 id="混合宏"><a href="#混合宏" class="headerlink" title="混合宏"></a><strong>混合宏</strong></h2><p>主要作用：重用 <code>CSS</code> 代码<br>使用<code>&quot;@mixin&quot;</code>来定义混合宏，它可以传递参数<br>调用混合宏，使用<code>&quot;@include mixin_name&quot;</code><br>混合宏的缺点：容易造成代码的冗余，相同的代码会在编译出来的CSS文件出现多处</p>
+<h2 id="混合宏"><a href="#混合宏" class="headerlink" title="混合宏"></a><strong>混合宏</strong></h2><p>主要作用：重用 <code>CSS</code> 代码<br><strong>使用<code>&quot;@mixin&quot;</code>来定义混合宏</strong>，它可以传递参数<br>调用混合宏，使用<code>&quot;@include mixin_name&quot;</code><br>混合宏的缺点：容易造成代码的冗余，相同的代码会在编译出来的CSS文件出现多处</p>
 <p><a name="继承"></a></p>
 <h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a><strong>继承</strong></h2><p>继承：将多个使用相同 <code>CSS</code> 代码的选择器合并（构成组合选择器）使用同一套 <code>CSS</code> 代码，解决了使用混合宏存在的问题<br>要使用继承，就必须先定义基类（例如下面的<code>.btn</code>）。使用”@extend”来实现继承，直接引用基类即可。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.btn &#123;</span><br><span class="line">  border: 1px solid #ccc;</span><br><span class="line">  padding: 6px 10px;</span><br><span class="line">  font-size: 14px;</span><br><span class="line">&#125;</span><br><span class="line">.btn-primary &#123;</span><br><span class="line">  background-color: #f36;</span><br><span class="line">  color: #fff;</span><br><span class="line">  @extend .btn;</span><br><span class="line">&#125;</span><br><span class="line">.btn-second &#123;</span><br><span class="line">  background-color: orange;</span><br><span class="line">  color: #fff;</span><br><span class="line">  @extend .btn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>编译出来之后：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//CSS</span><br><span class="line">.btn, .btn-primary, .btn-second &#123;</span><br><span class="line">  border: 1px solid #ccc;</span><br><span class="line">  padding: 6px 10px;</span><br><span class="line">  font-size: 14px;</span><br><span class="line">&#125;</span><br><span class="line">.btn-primary &#123;</span><br><span class="line">  background-color: #f36;</span><br><span class="line">  color: #fff;</span><br><span class="line">&#125;</span><br><span class="line">.btn-second &#123;</span><br><span class="line">  background-clor: orange;</span><br><span class="line">  color: #fff;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>

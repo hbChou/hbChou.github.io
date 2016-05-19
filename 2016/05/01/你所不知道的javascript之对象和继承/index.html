@@ -64,7 +64,7 @@
 创建对象首先需要了解javascript都有哪些方法可以用来创建对象
 
 工厂方式">
-<meta property="og:updated_time" content="2016-05-08T03:24:26.521Z">
+<meta property="og:updated_time" content="2016-05-17T12:52:43.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你所不知道的javascript之对象和继承">
 <meta name="twitter:description" content="接下来让我们看看在javascript中如何实现面向对象编程的。javascript中的面向对象涉及很多东西，包括原型，属性描述符等等。
@@ -158,7 +158,7 @@
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -195,7 +195,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -369,7 +369,7 @@
 <li><code>Object.getOwnPropertyNames(obj)</code>：该方法返回一个包含所有实例属性的字符串数组</li>
 </ul>
 <p><strong>直接重写原型对象会发生什么？？</strong><br>直接重写原型对象需要特别注意的一点是需要自觉修正原型对象的<code>constructor</code>属性，修改构造函数的整个<code>prototype</code>属性（即让<code>prototype</code>属性指向另一个对象）对已经创建好的对象实例没有影响，这些对象实例访问到的还是修改以前的原型对象。而对于以后创建的实例对象，<code>prototype</code> 属性则发生了改变。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.name = <span class="string">"hb"</span>;</span><br><span class="line">Person.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> male = <span class="keyword">new</span> Person();</span><br><span class="line">Person.prototype =  &#123;</span><br><span class="line">  <span class="keyword">constructor</span>: Person,</span><br><span class="line">  name: "gp",</span><br><span class="line">  say: function () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"bye"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> female = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="built_in">console</span>.log(male.name + <span class="string">" says "</span> + male.say()); <span class="comment">// hb says hello</span></span><br><span class="line"><span class="built_in">console</span>.log(female.name + <span class="string">" says "</span> + female.say()); <span class="comment">// gp says bye</span></span><br></pre></td></tr></table></figure></p>
-<p>原型模式的优点：可以实现一些属性和方法在不同的对象之间进行共享<br>缺点：当不同的对象共享了诸如数组这样的对象时，如果其中某个对象对其进行修改，势必会对其他对象产生影响。</p>
+<p>原型模式的优点：可以实现一些属性和方法在不同的实例之间进行共享<br>缺点：当不同的实例共享了诸如数组这样的对象时，如果其中某个实例对其进行修改，势必会对其他实例产生影响。</p>
 <p><a name="组合使用构造函数模式和原型模式"></a></p>
 <h3 id="组合使用构造函数模式和原型模式"><a href="#组合使用构造函数模式和原型模式" class="headerlink" title="组合使用构造函数模式和原型模式"></a>组合使用构造函数模式和原型模式</h3><p>利用构造函数模式可以实现每个对象上的实例属性，即为个性，而原型模式可以实现一些属性和方法的共享，此乃共性。两者优势互补，相得益彰。</p>
 <p><a name="继承"></a></p>

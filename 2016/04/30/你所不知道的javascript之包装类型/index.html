@@ -34,7 +34,7 @@ String类型
 
 
 Numbe">
-<meta property="og:updated_time" content="2016-05-12T11:06:10.886Z">
+<meta property="og:updated_time" content="2016-05-17T12:34:53.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你所不知道的javascript之包装类型">
 <meta name="twitter:description" content="趁热打铁，让我们接着向javascript中另外的几种对象类型做进一步的认识。它们就是javascript中的基本包装类型，说是包装类型是有原因的，因为它们来源于javascript中的基本类型，只是做了适当的包装就变成了对象类型。下面让我们欢迎今天的嘉宾隆重登场，他们就是Number，Boolean和String。
@@ -113,7 +113,7 @@ Numbe">
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -150,7 +150,7 @@ Numbe">
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
+						<a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/ES6/" style="font-size: 15px;">ES6</a> <a href="/tags/HTML5/" style="font-size: 15px;">HTML5</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Sass/" style="font-size: 15px;">Sass</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/前端安全与优化/" style="font-size: 10px;">前端安全与优化</a>
 					</div>
 				</section>
 				
@@ -296,11 +296,11 @@ Numbe">
 <li><code>trim()</code>：去掉字符串的前后空格，返回新的字符串。不修改原来的字符串</li>
 <li><code>toUpperCase()</code>：将字符串中的字母转换为大写，原字符串保持不变（<code>toLowerCase()</code>与此相反）</li>
 <li><p><code>match(reg)</code>：将字符串与模式进行匹配，在给定的正则表达式使用全局模式的情况下，结果返回由字符串中匹配模式的子字符串构成的数组。如果给定的正则表达式没有使用全局模式，则结果返回一个和<code>reg.exec()</code>方法返回结果一样的数组。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"abcdef"</span>;</span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/abc/gi</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg)); <span class="comment">// ["abc"]</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.lastIndex); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"abcbcdefabcdefa"</span>;</span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/a(bc)*/gi</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg)); <span class="comment">// ["abcbc","abc","a"]</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.lastIndex); <span class="comment">// 0</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/a(bc)*/i</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg)); <span class="comment">// ["abcbc", "bc"]</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p><code>search(reg)</code>：返回第一个匹配项的索引，每次都是从头开始匹配。如果没有找到匹配项，则返回 <code>-1</code> 。<strong>注意：</strong><code>与reg.exec(str)</code>和<code>reg.test(str)</code>等方法不同的是，使用<code>str.search(reg)</code>，在模式匹配到字符串时，<code>RegExp</code>对象上的<code>lastIndex</code>属性并不会得到更新，一直保持为 <code>0</code> 不变（包括<code>str.match()</code>方法也是一样），即使<code>RegExp</code>对象使用了全局匹配模式。</p>
 </li>
-<li><code>replace(RegExp或string, string或function(match, group1, group2, ..., pos, input) {})</code>：替换字符串。第一个参数可以传入<code>RegExp</code>对象或者字符串，而第二个参数传入的是字符串，可以在字符串中使用特殊的字符序列，比如：<ul>
+<li><code>replace(RegExp或string, string或function(match, group1, group2, ..., pos, input) {})</code>：替换字符串。第一个参数可以传入<code>RegExp</code>对象<strong>（如果要替换字符串中所有的匹配项，必须使用全局模式）</strong>或者字符串，而第二个参数传入的是字符串，可以在字符串中使用特殊的字符序列，比如：<ul>
 <li><code>$&amp;</code> 表示匹配整个模式的子字符串，与RegExp.lastMatch的值相同</li>
 <li><code>$&#39;</code> 表示匹配的字符串之前的子字符串</li>
 <li>$` 表示匹配的字符串之后的子字符串</li>
