@@ -17,6 +17,7 @@ jQuery中实现JSONP
 
 
 document.domain + iframe（子域名代理）
+利用window.name进行跨域
 跨域资源共享（CORS）
 HTTP请求头和响应头
 创建CORS请求
@@ -25,7 +26,7 @@ IE对CORS的实现
 预检请求（Preflight Requests）
 
 
-HTML5中的XDM（cross-doc">
+HT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="你所不知道的javascript之跨域">
 <meta property="og:url" content="http://yoursite.com/2016/05/04/你所不知道的javascript之跨域/index.html">
@@ -41,6 +42,7 @@ jQuery中实现JSONP
 
 
 document.domain + iframe（子域名代理）
+利用window.name进行跨域
 跨域资源共享（CORS）
 HTTP请求头和响应头
 创建CORS请求
@@ -49,8 +51,8 @@ IE对CORS的实现
 预检请求（Preflight Requests）
 
 
-HTML5中的XDM（cross-doc">
-<meta property="og:updated_time" content="2016-05-19T16:03:04.670Z">
+HT">
+<meta property="og:updated_time" content="2016-05-20T15:11:10.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你所不知道的javascript之跨域">
 <meta name="twitter:description" content="今天我们来聊聊javascript中的跨域问题。
@@ -64,6 +66,7 @@ jQuery中实现JSONP
 
 
 document.domain + iframe（子域名代理）
+利用window.name进行跨域
 跨域资源共享（CORS）
 HTTP请求头和响应头
 创建CORS请求
@@ -72,7 +75,7 @@ IE对CORS的实现
 预检请求（Preflight Requests）
 
 
-HTML5中的XDM（cross-doc">
+HT">
   
     <link rel="alternative" href="/atom.xml" title="hbChou" type="application/atom+xml">
   
@@ -137,7 +140,7 @@ HTML5中的XDM（cross-doc">
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -296,6 +299,7 @@ HTML5中的XDM（cross-doc">
 </ul>
 </li>
 <li><a href="#documentdomain--iframe（子域名代理）"><strong>document.domain + iframe（子域名代理）</strong></a></li>
+<li><a href="#利用windowname进行跨域"><strong>利用window.name进行跨域</strong></a></li>
 <li><a href="#跨域资源共享（cors）"><strong>跨域资源共享（CORS）</strong></a><ul>
 <li><a href="#http请求头和响应头"><strong>HTTP请求头和响应头</strong></a></li>
 <li><a href="#创建cors请求"><strong>创建CORS请求</strong></a></li>
@@ -320,6 +324,8 @@ HTML5中的XDM（cross-doc">
 <h2 id="document-domain-iframe（子域名代理）"><a href="#document-domain-iframe（子域名代理）" class="headerlink" title="document.domain + iframe（子域名代理）"></a><strong>document.domain + iframe（子域名代理）</strong></h2><p>虽然iframe内嵌框架可以直接加载其他域名下的页面，但该页面中的javascript全局变量和函数依然不能直接操作。（对于script标签引用的其他域名下的js文件，可以访问文件中定义的变量和函数）<br>而对于加载的页面来自相同的主域名而只是子域名不同的情况，则可以通过设置<code>document.domain</code>的办法来解决。如：对于两个文件<code>http://www.a.com/a.html</code>和<code>http://blog.a.com/b.html</code>均加上设置<code>document.domain = &quot;a.com&quot;</code>；然后在<code>a.html</code>文件中创建一个<code>iframe</code>，通过<code>iframe</code>两个<code>js</code>文件即可交互数据：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//www.a.com/a.html</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="built_in">document</span>.doamin = <span class="string">'a.com'</span>;</span><br><span class="line">    <span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>);</span><br><span class="line">    iframe.src = <span class="string">'http://blog.a.com/b.html'</span>;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(iframe);</span><br><span class="line">    iframe.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> doc = iframe.contentDocument || iframe.contentWindow.document;</span><br><span class="line">        <span class="comment">// 在这里操纵b.html</span></span><br><span class="line">        <span class="built_in">console</span>.log(doc);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>在<code>blog.a.com/b.html</code>中编写代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="built_in">document</span>.domain = <span class="string">'a.com'</span>;</span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>存在的问题：安全性，当一个站点<code>（b.a.com）</code>被攻击后，另一个站点<code>（c.a.com）</code>会引起安全漏洞。另外，如果一个页面中引入多个<code>iframe</code>，要想能够操作所有<code>iframe</code>，必须都得设置相同<code>domain</code>。</p>
+<p><a name="利用windowname进行跨域"></a></p>
+<h2 id="利用window-name进行跨域"><a href="#利用window-name进行跨域" class="headerlink" title="利用window.name进行跨域"></a><strong>利用window.name进行跨域</strong></h2><p>一个浏览器窗口或者内嵌框架内部加载的不同的页面都共享同一个<code>window.name</code>属性，（注意一个页面和它的内嵌框架并不共享同一个<code>window.name</code>属性（本身两者的<code>window</code>对象就不相同），而是指一个窗口或框架中加载的不同页面共享同一个<code>window.name</code>属性）在同一个域名下，一个页面可以访问另一个页面设置的<code>window.name</code>属性，而如果是不同域，则可以在页面中添加一个隐藏的内嵌框架，由该内嵌框架加载另一个域名下设置我们所要访问的数据的页面（通过设置<code>window.name</code>属性为我们所要的数据），在该内嵌框架加载完不同域的页面之后，为了能够访问到内嵌框架的<code>window.name</code>属性，还需要将内嵌框架和框架所在的页面设置为同一个域名下才能访问内嵌框架中的数据。所以在内嵌框架加载完不同域的页面之后，还需要让该内嵌框架加载一个本域下的某个页面，才能获取到内嵌框架中的<code>window.name</code>属性值。举个栗子：比如我要访问来自<code>www.a.com/data.html</code>页面的数据，此时可以在<code>www.a.com/data.html</code>页面中设置<code>window.name</code>属性为我们所要的数据，然后由<code>www.b.com/getData.html</code>中的内嵌框架加载该页面（考虑到篇幅，这里只列出主要的HTML代码）:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// www.b.com/getData.html</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> frame = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"iframe"</span>)[<span class="number">0</span>];</span><br><span class="line">        frame.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> data = frame.contentWindow.name;</span><br><span class="line">            <span class="comment">// 此处获取数据</span></span><br><span class="line">            alert(data);</span><br><span class="line">        &#125;;</span><br><span class="line">        frame.contentWindow.location = <span class="string">"./aaa.html"</span>;</span><br><span class="line">        <span class="comment">// 加载完www.a.com/data.html之后就加载www.b.com/下随便一个页面，获取数据</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"http://www.a.com/data.html"</span> <span class="attr">style</span>=<span class="string">"display: none;"</span> <span class="attr">onload</span>=<span class="string">"getData();"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p><a name="跨域资源共享（cors）"></a></p>
 <h2 id="跨域资源共享（CORS）"><a href="#跨域资源共享（CORS）" class="headerlink" title="跨域资源共享（CORS）"></a><strong>跨域资源共享（CORS）</strong></h2><p>跨域资源共享<code>（CORS）</code>定义了浏览器和服务器如何通过可控方式进行跨域通信。<code>CORS</code>通过添加特殊<code>HTTP</code>头信息以允许浏览器和服务器判断请求是成功还是失败。几乎所有现代浏览器都支持<code>CORS</code>。</p>
 <p><a name="http请求头和响应头"></a></p>
